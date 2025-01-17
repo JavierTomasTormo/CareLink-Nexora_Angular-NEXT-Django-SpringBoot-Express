@@ -2,18 +2,48 @@
 
 
 services:
-  angular:
-    build:
-      context: ./frontend/angular
-    container_name: angular-app
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
     ports:
-      - "4200:4200"
+      - "5432:5432"
     volumes:
-      - ./frontend/angular:/app
-      - /app/node_modules
+      - ./database:/var/lib/postgresql/data
     environment:
-      NODE_ENV: development
-      
+      POSTGRES_DB: test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rootpassword
+
+  springboot:
+    build:
+      context: ./backend/springboot
+    container_name: springboot-app
+    ports:
+      - "8085:8085"
+    volumes:
+      - ./backend/springboot:/app
+      - /app/build
+    environment:
+      - GRADLE_USER_HOME=/app/.gradle
+      - GRADLE_OPTS=-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true
+      - SPRING_DEVTOOLS_REMOTE_SECRET=secret
+
+
+
+# # OKKKKKKKKKKKKK
+  # angular:
+  #   build:
+  #     context: ./frontend/angular
+  #   container_name: angular-app
+  #   ports:
+  #     - "4200:4200"
+  #   volumes:
+  #     - ./frontend/angular:/app
+  #     - /app/node_modules
+  #   environment:
+  #     NODE_ENV: development
+
 # # OKKKKKKKKKKKKK
 #   next:
 #     build:
