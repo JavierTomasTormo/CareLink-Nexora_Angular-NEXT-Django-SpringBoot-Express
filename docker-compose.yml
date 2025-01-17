@@ -1,7 +1,20 @@
 # version: '3.8'
 
+
+services:
+  angular:
+    build:
+      context: ./frontend/angular
+    container_name: angular-app
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend/angular:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      
 # # OKKKKKKKKKKKKK
-# services:
 #   next:
 #     build:
 #       context: ./fullstack/next
@@ -31,14 +44,3 @@
 
 
 
-  # postgres:
-  #   image: postgres:15
-  #   container_name: postgres-db
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - ./postgres-data:/var/lib/postgresql/data
-  #   environment:
-  #     POSTGRES_DB: vitalnest
-  #     POSTGRES_USER: admin
-  #     POSTGRES_PASSWORD: admin123
