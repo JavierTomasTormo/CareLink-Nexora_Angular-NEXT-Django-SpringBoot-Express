@@ -1,30 +1,35 @@
 # version: '3.8'
 
-services:
+# # OKKKKKKKKKKKKK
+# services:
+#   next:
+#     build:
+#       context: ./fullstack/next
+#     container_name: next-app
+#     ports:
+#       - "3000:3000"
+#     volumes:
+#       - ./fullstack/next:/app
+#       - /app/node_modules
+#     environment:
+#       NODE_ENV: development
+#       WATCHPACK_POLLING: "true"
+#       CHOKIDAR_USEPOLLING: "true"
 
-  # nextjs:
+  # # OKKKKKKKKKKKKK
+  # express:
   #   build:
-  #     context: ./fullstack/next
-  #   container_name: nextjs-app
+  #     context: ./backend/express
+  #   container_name: express-app
   #   ports:
-  #     - "3002:3000"
+  #     - "4000:4000"
   #   volumes:
-  #     - ./fullstack/next:/app
+  #     - ./backend/express:/app
   #     - /app/node_modules
   #   environment:
   #     - CHOKIDAR_USEPOLLING=true # Necesario para live reload en Docker
 
-  express:
-    build:
-      context: ./backend/express
-    container_name: express-app
-    ports:
-      - "4000:4000"
-    volumes:
-      - ./backend/express:/app
-      - /app/node_modules
-    environment:
-      - CHOKIDAR_USEPOLLING=true # Necesario para live reload en Docker
+
 
   # postgres:
   #   image: postgres:15

@@ -9,15 +9,15 @@ export default function Home() {
           className={styles.logo}
           src="/next.svg"
           alt="Next.js logo"
-          width={180}
-          height={38}
+          width={360}
+          height={78}
           priority
         />
         <ol>
           <li>
-            Get started by editing <code>src/app/page.tsx</code>.
+            Esto es una prueba para el live reload <code>src/app/page.tsx</code>.
           </li>
-          <li>Save and see your changes instantly.</li>
+          <li>Soy el puto amo y alfosan se escribe alfonnnnnnnnnnnnnsan</li>
         </ol>
 
         <div className={styles.ctas}>
