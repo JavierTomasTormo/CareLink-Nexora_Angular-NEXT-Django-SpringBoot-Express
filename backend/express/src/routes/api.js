@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Define your routes here
 router.get("/", (req, res) => {
-    res.send("API is working");
+    res.json({ message: "Welcome to the API!" });
 });
 
 module.exports = router;
