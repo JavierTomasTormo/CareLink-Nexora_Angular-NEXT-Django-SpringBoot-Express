@@ -2,7 +2,6 @@
 
 
 services:
-
   postgres:
     image: postgres:latest
     container_name: postgres-db
@@ -21,14 +20,14 @@ services:
     container_name: springboot-app
     ports:
       - "8085:8085"
+      - "35729:35729" # Exponer el puerto para LiveReload
     volumes:
       - ./backend/springboot:/app
       - /app/build
     environment:
       - GRADLE_USER_HOME=/app/.gradle
       - GRADLE_OPTS=-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true
-      - SPRING_DEVTOOLS_REMOTE_SECRET=secret
-
+      - JAVA_OPTS=-Dspring.devtools.restart.enabled=true
 
 
 # # OKKKKKKKKKKKKK

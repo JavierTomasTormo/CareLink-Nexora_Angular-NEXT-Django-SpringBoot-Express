@@ -16,10 +16,20 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.postgresql:postgresql")
+
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+tasks.named<Jar>("bootJar") {
+    enabled = true
+    exclude("org/springframework/boot/devtools/**")
 }
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
+

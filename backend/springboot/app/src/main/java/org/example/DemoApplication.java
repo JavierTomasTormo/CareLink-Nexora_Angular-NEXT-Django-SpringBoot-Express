@@ -17,7 +17,7 @@ public class DemoApplication {
 
     @GetMapping("/")
     public String home() {
-        return "Welcome to VitalNest API! Live Reload no va";
+        return "Welcome to VitalNest API! Live Reload no va o si ??";
     }
 
     @GetMapping("/test")
