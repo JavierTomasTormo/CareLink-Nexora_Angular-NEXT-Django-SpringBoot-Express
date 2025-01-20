@@ -1,7 +1,7 @@
-# version: '3.8'
-
+version: '3.8'
 
 services:
+# ---------------------------------
   postgres:
     image: postgres:latest
     container_name: postgres-db
@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - pgnetwork
-
+# ---------------------------------
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
@@ -27,69 +27,68 @@ services:
       - postgres
     networks:
       - pgnetwork
-
+# ---------------------------------
+  springboot: # WORIKNG + LIVE RELOAD
+    build:
+      context: ./backend/springboot
+    container_name: springboot-app
+    ports:
+      - "8085:8085"
+      - "35729:35729"
+    volumes:
+      - ./backend/springboot:/app
+      - /app/build
+    environment:
+      - GRADLE_USER_HOME=/app/.gradle
+      - GRADLE_OPTS=-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true
+      - JAVA_OPTS=-Dspring.devtools.restart.enabled=true
+    networks:
+      - pgnetwork
+# ---------------------------------
+  angular: # WORIKNG + LIVE RELOAD
+    build:
+      context: ./frontend/angular
+    container_name: angular-app
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend/angular:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+    networks:
+      - pgnetwork
+# ---------------------------------
+  next: # WORIKNG + LIVE RELOAD
+    build:
+      context: ./fullstack/next
+    container_name: next-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./fullstack/next:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    networks:
+      - pgnetwork
+# ---------------------------------
+  express: # WORIKNG + LIVE RELOAD
+    build:
+      context: ./backend/express
+    container_name: express-app
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend/express:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - pgnetwork
+# ---------------------------------
 networks:
   pgnetwork:
     driver: bridge
-
-
-
-# # OKKKKKKKKKKKKK
-  # springboot:
-  #   build:
-  #     context: ./backend/springboot
-  #   container_name: springboot-app
-  #   ports:
-  #     - "8085:8085"
-  #     - "35729:35729"
-  #   volumes:
-  #     - ./backend/springboot:/app
-  #     - /app/build
-  #   environment:
-  #     - GRADLE_USER_HOME=/app/.gradle
-  #     - GRADLE_OPTS=-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true
-  #     - JAVA_OPTS=-Dspring.devtools.restart.enabled=true
-
-# # OKKKKKKKKKKKKK
-  # angular:
-  #   build:
-  #     context: ./frontend/angular
-  #   container_name: angular-app
-  #   ports:
-  #     - "4200:4200"
-  #   volumes:
-  #     - ./frontend/angular:/app
-  #     - /app/node_modules
-  #   environment:
-  #     NODE_ENV: development
-
-# # OKKKKKKKKKKKKK
-#   next:
-#     build:
-#       context: ./fullstack/next
-#     container_name: next-app
-#     ports:
-#       - "3000:3000"
-#     volumes:
-#       - ./fullstack/next:/app
-#       - /app/node_modules
-#     environment:
-#       NODE_ENV: development
-#       WATCHPACK_POLLING: "true"
-#       CHOKIDAR_USEPOLLING: "true"
-
-  # # OKKKKKKKKKKKKK
-  # express:
-  #   build:
-  #     context: ./backend/express
-  #   container_name: express-app
-  #   ports:
-  #     - "4000:4000"
-  #   volumes:
-  #     - ./backend/express:/app
-  #     - /app/node_modules
-  #   environment:
-  #     - CHOKIDAR_USEPOLLING=true
-
-
-
