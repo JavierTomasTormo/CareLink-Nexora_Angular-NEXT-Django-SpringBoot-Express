@@ -1,32 +1,39 @@
 version: '3.8'
 
 services:
+
 # ---------------------------------
-  postgres:
-    image: postgres:latest
-    container_name: postgres-db
+  angular: # WORIKNG + LIVE RELOAD
+    build:
+      context: ./frontend/angular
+    container_name: angular-app
     ports:
-      - "5432:5432"
+      - "4200:4200"
     volumes:
-      - ./database:/var/lib/postgresql/data
+      - ./frontend/angular:/app
+      - /app/node_modules
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      NODE_ENV: development
     networks:
       - pgnetwork
+
 # ---------------------------------
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
+  next: # WORIKNG + LIVE RELOAD
+    build:
+      context: ./fullstack/next
+    container_name: next-app
     ports:
-      - "5050:80"
+      - "3000:3000"
+    volumes:
+      - ./fullstack/next:/app
+      - /app/node_modules
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    depends_on:
-      - postgres
+      NODE_ENV: development
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
     networks:
       - pgnetwork
+
 # ---------------------------------
   springboot: # WORIKNG + LIVE RELOAD
     build:
@@ -44,36 +51,24 @@ services:
       - JAVA_OPTS=-Dspring.devtools.restart.enabled=true
     networks:
       - pgnetwork
+
 # ---------------------------------
-  angular: # WORIKNG + LIVE RELOAD
+  django: # WORIKNG + LIVE RELOAD
     build:
-      context: ./frontend/angular
-    container_name: angular-app
+      context: ./backend/django
+    container_name: django-app
     ports:
-      - "4200:4200"
+      - "8000:8000"
     volumes:
-      - ./frontend/angular:/app
-      - /app/node_modules
+      - ./backend/django:/app
     environment:
-      NODE_ENV: development
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - postgres
     networks:
       - pgnetwork
-# ---------------------------------
-  next: # WORIKNG + LIVE RELOAD
-    build:
-      context: ./fullstack/next
-    container_name: next-app
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./fullstack/next:/app
-      - /app/node_modules
-    environment:
-      NODE_ENV: development
-      WATCHPACK_POLLING: "true"
-      CHOKIDAR_USEPOLLING: "true"
-    networks:
-      - pgnetwork
+
 # ---------------------------------
   express: # WORIKNG + LIVE RELOAD
     build:
@@ -88,6 +83,36 @@ services:
       - CHOKIDAR_USEPOLLING=true
     networks:
       - pgnetwork
+
+# ---------------------------------
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    depends_on:
+      - postgres
+    networks:
+      - pgnetwork
+
+# ---------------------------------
+  postgres:
+    image: postgres:latest
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - pgnetwork
+
+
 # ---------------------------------
 networks:
   pgnetwork:
