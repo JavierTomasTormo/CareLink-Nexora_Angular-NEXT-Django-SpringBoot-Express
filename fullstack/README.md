@@ -1,0 +1,1 @@
+Hazme el README.md de este servidor, que se dedicara a pintar el core de home activities 

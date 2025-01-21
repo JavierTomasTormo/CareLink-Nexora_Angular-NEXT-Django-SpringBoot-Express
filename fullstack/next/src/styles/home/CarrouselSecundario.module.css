@@ -1,0 +1,35 @@
+.carrousel {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+  
+  .card {
+    min-width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .card h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  .card p {
+    padding: 0 10px 10px;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  

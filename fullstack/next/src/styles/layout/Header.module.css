@@ -1,12 +1,11 @@
-
 .header {
-  background: linear-gradient(to right, #2c3e50, #3498db);
-  padding: 1rem 0;
+  background: #f8f9fa;
+  padding: 1.2rem 0;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .container {
@@ -20,20 +19,36 @@
 
 .logo {
   flex-shrink: 0;
+  max-width: 150px;
 }
 
-.logo h1 {
-  color: #ffffff;
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: transform 0.3s ease;
+.logo img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.logo h1:hover {
-  transform: scale(1.05);
+.logo img:hover {
+  transform: scale(1.08);
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1100;
+  padding: 8px;
+}
+
+.hamburger .bar {
+  width: 28px;
+  height: 2px;
+  background-color: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
 }
 
 .nav {
@@ -46,7 +61,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .navItem {
@@ -54,47 +69,92 @@
 }
 
 .navLink {
-  color: #ffffff;
+  color: #2c3e50;
   text-decoration: none;
   font-size: 1.1rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.4s ease;
+  position: relative;
+  letter-spacing: 0.3px;
 }
 
 .navLink:hover {
-  color: #ecf0f1;
+  color: #1a252f;
 }
 
 .navLink::after {
   content: '';
   position: absolute;
   width: 0;
-  height: 2px;
+  height: 3px;
   bottom: -5px;
   left: 50%;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
+  background-color: #2c3e50;
+  transition: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
   transform: translateX(-50%);
+  border-radius: 2px;
 }
 
 .navLink:hover::after {
-  width: 100%;
+  width: 70%;
 }
 
+/* Responsive styles */
 @media (max-width: 768px) {
-  .container {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+    background: #f8f9fa;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .navOpen {
+    display: flex;
+    animation: slideDown 0.3s ease-out forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .navList {
-    gap: 1rem;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.5rem;
+    width: 100%;
   }
 
   .navLink {
-    font-size: 1rem;
-    padding: 0.3rem 0.8rem;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    width: 100%;
+    text-align: center;
+    display: block;
+    background: white;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .navLink:hover {
+    background: #edf2f7;
+    transform: translateY(-2px);
   }
 }
