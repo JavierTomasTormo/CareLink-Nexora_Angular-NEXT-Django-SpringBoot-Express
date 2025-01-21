@@ -1,0 +1,26 @@
+.shop {
+  text-align: center;
+  margin: 20px;
+}
+
+.product-list {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.product {
+  width: 30%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product h2 {
+  font-size: 1.5rem;
+}
+
+.product p {
+  color: #555;
+}
