@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'apps.activities.apps.ActivitiesConfig',
     # 'apps.meals.apps.MealsConfig',
     # 'apps.timetables.apps.TimetablesConfig',
+
+    # Third-party apps
+    'rest_framework',
+
     # Timetables ##################
     'apps.timetables.day.apps.DayConfig',
     'apps.timetables.daysofweek.apps.DayOfWeekConfig',
