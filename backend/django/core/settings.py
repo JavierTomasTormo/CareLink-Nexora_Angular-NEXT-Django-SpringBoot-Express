@@ -37,7 +37,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Apps ##################
+    # Local apps
+    'apps.activities.apps.ActivitiesConfig',
+    # 'apps.meals.apps.MealsConfig',
+    # 'apps.timetables.apps.TimetablesConfig',
+    # Timetables ##################
+    'apps.timetables.day.apps.DayConfig',
+    'apps.timetables.daysofweek.apps.DayOfWeekConfig',
+    'apps.timetables.hour.apps.HourConfig',
+    'apps.timetables.month.apps.MonthConfig',
+    'apps.timetables.year.apps.YearConfig',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,10 +86,21 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'VitalNest',
+        'USER': 'postgres',
+        'PASSWORD': 'rootpassword',
+        'HOST': 'postgres',  # This matches the service name in docker-compose.yml
+        'PORT': '5432',
     }
 }
 

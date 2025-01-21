@@ -11,6 +11,7 @@ RUN apt-get update && \
     python3-dev \
     default-libmysqlclient-dev \
     pkg-config \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
