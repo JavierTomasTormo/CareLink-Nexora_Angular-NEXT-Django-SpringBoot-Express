@@ -34,7 +34,7 @@ class Activity(models.Model):
     slug = models.SlugField(unique=True)
     intensity = models.IntegerField(choices=[(i, str(i)) for i in range(11)])
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    caracteristics = models.JSONField()
+    caracteristics = models.JSONField(default=dict)
     createdat = models.DateTimeField(auto_now_add=True)
     updatedat = models.DateTimeField(auto_now=True)
     max_participants = models.IntegerField()

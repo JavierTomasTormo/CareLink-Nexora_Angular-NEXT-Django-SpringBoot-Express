@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'VitalNest',
+        'NAME': 'vitalnest',
         'USER': 'postgres',
         'PASSWORD': 'rootpassword',
         'HOST': 'postgres',  # This matches the service name in docker-compose.yml
