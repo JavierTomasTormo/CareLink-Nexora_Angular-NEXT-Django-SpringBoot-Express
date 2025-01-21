@@ -40,19 +40,19 @@ INSTALLED_APPS = [
 
     # Apps ##################
     # Local apps
-    'apps.activities.apps.ActivitiesConfig',
-    # 'apps.meals.apps.MealsConfig',
-    # 'apps.timetables.apps.TimetablesConfig',
+    'vitalnest.activities.apps.ActivitiesConfig',
+    # 'vitalnest.meals.apps.MealsConfig',
+    # 'vitalnest.timetables.apps.TimetablesConfig',
 
     # Third-party apps
     'rest_framework',
 
     # Timetables ##################
-    'apps.timetables.day.apps.DayConfig',
-    'apps.timetables.daysofweek.apps.DayOfWeekConfig',
-    'apps.timetables.hour.apps.HourConfig',
-    'apps.timetables.month.apps.MonthConfig',
-    'apps.timetables.year.apps.YearConfig',
+    'vitalnest.timetables.day.apps.DayConfig',
+    'vitalnest.timetables.daysofweek.apps.DayOfWeekConfig',
+    'vitalnest.timetables.hour.apps.HourConfig',
+    'vitalnest.timetables.month.apps.MonthConfig',
+    'vitalnest.timetables.year.apps.YearConfig',
 ]
 
 

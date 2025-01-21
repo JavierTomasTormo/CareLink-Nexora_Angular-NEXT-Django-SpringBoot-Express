@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-class HourConfig(AppConfig):
+class DayOfWeekConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.timetables.hour'
+    name = 'vitalnest.timetables.daysofweek'

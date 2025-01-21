@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-class TimetablesConfig(AppConfig):
+class ActivitiesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.timetables'
+    name = 'vitalnest.activities'

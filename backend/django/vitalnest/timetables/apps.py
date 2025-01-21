@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-class YearConfig(AppConfig):
+class TimetablesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.timetables.year'
+    name = 'vitalnest.timetables'

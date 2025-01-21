@@ -21,5 +21,5 @@ from api.views import test_endpoint
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/test/', test_endpoint),
-    path('api/', include('apps.activities.urls')),
+    path('api/', include('vitalnest.activities.urls')),
 ]
