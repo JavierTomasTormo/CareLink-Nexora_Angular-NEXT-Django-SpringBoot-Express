@@ -8,9 +8,9 @@ class UserPatient(models.Model):
     allergies = models.JSONField()
     difficulties = models.JSONField()
     discapacity = models.IntegerField()
-    isActive = models.IntegerField()
-    createdAt = models.DateTimeField(auto_now_add=True)
-    updatedAt = models.DateTimeField(auto_now=True)
+    isactive = models.IntegerField()
+    createdat = models.DateTimeField(auto_now_add=True)
+    updatedat = models.DateTimeField(auto_now=True)
     phone_number = models.CharField(max_length=20)
     birthday = models.CharField(max_length=255)
 
