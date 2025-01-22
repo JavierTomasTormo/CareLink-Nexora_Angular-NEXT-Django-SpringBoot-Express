@@ -54,6 +54,10 @@ INSTALLED_APPS = [
     # Users ##################
     'vitalnest.usertype.user.apps.UserConfig',
     'vitalnest.usertype.userpatient.apps.UserPatientConfig',
+
+    # Token ##################
+    'vitalnest.token.blacklist.apps.BlackListConfig',
+    'vitalnest.token.refreshtoken.apps.RefreshTokenConfig',
 ]
 
 
