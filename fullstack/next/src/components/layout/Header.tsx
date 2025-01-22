@@ -1,25 +1,39 @@
+'use client';
+
 import Link from 'next/link';
-import styles from '@/styles/layout/Header.module.css';
+import { useState } from 'react';
+import styles from '../../styles/layout/Header.module.css';
 
 const Header: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.logo}>
           <Link href="/home">
-            <h1>VitalNest</h1>
+            <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
           </Link>
         </div>
-        <nav className={styles.nav}>
+        <button className={styles.hamburger} onClick={toggleMenu} aria-label="Toggle menu">
+          <span className={styles.bar}></span>
+          <span className={styles.bar}></span>
+          <span className={styles.bar}></span>
+        </button>
+        <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}>
           <ul className={styles.navList}>
             <li className={styles.navItem}>
               <Link href="/home" className={styles.navLink}>
-                <span>Página Principal</span>
+                Página Principal
               </Link>
             </li>
             <li className={styles.navItem}>
               <Link href="/shop" className={styles.navLink}>
-                <span>Actividades</span>
+                Actividades
               </Link>
             </li>
           </ul>

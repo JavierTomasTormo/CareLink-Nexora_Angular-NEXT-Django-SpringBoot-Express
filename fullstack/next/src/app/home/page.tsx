@@ -1,11 +1,15 @@
-import HeroSection from './HeroSection';
-import styles from './home.module.css';
+import CarrouselPrincipal from '@/components/home/CarrouselPrincipal';
+import CarrouselSecundario from '@/components/home/CarrouselSecundario';
+import styles from '@/styles/home/home.module.css';
 
 export default function HomePage() {
   return (
     <div className={styles.home}>
-      <HeroSection />
-      <p>Bienvenido a la página principal de VitalNest.</p>
+      {/* Carrusel Principal */}
+      <CarrouselPrincipal />
+
+      {/* Carrusel Secundario */}
+      <CarrouselSecundario />
     </div>
   );
 }

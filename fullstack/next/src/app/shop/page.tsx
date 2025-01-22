@@ -1,5 +1,5 @@
-import ProductList from './ProductList';
-import styles from './shop.module.css';
+import ProductList from '@/components/shop/ProductList';
+import styles from '@/styles/shop/shop.module.css';
 
 export default function ShopPage() {
   return (
