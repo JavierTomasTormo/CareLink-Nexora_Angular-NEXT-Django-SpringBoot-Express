@@ -62,6 +62,10 @@ INSTALLED_APPS = [
     # Roles ##################
     'vitalnest.roles.role.apps.RoleConfig',
     'vitalnest.roles.userrole.apps.UserRoleConfig',
+
+    # Health ##################
+    'vitalnest.health.medications.apps.MedicationsConfig',
+    'vitalnest.health.prescription.apps.PrescriptionConfig',
 ]
 
 
