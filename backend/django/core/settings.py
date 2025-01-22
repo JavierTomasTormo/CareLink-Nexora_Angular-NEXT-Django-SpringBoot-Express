@@ -58,6 +58,10 @@ INSTALLED_APPS = [
     # Token ##################
     'vitalnest.token.blacklist.apps.BlackListConfig',
     'vitalnest.token.refreshtoken.apps.RefreshTokenConfig',
+
+    # Roles ##################
+    'vitalnest.roles.role.apps.RoleConfig',
+    'vitalnest.roles.userrole.apps.UserRoleConfig',
 ]
 
 
