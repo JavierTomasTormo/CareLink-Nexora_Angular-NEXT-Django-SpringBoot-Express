@@ -31,20 +31,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    # 'django.contrib.admin',
+    # 'django.contrib.auth',
+    # 'django.contrib.contenttypes',
+    # 'django.contrib.sessions',
+    # 'django.contrib.messages',
+    # 'django.contrib.staticfiles',
 
-    # Apps ##################
-    # Local apps
+    # Activities ##################
     'vitalnest.activities.apps.ActivitiesConfig',
-    # 'vitalnest.meals.apps.MealsConfig',
-    # 'vitalnest.timetables.apps.TimetablesConfig',
 
-    # Third-party apps
+    # Third-party apps ##################
     'rest_framework',
 
     # Timetables ##################
@@ -53,6 +50,10 @@ INSTALLED_APPS = [
     'vitalnest.timetables.hour.apps.HourConfig',
     'vitalnest.timetables.month.apps.MonthConfig',
     'vitalnest.timetables.year.apps.YearConfig',
+
+    # Users ##################
+    'vitalnest.usertype.user.apps.UserConfig',
+    'vitalnest.usertype.userpatient.apps.UserPatientConfig',
 ]
 
 
