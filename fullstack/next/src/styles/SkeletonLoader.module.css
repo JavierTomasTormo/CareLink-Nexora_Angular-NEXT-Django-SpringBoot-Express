@@ -1,0 +1,35 @@
+.skeleton {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .skeleton.text {
+    height: 1em;
+    margin-bottom: 0.5em;
+  }
+  
+  .skeleton.image {
+    height: 200px;
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .skeleton.card {
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

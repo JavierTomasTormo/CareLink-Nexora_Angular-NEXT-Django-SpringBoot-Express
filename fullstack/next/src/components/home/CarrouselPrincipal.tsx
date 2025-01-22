@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import SkeletonLoader from '@/utils/SkeletonLoader';
 import styles from '../../styles/home/CarrouselPrincipal.module.css';
 import CarrouselFloating from './CarrouselFloating';
 
@@ -12,8 +13,12 @@ const CarrouselPrincipal: React.FC = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const loadImages = () => setTimeout(() => setIsLoading(false), 2000);
+    loadImages();
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
     }, 5000);
@@ -24,34 +29,41 @@ const CarrouselPrincipal: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.carrousel}>
-        <div
-          className={styles.slides}
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {slides.map((slide, index) => (
-            <div key={index} className={styles.slide}>
-              <img src={slide} alt={`Slide ${index + 1}`} />
-            </div>
-          ))}
-        </div>
+        {isLoading ? (
+          <SkeletonLoader type="image" count={1} className={styles.skeletonImage} />
+        ) : (
+          <div
+            className={styles.slides}
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {slides.map((slide, index) => (
+              <div key={index} className={styles.slide}>
+                <img src={slide} alt={`Slide ${index + 1}`} />
+              </div>
+            ))}
+          </div>
+        )}
 
-        {/* Contenido flotante */}
         <div className={styles.floatingContent}>
           <div className={styles.contentWrapper}>
-            <div className={styles.textContent}>
-              <h1 className={styles.title}>Vital Nest</h1>
-              <p className={styles.subtitle}>
-                Especializados en cuidados, brindamos el mejor entorno para cuidar de las personas que amas.
-              </p>
-            </div>
-            {/* Reemplazar imagen por carrusel flotante */}
-            <div className={styles.imageContent}>
-              <CarrouselFloating />
-            </div>
+            {isLoading ? (
+              <SkeletonLoader type="text" count={3} />
+            ) : (
+              <>
+                <div className={styles.textContent}>
+                  <h1 className={styles.title}>Vital Nest</h1>
+                  <p className={styles.subtitle}>
+                    Especializados en cuidados, brindamos el mejor entorno para cuidar de las personas que amas.
+                  </p>
+                </div>
+                <div className={styles.imageContent}>
+                  <CarrouselFloating />
+                </div>
+              </>
+            )}
           </div>
         </div>
 
-        {/* Indicadores de diapositivas */}
         <div className={styles.indicators}>
           {slides.map((_, index) => (
             <button

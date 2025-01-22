@@ -74,18 +74,30 @@
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
 
+  @media (max-width: 1024px) {
+    .container {
+      width: 450px;
+      height: 300px;
+      right: 4%;
+    }
+  }
+
   @media (max-width: 768px) {
     .container {
-      width: 400px;
+      position: relative;
+      top: 100%;
+      right: 0;
+      transform: none;
+      width: 90%;
       height: 280px;
-      right: 3%;
+      margin: 20px auto;
     }
   }
 
   @media (max-width: 480px) {
     .container {
-      width: 300px;
+      width: 95%;
       height: 200px;
-      right: 2%;
+      margin: 15px auto;
     }
   }
