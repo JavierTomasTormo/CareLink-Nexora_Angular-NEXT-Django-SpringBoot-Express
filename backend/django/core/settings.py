@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Activities ##################
-    'vitalnest.activities.apps.ActivitiesConfig',
-
     # Third-party apps ##################
     'rest_framework',
+
+    # Activities ##################
+    'vitalnest.activities.apps.ActivitiesConfig',
 
     # Timetables ##################
     'vitalnest.timetables.day.apps.DayConfig',
@@ -66,6 +66,11 @@ INSTALLED_APPS = [
     # Health ##################
     'vitalnest.health.medications.apps.MedicationsConfig',
     'vitalnest.health.prescription.apps.PrescriptionConfig',
+
+    # Notifications ##################
+    'vitalnest.notifications.prescriptions.apps.NotificationsPrescriptionsConfig',
+    'vitalnest.notifications.activities.apps.NotificationsActivityConfig',
+
 ]
 
 

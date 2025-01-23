@@ -10,12 +10,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('user', '0001_initial'),
+        ('activities', '0001_initial'),
         ('userpatient', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='NotificationsPrescriptions',
+            name='NotificationsActivity',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('email', models.EmailField(max_length=255)),
@@ -26,11 +27,12 @@ class Migration(migrations.Migration):
                 ('createdat', models.DateTimeField(auto_now_add=True)),
                 ('updatedat', models.DateTimeField(auto_now=True)),
                 ('isview', models.IntegerField()),
-                ('id_patient', models.ForeignKey(blank=True, db_column='id_patient', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='prescription_notifications', to='userpatient.userpatient')),
-                ('id_user', models.ForeignKey(blank=True, db_column='id_user', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='prescription_notifications', to='user.user')),
+                ('id_activity', models.ForeignKey(blank=True, db_column='id_activity', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='id_activity', to='activities.activity')),
+                ('id_patient', models.ForeignKey(blank=True, db_column='id_patient', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='activity_notifications', to='userpatient.userpatient')),
+                ('id_user', models.ForeignKey(blank=True, db_column='id_user', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='activity_notifications', to='user.user')),
             ],
             options={
-                'db_table': 'notificationsprescriptions',
+                'db_table': 'notificationsactivity',
             },
         ),
     ]

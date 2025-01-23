@@ -3,9 +3,9 @@ from vitalnest.usertype.user.models import User
 from vitalnest.usertype.userpatient.models import UserPatient
 
 class NotificationsPrescriptions(models.Model):
-    id_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='id_user', db_column='id_user', blank=True, null=True)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='prescription_notifications', db_column='id_user', blank=True, null=True)
     email = models.EmailField(max_length=255)
-    id_patient = models.ForeignKey(UserPatient, on_delete=models.CASCADE, related_name='id_userpatient', db_column='id_patient', blank=True, null=True)
+    id_patient = models.ForeignKey(UserPatient, on_delete=models.CASCADE, related_name='prescription_notifications', db_column='id_patient', blank=True, null=True)
     urgency = models.CharField(max_length=50)
     description = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
