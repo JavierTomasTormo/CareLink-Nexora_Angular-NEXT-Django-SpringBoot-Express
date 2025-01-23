@@ -85,6 +85,11 @@ INSTALLED_APPS = [
     'vitalnest.images.imagesactivities.apps.ImagesActivitiesConfig',
     'vitalnest.images.imagesrooms.apps.ImagesRoomsConfig',
 
+    # Payments ##################
+    'vitalnest.payments.payment.apps.PaymentConfig',
+    'vitalnest.payments.inscription.apps.InscriptionConfig',
+    'vitalnest.payments.cancelation.apps.CancelationConfig',
+
 ]
 
 
