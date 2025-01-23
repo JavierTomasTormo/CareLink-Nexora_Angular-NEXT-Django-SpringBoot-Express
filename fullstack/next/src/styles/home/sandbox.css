@@ -5,11 +5,13 @@
   padding: 4rem 2rem 2rem 2rem;
   margin: 0;
 }
+
 .footer {
   display: flex;
   justify-content: center;
   padding: 2rem 2rem 4rem 2rem;
 }
+
 .footer__link {
   display: flex;
   align-items: center;
@@ -20,6 +22,7 @@
   color: var(--text-low-contrast);
   font-size: 1.4rem;
 }
+
 .footer__link__svg {
   display: block;
   width: 2rem;
