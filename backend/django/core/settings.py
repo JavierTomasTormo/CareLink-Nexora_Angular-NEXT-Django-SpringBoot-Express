@@ -74,6 +74,12 @@ INSTALLED_APPS = [
     # Rooms ##################
     'vitalnest.rooms.room.apps.RoomConfig',
     'vitalnest.rooms.bedroom.apps.BedRoomConfig',
+
+    # Food ##################
+    'vitalnest.food.meals.apps.MealsConfig',
+    'vitalnest.food.diets.apps.DietsConfig',
+
+
 ]
 
 
