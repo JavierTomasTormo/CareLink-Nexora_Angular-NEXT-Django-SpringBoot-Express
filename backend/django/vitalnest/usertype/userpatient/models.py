@@ -15,7 +15,7 @@ class UserPatient(models.Model):
     birthday = models.CharField(max_length=255)
 
     class Meta:
-        ordering = ['-createdAt']
+        ordering = ['-createdat']
         db_table = 'userpatient'
 
     def __str__(self):

@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Activities ##################
-    'vitalnest.activities.apps.ActivitiesConfig',
-
     # Third-party apps ##################
     'rest_framework',
+
+    # Activities ##################
+    'vitalnest.activities.apps.ActivitiesConfig',
 
     # Timetables ##################
     'vitalnest.timetables.day.apps.DayConfig',
@@ -58,6 +58,38 @@ INSTALLED_APPS = [
     # Token ##################
     'vitalnest.token.blacklist.apps.BlackListConfig',
     'vitalnest.token.refreshtoken.apps.RefreshTokenConfig',
+
+    # Roles ##################
+    'vitalnest.roles.role.apps.RoleConfig',
+    'vitalnest.roles.userrole.apps.UserRoleConfig',
+
+    # Health ##################
+    'vitalnest.health.medications.apps.MedicationsConfig',
+    'vitalnest.health.prescription.apps.PrescriptionConfig',
+
+    # Notifications ##################
+    'vitalnest.notifications.prescriptions.apps.NotificationsPrescriptionsConfig',
+    'vitalnest.notifications.activities.apps.NotificationsActivityConfig',
+    'vitalnest.notifications.diets.apps.NotificationsDietsConfig',
+
+    # Rooms ##################
+    'vitalnest.rooms.room.apps.RoomConfig',
+    'vitalnest.rooms.bedroom.apps.BedRoomConfig',
+
+    # Food ##################
+    'vitalnest.food.meals.apps.MealsConfig',
+    'vitalnest.food.diets.apps.DietsConfig',
+
+    # Images ##################
+    'vitalnest.images.images.apps.ImagesConfig',
+    'vitalnest.images.imagesactivities.apps.ImagesActivitiesConfig',
+    'vitalnest.images.imagesrooms.apps.ImagesRoomsConfig',
+
+    # Payments ##################
+    'vitalnest.payments.payment.apps.PaymentConfig',
+    'vitalnest.payments.inscription.apps.InscriptionConfig',
+    'vitalnest.payments.cancelation.apps.CancelationConfig',
+
 ]
 
 

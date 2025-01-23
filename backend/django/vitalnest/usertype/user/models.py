@@ -12,7 +12,7 @@ class User(models.Model):
     profile_img = models.CharField(max_length=255)
 
     class Meta:
-        ordering = ['-createdAt']
+        ordering = ['-createdat']
         db_table = 'users'
 
     def __str__(self):
