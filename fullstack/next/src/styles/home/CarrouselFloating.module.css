@@ -84,20 +84,12 @@
 
   @media (max-width: 768px) {
     .container {
-      position: relative;
-      top: 100%;
-      right: 0;
-      transform: none;
-      width: 90%;
-      height: 280px;
-      margin: 20px auto;
+      display: none;
     }
   }
 
   @media (max-width: 480px) {
     .container {
-      width: 95%;
-      height: 200px;
-      margin: 15px auto;
+      display: none;
     }
   }
