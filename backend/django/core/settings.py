@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # Notifications ##################
     'vitalnest.notifications.prescriptions.apps.NotificationsPrescriptionsConfig',
     'vitalnest.notifications.activities.apps.NotificationsActivityConfig',
+    'vitalnest.notifications.diets.apps.NotificationsDietsConfig',
 
     # Rooms ##################
     'vitalnest.rooms.room.apps.RoomConfig',
