@@ -80,6 +80,10 @@ INSTALLED_APPS = [
     'vitalnest.food.meals.apps.MealsConfig',
     'vitalnest.food.diets.apps.DietsConfig',
 
+    # Images ##################
+    'vitalnest.images.images.apps.ImagesConfig',
+    'vitalnest.images.imagesactivities.apps.ImagesActivitiesConfig',
+    'vitalnest.images.imagesrooms.apps.ImagesRoomsConfig',
 
 ]
 
