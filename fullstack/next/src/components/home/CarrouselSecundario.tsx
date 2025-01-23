@@ -15,6 +15,18 @@ interface Activity {
 const CarrouselSecundario: React.FC = () => {
   const [activities, setActivities] = useState<Activity[] | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -52,13 +64,19 @@ const CarrouselSecundario: React.FC = () => {
 
   const handlePrevSlide = () => {
     if (activities) {
-      setCurrentIndex((prevIndex) => (prevIndex === 0 ? activities.length - 2 : prevIndex - 1));
+      setCurrentIndex((prevIndex) => {
+        const maxIndex = isMobile ? activities.length - 1 : activities.length - 2;
+        return prevIndex === 0 ? maxIndex : prevIndex - 1;
+      });
     }
   };
 
   const handleNextSlide = () => {
     if (activities) {
-      setCurrentIndex((prevIndex) => (prevIndex === activities.length - 2 ? 0 : prevIndex + 1));
+      setCurrentIndex((prevIndex) => {
+        const maxIndex = isMobile ? activities.length - 1 : activities.length - 2;
+        return prevIndex === maxIndex ? 0 : prevIndex + 1;
+      });
     }
   };
 
@@ -77,7 +95,7 @@ const CarrouselSecundario: React.FC = () => {
             </button>
             <div
               className={styles.cardsContainer}
-              style={{ transform: `translateX(-${currentIndex * 50}%)` }}
+              style={{ transform: `translateX(-${currentIndex * (isMobile ? 100 : 50)}%)` }}
             >
               {activities.map((activity) => (
                 <div key={activity.id} className={styles.card}>
