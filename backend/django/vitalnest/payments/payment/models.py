@@ -8,7 +8,7 @@ class Payment(models.Model):
     card_date = models.CharField(max_length=255)
     ccv = models.CharField(max_length=255)
     state = models.CharField(max_length=50)
-    id_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments')
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payments', db_column='id_user', blank=True, null=True)
     payment_method = models.CharField(max_length=50)
     transaction_reference = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
