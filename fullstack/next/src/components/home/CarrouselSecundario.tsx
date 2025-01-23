@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import SkeletonLoader from '@/utils/SkeletonLoader';
 import styles from '../../styles/home/CarrouselSecundario.module.css';
+import { CarouselSecundarioSkeleton } from '../skeletons/CarouselSkeletons';
 
 interface Activity {
   id: number;
@@ -16,6 +17,7 @@ const CarrouselSecundario: React.FC = () => {
   const [activities, setActivities] = useState<Activity[] | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -79,6 +81,14 @@ const CarrouselSecundario: React.FC = () => {
       });
     }
   };
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <CarouselSecundarioSkeleton />;
+  }
 
   return (
     <div className={styles.carrouselContainer}>

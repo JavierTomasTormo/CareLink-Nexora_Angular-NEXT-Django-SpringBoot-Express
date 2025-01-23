@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Image from 'next/image';
 import styles from '../../styles/home/ServicesApplication.module.css';
+import { ServicesApplicationSkeleton } from '../skeletons/CarouselSkeletons';
 
 interface Service {
   id: number;
@@ -14,6 +15,7 @@ interface Service {
 
 const ServicesApplication = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const services: Service[] = [
     {
@@ -43,6 +45,14 @@ const ServicesApplication = () => {
     setSelectedService(selectedService?.id === service.id ? null : service);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <ServicesApplicationSkeleton />;
+  }
   return (
     <div className={styles.container}>
       <div className={styles.sphereContainer}>

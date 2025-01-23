@@ -4,8 +4,11 @@ import { useState, useEffect } from 'react';
 import SkeletonLoader from '@/utils/SkeletonLoader';
 import styles from '../../styles/home/CarrouselPrincipal.module.css';
 import CarrouselFloating from './CarrouselFloating';
+import { CarouselPrincipalSkeleton } from '@/components/skeletons/CarouselSkeletons';
+
 
 const CarrouselPrincipal: React.FC = () => {
+
   const slides = [
     '/assets/home/carrouselPrincipal/carrousel1.jpg',
     '/assets/home/carrouselPrincipal/carrousel1.jpg',
@@ -14,6 +17,7 @@ const CarrouselPrincipal: React.FC = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  
 
   useEffect(() => {
     const loadImages = () => setTimeout(() => setIsLoading(false), 2000);
@@ -24,7 +28,17 @@ const CarrouselPrincipal: React.FC = () => {
     }, 5000);
 
     return () => clearInterval(interval);
+  }, [slides.length]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
   }, []);
+
+  if (isLoading) {
+    return <CarouselPrincipalSkeleton />;
+  }
+
 
   return (
     <div className={styles.container}>

@@ -23,7 +23,7 @@ const CarrouselMini = () => {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [slides.length]);
 
   return (
     <div className={styles.container}>

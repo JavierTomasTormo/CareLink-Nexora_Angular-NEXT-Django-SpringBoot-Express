@@ -1,0 +1,142 @@
+    /* Hero Carousel */
+    .heroSkeleton {
+        height: 80vh;
+        min-height: 600px;
+        background: #e0e0e0;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .contentPlaceholder {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 1400px;
+        padding: 2rem;
+    }
+    
+    /* Floating Carousel */
+    .floatingWrapper {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .imagePlaceholder {
+        height: 250px;
+        background: #e0e0e0;
+        border-radius: 8px;
+    }
+    
+    /* Secondary Carousel */
+    .secundarioWrapper {
+        width: 100%;
+        padding: 2rem 0;
+    }
+    
+    .cardsGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    
+    .cardSkeleton {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Embla Carousel */
+    .emblaWrapper {
+        position: relative;
+        margin: 2rem 0;
+    }
+    
+    .emblaSlide {
+        height: 350px;
+        background: #e0e0e0;
+        border-radius: 12px;
+    }
+    
+    /* Services Section */
+    .servicesWrapper {
+        padding: 3rem 0;
+    }
+    
+    .iconsGrid {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Common Elements */
+    .titlePlaceholder {
+        height: 64px;
+        width: 70%;
+        background: #e0e0e0;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .textPlaceholder {
+        height: 16px;
+        width: 70%;
+        background: #e0e0e0;
+        border-radius: 4px;
+        margin: 0.8rem 0;
+    }
+    
+    .iconPlaceholder {
+        width: 80px;
+        height: 80px;
+        background: #e0e0e0;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
+    
+    .dot {
+        width: 8px;
+        height: 8px;
+        background: #e0e0e0;
+        border-radius: 50%;
+        margin: 0 4px;
+    }
+    
+    .indicators {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 1rem;
+    }
+    
+    /* Animation */
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.6; }
+        100% { opacity: 1; }
+    }
+    
+    .skeletonWrapper * {
+        animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .heroSkeleton {
+        height: 400px;
+        }
+    
+        .contentPlaceholder {
+        width: 90%;
+        }
+    
+        .iconsGrid {
+        gap: 1.5rem;
+        }
+    }
+    

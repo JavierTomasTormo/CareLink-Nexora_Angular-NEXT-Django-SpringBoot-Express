@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect,useState, useRef } from 'react';
 import {
   EmblaCarouselType,
   EmblaEventType,
@@ -14,6 +14,7 @@ import {
   usePrevNextButtons
 } from './EmblaCarouselArrowButtons';
 import { DotButton, useDotButton } from './EmblaCarouselDotButton';
+import { EmblaCarouselSkeleton } from '../skeletons/CarouselSkeletons';
 
 const TWEEN_FACTOR_BASE = 0.2;
 
@@ -27,6 +28,7 @@ const EmblaCarousel3: React.FC<PropType> = (props) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
 
@@ -101,7 +103,14 @@ const EmblaCarousel3: React.FC<PropType> = (props) => {
       .on('scroll', tweenParallax)
       .on('slideFocus', tweenParallax);
   }, [emblaApi, tweenParallax, setTweenFactor, setTweenNodes]);
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
+  if (isLoading) {
+    return <EmblaCarouselSkeleton />;
+  }
   return (
     <div className="embla">
       <div className="embla__viewport" ref={emblaRef}>
