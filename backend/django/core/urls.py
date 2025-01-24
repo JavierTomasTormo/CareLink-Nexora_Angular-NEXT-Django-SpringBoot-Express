@@ -28,4 +28,6 @@ urlpatterns = [
     path('api/', include('vitalnest.images.imagesrooms.urls')),
     path('api/', include('vitalnest.rooms.room.urls')),
     path('api/', include('vitalnest.rooms.bedroom.urls')),
+    path('api/', include('vitalnest.timetables.day.urls')),
+
 ]
