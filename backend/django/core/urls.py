@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/', include('vitalnest.images.images.urls')),
     path('api/', include('vitalnest.images.imagesactivities.urls')),
     path('api/', include('vitalnest.images.imagesrooms.urls')),
+    path('api/', include('vitalnest.rooms.room.urls')),
 ]
