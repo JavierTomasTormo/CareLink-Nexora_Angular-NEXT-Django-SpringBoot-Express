@@ -13,15 +13,23 @@ repositories {
 }
 
 dependencies {
+    // Starter para aplicaciones web
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.postgresql:postgresql:42.2.23")
 
+    // Starter para JPA/Hibernate
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // Driver para PostgreSQL
+    runtimeOnly("org.postgresql:postgresql:42.2.23")
+
+    // Lombok para reducir código boilerplate
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
+    // Herramientas de desarrollo para reinicios automáticos
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
+    // Dependencias para pruebas
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
