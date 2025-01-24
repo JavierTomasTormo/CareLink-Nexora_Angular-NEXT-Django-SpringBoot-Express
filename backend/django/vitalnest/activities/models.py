@@ -17,7 +17,7 @@ class Activity(models.Model):
     updatedat = models.DateTimeField(auto_now=True)
     max_participants = models.IntegerField()
     capacity = models.IntegerField()
-    duration = models.IntegerField()  # Duration in minutes
+    duration = models.IntegerField()
 
     class Meta:
         ordering = ['-createdat']
