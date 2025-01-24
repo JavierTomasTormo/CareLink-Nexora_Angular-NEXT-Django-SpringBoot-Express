@@ -32,5 +32,5 @@ urlpatterns = [
     path('api/', include('vitalnest.timetables.daysofweek.urls')),
     path('api/', include('vitalnest.timetables.hour.urls')),
     path('api/', include('vitalnest.timetables.month.urls')),
-
+    path('api/', include('vitalnest.timetables.year.urls')),
 ]
