@@ -10,7 +10,8 @@ import '@/styles/home/base.css';
 import '@/styles/home/sandbox.css';
 import '@/styles/home/embla.css';
 
-export default function HomePage() {
+export default  function HomePage() {
+
   const slides = [0, 1, 2, 3, 4];
 
   return (

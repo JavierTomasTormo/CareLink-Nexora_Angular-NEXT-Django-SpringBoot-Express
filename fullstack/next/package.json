@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "embla-carousel": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "next": "15.1.4",
