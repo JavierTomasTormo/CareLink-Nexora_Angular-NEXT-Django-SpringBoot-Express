@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import Year
+from .serializers import YearSerializer
 
-# Create your views here.
+class YearList(generics.ListCreateAPIView):
+    queryset = Year.objects.all()
+    serializer_class = YearSerializer
+
+class YearDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Year.objects.all()
+    serializer_class = YearSerializer
