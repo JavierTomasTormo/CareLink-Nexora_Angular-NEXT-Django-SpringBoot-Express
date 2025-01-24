@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 // import { fetchAllMeals, fetchMealById } from '@/services/food/meals/mealsService';
+// import { fetchAllBedRooms, fetchBedRoomById } from '@/services/rooms/bedroom/bedroomsService';
 
 import SkeletonLoader from '@/utils/SkeletonLoader';
 import styles from '../../styles/home/CarrouselPrincipal.module.css';
@@ -32,6 +33,34 @@ const CarrouselPrincipal: React.FC = () => {
     return () => clearInterval(interval);
   }, [slides.length]);
 
+
+
+
+  // useEffect(() => {
+  //   const fetchBedRooms= async () => {
+  //     try {
+  //       const mealsData = await fetchAllBedRooms();
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
+
+  //   fetchBedRooms();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchBedRoomsid = async () => {
+  //     try {
+  //       const mealsData = await fetchBedRoomById(3);
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
+
+  //   fetchBedRoomsid();
+  // }, []);
 
   // useEffect(() => {
   //   const fetchMeals = async () => {
