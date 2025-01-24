@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import BedRoom
+from .serializers import BedRoomSerializer
 
-# Create your views here.
+class BedRoomList(generics.ListCreateAPIView):
+    queryset = BedRoom.objects.all()
+    serializer_class = BedRoomSerializer
+
+class BedRoomDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BedRoom.objects.all()
+    serializer_class = BedRoomSerializer
