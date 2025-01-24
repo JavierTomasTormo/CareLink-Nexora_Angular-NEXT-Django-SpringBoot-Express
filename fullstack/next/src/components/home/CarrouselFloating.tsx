@@ -15,7 +15,7 @@ const CarrouselMini = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadImages = () => setTimeout(() => setIsLoading(false), 2000); // Simula tiempo de carga
+    const loadImages = () => setTimeout(() => setIsLoading(false), 1000);
     loadImages();
 
     const interval = setInterval(() => {
