@@ -15,11 +15,12 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.postgresql:postgresql")
+    implementation("org.postgresql:postgresql:42.2.23")
 
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
@@ -32,4 +33,3 @@ tasks.named<Jar>("bootJar") {
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
-
