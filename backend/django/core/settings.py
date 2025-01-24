@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Third-party apps ##################
     'rest_framework',
+    'corsheaders',
 
     # Activities ##################
     'vitalnest.activities.apps.ActivitiesConfig',
@@ -92,6 +93,10 @@ INSTALLED_APPS = [
 
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    # Agrega otros dominios permitidos aquí
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -101,6 +106,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'

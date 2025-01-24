@@ -1,6 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+// import { fetchAllMeals, fetchMealById } from '@/services/food/meals/mealsService';
+// import { fetchAllBedRooms, fetchBedRoomById } from '@/services/rooms/bedroom/bedroomsService';
+import { fetchAllRooms, fetchRoomById } from '@/services/rooms/room/roomService';
+
 import SkeletonLoader from '@/utils/SkeletonLoader';
 import styles from '../../styles/home/CarrouselPrincipal.module.css';
 import CarrouselFloating from './CarrouselFloating';
@@ -29,6 +33,86 @@ const CarrouselPrincipal: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [slides.length]);
+
+
+
+  useEffect(() => {
+    const fetchBedRooms= async () => {
+      try {
+        const mealsData = await fetchAllRooms();
+        console.log('Meals data:', mealsData);
+      } catch (error) {
+        console.error('Error fetching meals:', error);
+      }
+    };
+
+    fetchBedRooms();
+  }, []);
+
+  useEffect(() => {
+    const fetchBedRoomsid = async () => {
+      try {
+        const mealsData = await fetchRoomById(3);
+        console.log('Meals data:', mealsData);
+      } catch (error) {
+        console.error('Error fetching meals:', error);
+      }
+    };
+
+    fetchBedRoomsid();
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchBedRooms= async () => {
+  //     try {
+  //       const mealsData = await fetchAllBedRooms();
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
+
+  //   fetchBedRooms();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchBedRoomsid = async () => {
+  //     try {
+  //       const mealsData = await fetchBedRoomById(3);
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
+
+  //   fetchBedRoomsid();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchMeals = async () => {
+  //     try {
+  //       const mealsData = await fetchAllMeals();
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
+
+  //   fetchMeals();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchMealsid = async () => {
+  //     try {
+  //       const mealsData = await fetchMealById(3);
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
+
+  //   fetchMealsid();
+  // }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
