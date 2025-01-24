@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/', include('vitalnest.food.meals.urls')),
     path('api/', include('vitalnest.images.images.urls')),
     path('api/', include('vitalnest.images.imagesactivities.urls')),
+    path('api/', include('vitalnest.images.imagesrooms.urls')),
 ]
