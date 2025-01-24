@@ -30,5 +30,6 @@ urlpatterns = [
     path('api/', include('vitalnest.rooms.bedroom.urls')),
     path('api/', include('vitalnest.timetables.day.urls')),
     path('api/', include('vitalnest.timetables.daysofweek.urls')),
+    path('api/', include('vitalnest.timetables.hour.urls')),
 
 ]
