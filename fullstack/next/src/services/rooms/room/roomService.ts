@@ -12,7 +12,6 @@ interface RoomData {
     createdat: Date;
     updatedat: Date;
     availability: string; 
-
 }
 
 export const fetchAllRooms = async () => {

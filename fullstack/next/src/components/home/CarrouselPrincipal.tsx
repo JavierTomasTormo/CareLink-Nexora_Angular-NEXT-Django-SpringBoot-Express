@@ -3,7 +3,9 @@
 import { useState, useEffect } from 'react';
 // import { fetchAllMeals, fetchMealById } from '@/services/food/meals/mealsService';
 // import { fetchAllBedRooms, fetchBedRoomById } from '@/services/rooms/bedroom/bedroomsService';
-import { fetchAllRooms, fetchRoomById } from '@/services/rooms/room/roomService';
+// import { fetchAllRooms, fetchRoomById } from '@/services/rooms/room/roomService';
+// import { fetchAllActivities, fetchActivityById } from '@/services/activities/activitiesService';
+
 
 import SkeletonLoader from '@/utils/SkeletonLoader';
 import styles from '../../styles/home/CarrouselPrincipal.module.css';
@@ -36,31 +38,31 @@ const CarrouselPrincipal: React.FC = () => {
 
 
 
-  useEffect(() => {
-    const fetchBedRooms= async () => {
-      try {
-        const mealsData = await fetchAllRooms();
-        console.log('Meals data:', mealsData);
-      } catch (error) {
-        console.error('Error fetching meals:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchBedRooms= async () => {
+  //     try {
+  //       const mealsData = await fetchAllRooms();
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
 
-    fetchBedRooms();
-  }, []);
+  //   fetchBedRooms();
+  // }, []);
 
-  useEffect(() => {
-    const fetchBedRoomsid = async () => {
-      try {
-        const mealsData = await fetchRoomById(3);
-        console.log('Meals data:', mealsData);
-      } catch (error) {
-        console.error('Error fetching meals:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchBedRoomsid = async () => {
+  //     try {
+  //       const mealsData = await fetchRoomById(3);
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
 
-    fetchBedRoomsid();
-  }, []);
+  //   fetchBedRoomsid();
+  // }, []);
 
   // useEffect(() => {
   //   const fetchBedRooms= async () => {
@@ -105,6 +107,32 @@ const CarrouselPrincipal: React.FC = () => {
   //   const fetchMealsid = async () => {
   //     try {
   //       const mealsData = await fetchMealById(3);
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
+
+  //   fetchMealsid();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchMeals = async () => {
+  //     try {
+  //       const mealsData = await fetchAllActivities();
+  //       console.log('Meals data:', mealsData);
+  //     } catch (error) {
+  //       console.error('Error fetching meals:', error);
+  //     }
+  //   };
+
+  //   fetchMeals();
+  // }, []);
+
+  // useEffect(() => {
+  //   const fetchMealsid = async () => {
+  //     try {
+  //       const mealsData = await fetchActivityById(7);
   //       console.log('Meals data:', mealsData);
   //     } catch (error) {
   //       console.error('Error fetching meals:', error);
