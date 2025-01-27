@@ -21,16 +21,18 @@ public class SecurityConfig {
         this.jwtUtils = jwtUtils;
     }
 
+    // Configuración para encriptación de contraseñas con Argon2
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Argon2PasswordEncoder(16, 32, 1, 65536, 3);
     }
 
+    // Configuración de los filtros de seguridad
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/payments/**", "/inscriptions/**").authenticated()
+                .requestMatchers("/payments/**").authenticated()
                 .anyRequest().permitAll()
             )
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class);
