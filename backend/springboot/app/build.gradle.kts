@@ -19,6 +19,14 @@ dependencies {
     // Starter para JPA/Hibernate
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
+    // Starter para Spring Security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
+    // JWT
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
     // Driver para PostgreSQL
     runtimeOnly("org.postgresql:postgresql:42.2.23")
 
@@ -31,6 +39,10 @@ dependencies {
 
     // Dependencias para pruebas
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // Dependencias adicionales
+    implementation("javax.annotation:javax.annotation-api:1.3.2")
+    implementation("javax.servlet:javax.servlet-api:4.0.1")
 }
 
 tasks.named<Jar>("bootJar") {
