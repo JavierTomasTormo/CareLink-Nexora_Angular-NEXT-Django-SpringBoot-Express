@@ -25,7 +25,6 @@ export const FETCH_MEALS = 'meals/fetchMeals';
 export const FETCH_MEAL_BY_ID = 'meals/fetchMealById';
 export const CREATE_MEAL = 'meals/createMeal';
 export const UPDATE_MEAL = 'meals/updateMeal';
-export const DELETE_MEAL = 'meals/deleteMeal';
 
 export const FETCH_BEDROOMS = 'bedrooms/fetchBedRooms';
 export const FETCH_BEDROOM_BY_ID = 'bedrooms/fetchBedRoomById';
@@ -67,6 +66,7 @@ export interface ActivityData {
 }
 
 export interface MealData {
+  id_meal: number;
   img: string;
   isactive: number;
   createdat: Date;
