@@ -31,7 +31,6 @@ export const FETCH_BEDROOMS = 'bedrooms/fetchBedRooms';
 export const FETCH_BEDROOM_BY_ID = 'bedrooms/fetchBedRoomById';
 export const CREATE_BEDROOM = 'bedrooms/createBedRoom';
 export const UPDATE_BEDROOM = 'bedrooms/updateBedRoom';
-export const DELETE_BEDROOM = 'bedrooms/deleteBedRoom';
 
 
 
