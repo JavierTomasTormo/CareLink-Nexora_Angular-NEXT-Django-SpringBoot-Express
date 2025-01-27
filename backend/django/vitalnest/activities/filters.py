@@ -1,9 +1,15 @@
 from django_filters import rest_framework as filters
 from .models import Activity
-from django.db.models import JSONField
+from django.db.models import JSONField, Q
+
+class JSONContainsFilter(filters.CharFilter):
+    def filter(self, qs, value):
+        if not value:
+            return qs
+        return qs.filter(Q(**{f"{self.field_name}__icontains": value}))
 
 class ActivityFilter(filters.FilterSet):
-    caracteristics = filters.CharFilter(field_name='caracteristics', lookup_expr='icontains')
+    caracteristics = JSONContainsFilter(field_name='caracteristics')
 
     class Meta:
         model = Activity
@@ -19,6 +25,6 @@ class ActivityFilter(filters.FilterSet):
         }
         filter_overrides = {
             JSONField: {
-                'filter_class': filters.CharFilter,
+                'filter_class': JSONContainsFilter,
             },
         }
