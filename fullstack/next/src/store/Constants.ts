@@ -7,6 +7,34 @@ export const IMAGES_ROOMS_API_URL = `${API_URL}/images/imagesrooms/`;
 export const ACTIVITIES_API_URL = `${API_URL}/activities/`;
 export const IMAGES_ACTIVITIES_API_URL = `${API_URL}/images/imagesactivities/`;
 
+
+
+export const FETCH_ROOMS = 'rooms/fetchRooms';
+export const FETCH_ROOM_BY_ID = 'rooms/fetchRoomById';
+export const CREATE_ROOM = 'rooms/createRoom';
+export const UPDATE_ROOM = 'rooms/updateRoom';
+export const DELETE_ROOM = 'rooms/deleteRoom';
+
+export const FETCH_ACTIVITIES = 'activities/fetchActivities';
+export const FETCH_ACTIVITY_BY_ID = 'activities/fetchActivityById';
+export const CREATE_ACTIVITY = 'activities/createActivity';
+export const UPDATE_ACTIVITY = 'activities/updateActivity';
+export const DELETE_ACTIVITY = 'activities/deleteActivity';
+
+export const FETCH_MEALS = 'meals/fetchMeals';
+export const FETCH_MEAL_BY_ID = 'meals/fetchMealById';
+export const CREATE_MEAL = 'meals/createMeal';
+export const UPDATE_MEAL = 'meals/updateMeal';
+export const DELETE_MEAL = 'meals/deleteMeal';
+
+export const FETCH_BEDROOMS = 'bedrooms/fetchBedRooms';
+export const FETCH_BEDROOM_BY_ID = 'bedrooms/fetchBedRoomById';
+export const CREATE_BEDROOM = 'bedrooms/createBedRoom';
+export const UPDATE_BEDROOM = 'bedrooms/updateBedRoom';
+export const DELETE_BEDROOM = 'bedrooms/deleteBedRoom';
+
+
+
 export interface RoomData {
   type_room: string;
   num_room: number;
