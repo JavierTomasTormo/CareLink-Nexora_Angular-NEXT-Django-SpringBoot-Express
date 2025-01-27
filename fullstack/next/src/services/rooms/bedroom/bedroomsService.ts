@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/rooms/bedroom/';
+import { BEDROOMS_API_URL } from '@/store/Constants';
 
 export const fetchAllBedRooms = async () => {
     try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(BEDROOMS_API_URL);
         return response.data;
     } catch (error) {
         console.error('Error fetching all bedrooms:', error);
@@ -14,7 +14,7 @@ export const fetchAllBedRooms = async () => {
 
 export const fetchBedRoomById = async (id: number) => {
     try {
-        const response = await axios.get(`${API_URL}${id}/`);
+        const response = await axios.get(`${BEDROOMS_API_URL}${id}/`);
         return response.data;
     } catch (error) {
         console.error(`Error fetching bedroom with id ${id}:`, error);

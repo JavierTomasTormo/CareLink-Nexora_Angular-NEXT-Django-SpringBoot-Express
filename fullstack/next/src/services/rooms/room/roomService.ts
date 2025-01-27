@@ -1,18 +1,7 @@
 import axios from 'axios';
 
-const ROOMS_API_URL = 'http://localhost:8000/api/rooms/room/';
-const IMAGES_API_URL = 'http://localhost:8000/api/images/imagesrooms/';
+import { ROOMS_API_URL, IMAGES_ROOMS_API_URL, RoomData } from '@/store/Constants';
 
-interface RoomData {
-    type_room: string;
-    num_room: number;
-    capacity: number;
-    description: string;
-    isactive: number; 
-    createdat: Date;
-    updatedat: Date;
-    availability: string; 
-}
 
 export const fetchAllRooms = async () => {
     try {
@@ -21,7 +10,7 @@ export const fetchAllRooms = async () => {
 
         const roomsWithImages = await Promise.all(
             rooms.map(async (room: RoomData) => {
-                const imagesResponse = await axios.get(`${IMAGES_API_URL}?num_room=${room.num_room}`);
+                const imagesResponse = await axios.get(`${IMAGES_ROOMS_API_URL}?num_room=${room.num_room}`);
                 return { ...room, images: imagesResponse.data };
             })
         );
@@ -36,7 +25,7 @@ export const fetchAllRooms = async () => {
 export const fetchRoomById = async (id: number) => {
   try {
     const roomResponse = await axios.get(`${ROOMS_API_URL}${id}/`);
-    const imagesResponse = await axios.get(`${IMAGES_API_URL}?id_room=${id}`);
+    const imagesResponse = await axios.get(`${IMAGES_ROOMS_API_URL}?id_room=${id}`);
     return { ...roomResponse.data, images: imagesResponse.data };
   } catch (error) {
     console.error(`Error fetching room with id ${id}:`, error);

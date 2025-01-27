@@ -1,25 +1,10 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/food/meals/';
-
-
-interface MealData {
-    img: string;
-    isactive: number;
-    createdat: Date;
-    updatedat: Date;
-    role: string[]; 
-    name: string;
-    description: string;
-    allergens: string[]; 
-    calories: number;
-    type_meal: string[]; 
-}
-
+import { MEALS_API_URL, MealData } from '@/store/Constants';
 
 export const getAllMeals = async () => {
     try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(MEALS_API_URL);
         return response.data;
     } catch (error) {
         console.error('Error fetching all meals:', error);
@@ -29,7 +14,7 @@ export const getAllMeals = async () => {
 
 export const getMealById = async (id: number) => {
     try {
-        const response = await axios.get(`${API_URL}${id}/`);
+        const response = await axios.get(`${MEALS_API_URL}${id}/`);
         return response.data;
     } catch (error) {
         console.error(`Error fetching meal with id ${id}:`, error);
@@ -39,7 +24,7 @@ export const getMealById = async (id: number) => {
 
 export const createMeal = async (mealData: MealData) => {
     try {
-        const response = await axios.post(API_URL, mealData);
+        const response = await axios.post(MEALS_API_URL, mealData);
         return response.data;
     } catch (error) {
         console.error('Error creating meal:', error);
@@ -49,7 +34,7 @@ export const createMeal = async (mealData: MealData) => {
 
 export const updateMeal = async (id: number, mealData: MealData) => {
     try {
-        const response = await axios.put(`${API_URL}${id}/`, mealData);
+        const response = await axios.put(`${MEALS_API_URL}${id}/`, mealData);
         return response.data;
     } catch (error) {
         console.error(`Error updating meal with id ${id}:`, error);

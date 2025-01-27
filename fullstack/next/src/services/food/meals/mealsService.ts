@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api/food/meals/';
+import { MEALS_API_URL } from '@/store/Constants';
+
 
 export const fetchAllMeals = async () => {
     try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(MEALS_API_URL);
         return response.data;
     } catch (error) {
         console.error('Error fetching all meals:', error);
@@ -15,7 +16,7 @@ export const fetchAllMeals = async () => {
 export const fetchMealById = async (id: number) => {
     try {
         // console.log(`Fetching meal with id ${id}...`);
-        const response = await axios.get(`${API_URL}${id}/`);
+        const response = await axios.get(`${MEALS_API_URL}${id}/`);
         return response.data;
     } catch (error) {
         console.error(`Error fetching meal with id ${id}:`, error);

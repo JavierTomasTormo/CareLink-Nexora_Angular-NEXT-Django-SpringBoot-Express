@@ -1,22 +1,10 @@
 import axios from 'axios';
+import { BEDROOMS_API_URL, BedRoomData } from '@/store/Constants';
 
-const API_URL = 'http://localhost:8000/api/rooms/bedroom/';
-
-interface BedRoomData {
-    type_room: string;
-    num_room: number;
-    id_patient: number;
-    description: string;
-    availability: string; 
-    special_features: string[];
-    isactive: number;
-    createdat: Date; 
-    updatedat: Date;
-}
 
 export const getAllBedRooms = async () => {
     try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(BEDROOMS_API_URL);
         return response.data;
     } catch (error) {
         console.error('Error fetching all bedrooms:', error);
@@ -26,7 +14,7 @@ export const getAllBedRooms = async () => {
 
 export const getBedRoomById = async (id: number) => {
     try {
-        const response = await axios.get(`${API_URL}${id}/`);
+        const response = await axios.get(`${BEDROOMS_API_URL}${id}/`);
         return response.data;
     } catch (error) {
         console.error(`Error fetching bedroom with id ${id}:`, error);
@@ -36,7 +24,7 @@ export const getBedRoomById = async (id: number) => {
 
 export const createBedRoom = async (bedroomData: BedRoomData) => {
     try {
-        const response = await axios.post(API_URL, bedroomData);
+        const response = await axios.post(BEDROOMS_API_URL, bedroomData);
         return response.data;
     } catch (error) {
         console.error('Error creating bedroom:', error);
@@ -46,7 +34,7 @@ export const createBedRoom = async (bedroomData: BedRoomData) => {
 
 export const updateBedRoom = async (id: number, bedroomData: BedRoomData) => {
     try {
-        const response = await axios.put(`${API_URL}${id}/`, bedroomData);
+        const response = await axios.put(`${BEDROOMS_API_URL}${id}/`, bedroomData);
         return response.data;
     } catch (error) {
         console.error(`Error updating bedroom with id ${id}:`, error);
