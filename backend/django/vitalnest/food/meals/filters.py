@@ -2,10 +2,16 @@ from django_filters import rest_framework as filters
 from .models import Meals
 from django.db.models import JSONField
 
+class JSONContainsFilter(filters.CharFilter):
+    def filter(self, qs, value):
+        if not value:
+            return qs
+        return qs.filter(**{f"{self.field_name}__icontains": value})
+
 class MealsFilter(filters.FilterSet):
-    role = filters.CharFilter(field_name='role', lookup_expr='icontains')
-    allergens = filters.CharFilter(field_name='allergens', lookup_expr='icontains')
-    type_meal = filters.CharFilter(field_name='type_meal', lookup_expr='icontains')
+    role = JSONContainsFilter(field_name='role')
+    allergens = JSONContainsFilter(field_name='allergens')
+    type_meal = JSONContainsFilter(field_name='type_meal')
 
     class Meta:
         model = Meals
@@ -15,6 +21,6 @@ class MealsFilter(filters.FilterSet):
         }
         filter_overrides = {
             JSONField: {
-                'filter_class': filters.CharFilter,
+                'filter_class': JSONContainsFilter,
             },
         }
