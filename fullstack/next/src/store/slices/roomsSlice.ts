@@ -11,6 +11,7 @@ const initialState: RoomState = {
 
 export const fetchRooms = createAsyncThunk(FETCH_ROOMS, async () => {
     const response = await fetchAllRooms();
+    // console.log('fetchRooms response: fetchAllRooms', response);
     return response;
 });
 
@@ -42,14 +43,17 @@ const roomsSlice = createSlice({
         builder
         .addCase(fetchRooms.pending, (state) => {
             state.status = 'loading';
+            // console.log('Fetching rooms...');
         })
         .addCase(fetchRooms.fulfilled, (state, action: PayloadAction<RoomData[]>) => {
             state.status = 'succeeded';
             state.rooms = action.payload;
+            // console.log('Fetched rooms:', action.payload);
         })
         .addCase(fetchRooms.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message || 'Failed to fetch rooms';
+            // console.log('Failed to fetch rooms:', action.error.message);
         })
         .addCase(fetchRoom.pending, (state) => {
             state.status = 'loading';
