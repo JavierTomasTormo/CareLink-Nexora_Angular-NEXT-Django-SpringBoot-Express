@@ -47,6 +47,7 @@ export interface RoomData {
 }
 
 export interface ActivityData {
+  id_activitie: number;
   name_activitie: string;
   id_hour: number;
   id_day: number;
