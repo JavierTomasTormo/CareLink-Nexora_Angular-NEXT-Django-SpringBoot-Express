@@ -1,4 +1,4 @@
-package alfosan_javi.vitalnest.application.services.payments;
+package alfosan_javi.vitalnest.application.services_port_in.payments;
 
 import alfosan_javi.vitalnest.application.dto.payments.PaymentDTO;
 

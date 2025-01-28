@@ -1,9 +1,9 @@
 package alfosan_javi.vitalnest.application.service_impl.payments;
 
 import alfosan_javi.vitalnest.application.dto.payments.PaymentDTO;
-import alfosan_javi.vitalnest.application.services.payments.PaymentService;
+import alfosan_javi.vitalnest.application.services_port_in.payments.PaymentService;
 import alfosan_javi.vitalnest.domain.models.payments.Payment;
-import alfosan_javi.vitalnest.domain.repos.payments.PaymentRepository;
+import alfosan_javi.vitalnest.domain.repos_port_out.payments.PaymentRepository;
 import alfosan_javi.vitalnest.presentation.assemblers.payments.PaymentAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
