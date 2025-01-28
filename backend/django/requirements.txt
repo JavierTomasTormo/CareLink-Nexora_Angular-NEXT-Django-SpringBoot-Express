@@ -2,3 +2,4 @@
 Django>=3.2,<4.0
 djangorestframework
 psycopg2-binary
+django-filters
