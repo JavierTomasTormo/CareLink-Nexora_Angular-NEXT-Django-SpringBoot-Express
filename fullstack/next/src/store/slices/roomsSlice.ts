@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { fetchAllRooms, fetchRoomById } from '@/services/rooms/room/roomService';
-import { createRoom, updateRoom, deleteRoom } from '@/action_services/rooms/room/getRoom';
+import { createRoom, updateRoom, deleteRoom } from '@/action_servers/rooms/room/getRoom';
 import { RoomState, RoomData, FETCH_ROOMS, FETCH_ROOM_BY_ID, CREATE_ROOM, UPDATE_ROOM, DELETE_ROOM } from '../Constants';
+import { RootState } from '@/store';
 
 const initialState: RoomState = {
     rooms: [],
@@ -85,5 +86,13 @@ const roomsSlice = createSlice({
         });
     },
 });
+
+
+// Selectors
+export const selectAllRooms = (state: RootState) => state.rooms.rooms;
+export const selectRoomById = (state: RootState, roomId: number) => state.rooms.rooms.find(room => room.id === roomId);
+export const selectRoomsStatus = (state: RootState) => state.rooms.status;
+export const selectRoomsError = (state: RootState) => state.rooms.error;
+
 
 export default roomsSlice.reducer;
