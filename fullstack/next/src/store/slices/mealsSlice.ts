@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { fetchAllMeals, fetchMealById } from '@/services/food/meals/mealsService';
-import { createMeal, updateMeal } from '@/action_services/food/meals/getMeals';
+import { createMeal, updateMeal } from '@/action_servers/food/meals/getMeals';
 import { MealState, MealData, FETCH_MEALS, FETCH_MEAL_BY_ID, CREATE_MEAL, UPDATE_MEAL } from '../Constants';
 
 const initialState: MealState = {
@@ -75,5 +75,15 @@ const mealsSlice = createSlice({
         })
     },
 });
+
+
+
+// Selectors
+export const selectAllMeals = (state: RootState) => state.meals.meals;
+export const selectMealById = (state: RootState, mealId: number) => state.meals.meals.find(meal => meal.id_meal === mealId);
+export const selectMealsStatus = (state: RootState) => state.meals.status;
+export const selectMealsError = (state: RootState) => state.meals.error;
+
+
 
 export default mealsSlice.reducer;

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { fetchAllActivities, fetchActivityById } from '@/services/activities/activitiesService';
-import { createActivity, updateActivity, deleteActivity } from '@/action_services/activities/getActivities';
+import { createActivity, updateActivity, deleteActivity } from '@/action_servers/activities/getActivities';
 import { ActivityState, ActivityData, FETCH_ACTIVITIES, FETCH_ACTIVITY_BY_ID, CREATE_ACTIVITY, UPDATE_ACTIVITY, DELETE_ACTIVITY } from '../Constants';
 
 const initialState: ActivityState = {
@@ -81,5 +81,13 @@ const activitiesSlice = createSlice({
         });
     },
 });
+
+
+// Selectors
+export const selectAllActivities = (state: RootState) => state.activities.activities;
+export const selectActivityById = (state: RootState, activityId: number) => state.activities.activities.find(activity => activity.id_activitie === activityId);
+export const selectActivitiesStatus = (state: RootState) => state.activities.status;
+export const selectActivitiesError = (state: RootState) => state.activities.error;
+
 
 export default activitiesSlice.reducer;
