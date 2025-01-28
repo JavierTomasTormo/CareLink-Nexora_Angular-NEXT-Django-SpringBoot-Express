@@ -1,4 +1,4 @@
-package alfosan_javi.vitalnest.application.services.inscriptions;
+package alfosan_javi.vitalnest.application.services_port_in.inscriptions;
 
 import alfosan_javi.vitalnest.application.dto.inscriptions.InscriptionDTO;
 

@@ -1,7 +1,7 @@
-package alfosan_javi.vitalnest.presentation.controllers.payments;
+package alfosan_javi.vitalnest.presentation.controllers_adapter_in.payments;
 
 import alfosan_javi.vitalnest.application.dto.payments.PaymentDTO;
-import alfosan_javi.vitalnest.application.services.payments.PaymentService;
+import alfosan_javi.vitalnest.application.services_port_in.payments.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
