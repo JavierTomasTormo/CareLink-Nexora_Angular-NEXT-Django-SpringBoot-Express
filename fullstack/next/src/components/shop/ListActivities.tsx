@@ -2,11 +2,17 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchActivities, selectAllActivities, selectActivitiesStatus, selectActivitiesError } from '@/store/slices/activitiesSlice';
+import { AppDispatch } from '@/store'; // Importamos el tipo AppDispatch
+import { 
+  fetchActivities, 
+  selectAllActivities, 
+  selectActivitiesStatus, 
+  selectActivitiesError 
+} from '@/store/slices/activitiesSlice';
 import SkeletonLoader from '@/utils/SkeletonLoader';
 
 const ListActivities: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const activities = useSelector(selectAllActivities);
   const status = useSelector(selectActivitiesStatus);
   const error = useSelector(selectActivitiesError);
@@ -44,7 +50,7 @@ const ListActivities: React.FC = () => {
       <h2>Activities</h2>
       <ul>
         {activities.map((activity) => (
-          <li key={activity.id_activitie}>
+          <li key={activity.id}>
             <h3>{activity.name_activitie}</h3>
             <p>{activity.description || 'Sin descripción'}</p>
             <p>Price: ${activity.price || 0}</p>
