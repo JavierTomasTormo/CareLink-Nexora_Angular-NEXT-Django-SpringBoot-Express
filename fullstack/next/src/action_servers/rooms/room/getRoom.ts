@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { ROOMS_API_URL, IMAGES_ROOMS_API_URL, RoomData } from '@/store/Constants';
 
-
 export const getAllRooms = async () => {
     try {
         const roomsResponse = await axios.get(ROOMS_API_URL);
