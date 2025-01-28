@@ -80,7 +80,7 @@ const bedroomsSlice = createSlice({
 
 // Selectors
 export const selectAllBedRooms = (state: RootState) => state.bedrooms.bedrooms;
-export const selectBedRoomById = (state: RootState, bedroomId: number) => state.bedrooms.bedrooms.find(bedroom => bedroom.id_bedroom === bedroomId);
+export const selectBedRoomById = (state: RootState, bedroomId: number) => state.bedrooms.bedrooms.find(bedroom => bedroom.id === bedroomId);
 export const selectBedRoomsStatus = (state: RootState) => state.bedrooms.status;
 export const selectBedRoomsError = (state: RootState) => state.bedrooms.error;
 

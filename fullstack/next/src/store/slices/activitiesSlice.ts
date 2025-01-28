@@ -78,7 +78,7 @@ const activitiesSlice = createSlice({
             }
         })
         .addCase(deleteExistingActivity.fulfilled, (state, action: PayloadAction<number>) => {
-            state.activities = state.activities.filter(activity => activity.id_activitie !== action.payload);
+            state.activities = state.activities.filter(activity => activity.id !== action.payload);
         });
     },
 });
@@ -86,7 +86,7 @@ const activitiesSlice = createSlice({
 
 // Selectors
 export const selectAllActivities = (state: RootState) => state.activities.activities;
-export const selectActivityById = (state: RootState, activityId: number) => state.activities.activities.find(activity => activity.id_activitie === activityId);
+export const selectActivityById = (state: RootState, activityId: number) => state.activities.activities.find(activity => activity.id === activityId);
 export const selectActivitiesStatus = (state: RootState) => state.activities.status;
 export const selectActivitiesError = (state: RootState) => state.activities.error;
 
