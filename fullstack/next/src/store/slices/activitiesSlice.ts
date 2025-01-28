@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllActivities, fetchActivityById } from '@/services/activities/activitiesService';
-import { createActivity, updateActivity, deleteActivity } from '@/action_servers/activities/getActivities';
+import { createActivity, updateActivity, deleteActivity } from '@/services/activities/activitiesService';
+import { getAllActivities, getActivityById } from '@/action_servers/activities/getActivities';
 import { ActivityState, ActivityData, FETCH_ACTIVITIES, FETCH_ACTIVITY_BY_ID, CREATE_ACTIVITY, UPDATE_ACTIVITY, DELETE_ACTIVITY } from '../Constants';
+import { RootState } from '@/store';
 
 const initialState: ActivityState = {
     activities: [],
@@ -10,12 +11,12 @@ const initialState: ActivityState = {
 };
 
 export const fetchActivities = createAsyncThunk(FETCH_ACTIVITIES, async () => {
-    const response = await fetchAllActivities();
+    const response = await getAllActivities();
     return response;
 });
 
 export const fetchActivity = createAsyncThunk(FETCH_ACTIVITY_BY_ID, async (id: number) => {
-    const response = await fetchActivityById(id);
+    const response = await getActivityById(id);
     return response;
 });
 
