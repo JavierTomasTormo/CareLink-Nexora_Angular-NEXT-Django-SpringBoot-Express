@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { BEDROOMS_API_URL } from '@/store/Constants';
 
-
 export const getAllBedRooms = async () => {
     try {
         const response = await axios.get(BEDROOMS_API_URL);

@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllBedRooms, fetchBedRoomById } from '@/services/rooms/bedroom/bedroomsService';
-import { createBedRoom, updateBedRoom } from '@/action_servers/rooms/bedroom/getBedRooms';
+import { createBedRoom, updateBedRoom } from '@/services/rooms/bedroom/bedroomsService';
+import { getAllBedRooms, getBedRoomById } from '@/action_servers/rooms/bedroom/getBedRooms';
 import { BedRoomState, BedRoomData, FETCH_BEDROOMS, FETCH_BEDROOM_BY_ID, CREATE_BEDROOM, UPDATE_BEDROOM } from '../Constants';
+import { RootState } from '@/store';
 
 const initialState: BedRoomState = {
     bedrooms: [],
@@ -10,12 +11,12 @@ const initialState: BedRoomState = {
 };
 
 export const fetchBedRooms = createAsyncThunk(FETCH_BEDROOMS, async () => {
-    const response = await fetchAllBedRooms();
+    const response = await getAllBedRooms();
     return response;
 });
 
 export const fetchBedRoom = createAsyncThunk(FETCH_BEDROOM_BY_ID, async (id: number) => {
-    const response = await fetchBedRoomById(id);
+    const response = await getBedRoomById(id);
     return response;
 });
 
