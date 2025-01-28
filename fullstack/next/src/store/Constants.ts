@@ -34,7 +34,7 @@ export const UPDATE_BEDROOM = 'bedrooms/updateBedRoom';
 
 
 export interface RoomData {
-  id_room: number;
+  id: number;
   type_room: string;
   num_room: number;
   capacity: number;
@@ -46,7 +46,7 @@ export interface RoomData {
 }
 
 export interface ActivityData {
-  id_activitie: number;
+  id: number;
   name_activitie: string;
   id_hour: number;
   id_day: number;
@@ -67,7 +67,7 @@ export interface ActivityData {
 }
 
 export interface MealData {
-  id_meal: number;
+  id: number;
   img: string;
   isactive: number;
   createdat: Date;
@@ -81,7 +81,7 @@ export interface MealData {
 }
 
 export interface BedRoomData {
-  id_bedroom: number;
+  id: number;
   type_room: string;
   num_room: number;
   id_patient: number;
