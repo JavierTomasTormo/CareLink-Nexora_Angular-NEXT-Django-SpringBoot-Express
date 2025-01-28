@@ -1,7 +1,7 @@
-package alfosan_javi.vitalnest.presentation.controllers.inscriptions;
+package alfosan_javi.vitalnest.presentation.controllers_adapter_in.inscriptions;
 
 import alfosan_javi.vitalnest.application.dto.inscriptions.InscriptionDTO;
-import alfosan_javi.vitalnest.application.services.inscriptions.InscriptionService;
+import alfosan_javi.vitalnest.application.services_port_in.inscriptions.InscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
