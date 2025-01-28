@@ -8,7 +8,10 @@ export const getAllRooms = async () => {
 
         const roomsWithImages = await Promise.all(
             rooms.map(async (room: RoomData) => {
-                const imagesResponse = await axios.get(`${IMAGES_ROOMS_API_URL}?id_room=${room.id_room}`);
+                // console.log('room:', room);
+                // console.log('room.id_room:', room.id);
+
+                const imagesResponse = await axios.get(`${IMAGES_ROOMS_API_URL}?id_room=${room.id}`);
                 return { ...room, images: imagesResponse.data };
             })
         );
