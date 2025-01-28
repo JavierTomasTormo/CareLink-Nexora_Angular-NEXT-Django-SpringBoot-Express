@@ -55,7 +55,7 @@ const mealsSlice = createSlice({
         })
         .addCase(fetchMeal.fulfilled, (state, action: PayloadAction<MealData>) => {
             state.status = 'succeeded';
-            const index = state.meals.findIndex(meal => meal.id_meal === action.payload.id_meal);
+            const index = state.meals.findIndex(meal => meal.id === action.payload.id);
             if (index !== -1) {
             state.meals[index] = action.payload;
             } else {
@@ -70,7 +70,7 @@ const mealsSlice = createSlice({
             state.meals.push(action.payload);
         })
         .addCase(updateExistingMeal.fulfilled, (state, action: PayloadAction<MealData>) => {
-            const index = state.meals.findIndex(meal => meal.id_meal === action.payload.id_meal);
+            const index = state.meals.findIndex(meal => meal.id === action.payload.id);
             if (index !== -1) {
             state.meals[index] = action.payload;
             }
@@ -82,7 +82,7 @@ const mealsSlice = createSlice({
 
 // Selectors
 export const selectAllMeals = (state: RootState) => state.meals.meals;
-export const selectMealById = (state: RootState, mealId: number) => state.meals.meals.find(meal => meal.id_meal === mealId);
+export const selectMealById = (state: RootState, mealId: number) => state.meals.meals.find(meal => meal.id === mealId);
 export const selectMealsStatus = (state: RootState) => state.meals.status;
 export const selectMealsError = (state: RootState) => state.meals.error;
 

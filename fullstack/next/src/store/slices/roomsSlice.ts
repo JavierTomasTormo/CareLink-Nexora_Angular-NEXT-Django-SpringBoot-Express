@@ -90,7 +90,7 @@ const roomsSlice = createSlice({
 
 // Selectors
 export const selectAllRooms = (state: RootState) => state.rooms.rooms;
-export const selectRoomById = (state: RootState, roomId: number) => state.rooms.rooms.find(room => room.id_room === roomId);
+export const selectRoomById = (state: RootState, roomId: number) => state.rooms.rooms.find(room => room.id === roomId);
 export const selectRoomsStatus = (state: RootState) => state.rooms.status;
 export const selectRoomsError = (state: RootState) => state.rooms.error;
 
