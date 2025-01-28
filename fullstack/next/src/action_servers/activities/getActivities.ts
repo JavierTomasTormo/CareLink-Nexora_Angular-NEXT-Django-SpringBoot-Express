@@ -1,10 +1,9 @@
 import axios from 'axios';
-
 import { ACTIVITIES_API_URL, IMAGES_ACTIVITIES_API_URL, ActivityData } from '@/store/Constants';
-
 
 export const getAllActivities = async () => {
     try {
+
         const activitiesResponse = await axios.get(ACTIVITIES_API_URL);
         const activities = activitiesResponse.data;
 
@@ -24,13 +23,15 @@ export const getAllActivities = async () => {
 
 export const getActivityById = async (id: number) => {
     try {
+        // console.log(`Fetching activity by ID: ${id}`);
         const activityResponse = await axios.get(`${ACTIVITIES_API_URL}${id}/`);
+        // console.log("Activity data:", activityResponse.data);
         const imagesResponse = await axios.get(`${IMAGES_ACTIVITIES_API_URL}?id_activity=${id}`);
         // console.log('activityResponse.data:', activityResponse.data);
         // console.log('imagesResponse.data:', imagesResponse.data);
         return { ...activityResponse.data, images: imagesResponse.data };
-    } catch (error) {
-        console.error(`Error fetching activity with id ${id}:`, error);
+    } catch (error: any) {
+        console.error(`Error fetching activity with ID ${id}:`, error.message || error);
         throw error;
     }
 };
