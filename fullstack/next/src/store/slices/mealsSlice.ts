@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllMeals, fetchMealById } from '@/services/food/meals/mealsService';
-import { createMeal, updateMeal } from '@/action_servers/food/meals/getMeals';
+import { createMeal, updateMeal } from '@/services/food/meals/mealsService';
+import { getAllMeals, getMealById } from '@/action_servers/food/meals/getMeals';
 import { MealState, MealData, FETCH_MEALS, FETCH_MEAL_BY_ID, CREATE_MEAL, UPDATE_MEAL } from '../Constants';
+import { RootState } from '@/store';
+
 
 const initialState: MealState = {
     meals: [],
@@ -10,12 +12,12 @@ const initialState: MealState = {
 };
 
 export const fetchMeals = createAsyncThunk(FETCH_MEALS, async () => {
-    const response = await fetchAllMeals();
+    const response = await getAllMeals();
     return response;
 });
 
 export const fetchMeal = createAsyncThunk(FETCH_MEAL_BY_ID, async (id: number) => {
-    const response = await fetchMealById(id);
+    const response = await getMealById(id);
     return response;
 });
 

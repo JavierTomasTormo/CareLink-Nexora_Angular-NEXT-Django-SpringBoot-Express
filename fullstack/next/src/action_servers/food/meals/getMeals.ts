@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import { MEALS_API_URL } from '@/store/Constants';
 
 export const getAllMeals = async () => {
