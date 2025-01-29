@@ -15,7 +15,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
-RUN pip install django djangorestframework django-cors-headers psycopg2-binary django-livereload-server
+RUN pip install django djangorestframework django-cors-headers psycopg2-binary django-livereload-server django-filter
 
 EXPOSE 8000
 
