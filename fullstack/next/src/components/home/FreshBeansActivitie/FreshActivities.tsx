@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './FreshActivities.module.css';
+import styles from '@/styles/home/FreshBeansActivitie/FreshActivities.module.css';
 
 const FreshActivities = () => {
     return (

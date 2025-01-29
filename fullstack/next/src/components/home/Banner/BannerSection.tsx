@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './BannerSection.module.css';
+import styles from '@/styles/home/Banner/BannerSection.module.css';
 
 const BannerSection = () => {
     return (

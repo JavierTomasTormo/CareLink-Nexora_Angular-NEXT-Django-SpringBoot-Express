@@ -1,6 +1,6 @@
     'use client';
 
-    import styles from './Types.module.css';
+    import styles from '@/styles/home/TypesSection/Types.module.css';
 
     export interface CoffeeItem {
         name: string;

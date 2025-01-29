@@ -1,6 +1,6 @@
     'use client';
 
-    import styles from './OurStory.module.css';
+    import styles from '@/styles/home/StorySection/OurStory.module.css';
 
     const OurStory = () => {
         return (
