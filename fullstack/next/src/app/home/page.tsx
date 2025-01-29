@@ -3,6 +3,7 @@ import BannerSection from '@/components/home/Banner/BannerSection';
 import TypesSection from '@/components/home/TypesSection/TypesSection';
 import OurStory from '@/components/home/StorySection/OurStory';
 import FreshActivities from '@/components/home/FreshBeansActivitie/FreshActivities';
+import GreatMealsSection from '@/components/home/GreatMealsSection/GreatMealsSection';
 
 
 /* Comentados temporalmente
@@ -41,7 +42,7 @@ export default function HomePage() {
       <TypesSection />
       <OurStory />
       <FreshActivities />
-      
+      <GreatMealsSection />
     </>
   );
 }
