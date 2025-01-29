@@ -1,3 +1,7 @@
+
+import BannerSection from '@/components/home/Banner/BannerSection';
+
+/* Comentados temporalmente
 import Head from 'next/head';
 import CarrouselPrincipal from '@/components/home/CarrouselPrincipal';
 import CarrouselSecundario from '@/components/home/CarrouselSecundario';
@@ -9,13 +13,14 @@ import styles from '@/styles/home/home.module.css';
 import '@/styles/home/base.css';
 import '@/styles/home/sandbox.css';
 import '@/styles/home/embla.css';
+*/
 
-export default  function HomePage() {
-
-  const slides = [0, 1, 2, 3, 4];
+export default function HomePage() {
+  // const slides = [0, 1, 2, 3, 4];
 
   return (
     <>
+      {/* Comentado temporalmente
       <Head>
         <title>Home Page - VitalNest</title>
         <meta name="description" content="Welcome to VitalNest, your go-to platform for amazing services and features." />
@@ -27,23 +32,8 @@ export default  function HomePage() {
         <meta property="og:url" content="https://www.vitalnest.com/home" />
         <meta property="og:image" content="https://www.vitalnest.com/images/og-image.jpg" />
       </Head>
-      <div className={styles.home}>
-        {/* Carrusel Principal */}
-        <CarrouselPrincipal />
-
-        {/* Carrusel Secundario */}
-        <CarrouselSecundario />
-
-        {/* Servicios de la Aplicación */}
-        <ServicesApplication />
-
-        {/* Carrusel Embla */}
-        <div className="embla-container" style={{ marginTop: '2rem', display: 'flex', gap: '2rem' }}>
-          <EmblaCarousel slides={slides} options={{ loop: true }} />
-          <EmblaCarousel2 slides={slides} options={{ loop: true }} />
-          <EmblaCarousel3 slides={slides} options={{ loop: true }} />
-        </div>
-      </div>
+      */}
+      <BannerSection />
     </>
   );
 }
