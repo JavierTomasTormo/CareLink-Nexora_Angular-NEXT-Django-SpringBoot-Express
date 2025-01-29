@@ -1,6 +1,9 @@
 
 import BannerSection from '@/components/home/Banner/BannerSection';
 import TypesSection from '@/components/home/TypesSection/TypesSection';
+import OurStory from '@/components/home/StorySection/OurStory';
+
+
 /* Comentados temporalmente
 import Head from 'next/head';
 import CarrouselPrincipal from '@/components/home/CarrouselPrincipal';
@@ -35,6 +38,7 @@ export default function HomePage() {
       */}
       <BannerSection />
       <TypesSection />
+      <OurStory />
       
     </>
   );
