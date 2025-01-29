@@ -4,6 +4,7 @@ import TypesSection from '@/components/home/TypesSection/TypesSection';
 import OurStory from '@/components/home/StorySection/OurStory';
 import FreshActivities from '@/components/home/FreshBeansActivitie/FreshActivities';
 import GreatMealsSection from '@/components/home/GreatMealsSection/GreatMealsSection';
+import BestRoomsSection from '@/components/home/BestRoomsSection/BestRoomsSection';
 
 
 /* Comentados temporalmente
@@ -43,6 +44,7 @@ export default function HomePage() {
       <OurStory />
       <FreshActivities />
       <GreatMealsSection />
+      <BestRoomsSection />
     </>
   );
 }
