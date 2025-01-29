@@ -6,6 +6,7 @@ import FreshActivities from '@/components/home/FreshBeansActivitie/FreshActiviti
 import GreatMealsSection from '@/components/home/GreatMealsSection/GreatMealsSection';
 import BestRoomsSection from '@/components/home/BestRoomsSection/BestRoomsSection';
 import GallerySection from '@/components/home/GallerySection/GallerySection';
+import BlogSection from '@/components/home/BlogSection/BlogSection';
 
 
 /* Comentados temporalmente
@@ -47,6 +48,7 @@ export default function HomePage() {
       <GreatMealsSection />
       <BestRoomsSection />
       <GallerySection />
+      <BlogSection />
     </>
   );
 }

@@ -1,0 +1,109 @@
+    .sect {
+        padding: 130px 0;
+    }
+    
+    .sect_grey {
+        background-color: #ebebeb;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    
+    .row_center {
+        text-align: center;
+    }
+    
+    .col_intro {
+        display: inline-block;
+        max-width: 500px;
+        margin-bottom: 50px;
+    }
+    
+    .sect_title {
+        margin-top: 0;
+        text-transform: uppercase;
+        line-height: 40px;
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .sect_subtitle {
+        color: #767676;
+        margin: 0;
+    }
+    
+    .articles_grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+    
+    .article_pre {
+        background-color: #fff;
+    }
+    
+    .article_img {
+        padding-bottom: 80%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    
+    .article_info {
+        padding: 25px 20px;
+    }
+    
+    .article_title {
+        letter-spacing: 1px;
+        font-size: 16px;
+        margin-top: 0;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+    
+    .article_date {
+        color: #767676;
+        font-size: 12px;
+        display: block;
+        margin-bottom: 15px;
+    }
+    
+    .article_excerpt {
+        margin: 0;
+        line-height: 22px;
+        color: #767676;
+    }
+    
+    .btn {
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        font-weight: 500;
+        background-color: #daa37f;
+        border-radius: 0;
+        text-decoration: none;
+        text-transform: uppercase;
+        display: inline-block;
+    }
+    
+    @media screen and (max-width: 991px) {
+        .sect {
+        padding: 80px 0;
+        }
+    }
+    
+    @media screen and (max-width: 767px) {
+        .articles_grid {
+        grid-template-columns: 1fr;
+        }
+        
+        .article_pre {
+        margin-bottom: 15px;
+        }
+    }
