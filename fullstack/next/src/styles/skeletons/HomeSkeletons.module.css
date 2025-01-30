@@ -1,0 +1,140 @@
+    @keyframes shimmer {
+        0% {
+        background-position: -1000px 0;
+        }
+        100% {
+        background-position: 1000px 0;
+        }
+    }
+    
+    .bannerWrapper {
+        width: 100%;
+        height: 100vh;
+        background: #f6f7f8;
+        position: relative;
+    }
+    
+    .bannerSkeleton {
+        height: 100%;
+        background: linear-gradient(
+        to right,
+        #f6f7f8 0%,
+        #edeef1 20%,
+        #f6f7f8 40%,
+        #f6f7f8 100%
+        );
+        background-size: 2000px 100%;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .bannerOverlay {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.1);
+    }
+    
+    .bannerContent {
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+    }
+    
+    .bannerTitle {
+        height: 60px;
+        background: rgba(255, 255, 255, 0.3);
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+    
+    .bannerText {
+        height: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        margin-bottom: 30px;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 4px;
+    }
+    
+    .bannerButton {
+        height: 40px;
+        background: rgba(255, 255, 255, 0.3);
+        width: 120px;
+        margin: 0 auto;
+        border-radius: 4px;
+    }
+  
+        
+        
+    .bestRoomsWrapper {
+        padding: 160px 0;
+        background: #f6f7f8;
+        min-height: 100vh;
+    }
+    
+    .bestRoomsContent {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 0 20px;
+    }
+    
+    .bestRoomsTitle {
+        height: 40px;
+        background: #eee;
+        margin-bottom: 40px;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .featuresGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin: 40px 0;
+    }
+    
+    .featureItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .featureIcon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #eee;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .featureTitle {
+        height: 20px;
+        width: 80%;
+        background: #eee;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .bestRoomsText {
+        height: 60px;
+        background: #eee;
+        margin: 30px auto;
+        width: 80%;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .bestRoomsButton {
+        height: 40px;
+        width: 200px;
+        background: #eee;
+        margin: 0 auto;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+
+    
