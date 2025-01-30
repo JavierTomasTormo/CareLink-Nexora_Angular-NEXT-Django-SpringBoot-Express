@@ -1,8 +1,23 @@
 'use client';
-
+import { useState, useEffect } from 'react';
 import styles from '@/styles/home/GreatMealsSection/GreatMealsSection.module.css';
+import { GreatMealsSkeleton } from '@/components/skeletons/HomeSkeletons';
 
 const GreatMealsSection = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return <GreatMealsSkeleton />;
+    }
+    
     return (
         <section className={styles.sect_great}>
         <div className={styles.container}>

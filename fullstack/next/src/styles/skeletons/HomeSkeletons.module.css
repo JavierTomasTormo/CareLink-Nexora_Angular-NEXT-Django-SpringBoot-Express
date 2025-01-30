@@ -330,3 +330,83 @@
         padding-bottom: 60%;
         }
     }
+
+
+        .greatMealsWrapper {
+            padding: 130px 0;
+            background: #f6f7f8;
+            position: relative;
+            animation: shimmerBackground 2s infinite linear;
+        }
+        
+        .greatMealsContainer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .greatMealsRow {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .greatMealsContent {
+            width: 41.66667%;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-left: 50%;
+        }
+        
+        .greatMealsTitle {
+            height: 35px;
+            background: #eee;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        .greatMealsText {
+            height: 20px;
+            background: #eee;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        .greatMealsButton {
+            height: 40px;
+            width: 120px;
+            background: #eee;
+            margin-top: 30px;
+            border-radius: 4px;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        @keyframes shimmerBackground {
+            0% {
+            background-color: #f6f7f8;
+            }
+            50% {
+            background-color: #eee;
+            }
+            100% {
+            background-color: #f6f7f8;
+            }
+        }
+        
+        @media screen and (max-width: 991px) {
+            .greatMealsContent {
+            width: 50%;
+            margin-left: 45%;
+            }
+        }
+        
+        @media screen and (max-width: 767px) {
+            .greatMealsContent {
+            width: 100%;
+            margin-left: 0;
+            }
+        }
+
+
+        

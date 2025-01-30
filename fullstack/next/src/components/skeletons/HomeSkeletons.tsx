@@ -80,3 +80,18 @@ export const GallerySkeleton = () => (
         ))}
     </div>
 );
+
+export const GreatMealsSkeleton = () => (
+    <div className={styles.greatMealsWrapper}>
+        <div className={styles.greatMealsContainer}>
+            <div className={styles.greatMealsRow}>
+                <div className={styles.greatMealsContent}>
+                    <div className={styles.greatMealsTitle}></div>
+                    <div className={styles.greatMealsText}></div>
+                    <div className={styles.greatMealsText}></div>
+                    <div className={styles.greatMealsButton}></div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
