@@ -2,6 +2,7 @@
 import BannerSection from '@/components/home/Banner/BannerSection';
 import TypesSection from '@/components/home/TypesSection/TypesSection';
 import OurStory from '@/components/home/StorySection/OurStory';
+import AdditionalInfo from '@/components/home/AdditionalInfo/AdditionalInfo';
 import FreshActivities from '@/components/home/FreshBeansActivitie/FreshActivities';
 import GreatMealsSection from '@/components/home/GreatMealsSection/GreatMealsSection';
 import BestRoomsSection from '@/components/home/BestRoomsSection/BestRoomsSection';
@@ -43,6 +44,7 @@ export default function HomePage() {
       <BannerSection />
       <TypesSection />
       {/* <OurStory /> */}
+      <AdditionalInfo />
       <FreshActivities />
       <GreatMealsSection />
       <BestRoomsSection />

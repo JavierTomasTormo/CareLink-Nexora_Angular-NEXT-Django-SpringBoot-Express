@@ -551,3 +551,62 @@
                     padding-bottom: 35%;
                     }
                 }
+
+
+                    .additionalWrapper {
+                        width: 100%;
+                        max-width: 1600px;
+                        padding: 23px;
+                        display: grid;
+                        grid-template-columns: repeat(4, 350px);
+                        grid-auto-rows: 350px;
+                        grid-gap: 23px;
+                        justify-content: center;
+                        align-content: center;
+                        margin: 50px auto;
+                    }
+                    
+                    .additionalCard {
+                        display: flex;
+                        height: 350px;
+                        width: 350px;
+                        border-radius: 50%;
+                        background: #f6f7f8;
+                        overflow: hidden;
+                        animation: shimmer 2s infinite linear;
+                    }
+                    
+                    .additionalImageSkeleton {
+                        width: 50%;
+                        height: 100%;
+                        background: rgba(255, 255, 255, 0.1);
+                    }
+                    
+                    .additionalTextSkeleton {
+                        width: 50%;
+                        height: 100%;
+                        padding: 30px;
+                        background: rgba(255, 255, 255, 0.2);
+                    }
+                    
+                    @media (max-width: 1500px) {
+                        .additionalWrapper {
+                        grid-template-columns: repeat(4, 300px);
+                        grid-auto-rows: 300px;
+                        }
+                        .additionalCard {
+                        height: 300px;
+                        width: 300px;
+                        }
+                    }
+                    
+                    @media (max-width: 1300px) {
+                        .additionalWrapper {
+                        grid-template-columns: repeat(4, 250px);
+                        grid-auto-rows: 250px;
+                        }
+                        .additionalCard {
+                        height: 250px;
+                        width: 250px;
+                        }
+                    }

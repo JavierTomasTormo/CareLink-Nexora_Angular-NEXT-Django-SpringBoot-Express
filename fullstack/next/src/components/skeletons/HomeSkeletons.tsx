@@ -135,3 +135,14 @@ export const TypesSkeleton = () => (
         </div>
     </div>
 );
+
+export const AdditionalInfoSkeleton = () => (
+        <div className={styles.additionalWrapper}>
+        {[1, 2, 3, 4].map((item) => (
+            <div key={item} className={styles.additionalCard}>
+            <div className={styles.additionalImageSkeleton}></div>
+            <div className={styles.additionalTextSkeleton}></div>
+            </div>
+        ))}
+        </div>
+);
