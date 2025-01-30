@@ -1,6 +1,6 @@
 .header {
   background: #f8f9fa;
-  padding: 1.2rem 0;
+  padding: 0.5rem 0;
   position: fixed;
   width: 100%;
   top: 0;
@@ -23,7 +23,7 @@
 }
 
 .logo img {
-  width: 100%;
+  width: 70%;
   height: auto;
   transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -71,7 +71,7 @@
 .navLink {
   color: #2c3e50;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   padding: 0.6rem 1.2rem;
   transition: all 0.4s ease;

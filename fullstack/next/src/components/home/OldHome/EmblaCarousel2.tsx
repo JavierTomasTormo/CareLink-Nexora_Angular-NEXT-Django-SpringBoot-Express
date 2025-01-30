@@ -12,8 +12,8 @@ import {
   NextButton,
   PrevButton,
   usePrevNextButtons
-} from './EmblaCarouselArrowButtons';
-import { DotButton, useDotButton } from './EmblaCarouselDotButton';
+} from './OldHome/EmblaCarouselArrowButtons';
+import { DotButton, useDotButton } from './OldHome/EmblaCarouselDotButton';
 import { EmblaCarouselSkeleton } from '../skeletons/CarouselSkeletons';
 
 const TWEEN_FACTOR_BASE = 0.2;
