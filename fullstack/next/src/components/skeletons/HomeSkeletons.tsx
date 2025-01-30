@@ -114,3 +114,24 @@ export const OurStorySkeleton = () => (
         <div className={styles.storyImageSkeleton}></div>
     </div>
 );
+
+
+export const TypesSkeleton = () => (
+    <div className={styles.typesWrapper}>
+        <div className={styles.typesContainer}>
+            <div className={styles.typesHeader}>
+                <div className={styles.typesTitle}></div>
+                <div className={styles.typesSubtitle}></div>
+            </div>
+            <div className={styles.typesGrid}>
+                {[1, 2, 3].map((item) => (
+                    <div key={item} className={styles.typeCard}>
+                    <div className={styles.typeImageSkeleton}></div>
+                    <div className={styles.typeTitle}></div>
+                    <div className={styles.typeDescription}></div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+);

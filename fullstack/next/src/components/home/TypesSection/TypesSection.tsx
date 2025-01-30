@@ -1,6 +1,7 @@
     'use client';
-
+    import { useState, useEffect } from 'react';
     import styles from '@/styles/home/TypesSection/Types.module.css';
+    import { TypesSkeleton } from '@/components/skeletons/HomeSkeletons';
 
     export interface CoffeeItem {
         name: string;
@@ -27,6 +28,19 @@
     ];
 
     const CoffeeTypes = () => {
+        const [isLoading, setIsLoading] = useState(true);
+
+        useEffect(() => {
+            const timer = setTimeout(() => {
+                setIsLoading(false);
+            }, 2000);
+    
+            return () => clearTimeout(timer);
+        }, []);
+    
+        if (isLoading) {
+            return <TypesSkeleton />;
+        }
     return (
         <section className={styles.sect}>
         <div className={styles.container}>
