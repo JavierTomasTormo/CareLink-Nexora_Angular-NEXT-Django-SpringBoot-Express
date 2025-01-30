@@ -71,3 +71,12 @@ export const FreshActivitiesSkeleton = () => (
         <div className={styles.freshImage}></div>
     </div>
 );
+
+
+export const GallerySkeleton = () => (
+    <div className={styles.galleryWrapper}>
+        {[1, 2, 3].map((item) => (
+            <div key={item} className={styles.galleryImageSkeleton}></div>
+        ))}
+    </div>
+);

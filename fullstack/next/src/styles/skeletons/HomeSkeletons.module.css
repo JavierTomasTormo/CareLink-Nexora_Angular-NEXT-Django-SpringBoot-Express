@@ -311,4 +311,22 @@
         }
     }
 
+        
+    .galleryWrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+    }
     
+    .galleryImageSkeleton {
+        height: 0;
+        padding-bottom: 33.3%;
+        background: #eee;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    @media screen and (max-width: 767px) {
+        .galleryImageSkeleton {
+        padding-bottom: 60%;
+        }
+    }
