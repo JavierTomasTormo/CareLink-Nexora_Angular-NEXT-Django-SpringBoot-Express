@@ -42,7 +42,7 @@ export default function HomePage() {
 
       <BannerSection />
       <TypesSection />
-      <OurStory />
+      {/* <OurStory /> */}
       <FreshActivities />
       <GreatMealsSection />
       <BestRoomsSection />

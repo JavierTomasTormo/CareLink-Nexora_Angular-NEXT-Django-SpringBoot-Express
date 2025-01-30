@@ -77,8 +77,16 @@
         margin: 0;
         line-height: 22px;
         color: #767676;
-    }
-    
+        }
+        
+        .logo {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
     .btn {
         color: #fff;
         padding: 10px 20px;

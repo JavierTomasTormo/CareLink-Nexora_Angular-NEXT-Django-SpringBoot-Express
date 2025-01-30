@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import styles from '@/styles/home/BlogSection/BlogSection.module.css';
 import { BlogSkeleton } from '@/components/skeletons/HomeSkeletons';
+import Image from 'next/image';
 
 
 interface BlogPost {
@@ -48,34 +49,44 @@ const BlogSection = () => {
     }
 
     return (
-        <div className={`${styles.sect} ${styles.sect_grey}`}>
-        <div className={styles.container}>
-            <div className={styles.row_center}>
-            <div className={styles.col_intro}>
-                <h1 className={styles.sect_title}>Nuestros Artículos Destacados</h1>
-                <p className={styles.sect_subtitle}>
-                Explora nuestros artículos sobre salud, nutrición y bienestar para ayudarte a comprender el porque de nuestra dedicación.
-                </p>
-            </div>
-            </div>
-            
-            <div className={styles.articles_grid}>
-            {blogPosts.map((post, index) => (
-                <div key={index} className={styles.article_pre}>
-                <div 
-                    className={styles.article_img}
-                    style={{ backgroundImage: `url(${post.image})` }}
-                ></div>
-                <div className={styles.article_info}>
-                    <h1 className={styles.article_title}>{post.title}</h1>
-                    <span className={styles.article_date}>{post.date}</span>
-                    <p className={styles.article_excerpt}>{post.excerpt}</p>
+        <>
+        <br />
+        <div className={styles.sect_grey}>
+            <div className={`${styles.sect} ${styles.container}`}>
+                <div className={styles.row_center}>
+                <div className={styles.col_intro}>
+                    <h1 className={styles.sect_title}>Nuestros Artículos Destacados</h1>
+                    <p className={styles.sect_subtitle}>
+                    Explora nuestros artículos sobre salud, nutrición y bienestar para ayudarte a comprender el porque de nuestra dedicación.
+                    </p>
                 </div>
                 </div>
-            ))}
+                
+                <div className={styles.articles_grid}>
+                    {blogPosts.map((post, index) => (
+                        <div key={index} className={styles.article_pre}>
+                        <div 
+                            className={styles.article_img}
+                            style={{ backgroundImage: `url(${post.image})` }}
+                        ></div>
+                        <div className={styles.article_info}>
+                            <h1 className={styles.article_title}>{post.title}</h1>
+                            <span className={styles.article_date}>{post.date}</span>
+                            <p className={styles.article_excerpt}>{post.excerpt}</p>
+                        </div>
+                        </div>
+                    ))}
+                </div>
+                <Image 
+                    src="/Logo_VitalNest.png" 
+                    alt="VitalNest" 
+                    width={200} 
+                    height={150} 
+                    className={styles.logo}
+                />
             </div>
         </div>
-        </div>
+        </>
     );
 };
 
