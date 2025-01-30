@@ -95,3 +95,22 @@ export const GreatMealsSkeleton = () => (
         </div>
     </div>
 );
+
+
+export const OurStorySkeleton = () => (
+    <div className={styles.storyWrapper}>
+        <div className={styles.storyBrown}>
+            <div className={styles.storyContainer}>
+                <div className={styles.storyCenter}>
+                    <div className={styles.storyContent}>
+                        <div className={styles.storyTitle}></div>
+                        {[1, 2, 3, 4].map((item) => (
+                            <div key={item} className={styles.storyText}></div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className={styles.storyImageSkeleton}></div>
+    </div>
+);

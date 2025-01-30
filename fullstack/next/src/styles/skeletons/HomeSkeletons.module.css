@@ -409,4 +409,57 @@
         }
 
 
-        
+            .storyWrapper {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .storyBrown {
+                padding: 130px 0;
+                background-color: #1d140b;
+            }
+            
+            .storyContainer {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 15px;
+            }
+            
+            .storyCenter {
+                display: flex;
+                justify-content: center;
+            }
+            
+            .storyContent {
+                max-width: 500px;
+                width: 100%;
+            }
+            
+            .storyTitle {
+                height: 40px;
+                background: rgba(255, 255, 255, 0.1);
+                margin-bottom: 30px;
+                border-radius: 4px;
+                animation: shimmer 2s infinite linear;
+            }
+            
+            .storyText {
+                height: 20px;
+                background: rgba(255, 255, 255, 0.1);
+                margin-bottom: 15px;
+                border-radius: 4px;
+                animation: shimmer 2s infinite linear;
+            }
+            
+            .storyImageSkeleton {
+                height: 0;
+                padding-bottom: 52%;
+                background: #eee;
+                animation: shimmer 2s infinite linear;
+            }
+            
+            @media screen and (max-width: 767px) {
+                .storyBrown {
+                padding: 80px 0;
+                }
+            }

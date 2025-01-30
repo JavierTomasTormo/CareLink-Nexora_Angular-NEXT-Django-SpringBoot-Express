@@ -1,8 +1,22 @@
     'use client';
-
+    import { useState, useEffect } from 'react';
     import styles from '@/styles/home/StorySection/OurStory.module.css';
+    import { OurStorySkeleton } from '@/components/skeletons/HomeSkeletons';
 
     const OurStory = () => {
+        const [isLoading, setIsLoading] = useState(true);
+
+        useEffect(() => {
+            const timer = setTimeout(() => {
+                setIsLoading(false);
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }, []);
+
+        if (isLoading) {
+            return <OurStorySkeleton />;
+        }
         return (
             <section className={styles.story_section}>
                 <div className={styles.sect_brown}>
