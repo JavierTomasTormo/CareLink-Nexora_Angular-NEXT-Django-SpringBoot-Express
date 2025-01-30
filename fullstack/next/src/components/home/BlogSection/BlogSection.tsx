@@ -1,6 +1,7 @@
 'use client';
-
+import { useState, useEffect } from 'react';
 import styles from '@/styles/home/BlogSection/BlogSection.module.css';
+import { BlogSkeleton } from '@/components/skeletons/HomeSkeletons';
 
 
 interface BlogPost {
@@ -9,7 +10,6 @@ interface BlogPost {
     excerpt: string;
     image: string;
 }
-
 
 const blogPosts: BlogPost[] = [
     {
@@ -33,6 +33,20 @@ const blogPosts: BlogPost[] = [
 ];
 
 const BlogSection = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return <BlogSkeleton />;
+    }
+
     return (
         <div className={`${styles.sect} ${styles.sect_grey}`}>
         <div className={styles.container}>

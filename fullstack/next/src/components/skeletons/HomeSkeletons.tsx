@@ -33,3 +33,26 @@ export const BestRoomsSkeleton = () => (
         </div>
     </div>
 );
+
+export const BlogSkeleton = () => (
+    <div className={styles.blogWrapper}>
+        <div className={styles.blogContainer}>
+            <div className={styles.blogHeader}>
+                <div className={styles.blogTitle}></div>
+                <div className={styles.blogSubtitle}></div>
+            </div>
+            <div className={styles.blogGrid}>
+                {[1, 2, 3].map((item) => (
+                    <div key={item} className={styles.blogCard}>
+                        <div className={styles.blogImageSkeleton}></div>
+                            <div className={styles.blogContent}>
+                                <div className={styles.blogCardTitle}></div>
+                                <div className={styles.blogCardDate}></div>
+                                <div className={styles.blogCardText}></div>
+                            </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+);
