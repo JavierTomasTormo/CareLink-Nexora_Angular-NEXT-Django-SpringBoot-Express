@@ -1,9 +1,26 @@
 'use client';
 import Image from "next/image";
+import { useState, useEffect } from 'react';
 
 import styles from '@/styles/home/BestRoomsSection/BestRoomsSection.module.css';
+import { BestRoomsSkeleton } from '@/components/skeletons/HomeSkeletons';
 
 const BestRoomsSection = () => {
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return <BestRoomsSkeleton />;
+    }
+
     return (
         <div className={styles.sect_best}>
         <div className={styles.container}>
