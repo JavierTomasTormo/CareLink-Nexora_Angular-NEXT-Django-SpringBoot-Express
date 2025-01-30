@@ -58,12 +58,13 @@ export interface ActivityData {
   slug: string;
   intensity: number;
   price: number;
-  caracteristics: string[];
+  caracteristics: { tags: string[] };
   createdat: Date;
   updatedat: Date;
   max_participants: number;
   capacity: number;
   duration: number;
+  images?: { img: string }[];  // Nueva propiedad `images`, opcional
 }
 
 export interface MealData {

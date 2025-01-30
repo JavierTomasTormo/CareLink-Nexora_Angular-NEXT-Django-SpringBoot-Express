@@ -1,4 +1,4 @@
-import Providers from "@/store/Providers"; // Importamos el wrapper
+import Providers from "@/store/Providers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "../styles/global.css";
