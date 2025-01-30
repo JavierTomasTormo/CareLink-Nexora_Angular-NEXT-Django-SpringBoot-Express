@@ -5,6 +5,7 @@ import { fetchRooms, createNewRoom, updateExistingRoom, deleteExistingRoom } fro
 import { fetchActivities, createNewActivity, updateExistingActivity, deleteExistingActivity } from '@/store/slices/activitiesSlice';
 import { fetchBedRooms, createNewBedRoom, updateExistingBedRoom } from '@/store/slices/bedroomsSlice';
 import { fetchMeals, createNewMeal, updateExistingMeal } from '@/store/slices/mealsSlice';
+import { RoomData,ActivityData,BedRoomData,MealData } from '@/store/Constants';
 
 export const useStore = () => {
     const dispatch = useDispatch<AppDispatch>();
