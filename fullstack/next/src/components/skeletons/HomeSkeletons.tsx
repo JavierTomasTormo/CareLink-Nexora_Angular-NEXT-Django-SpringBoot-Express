@@ -56,3 +56,18 @@ export const BlogSkeleton = () => (
         </div>
     </div>
 );
+
+
+export const FreshActivitiesSkeleton = () => (
+    <div className={styles.freshWrapper}>
+        <div className={styles.freshHalf}>
+            <div className={styles.freshContent}>
+                <div className={styles.freshTitle}></div>
+                <div className={styles.freshText}></div>
+                <div className={styles.freshText}></div>
+                <div className={styles.freshButton}></div>
+            </div>
+        </div>
+        <div className={styles.freshImage}></div>
+    </div>
+);

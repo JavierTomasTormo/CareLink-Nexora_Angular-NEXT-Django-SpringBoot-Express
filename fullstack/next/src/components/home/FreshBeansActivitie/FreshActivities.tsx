@@ -1,8 +1,23 @@
 'use client';
-
+import { useState, useEffect } from 'react';
 import styles from '@/styles/home/FreshBeansActivitie/FreshActivities.module.css';
+import { FreshActivitiesSkeleton } from '@/components/skeletons/HomeSkeletons';
 
 const FreshActivities = () => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return <FreshActivitiesSkeleton />;
+    }
+    
     return (
         <div className={styles.half_sect}>
             <div className={styles.half_first}>
