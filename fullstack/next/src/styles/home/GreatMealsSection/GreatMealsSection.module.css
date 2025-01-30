@@ -1,0 +1,80 @@
+    .sect_great {
+        background-image: url('../../../../public/assets/defaultImages/GreatMealsDefault.jpeg'); /*https://image.ibb.co/kvDRDb/section_bg_10.jpg'*/
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-color: #fff;
+        padding: 130px 0;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    
+    .row {
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .content_wrapper {
+        width: 41.66667%;
+        margin-left: 50%;
+    }
+    
+    .description {
+        padding: 40px;
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .description_title {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 30px;
+        text-transform: uppercase;
+    }
+    
+    .description_p {
+        margin-bottom: 40px;
+        color: #767676;
+        line-height: 23px;
+        font-family: 'Nunito', sans-serif;
+    }
+    
+    .btn {
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        font-weight: 500;
+        background-color: #daa37f;
+        border-radius: 0;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    @media screen and (max-width: 991px) {
+        .content_wrapper {
+        width: 50%;
+        margin-left: 45%;
+        }
+    }
+    
+    @media screen and (max-width: 767px) {
+        .sect_great {
+        padding: 60px 0;
+        }
+        
+        .row {
+        justify-content: center;
+        }
+    
+        .content_wrapper {
+        width: 100%;
+        margin-left: 0;
+        }
+    }

@@ -13,9 +13,11 @@
     "axios": "^1.7.9",
     "embla-carousel": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
+    "framer-motion": "^12.0.6",
     "next": "15.1.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
     "react-redux": "^9.2.0",
     "react-scripts": "^5.0.1"
   },

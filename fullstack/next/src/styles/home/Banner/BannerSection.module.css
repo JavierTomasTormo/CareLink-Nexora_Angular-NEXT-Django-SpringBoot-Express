@@ -1,0 +1,90 @@
+    .banner {
+        background-image: url('../../../../public/assets/defaultImages/bannerDefault.jpeg');/*https://image.ibb.co/meT7Jb/header_bg_1.jpg*/
+        background-color: #000;
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        display: table;
+        width: 100%;
+        height: 100vh;
+        position: relative;
+    }
+    
+    .banner__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: table;
+        height: 100%;
+        text-align: center;
+        background-color: rgba(0,0,0,0.4);
+        animation: bannerIn 2s;
+    }
+    
+    .banner__container {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+    .banner__scroll_down {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        margin-left: -12px;
+        cursor: pointer;
+        animation: opacity 3s;
+    }
+    
+    .banner__title {
+        font-size: 56px;
+        color: #fff;
+        margin-top: 0;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+        font-weight: 500;
+        animation: opacity 3s;
+    }
+    
+    .banner__text {
+        font-size: 14px;
+        color: #fff;
+        margin: 0;
+        margin-bottom: 18px;
+        animation: opacity 3s;
+    }
+    
+    .btn {
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        font-weight: 500;
+        background-color: #daa37f;
+        border-radius: 0;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+    
+    .btn__opacity {
+        animation: opacity 3s;
+    }
+    
+    @keyframes bannerIn {
+        0% {  
+        background-color: rgba(0,0,0,1);
+        }
+        100% { 
+        background-color: rgba(0,0,0,0.5);
+        }
+    }
+    
+    @keyframes opacity {
+        0% {  
+        opacity: 0;
+        }
+        100% { 
+        opacity: 1;
+        }
+    }

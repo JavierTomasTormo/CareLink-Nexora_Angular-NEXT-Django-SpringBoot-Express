@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from '@/store';
 import SkeletonLoader from '@/utils/SkeletonLoader';
 import styles from '../../styles/home/CarrouselPrincipal.module.css';
-import CarrouselFloating from './CarrouselFloating';
+import CarrouselFloating from './OldHome/CarrouselFloating';
 import { CarouselPrincipalSkeleton } from '@/components/skeletons/CarouselSkeletons';
 import TestStores from './TestStores';
 

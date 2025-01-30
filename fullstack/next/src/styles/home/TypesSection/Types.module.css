@@ -1,0 +1,95 @@
+    .sect {
+        padding: 130px 0;
+        background-image: url('https://image.ibb.co/nNCuib/coffee_item_10.jpg'); /* https://image.ibb.co/nNCuib/coffee_item_10.jpg */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: #fff;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    
+    .row_center {
+        text-align: center;
+    }
+    
+    .col_intro {
+        display: inline-block;
+        float: none;
+        max-width: 500px;
+    }
+    
+    .row_small {
+        max-width: 960px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 65px;
+    }
+    
+    .coffee {
+        padding: 0 25px;
+        text-align: center;
+    }
+    
+    .coffee_img {
+        width: 90%;
+    }
+    
+    .coffee_name {
+        letter-spacing: 1px;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+    
+    .coffee_descr {
+        margin: 0;
+        line-height: 23px;
+        color: #767676;
+    }
+    
+    .sect_title {
+        margin-top: 0;
+        text-transform: uppercase;
+        line-height: 40px;
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+    
+    .sect_subtitle {
+        margin-bottom: 0;
+        color: #767676;
+    }
+    
+    .btn {
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 11px;
+        letter-spacing: 3px;
+        font-weight: 500;
+        background-color: #daa37f;
+        border-radius: 0;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 65px;
+    }
+    
+    @media screen and (max-width: 768px) {
+        .row_small {
+        grid-template-columns: 1fr;
+        }
+        
+        .coffee_img {
+        width: 35%;
+        }
+    }

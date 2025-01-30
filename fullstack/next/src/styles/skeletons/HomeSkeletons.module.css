@@ -1,0 +1,553 @@
+    @keyframes shimmer {
+        0% {
+        background-position: -1000px 0;
+        }
+        100% {
+        background-position: 1000px 0;
+        }
+    }
+    
+    .bannerWrapper {
+        width: 100%;
+        height: 100vh;
+        background: #f6f7f8;
+        position: relative;
+    }
+    
+    .bannerSkeleton {
+        height: 100%;
+        background: linear-gradient(
+        to right,
+        #f6f7f8 0%,
+        #edeef1 20%,
+        #f6f7f8 40%,
+        #f6f7f8 100%
+        );
+        background-size: 2000px 100%;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .bannerOverlay {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.1);
+    }
+    
+    .bannerContent {
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+    }
+    
+    .bannerTitle {
+        height: 60px;
+        background: rgba(255, 255, 255, 0.3);
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+    
+    .bannerText {
+        height: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        margin-bottom: 30px;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 4px;
+    }
+    
+    .bannerButton {
+        height: 40px;
+        background: rgba(255, 255, 255, 0.3);
+        width: 120px;
+        margin: 0 auto;
+        border-radius: 4px;
+    }
+  
+        
+        
+    .bestRoomsWrapper {
+        padding: 160px 0;
+        background: #f6f7f8;
+        min-height: 100vh;
+    }
+    
+    .bestRoomsContent {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 0 20px;
+    }
+    
+    .bestRoomsTitle {
+        height: 40px;
+        background: #eee;
+        margin-bottom: 40px;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .featuresGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin: 40px 0;
+    }
+    
+    .featureItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .featureIcon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #eee;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .featureTitle {
+        height: 20px;
+        width: 80%;
+        background: #eee;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .bestRoomsText {
+        height: 60px;
+        background: #eee;
+        margin: 30px auto;
+        width: 80%;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .bestRoomsButton {
+        height: 40px;
+        width: 200px;
+        background: #eee;
+        margin: 0 auto;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+
+    
+    .blogWrapper {
+        padding: 130px 0;
+        background: #ebebeb;
+    }
+    
+    .blogContainer {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    
+    .blogHeader {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    
+    .blogTitle {
+        height: 40px;
+        background: #ddd;
+        margin: 0 auto 20px;
+        width: 60%;
+        max-width: 400px;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .blogSubtitle {
+        height: 20px;
+        background: #ddd;
+        margin: 0 auto;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .blogGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    
+    .blogCard {
+        background: #fff;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    
+    .blogImageSkeleton {
+        width: 100%;
+        padding-bottom: 80%;
+        background: #ddd;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .blogContent {
+        padding: 25px 20px;
+    }
+    
+    .blogCardTitle {
+        height: 24px;
+        background: #ddd;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .blogCardDate {
+        height: 16px;
+        background: #ddd;
+        width: 30%;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .blogCardText {
+        height: 60px;
+        background: #ddd;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    @media screen and (max-width: 991px) {
+        .blogGrid {
+        grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media screen and (max-width: 767px) {
+        .blogGrid {
+        grid-template-columns: 1fr;
+        }
+    }
+
+    
+    .freshWrapper {
+        display: table;
+        width: 100%;
+    }
+    
+    .freshHalf {
+        width: 50%;
+        display: table-cell;
+        background: #f6f7f8;
+        padding: 150px;
+        vertical-align: middle;
+    }
+    
+    .freshContent {
+        max-width: 500px;
+    }
+    
+    .freshTitle {
+        height: 35px;
+        background: #eee;
+        margin-bottom: 30px;
+        width: 70%;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .freshText {
+        height: 20px;
+        background: #eee;
+        margin-bottom: 15px;
+        width: 100%;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .freshButton {
+        height: 40px;
+        width: 150px;
+        background: #eee;
+        margin-top: 30px;
+        border-radius: 4px;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    .freshImage {
+        width: 50%;
+        display: table-cell;
+        background: #eee;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    @media screen and (max-width: 991px) {
+        .freshHalf {
+        padding: 80px;
+        }
+    }
+    
+    @media screen and (max-width: 767px) {
+        .freshWrapper {
+        display: block;
+        }
+        
+        .freshHalf,
+        .freshImage {
+        width: 100%;
+        display: block;
+        }
+        
+        .freshHalf {
+        padding: 50px;
+        }
+        
+        .freshImage {
+        height: 300px;
+        }
+    }
+
+        
+    .galleryWrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+    }
+    
+    .galleryImageSkeleton {
+        height: 0;
+        padding-bottom: 33.3%;
+        background: #eee;
+        animation: shimmer 2s infinite linear;
+    }
+    
+    @media screen and (max-width: 767px) {
+        .galleryImageSkeleton {
+        padding-bottom: 60%;
+        }
+    }
+
+
+        .greatMealsWrapper {
+            padding: 130px 0;
+            background: #f6f7f8;
+            position: relative;
+            animation: shimmerBackground 2s infinite linear;
+        }
+        
+        .greatMealsContainer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .greatMealsRow {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .greatMealsContent {
+            width: 41.66667%;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-left: 50%;
+        }
+        
+        .greatMealsTitle {
+            height: 35px;
+            background: #eee;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        .greatMealsText {
+            height: 20px;
+            background: #eee;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        .greatMealsButton {
+            height: 40px;
+            width: 120px;
+            background: #eee;
+            margin-top: 30px;
+            border-radius: 4px;
+            animation: shimmer 2s infinite linear;
+        }
+        
+        @keyframes shimmerBackground {
+            0% {
+            background-color: #f6f7f8;
+            }
+            50% {
+            background-color: #eee;
+            }
+            100% {
+            background-color: #f6f7f8;
+            }
+        }
+        
+        @media screen and (max-width: 991px) {
+            .greatMealsContent {
+            width: 50%;
+            margin-left: 45%;
+            }
+        }
+        
+        @media screen and (max-width: 767px) {
+            .greatMealsContent {
+            width: 100%;
+            margin-left: 0;
+            }
+        }
+
+
+            .storyWrapper {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .storyBrown {
+                padding: 130px 0;
+                background-color: #1d140b;
+            }
+            
+            .storyContainer {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 15px;
+            }
+            
+            .storyCenter {
+                display: flex;
+                justify-content: center;
+            }
+            
+            .storyContent {
+                max-width: 500px;
+                width: 100%;
+            }
+            
+            .storyTitle {
+                height: 40px;
+                background: rgba(255, 255, 255, 0.1);
+                margin-bottom: 30px;
+                border-radius: 4px;
+                animation: shimmer 2s infinite linear;
+            }
+            
+            .storyText {
+                height: 20px;
+                background: rgba(255, 255, 255, 0.1);
+                margin-bottom: 15px;
+                border-radius: 4px;
+                animation: shimmer 2s infinite linear;
+            }
+            
+            .storyImageSkeleton {
+                height: 0;
+                padding-bottom: 52%;
+                background: #eee;
+                animation: shimmer 2s infinite linear;
+            }
+            
+            @media screen and (max-width: 767px) {
+                .storyBrown {
+                padding: 80px 0;
+                }
+            }
+
+
+                .typesWrapper {
+                    padding: 130px 0;
+                    background: #fff;
+                }
+                
+                .typesContainer {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 0 15px;
+                }
+                
+                .typesHeader {
+                    text-align: center;
+                    margin-bottom: 65px;
+                }
+                
+                .typesTitle {
+                    height: 40px;
+                    background: #eee;
+                    margin: 0 auto 20px;
+                    width: 60%;
+                    max-width: 400px;
+                    border-radius: 4px;
+                    animation: shimmer 2s infinite linear;
+                }
+                
+                .typesSubtitle {
+                    height: 20px;
+                    background: #eee;
+                    margin: 0 auto;
+                    width: 80%;
+                    max-width: 600px;
+                    border-radius: 4px;
+                    animation: shimmer 2s infinite linear;
+                }
+                
+                .typesGrid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 30px;
+                    max-width: 960px;
+                    margin: 0 auto;
+                }
+                
+                .typeCard {
+                    padding: 0 25px;
+                    text-align: center;
+                }
+                
+                .typeImageSkeleton {
+                    width: 90%;
+                    height: 0;
+                    padding-bottom: 90%;
+                    margin: 0 auto;
+                    background: #eee;
+                    border-radius: 50%;
+                    animation: shimmer 2s infinite linear;
+                }
+                
+                .typeTitle {
+                    height: 24px;
+                    background: #eee;
+                    margin: 25px auto 15px;
+                    width: 70%;
+                    border-radius: 4px;
+                    animation: shimmer 2s infinite linear;
+                }
+                
+                .typeDescription {
+                    height: 60px;
+                    background: #eee;
+                    margin: 0 auto;
+                    border-radius: 4px;
+                    animation: shimmer 2s infinite linear;
+                }
+                
+                @media screen and (max-width: 767px) {
+                    .typesGrid {
+                    grid-template-columns: 1fr;
+                    }
+                
+                    .typeImageSkeleton {
+                    width: 35%;
+                    padding-bottom: 35%;
+                    }
+                }

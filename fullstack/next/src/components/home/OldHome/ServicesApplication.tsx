@@ -3,7 +3,7 @@
 import React, { useState,useEffect } from 'react';
 import Image from 'next/image';
 import styles from '../../styles/home/ServicesApplication.module.css';
-import { ServicesApplicationSkeleton } from '../skeletons/CarouselSkeletons';
+import { ServicesApplicationSkeleton } from '../../skeletons/CarouselSkeletons';
 
 interface Service {
   id: number;
