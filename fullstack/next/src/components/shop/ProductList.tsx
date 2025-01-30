@@ -1,47 +1,170 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import SkeletonLoader from '@/utils/SkeletonLoader';
+import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 import styles from '@/styles/shop/productList.module.css';
 
 interface Product {
-  id: number;
-  name: string;
-  price: string;
-  image: string;
+    id: string;
+    name: string;
+    title: string;
+    price: string;
+    description: string;
+    subtitle: string;
+    bgImage: string;
+    productImage: string;
 }
 
-const ProductList: React.FC = () => {
-  const [products, setProducts] = useState<Product[] | null>(null);
+const products: Product[] = [
+  // {
+  //   id: 'beach',
+  //   name: 'Closca Bottle',
+  //   title: 'Beach',
+  //   price: '€ 39.90',
+  //   description: 'In 20 years, there could be more plastic in our oceans than fish.',
+  //   subtitle: 'Plastic pollution injures more than 100.000 marine animals every year.',
+  //   bgImage: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=2902&auto=format&fit=crop',
+  //   productImage: 'https://cdn-icons-png.flaticon.com/512/6556/6556349.png'
+  // },
+  // {
+  //   id: 'mountain',
+  //   name: 'Closca Bottle',
+  //   title: 'Mountain',
+  //   price: '€ 42.90',
+  //   description: 'Stay hydrated on your mountain adventures.',
+  //   subtitle: 'Perfect companion for hiking and outdoor activities.',
+  //   bgImage: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2940',
+  //   productImage: 'https://www.designforfinland.com/product-images/Closca_Bottle_Wave_Forest_450ml_Close.png'
+  // },
+  // {
+  //   id: 'urban',
+  //   name: 'Closca Bottle',
+  //   title: 'Urban',
+  //   price: '€ 37.90',
+  //   description: 'Designed for the modern city lifestyle.',
+  //   subtitle: 'Sleek and practical for your daily commute.',
+  //   bgImage: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=2940',
+  //   productImage: 'https://pngimg.com/d/kebab_PNG22.png'
+  // }
+  {
+    id: 'beach',
+    name: 'Beach',
+    title: 'Beach',
+    price: '€ 39.90',
+    description: 'In 20 years, there could be more plastic in our oceans than fish.',
+    subtitle: 'Plastic pollution injures more than 100,000 marine animals every year.',
+    bgImage: 'https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=2902&auto=format&fit=crop',
+    productImage: 'https://www.designforfinland.com/product-images/Closca_Bottle_Wave_Antarctica_450ml_Close.png/2083089000004207012/1100x1100',
+  },
+  {
+    id: 'savanna',
+    name: 'Savanna',
+    title: 'Savanna',
+    price: '€ 35.90',
+    description: 'Plastic pollution injures more than 100,000 marine animals every year.',
+    subtitle: 'Help protect wildlife and their habitats',
+    bgImage: 'https://images.unsplash.com/photo-1613109526778-27605f1f27d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
+    productImage: 'https://fnac.sa/cdn/shop/files/Closca_Bottle_Wave_Sahara_600ml_Close.png?v=1703675684',
+  },
+  {
+    id: 'glacier',
+    name: 'Glacier',
+    title: 'Glacier',
+    price: '€ 29.90',
+    description: 'A sustainable bottle for your everyday adventures.',
+    subtitle: 'Perfect for cold drinks and outdoor activities',
+    bgImage: 'https://media.istockphoto.com/id/930588118/es/foto/glaciar-de-glacier-bay-alaska.jpg?s=612x612&w=0&k=20&c=NwFSOk29EmOZ6R2xOdky-a6ZfTPOccCJTt1Gi-ALuBw=',
+    productImage: 'https://gomagcdn.ro/domains/alty.ro/files/product/original/sticla-reutilizabila-apa-closca-glacier-copie-848-7049.png',
+  },
+  {
+    id: 'desert',
+    name: 'Closca Bottle',
+    title: 'Desert',
+    price: '€ 34.90',
+    description: 'Help reduce the impact of single-use plastics.',
+    subtitle: 'Sustainable hydration for hot climates',
+    bgImage: 'https://images.unsplash.com/photo-1546500840-ae38253aba9b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3260&q=80',
+    productImage: 'https://fnac.sa/cdn/shop/files/Closca_Bottle_Wave_Arizona_600ml_Close.png?v=1703675684&width=1946',
+  },];
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const data = [
-        { id: 1, name: 'Producto 1', price: '$100', image: '/images/product1.jpg' },
-        { id: 2, name: 'Producto 2', price: '$200', image: '/images/product2.jpg' },
-        { id: 3, name: 'Producto 3', price: '$300', image: '/images/product3.jpg' },
-      ];
-      setTimeout(() => setProducts(data), 2000); // Simula retraso de carga
-    };
-
-    fetchProducts();
-  }, []);
+const ProductList = () => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   return (
-    <div className={styles.productList}>
-      {products ? (
-        products.map((product) => (
-          <div key={product.id} className={styles.product}>
-            <img src={product.image} alt={product.name} />
-            <h3>{product.name}</h3>
-            <p>{product.price}</p>
-          </div>
-        ))
-      ) : (
-        <SkeletonLoader type="card" count={3} />
-      )}
+    <div className={styles.container}>
+        <header className={styles.header}>
+            <div className={styles.logo}>VitalNest</div>
+            <div className={styles.headerMenu}>
+                <span className={styles.menuItem}>Products</span>
+                <span className={styles.menuItem}>Story</span>
+                <span className={styles.menuItem}>Manufacturing</span>
+                <span className={styles.menuItem}>Packaging</span>
+            </div>
+        </header>
+
+        <div className={styles.main}>
+            <div className={styles.leftSide}>
+                <div className={styles.mainWrapper}>
+                    <h3 className={styles.mainHeader}>{products[activeSlide].name}</h3>
+                    <h1 className={styles.mainTitle}>{products[activeSlide].title}</h1>
+                    <h2 className={styles.mainSubtitle}>{products[activeSlide].price}</h2>
+                </div>
+                <div className={styles.mainContent}>
+                    <h3 className={styles.mainContentTitle}>{products[activeSlide].description}</h3>
+                    <p className={styles.mainContentSubtitle}>{products[activeSlide].subtitle}</p>
+                </div>
+            </div>
+
+<Swiper
+  modules={[Navigation, Pagination, EffectFade]}
+  effect="fade"
+  loop={true}
+  speed={600}
+  onSlideChange={(swiper) => {
+    setActiveSlide(swiper.realIndex);
+  }}
+  className={styles.mySwiper}
+>
+  {products.map((product) => (
+    <SwiperSlide key={product.id}>
+      <div className={styles.center}>
+        <img 
+          className={styles.bottleBg}
+          src={product.bgImage}
+          alt=""
+        />
+        <img 
+          className={`${styles.bottleImg} ${activeSlide !== products.indexOf(product) ? styles.hidden : ''}`}
+          src={product.productImage}
+          alt={product.title}
+        />
+      </div>
+    </SwiperSlide>
+  ))}
+</Swiper>
+
+            <div className={styles.buttonWrapper}>
+                <button className={`${styles.swiperButton} ${styles.swiperPrevButton}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <button className={`${styles.swiperButton} ${styles.swiperNextButton}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+            </div>
+            <div className={styles.swiperPagination}></div>
+        </div>
     </div>
-  );
+);
 };
 
 export default ProductList;
