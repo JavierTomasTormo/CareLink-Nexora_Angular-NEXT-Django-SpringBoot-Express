@@ -1,10 +1,23 @@
     .sect {
         padding: 130px 0;
-        background-image: url('https://image.ibb.co/nNCuib/coffee_item_10.jpg'); /* https://image.ibb.co/nNCuib/coffee_item_10.jpg */
+        background-image: linear-gradient(to bottom, 
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0.9) 10%,
+            rgba(255, 255, 255, 0.7) 30%,
+            rgba(255, 255, 255, 0.5) 40%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 255, 255, 0.5) 60%,
+            rgba(255, 255, 255, 0.7) 70%,
+            rgba(255, 255, 255, 0.9) 90%,
+            rgb(255, 255, 255, 1) 100%),
+            url('https://image.ibb.co/nNCuib/coffee_item_10.jpg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        background-color: #fff;
+        background-color: transparent;
+        position: relative;
+        margin-top: -100px;
+        z-index: 1;
     }
     
     .container {
@@ -39,6 +52,11 @@
     
     .coffee_img {
         width: 90%;
+        transition: transform 0.3s ease;
+    }
+    
+    .coffee_img:hover {
+        transform: translateY(-10px);
     }
     
     .coffee_name {
@@ -82,6 +100,11 @@
         text-decoration: none;
         display: inline-block;
         margin-top: 65px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+        background-color: #c28b6b;
     }
     
     @media screen and (max-width: 768px) {
