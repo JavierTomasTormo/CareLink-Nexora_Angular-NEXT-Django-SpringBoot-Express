@@ -33,4 +33,6 @@ urlpatterns = [
     path('api/', include('vitalnest.timetables.hour.urls')),
     path('api/', include('vitalnest.timetables.month.urls')),
     path('api/', include('vitalnest.timetables.year.urls')),
+    # AUTH #####################
+    path('api/', include('vitalnest.auth.tutor.register.urls')),
 ]

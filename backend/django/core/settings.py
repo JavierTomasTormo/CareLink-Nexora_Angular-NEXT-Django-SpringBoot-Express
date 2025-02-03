@@ -71,9 +71,23 @@ INSTALLED_APPS = [
     'vitalnest.payments.cancelation.apps.CancelationConfig',
 
     # Auth ##################
-    # 'vitalnest.auth.tutor.register.apps.RegisterConfig',
+    'vitalnest.auth.tutor.register.apps.RegisterConfig',
 
 ]
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher', 
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',    
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher', 
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher', 
+    'django.contrib.auth.hashers.ScryptPasswordHasher',    
+]
+ARGON2_PARAMETERS = {
+    'time_cost': 4,  
+    'memory_cost': 102400,  
+    'parallelism': 8, 
+}
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
