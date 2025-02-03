@@ -48,7 +48,7 @@ export default function HomePage() {
       <FreshActivities />
       <GreatMealsSection />
       <BestRoomsSection />
-      <GallerySection />
+      {/* <GallerySection /> */}
       <BlogSection />
     </>
   );

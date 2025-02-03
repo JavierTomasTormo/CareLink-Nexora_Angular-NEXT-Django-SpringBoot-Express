@@ -71,7 +71,7 @@ INSTALLED_APPS = [
     'vitalnest.payments.cancelation.apps.CancelationConfig',
 
     # Auth ##################
-    'vitalnest.auth.tutor.register.apps.RegisterConfig',
+    # 'vitalnest.auth.tutor.register.apps.RegisterConfig',
 
 ]
 
