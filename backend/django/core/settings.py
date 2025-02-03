@@ -70,6 +70,9 @@ INSTALLED_APPS = [
     'vitalnest.payments.inscription.apps.InscriptionConfig',
     'vitalnest.payments.cancelation.apps.CancelationConfig',
 
+    # Auth ##################
+    'vitalnest.auth.tutor.register.apps.RegisterConfig',
+
 ]
 
 CORS_ALLOWED_ORIGINS = [
