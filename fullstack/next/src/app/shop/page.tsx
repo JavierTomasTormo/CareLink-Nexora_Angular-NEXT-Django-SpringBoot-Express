@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import ListActivities from '@/components/shop/ListActivities';
 import styles from '@/styles/shop/shop.module.css';
+// import ProductList from '@/components/shop/ProductList';
 
 export default function ShopPage() {
   return (
@@ -18,7 +19,8 @@ export default function ShopPage() {
       </Head>
       <div className={styles.shop}>
         <h1>Tienda de VitalNest</h1>
-        <ListActivities />
+        {/* <ProductList /> */}
+        {/* <ListActivities /> */}
       </div>
     </>
   );
