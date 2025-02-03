@@ -72,6 +72,7 @@ INSTALLED_APPS = [
 
     # Auth ##################
     'vitalnest.auth.tutor.register.apps.RegisterConfig',
+    'vitalnest.auth.tutor.login.apps.LoginConfig',
 
 ]
 
