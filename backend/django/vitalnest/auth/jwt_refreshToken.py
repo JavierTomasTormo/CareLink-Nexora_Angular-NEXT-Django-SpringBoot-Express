@@ -21,7 +21,7 @@ def generate_refresh_token(user):
     
     refresh_token = jwt.encode(
         payload,
-        settings.SECRET_KEY,
+        settings.SECRET_KEY_JWT_REFRESH_TOKEN,
         algorithm='HS256'
     )
 

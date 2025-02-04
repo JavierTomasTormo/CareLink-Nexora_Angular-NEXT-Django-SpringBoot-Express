@@ -18,7 +18,7 @@ def verify_refresh_token(token):
             print("Token no encontrado en RefreshToken")
             return "El Token no se encuentra en RefreshToken"
 
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+        payload = jwt.decode(token, settings.SECRET_KEY_JWT_REFRESH_TOKEN, algorithms=['HS256'])
 
         if datetime.fromtimestamp(payload['exp']) < datetime.utcnow():
             stored_token.delete()
@@ -38,7 +38,7 @@ def verify_refresh_token(token):
     except jwt.ExpiredSignatureError:
 
         try:
-            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'], options={"verify_exp": False})
+            payload = jwt.decode(token, settings.SECRET_KEY_JWT_REFRESH_TOKEN, algorithms=['HS256'], options={"verify_exp": False})
             user = User.objects.get(id=payload['id_user'])
             BlackList.objects.create(
                 id_user=user,
