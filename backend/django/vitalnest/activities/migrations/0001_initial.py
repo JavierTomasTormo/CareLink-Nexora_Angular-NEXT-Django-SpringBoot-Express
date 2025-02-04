@@ -38,6 +38,7 @@ class Migration(migrations.Migration):
                 ('id_hour', models.ForeignKey(blank=True, db_column='id_hour', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='activities_by_hour', to='hour.hour')),
                 ('id_month', models.ForeignKey(blank=True, db_column='id_month', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='activities_by_month', to='month.month')),
                 ('id_year', models.ForeignKey(blank=True, db_column='id_year', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='activities_by_year', to='year.year')),
+                ('activity_type', models.SmallIntegerField(choices=[(1, 'Cuidados'), (2, 'Exteriores'), (3, 'Rehabilitaciónes'), (4, 'Relajación'), (5, 'Educación')])),
             ],
             options={
                 'db_table': 'activities',

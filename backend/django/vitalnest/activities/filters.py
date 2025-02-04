@@ -10,6 +10,9 @@ class JSONContainsFilter(filters.CharFilter):
 
 class ActivityFilter(filters.FilterSet):
     caracteristics = JSONContainsFilter(field_name='caracteristics')
+    
+    # Nuevo filtro para activity_type
+    activity_type = filters.NumberFilter(field_name='activity_type')
 
     class Meta:
         model = Activity
@@ -22,6 +25,7 @@ class ActivityFilter(filters.FilterSet):
             'duration': ['exact', 'gte', 'lte'],
             'price': ['exact', 'gte', 'lte'],
             'name_activitie': ['exact', 'icontains'],
+            'activity_type': ['exact'],  # Agregado el filtro por activity_type
         }
         filter_overrides = {
             JSONField: {
