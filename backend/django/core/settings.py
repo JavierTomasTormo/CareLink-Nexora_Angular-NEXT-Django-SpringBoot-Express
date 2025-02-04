@@ -1,4 +1,11 @@
 from pathlib import Path
+import os
+from datetime import timedelta
+from dotenv import load_dotenv
+
+# Cargar variables de entorno
+load_dotenv()
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -71,9 +78,36 @@ INSTALLED_APPS = [
     'vitalnest.payments.cancelation.apps.CancelationConfig',
 
     # Auth ##################
-    # 'vitalnest.auth.tutor.register.apps.RegisterConfig',
+    'vitalnest.auth.tutor.register.apps.RegisterConfig',
+    'vitalnest.auth.tutor.login.apps.LoginConfig',
 
 ]
+
+# JWT Settings
+SECRET_KEY_JWT = os.getenv('DJANGO_SECRET_KEY')
+
+SECRET_KEY_JWT_REFRESH_TOKEN = os.getenv('DJANGO_REFRESH_SECRET_KEY')
+
+JWT_AUTH = {
+    'JWT_SECRET_KEY': SECRET_KEY_JWT,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_EXPIRATION_DELTA': timedelta(hours=2),
+}
+
+# Argon2 Settings
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher', 
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',    
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher', 
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher', 
+    'django.contrib.auth.hashers.ScryptPasswordHasher',    
+]
+ARGON2_PARAMETERS = {
+    'time_cost': 4,  
+    'memory_cost': 102400,  
+    'parallelism': 8, 
+}
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -89,6 +123,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    
+    'vitalnest.middlewares.verify_token.VerifyTokenMiddleware',  
 ]
 
 ROOT_URLCONF = 'core.urls'

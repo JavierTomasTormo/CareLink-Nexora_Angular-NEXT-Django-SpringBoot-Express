@@ -145,13 +145,46 @@ graph TB
 ## 🛠️ Instalación y Configuración
 
 ### Requisitos del Sistema
+
+#### Lenguajes y Runtimes
 | Componente | Versión | Descripción |
 |------------|---------|-------------|
-| Node.js    | ≥16.x   | Runtime JS  |
-| Python     | ≥3.8    | Backend     |
-| Java       | ≥11     | Backend     |
-| PostgreSQL | ≥13     | Base datos  |
-| Redis      | Latest  | Cache       |
+| Node.js    | ≥16.x   | Runtime para aplicaciones JavaScript |
+| Python     | ≥3.9    | Backend Django REST Framework |
+| Java       | ≥17     | Backend Spring Boot |
+| TypeScript | ≥4.x    | Tipado estático para JavaScript |
+
+#### Frameworks y Librerías
+| Componente | Versión | Descripción |
+|------------|---------|-------------|
+| Angular    | ≥19.x   | Framework frontend |
+| React      | ≥18.x   | Librería frontend |
+| Next.js    | ≥13.x   | Framework React SSR |
+| Django     | ≥4.x    | Framework Python |
+| Spring Boot| ≥3.x    | Framework Java |
+| Express    | ≥4.x    | Framework Node.js |
+
+#### Bases de Datos y Cache
+| Componente | Versión | Descripción |
+|------------|---------|-------------|
+| PostgreSQL | ≥13     | Base de datos principal |
+| Redux      | ≥7.x    | Sistema de store |
+
+#### Herramientas de Desarrollo
+| Componente | Versión | Descripción |
+|------------|---------|-------------|
+| Docker     | ≥20.x   | Contenedorización |
+| Git        | ≥2.x    | Control de versiones |
+| npm/yarn   | ≥8.x    | Gestores de paquetes JS |
+| pip        | ≥22.x   | Gestor de paquetes Python |
+| Gradle      | ≥3.x    | Gestor de dependencias Java |
+
+#### Seguridad y Autenticación
+| Componente | Versión | Descripción |
+|------------|---------|-------------|
+| JWT        | ≥9.x    | Tokens de autenticación |
+| Argon2     | ≥21.x   | Hashing de contraseñas |
+| OAuth2     | ≥2.0    | Protocolo de autorización |
 
 ### 🚀 Inicio Rápido con Docker
 
