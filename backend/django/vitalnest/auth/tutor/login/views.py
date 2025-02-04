@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from vitalnest.usertype.user.models import User
 import json
+from vitalnest.auth.jwt_accessToken import generate_access_token
 
 @method_decorator(csrf_exempt, name='dispatch')
 class LoginTutorView(View):
@@ -28,6 +29,7 @@ class LoginTutorView(View):
                         'status': 'success',
                         'message': 'Login successful',
                         'user': {
+                            'id_user': user.id,
                             'email': user.email,
                             'name': user.name,
                             'isactive': user.isactive,
