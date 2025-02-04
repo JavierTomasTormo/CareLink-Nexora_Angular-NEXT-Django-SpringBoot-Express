@@ -4,7 +4,7 @@ from django.conf import settings
 
 def generate_access_token(user):
     payload = {
-        'user_id': user.id,
+        'id_user': user.id,
         'email': user.email,
         'exp': datetime.utcnow() + timedelta(hours=2),
         'iat': datetime.utcnow()
