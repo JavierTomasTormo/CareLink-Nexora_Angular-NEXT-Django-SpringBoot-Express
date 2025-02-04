@@ -27,7 +27,21 @@ class VerifyTokenMiddleware:
             '/api/rooms/room/',
             '/api/rooms/room/'
         ]
-        
+                # Rutas protegidas que requieren token
+        protected_paths = [
+            # Protected endpoints for Create, Update, Delete operations
+            '/api/activities/',  # POST (create)
+            '/api/activities/',  # PUT/PATCH/DELETE
+            
+            '/api/rooms/bedroom/',  # POST (create)
+            '/api/rooms/bedroom/',  # PUT/PATCH/DELETE
+            
+            '/api/food/meals/',  # POST (create)
+            '/api/food/meals/',  # PUT/PATCH/DELETE
+            
+            '/api/rooms/room/',  # POST (create)
+            '/api/rooms/room/'   # PUT/PATCH/DELETE
+        ]
 
 
         # Si la ruta es pública, permitir acceso sin token
