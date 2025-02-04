@@ -32,8 +32,13 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/shop" className={styles.navLink}>
+              <Link href="/shop?activity_type=" className={styles.navLink}>
                 Actividades
+              </Link>
+            </li>
+            <li className={styles.navItem}>
+              <Link href="/meals?type_meal=1" className={styles.navLink}>
+                Menús
               </Link>
             </li>
           </ul>

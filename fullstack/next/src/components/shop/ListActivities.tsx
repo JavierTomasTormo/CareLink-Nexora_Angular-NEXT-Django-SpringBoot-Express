@@ -1,21 +1,20 @@
-"use client";
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { ActivityData } from '@/store/Constants';
 import { 
   fetchActivities, 
-  selectAllActivities, 
+  selectFilteredActivities, // Usar el selector para actividades filtradas
   selectActivitiesStatus, 
-  selectActivitiesError 
+  selectActivitiesError, 
+  filterActivitiesByType // Importar la acción de filtrado
 } from '@/store/slices/activitiesSlice';
 import SkeletonLoader from '@/utils/SkeletonLoader';
 import styles from '@/styles/shop/ListActivities.module.css';
 
 const ListActivities: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const activities = useSelector(selectAllActivities);
+  const activities = useSelector(selectFilteredActivities);  // Obtener actividades filtradas
   const status = useSelector(selectActivitiesStatus);
   const error = useSelector(selectActivitiesError);
 
@@ -68,53 +67,53 @@ const ListActivities: React.FC = () => {
   }
 
   return (
-      <div className={styles.activitiesGrid}>
-        {activities.map((activity: ActivityData) => (
-          <article key={activity.id} className={styles.activityCard}>
-            <div className={styles.activityHeader}>
-              <h3 className={styles.activityTitle}>{activity.name_activitie}</h3>
-              <span className={styles.activityPrice}>${activity.price || 0}</span>
+    <div className={styles.activitiesGrid}>
+      {activities.map((activity: ActivityData) => (
+        <article key={activity.id} className={styles.activityCard}>
+          <div className={styles.activityHeader}>
+            <h3 className={styles.activityTitle}>{activity.name_activitie}</h3>
+            <span className={styles.activityPrice}>${activity.price || 0}</span>
+          </div>
+          <div className={styles.activityContent}>
+            <p className={styles.activityDescription}>
+              {activity.description || 'Sin descripción disponible'}
+            </p>
+            <div className={styles.activityImages}>
+              {activity.images && activity.images.length > 0 ? (
+                activity.images.map((image, index) => (
+                  <img 
+                    key={index} 
+                    src={`/assets/shop/activities/${image.img}`} 
+                    alt={activity.name_activitie} 
+                    className={styles.activityImage} 
+                  />
+                ))
+              ) : (
+                <p>No hay imágenes disponibles</p>
+              )}
             </div>
-            <div className={styles.activityContent}>
-              <p className={styles.activityDescription}>
-                {activity.description || 'Sin descripción disponible'}
-              </p>
-              <div className={styles.activityImages}>
-                {activity.images && activity.images.length > 0 ? (
-                  activity.images.map((image, index) => (
-                    <img 
-                      key={index} 
-                      src={`/assets/shop/activities/${image.img}`} 
-                      alt={activity.name_activitie} 
-                      className={styles.activityImage} 
-                    />
-                  ))
-                ) : (
-                  <p>No hay imágenes disponibles</p>
-                )}
-              </div>
-              <div className={styles.activityMeta}>
-                <div className={styles.durationBadge}>
-                  <span className={styles.durationIcon}>⏱</span>
-                  <span>{activity.duration} minutos</span>
-                </div>
-              </div>
-              <div className={styles.tagsContainer}>
-                {Array.isArray(activity.caracteristics?.tags) && activity.caracteristics?.tags.length > 0 ? (
-                  activity.caracteristics.tags.map((tag: string, index: number) => (
-                    <span key={index} className={styles.tag}>{tag}</span>
-                  ))
-                ) : (
-                  <span className={styles.noTags}>Sin etiquetas</span>
-                )}
+            <div className={styles.activityMeta}>
+              <div className={styles.durationBadge}>
+                <span className={styles.durationIcon}>⏱</span>
+                <span>{activity.duration} minutos</span>
               </div>
             </div>
-            <button className={styles.actionButton}>
-              Ver más detalles
-            </button>
-          </article>
-        ))}
-      </div>
+            <div className={styles.tagsContainer}>
+              {Array.isArray(activity.caracteristics?.tags) && activity.caracteristics?.tags.length > 0 ? (
+                activity.caracteristics.tags.map((tag: string, index: number) => (
+                  <span key={index} className={styles.tag}>{tag}</span>
+                ))
+              ) : (
+                <span className={styles.noTags}>Sin etiquetas</span>
+              )}
+            </div>
+          </div>
+          <button className={styles.actionButton}>
+            Ver más detalles
+          </button>
+        </article>
+      ))}
+    </div>
   );
 };
 

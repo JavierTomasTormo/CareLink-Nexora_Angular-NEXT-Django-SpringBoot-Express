@@ -18,6 +18,16 @@ class Activity(models.Model):
     max_participants = models.IntegerField()
     capacity = models.IntegerField()
     duration = models.IntegerField()
+    
+    # Nuevo campo activity_type
+    TYPE_CHOICES = [
+        (1, "Cuidados"),
+        (2, "Exteriores"),
+        (3, "Rehabilitaciónes"),
+        (4, "Relajación"),
+        (5, "Educación"),
+    ]
+    activity_type = models.SmallIntegerField(choices=TYPE_CHOICES)
 
     class Meta:
         ordering = ['-createdat']

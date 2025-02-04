@@ -1,51 +1,61 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMeals, selectAllMeals, selectMealsStatus, selectMealsError } from "@/store/slices/mealsSlice";
 import styles from "@/styles/meals/Meals.module.css";
-
-interface Meal {
-  id: number;
-  img: string;
-  name: string;
-  description: string;
-  calories: number;
-  type_meal: string[]; // Aseguramos que sea un array de strings
-}
 
 interface MealsProps {
   typeMeal: string;
+  minCalories: number;
+  maxCalories: number;
+  allergens: string[];
+  role: string;
 }
 
-const Meals = ({ typeMeal }: MealsProps) => {
-  const [meals, setMeals] = useState<Meal[]>([]);
-  const [loading, setLoading] = useState(true);
+interface Meal {
+  id: string;
+  type_meal: string[];
+  calories: number;
+  allergens: { [key: string]: boolean };
+  role: { [key: string]: boolean };
+  name: string;
+  description: string;
+  img: string;
+}
+
+const Meals = ({ typeMeal, minCalories, maxCalories, allergens, role }: MealsProps) => {
+  const dispatch = useDispatch();
+  const meals = useSelector(selectAllMeals);
+  const mealsStatus = useSelector(selectMealsStatus);
+  const mealsError = useSelector(selectMealsError);
 
   useEffect(() => {
-    const fetchMeals = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/api/food/meals/");
-        const filteredMeals = response.data.filter((meal: Meal) =>
-          Array.isArray(meal.type_meal) && meal.type_meal.includes(typeMeal)
-        );
-        setMeals(filteredMeals);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching meals:", error);
-        setLoading(false);
-      }
-    };
+    if (mealsStatus === 'idle') {
+      dispatch(fetchMeals() as any);
+    }
+  }, [mealsStatus, dispatch]);
 
-    fetchMeals();
-  }, [typeMeal]);
+  const filteredMeals = meals.filter((meal) =>
+    Array.isArray(meal.type_meal) &&
+    meal.type_meal.includes(typeMeal) &&
+    meal.calories >= minCalories &&
+    meal.calories <= maxCalories &&
+    !allergens.some((allergen) => meal.allergens[allergen as keyof typeof meal.allergens]) &&
+    (role === "" || meal.role[role as keyof typeof meal.role])
+  );
 
-  if (loading) {
+  if (mealsStatus === 'loading') {
     return <div>Loading...</div>;
+  }
+
+  if (mealsStatus === 'failed') {
+    return <div>Error: {mealsError}</div>;
   }
 
   return (
     <div className={styles.mealsContainer}>
-      {meals.map((meal) => (
+      {filteredMeals.map((meal) => (
         <div key={meal.id} className={styles.mealCard}>
           <img src={`assets/shop/meals/specific/${meal.img}`} alt={meal.name} className={styles.mealImage} />
           <div className={styles.mealDetails}>

@@ -64,7 +64,8 @@ export interface ActivityData {
   max_participants: number;
   capacity: number;
   duration: number;
-  images?: { img: string }[];  // Nueva propiedad `images`, opcional
+  activity_type: number;
+  images?: { img: string }[];
 }
 
 export interface MealData {
