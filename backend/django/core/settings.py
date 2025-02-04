@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from datetime import timedelta
 from dotenv import load_dotenv
 
 # Cargar variables de entorno
@@ -83,10 +84,10 @@ INSTALLED_APPS = [
 ]
 
 # JWT Settings
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+SECRET_KEY_JWT = os.getenv('DJANGO_SECRET_KEY')
 
 JWT_AUTH = {
-    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_SECRET_KEY': SECRET_KEY_JWT,
     'JWT_ALGORITHM': 'HS256',
     'JWT_EXPIRATION_DELTA': timedelta(hours=2),
 }

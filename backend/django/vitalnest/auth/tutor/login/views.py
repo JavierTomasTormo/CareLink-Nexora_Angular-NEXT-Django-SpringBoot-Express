@@ -25,6 +25,11 @@ class LoginTutorView(View):
                 # Verificar password
                 if check_password(password, user.password):
                     print("DEBUG - Password check: Valid")
+
+                    # Generar token
+                    access_token = generate_access_token(user)
+                    print("DEBUG - Access token generated", access_token)
+                    
                     return JsonResponse({
                         'status': 'success',
                         'message': 'Login successful',
@@ -38,7 +43,9 @@ class LoginTutorView(View):
                             'phone_number': user.phone_number,
                             'address': user.address,
                             'profile_img': user.profile_img
-                        }
+                        },
+                        'access_token': access_token['token'],
+                        'role': access_token['role']
                     }, status=200)
                 else:
                     print("DEBUG - Password check: Invalid")
