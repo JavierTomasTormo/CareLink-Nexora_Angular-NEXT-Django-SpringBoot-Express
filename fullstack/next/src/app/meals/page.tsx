@@ -7,6 +7,7 @@ import styles from "@/styles/shop/shop.module.css";
 import Slide from "@/components/meals/Slide";
 import Filters from "@/components/meals/Filters";
 import Meals from "@/components/meals/Meals";
+import FiltersMeals from "@/components/meals/FiltersMeals";
 
 export default function MealsPage() {
   const router = useRouter();
@@ -14,6 +15,9 @@ export default function MealsPage() {
 
   const [activeFilter, setActiveFilter] = useState<number | null>(null);
   const [activeFilterColor, setActiveFilterColor] = useState<string>("");
+  const [maxCalories, setMaxCalories] = useState<number>(600);
+  const [allergens, setAllergens] = useState<string[]>([]);
+  const [role, setRole] = useState<string>("");
 
   const filterColors = [
     { id: 1, color: "#C1E1C1", name: "Desayunos" },
@@ -37,6 +41,18 @@ export default function MealsPage() {
     setActiveFilter(id);
     setActiveFilterColor(color);
     router.push(`?type_meal=${id}`, { scroll: false });
+  };
+
+  const handleCaloriesFilterChange = (min: number, max: number) => {
+    setMaxCalories(max);
+  };
+
+  const handleAllergensFilterChange = (selectedAllergens: string[]) => {
+    setAllergens(selectedAllergens);
+  };
+
+  const handleRoleFilterChange = (selectedRole: string) => {
+    setRole(selectedRole);
   };
 
   const getTypeMeal = () => {
@@ -72,7 +88,8 @@ export default function MealsPage() {
       <div className={styles.shop} style={{ backgroundColor: activeFilterColor }}>
         <Filters onFilterChange={handleFilterChange} />
         <Slide activeFilter={activeFilter} activeFilterColor={activeFilterColor} onFilterChange={handleFilterChange} />
-        <Meals typeMeal={getTypeMeal()} />
+        <FiltersMeals onCaloriesFilterChange={handleCaloriesFilterChange} onAllergensFilterChange={handleAllergensFilterChange} onRoleFilterChange={handleRoleFilterChange} />
+        <Meals typeMeal={getTypeMeal()} minCalories={0} maxCalories={maxCalories} allergens={allergens} role={role} />
       </div>
     </>
   );
