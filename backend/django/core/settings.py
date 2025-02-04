@@ -1,4 +1,10 @@
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+# Cargar variables de entorno
+load_dotenv()
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -77,11 +83,13 @@ INSTALLED_APPS = [
 ]
 
 # JWT Settings
-# JWT_AUTH = {
-#     'JWT_SECRET_KEY': settings.SECRET_KEY,
-#     'JWT_ALGORITHM': 'HS256',
-#     'JWT_EXPIRATION_DELTA': timedelta(hours=2),
-# }
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+
+JWT_AUTH = {
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_EXPIRATION_DELTA': timedelta(hours=2),
+}
 
 # Argon2 Settings
 PASSWORD_HASHERS = [
