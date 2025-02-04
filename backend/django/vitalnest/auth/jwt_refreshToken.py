@@ -29,7 +29,7 @@ def generate_refresh_token(user):
 
     expires_at = (datetime.utcnow() + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')
 
-    print("DEBUG - When expires:", expires_at)
+    # print("DEBUG - When expires:", expires_at)
 
     try:
         # Verifica si ya existe un refresh token

@@ -121,7 +121,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'vitalnest.middleware.VerifyTokenMiddleware',
+    
+    'vitalnest.middlewares.verify_token.VerifyTokenMiddleware',  
 ]
 
 ROOT_URLCONF = 'core.urls'
