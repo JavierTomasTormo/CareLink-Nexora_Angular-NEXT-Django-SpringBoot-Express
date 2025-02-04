@@ -6,16 +6,43 @@ class VerifyTokenMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
+        # Rutas públicas que no requieren token
+        public_paths = [
+            # Auth endpoints
+            '/api/auth/tutor/login', 
+            '/api/auth/tutor/register',
+            '/api/auth/tutor/logout',
+            '/api/auth/refresh-token',
+            
+            # List and Detail endpoints (GET methods are public)
+            '/api/activities/',
+            '/api/activities/',
+            
+            '/api/rooms/bedroom/',
+            '/api/rooms/bedroom/',
+            
+            '/api/food/meals/',
+            '/api/food/meals/',
+            
+            '/api/rooms/room/',
+            '/api/rooms/room/'
+        ]
         
-        public_paths = ['/api/auth/tutor/login', '/api/auth/tutor/register']
+
+
+        # Si la ruta es pública, permitir acceso sin token
         if request.path in public_paths:
             return self.get_response(request)
 
+        # Si la ruta no está protegida, permitir acceso sin token
+        if request.path not in protected_paths:
+            return self.get_response(request)
+
+        # Verificar token solo para rutas protegidas
         auth_header = request.headers.get('Authorization')
         if not auth_header:
             return JsonResponse({'status': 'error', 'message': 'No token provided'}, status=401)
 
-    # esto es para verificar que el token funcione por Bearer "Token"
         try:
             auth_parts = auth_header.split()
             if auth_parts[0].lower() != 'bearer':
