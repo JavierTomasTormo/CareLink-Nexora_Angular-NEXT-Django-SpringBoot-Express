@@ -54,24 +54,3 @@ def generate_refresh_token(user):
         print(f"Error al guardar refresh token: {str(e)}")
         return None
 
-def verify_refresh_token(token):
-    try:
-        stored_token = RefreshToken.objects.filter(refresh_token=token).first()
-        if not stored_token:
-            return None
-
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
-        
-        if datetime.fromtimestamp(payload['exp']) < datetime.utcnow():
-            stored_token.delete()
-            return None
-
-        user = User.objects.get(id=payload['id_user'])
-        return user
-
-    except jwt.ExpiredSignatureError:
-        RefreshToken.objects.filter(refresh_token=token).delete()
-        return None
-    except (jwt.InvalidTokenError, User.DoesNotExist) as e:
-        print(f"Error al verificar refresh token: {str(e)}")
-        return None
