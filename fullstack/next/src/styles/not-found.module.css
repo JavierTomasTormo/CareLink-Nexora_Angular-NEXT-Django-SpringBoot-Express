@@ -1,0 +1,102 @@
+    @import url("https://fonts.googleapis.com/css?family=Bevan");
+
+    .container {
+        background: rgb(40,40,40);
+        min-height: 100vh;
+        overflow: hidden;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container p {
+        font-family: "Bevan", cursive;
+        font-size: clamp(40px, 10vw, 130px);
+        margin: 5vh 0 0;
+        text-align: center;
+        letter-spacing: 5px;
+        background-color: black;
+        color: transparent;
+        text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.1);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+        width: 100%;
+    }
+
+    .container p span {
+        font-size: 1.2em;
+    }
+
+    .container code {
+        color: #bdbdbd;
+        display: block;
+        font-size: clamp(12px, 3vw, 16px);
+        margin: 15px auto;
+        white-space: pre-wrap;
+        text-align: left;
+        padding: 10px;
+        width: 90%;
+        max-width: 600px;
+        overflow-x: auto;
+    }
+
+    .container code span {
+        color: #f0c674;
+    }
+
+    .container code i {
+        color: #b5bd68;
+    }
+
+    .container code em {
+        color: #b294bb;
+        font-style: unset;
+    }
+
+    .container code b {
+        color: #81a2be;
+        font-weight: 500;
+    }
+
+    .homeLink {
+        color: #ffffff;
+        font-family: 'Arial', sans-serif;
+        font-size: clamp(14px, 2vw, 18px);
+        text-decoration: none;
+        background-color: #8abeb7;
+        padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
+        border-radius: 25px;
+        margin-top: 20px;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(138, 190, 183, 0.3);
+    }
+
+    .homeLink:hover {
+        background-color: #6b9e97;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(138, 190, 183, 0.5);
+    }
+
+    @media screen and (max-width: 600px) {
+        .container {
+            padding: 10px;
+        }
+
+        .container code {
+            padding: 5px;
+            margin: 10px auto;
+        }
+    }
+
+    @media screen and (max-width: 400px) {
+        .container p {
+            margin-top: 3vh;
+        }
+
+        .homeLink {
+            margin-top: 15px;
+        }
+    }
