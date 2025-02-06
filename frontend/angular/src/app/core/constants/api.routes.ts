@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../enviroments/environment';
 
 export const API_ROUTES = {
     AUTH: {

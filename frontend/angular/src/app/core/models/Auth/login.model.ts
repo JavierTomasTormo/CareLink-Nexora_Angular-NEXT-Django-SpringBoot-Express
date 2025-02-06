@@ -1,4 +1,4 @@
-import { User } from '../../Users/user.model';
+import { User } from '../Users/user.model';
 
 export interface LoginResponse {
     status: string;
