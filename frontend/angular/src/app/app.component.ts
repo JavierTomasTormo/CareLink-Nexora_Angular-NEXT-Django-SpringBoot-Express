@@ -1,15 +1,23 @@
-// src/app/app.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './shared/components/layout/header/header.component';   
+import { FooterComponent } from './shared/components/layout/footer/footer.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, RouterOutlet],
+    imports: [
+        CommonModule, 
+        RouterOutlet,
+        HeaderComponent,
+        FooterComponent
+    ],
     template: `
         <main>
-            <router-outlet></router-outlet>
+            <app-header></app-header>
+                <router-outlet></router-outlet>
+            <app-footer></app-footer>
         </main>
     `
 })

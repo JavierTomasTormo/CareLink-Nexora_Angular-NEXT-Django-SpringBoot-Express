@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
-@Component({
-  selector: 'app-loading',
-  standalone: true,
-  imports: [],
-  templateUrl: './loading.component.html',
-  styleUrl: './loading.component.css'
+@Injectable({
+  providedIn: 'root'
 })
-export class LoadingComponent {
+export class LoadingService {
+  private isLoading = new BehaviorSubject<boolean>(false);
+  public loading$ = this.isLoading.asObservable();
 
+  show() {
+    this.isLoading.next(true);
+  }
+
+  hide() {
+    this.isLoading.next(false);
+  }
 }

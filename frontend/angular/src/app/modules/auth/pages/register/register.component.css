@@ -1,4 +1,5 @@
 .register-container {
+    margin-top: 80px;
     min-height: 100vh;
     background: rgba(253, 245, 230, 0.95);
     display: flex;
@@ -157,4 +158,48 @@
     .register-form {
         grid-template-columns: 1fr;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.avatar-preview {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    grid-column: 1 / -1;
+}
+
+.avatar-preview:has(img[src]:not([src=""])) {
+    display: flex;
+}
+
+.avatar-preview p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.avatar-preview img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f67280;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }

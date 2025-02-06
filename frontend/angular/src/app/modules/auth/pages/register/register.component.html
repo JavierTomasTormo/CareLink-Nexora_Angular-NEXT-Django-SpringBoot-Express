@@ -5,47 +5,57 @@
             <p>Únete a nuestra comunidad</p>
         </div>
     
-        <form class="register-form">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
             <div class="form-group">
-                <input type="text" id="nombre" placeholder=" " required>
-                <label for="nombre">Nombre</label>
+                <input type="text" id="name" formControlName="name" placeholder=" " required>
+                <label for="name">Nombre</label>
             </div>
-            
+    
             <div class="form-group">
-                <input type="text" id="apellidos" placeholder=" " required>
-                <label for="apellidos">Apellidos</label>
+                <input type="text" id="lastName" formControlName="lastName" placeholder=" " required>
+                <label for="lastName">Apellidos</label>
             </div>
-            
+    
             <div class="form-group full-width">
-                <input type="email" id="email" placeholder=" " required>
+                <input type="email" id="email" formControlName="email" placeholder=" " required>
                 <label for="email">Email</label>
             </div>
-            
+    
             <div class="form-group">
-                <input type="tel" id="telefono" placeholder=" " required>
-                <label for="telefono">Teléfono</label>
+                <input type="tel" id="phone" formControlName="phone_number" placeholder=" " required>
+                <label for="phone">Teléfono</label>
             </div>
-            
+    
             <div class="form-group">
-                <input type="date" id="fechaNacimiento" placeholder=" " required>
-                <label for="fechaNacimiento">Fecha de nacimiento</label>
+                <input type="date" id="birthdate" formControlName="birthdate" placeholder=" " required>
+                <label for="birthdate">Fecha de nacimiento</label>
             </div>
-            
+    
+            <div class="form-group full-width">
+                <input type="text" id="address" formControlName="address" placeholder=" " required>
+                <label for="address">Dirección</label>
+            </div>
+    
             <div class="form-group">
-                <input type="password" id="password" placeholder=" " required>
+                <input type="password" id="password" formControlName="password" placeholder=" " required>
                 <label for="password">Contraseña</label>
             </div>
-            
+    
             <div class="form-group">
-                <input type="password" id="confirmPassword" placeholder=" " required>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder=" " required>
                 <label for="confirmPassword">Confirmar contraseña</label>
             </div>
-            
-            <button type="submit" class="submit-btn">Crear cuenta</button>
+    
+            <div class="avatar-preview">
+                <p>Vista previa del avatar</p>
+                <img [src]="registerForm.get('profile_img')?.value" alt="Avatar">
+            </div>
+    
+            <button type="submit" class="submit-btn" [disabled]="!registerForm.valid">Crear cuenta</button>
         </form>
-
+    
         <div class="register-footer">
-            <p>¿Ya tienes una cuenta? <a href="/auth/login">Iniciar sesión</a></p>
+            <p>¿Ya tienes una cuenta? <a routerLink="/auth/login">Iniciar sesión</a></p>
         </div>
     </div>
 </div>
