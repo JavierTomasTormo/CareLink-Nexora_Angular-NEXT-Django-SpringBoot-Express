@@ -2,7 +2,7 @@
     <div class="container">
         <div class="logo">
             <a routerLink="/home">
-            <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
+                <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
             </a>
         </div>
         <button class="hamburger" (click)="toggleMenu()" aria-label="Toggle menu">
@@ -12,16 +12,17 @@
         </button>
         <nav class="nav" [class.navOpen]="menuOpen">
             <ul class="navList">
-            <li class="navItem">
-                <a routerLink="/home" class="navLink">Página Principal</a>
-            </li>
-            <li class="navItem">
-                <a routerLink="/shop" [queryParams]="{activity_type: ''}" class="navLink">Actividades</a>
-            </li>
-            <li class="navItem">
-                <a routerLink="/meals" [queryParams]="{type_meal: 1}" class="navLink">Menús</a>
-            </li>
+                <li class="navItem">
+                    <a href="http://localhost:3000/" class="navLink">Página Principal</a>
+                </li>
+                <li class="navItem">
+                    <a href="http://localhost:3000/shop?activity_type=" class="navLink">Actividades</a>
+                </li>
+                <li class="navItem">
+                    <a href="http://localhost:3000/meals?type_meal=1" class="navLink">Menús</a>
+                </li>
             </ul>
         </nav>
     </div>
 </header>
+
