@@ -16,7 +16,7 @@ import { FooterComponent } from './shared/components/layout/footer/footer.compon
     template: `
         <main>
             <app-header></app-header>
-            <router-outlet></router-outlet>
+                <router-outlet></router-outlet>
             <app-footer></app-footer>
         </main>
     `
