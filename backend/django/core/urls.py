@@ -32,4 +32,5 @@ urlpatterns = [
     # AUTH #####################
         path('api/', include('vitalnest.auth.tutor.register.urls')),
         path('api/', include('vitalnest.auth.tutor.login.urls')),
+        path('api/', include('vitalnest.auth.tutor.logout.urls')),
 ]
