@@ -38,24 +38,6 @@ export default function ActivitiesPage() {
     setActiveFilterColor(color);
     router.push(`?type_activity=${id}`, { scroll: false });
   };
-  
-
-  const getTypeActivity = () => {
-    switch (activeFilter) {
-      case 1:
-        return "1";
-      case 2:
-        return "2";
-      case 3:
-        return "3";
-      case 4:
-        return "4";
-      case 5:
-        return "5";
-      default:
-        return "";
-    }
-  };
 
   return (
     <>
@@ -73,7 +55,7 @@ export default function ActivitiesPage() {
       <div className={styles.shop} style={{ backgroundColor: activeFilterColor }}>
         <Filters onFilterChange={handleFilterChange} />
         <Slide activeFilter={activeFilter} activeFilterColor={activeFilterColor} onFilterChange={handleFilterChange} />
-        <ListActivities typeActivity={getTypeActivity()} />
+        <ListActivities typeActivity={activeFilter} />
       </div>
     </>
   );

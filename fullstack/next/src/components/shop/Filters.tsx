@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useDispatch } from 'react-redux';  // Importar useDispatch
+import { useDispatch } from 'react-redux';
 import styles from "@/styles/meals/Filters.module.css";
 import { filterActivitiesByType } from "@/store/slices/activitiesSlice";
 
-const Filters = ({ onFilterChange }: { onFilterChange: (id: number, color: string) => void }) => {
+const Filters = ({ onFilterChange, activeSlideId }: { onFilterChange: (id: number, color: string) => void, activeSlideId?: number }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch = useDispatch(); 
@@ -22,7 +22,6 @@ const Filters = ({ onFilterChange }: { onFilterChange: (id: number, color: strin
   const [activeFilter, setActiveFilter] = useState<number | null>(null);
   const [activeFilterColor, setActiveFilterColor] = useState<string>("");
 
-  // Actualizar el filtro al cargar el componente o cambiar la URL
   useEffect(() => {
     const queryFilter = searchParams.get("activity_type");
     if (queryFilter) {
@@ -33,20 +32,30 @@ const Filters = ({ onFilterChange }: { onFilterChange: (id: number, color: strin
         setActiveFilterColor(filter.color);
         onFilterChange(filterId, filter.color);
         document.body.setAttribute('data-sld', (filterId - 1).toString());
-        // Despachar acción para filtrar las actividades por tipo
         dispatch(filterActivitiesByType(filterId));
       }
     }
-  }, [searchParams, dispatch, onFilterChange]); // Asegúrate de que dispatch esté como dependencia
+  }, [searchParams, dispatch, onFilterChange]);
 
-  // Manejar el clic en los filtros
+  useEffect(() => {
+    if (activeSlideId !== undefined) {
+      const filter = filterColors.find((f) => f.id === activeSlideId + 1);
+      if (filter) {
+        setActiveFilter(filter.id);
+        setActiveFilterColor(filter.color);
+        onFilterChange(filter.id, filter.color);
+        document.body.setAttribute('data-sld', activeSlideId.toString());
+        dispatch(filterActivitiesByType(filter.id));
+      }
+    }
+  }, [activeSlideId, dispatch, onFilterChange]);
+
   const handleFilterClick = (id: number, color: string) => {
     setActiveFilter(id);
     setActiveFilterColor(color);
     onFilterChange(id, color);
     router.push(`?activity_type=${id}`, { scroll: false });
     document.body.setAttribute('data-sld', (id - 1).toString());
-    // Despachar acción para filtrar las actividades por tipo
     dispatch(filterActivitiesByType(id));
   };
 
