@@ -22,7 +22,7 @@ def generate_access_token(user):
     
     token = jwt.encode(
         payload,
-        settings.SECRET_KEY,
+        settings.SECRET_KEY_JWT,
         algorithm='HS256'
     )
     return {
