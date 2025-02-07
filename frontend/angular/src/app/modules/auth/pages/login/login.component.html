@@ -1,40 +1,52 @@
 <div class="login">
     <div class="login__content">
         <div class="login__header">
-            <h1 class="login__title">Welcome Back</h1>
+            <h1 class="login__title">Bienvenido de vuelta</h1>
         </div>
 
         <div class="login__forms">
-            <form class="login__register">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login__register">
                 <div class="login__box">
-                    <input type="email" class="login__input" placeholder=" ">
+                    <input 
+                        type="email" 
+                        class="login__input" 
+                        formControlName="email" 
+                        placeholder=" ">
                     <label class="login__label">Email</label>
+                    <span class="error-message" *ngIf="getErrorMessage('email')">
+                        {{ getErrorMessage('email') }}
+                    </span>
                 </div>
 
                 <div class="login__box">
-                    <input type="password" class="login__input" placeholder=" ">
-                    <label class="login__label">Password</label>
+                    <div class="password-input">
+                        <input 
+                            [type]="showPassword ? 'text' : 'password'" 
+                            class="login__input" 
+                            formControlName="password" 
+                            placeholder="Contraseña">
+                        <i 
+                            class="fas" 
+                            [class.fa-eye]="!showPassword" 
+                            [class.fa-eye-slash]="showPassword"
+                            (click)="togglePasswordVisibility()"
+                        ></i>
+                    </div>
+                    <label class="login__label"></label>
+                    <span class="error-message" *ngIf="getErrorMessage('password')">
+                        {{ getErrorMessage('password') }}
+                    </span>
                 </div>
 
-                <a href="#" class="login__forgot">Forgot Password?</a>
+                <a routerLink="/auth/forgot-password" class="login__forgot">¿Olvidaste tu contraseña?</a>
 
-                <button type="submit" class="login__button">Sign In</button>
-
-                <div class="login__social">
-                    <button type="button" class="login__social-btn">
-                        <i class='bx bxl-google' style="font-size: 1.5rem; color: #DB4437;"></i>
-                    </button>
-                    <button type="button" class="login__social-btn">
-                        <i class='bx bxl-facebook' style="font-size: 1.5rem; color: #4267B2;"></i>
-                    </button>
-                    <button type="button" class="login__social-btn">
-                        <i class='bx bxl-apple' style="font-size: 1.5rem; color: #000;"></i>
-                    </button>
-                </div>
+                <button type="submit" class="login__button" [disabled]="loginForm.invalid">
+                    Iniciar sesión
+                </button>
 
                 <div class="login__register-link">
-                    <span>Don't have an account? </span>
-                    <a href="/auth/register" class="login__signin">Sign Up</a>
+                    <span>¿No tienes cuenta? </span>
+                    <a routerLink="/auth/register" class="login__signin">Regístrate</a>
                 </div>
             </form>
         </div>
