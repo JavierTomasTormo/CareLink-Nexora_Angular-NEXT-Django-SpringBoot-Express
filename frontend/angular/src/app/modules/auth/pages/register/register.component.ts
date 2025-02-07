@@ -4,6 +4,8 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../../../core/services/auth/user.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-register',
@@ -88,13 +90,35 @@ export class RegisterComponent implements OnInit {
         this.userService.register(this.registerForm.value).subscribe({
           next: (response) => {
             if (response.status === 'success') {
-              this.router.navigate(['/auth/login']);
+              Swal.fire({
+                icon: 'success',
+                title: '¡Registro exitoso!',
+                text: 'Redirigiendo al login...',
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                this.router.navigate(['/auth/login']);
+              });
             }
           },
           error: (error) => {
-            this.errorMessage = error.error.message || 'Error en el registro';
+            Swal.fire({
+              icon: 'error',
+              title: 'Error en el registro',
+              text: error.error.message || 'Ha ocurrido un error inesperado',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#f67280'
+            });
           }
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Formulario inválido',
+          text: 'Por favor, revisa todos los campos',
+          confirmButtonText: 'Entendido',
+          confirmButtonColor: '#f67280'
         });
       }
     }
-}
+  }
