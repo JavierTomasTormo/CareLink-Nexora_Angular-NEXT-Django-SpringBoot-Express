@@ -16,7 +16,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import styles from '@/styles/shop/ListActivities.module.css';
 
-const ListActivities: React.FC = () => {
+const ListActivities: React.FC<{ typeActivity: number | null }> = ({ typeActivity }) => {
   const dispatch = useDispatch<AppDispatch>();
   const activities = useSelector(selectFilteredActivities);
   const status = useSelector(selectActivitiesStatus);
@@ -27,6 +27,10 @@ const ListActivities: React.FC = () => {
       dispatch(fetchActivities());
     }
   }, [status, dispatch]);
+
+  const filteredActivities: ActivityData[] = activities.filter((activity: ActivityData): boolean => 
+    activity.activity_type === typeActivity
+  );
 
   if (status === 'loading') {
     return (
@@ -53,7 +57,7 @@ const ListActivities: React.FC = () => {
     );
   }
 
-  if (!activities || activities.length === 0) {
+  if (!filteredActivities || filteredActivities.length === 0) {
     return (
       <div className={`${styles.activitiesContainer} ${styles.emptyContainer}`}>
         <div className={styles.emptyContent}>
@@ -77,7 +81,7 @@ const ListActivities: React.FC = () => {
 
   return (
     <div className={styles.activitiesGrid}>
-      {activities.map((activity: ActivityData) => (
+      {filteredActivities.map((activity: ActivityData) => (
         <article key={activity.id} className={styles.activityCard}>
           <div className={styles.imageWrapper}>
             {activity.images && activity.images.length > 0 ? (
