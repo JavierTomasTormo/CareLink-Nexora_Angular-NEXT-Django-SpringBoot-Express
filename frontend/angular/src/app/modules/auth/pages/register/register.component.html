@@ -55,16 +55,42 @@
             </div>
     
             <div class="form-group">
-                <input type="password" id="password" formControlName="password" placeholder=" " required>
-                <label for="password">Contraseña</label>
+                <label for="password"></label>
+                <div class="password-input">
+                <input 
+                    [type]="showPassword ? 'text' : 'password'"
+                    id="password" 
+                    formControlName="password"
+                    placeholder="Contraseña"
+                >
+                <i 
+                    class="fas" 
+                    [class.fa-eye]="!showPassword" 
+                    [class.fa-eye-slash]="showPassword"
+                    (click)="togglePasswordVisibility('password')"
+                ></i>
+                </div>
                 <span class="error-message" *ngIf="getErrorMessage('password')">
                     {{ getErrorMessage('password') }}
                 </span>
             </div>
     
             <div class="form-group">
-                <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder=" " required>
-                <label for="confirmPassword">Confirmar contraseña</label>
+                <label for="confirmPassword"></label>
+                <div class="password-input">
+                <input 
+                    [type]="showConfirmPassword ? 'text' : 'password'"
+                    id="confirmPassword" 
+                    formControlName="confirmPassword"
+                    placeholder="Confirmar Contraseña"
+                >
+                <i 
+                    class="fas" 
+                    [class.fa-eye]="!showConfirmPassword" 
+                    [class.fa-eye-slash]="showConfirmPassword"
+                    (click)="togglePasswordVisibility('confirmPassword')"
+                ></i>
+                </div>
                 <span class="error-message" *ngIf="getErrorMessage('confirmPassword')">
                     {{ getErrorMessage('confirmPassword') }}
                 </span>
