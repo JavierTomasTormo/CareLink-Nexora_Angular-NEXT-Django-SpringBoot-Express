@@ -84,7 +84,7 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const queryFilter = searchParams.get("activity_type");
+    const queryFilter = searchParams.get("type_activity");
     if (queryFilter) {
       const filterId = parseInt(queryFilter, 10);
       const filteredActivity = activities.find((activity) => parseInt(activity.id) === filterId);
@@ -109,6 +109,7 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
       
       if (activeFilter !== newFilterId || activeFilterColor !== newFilterColor) {
         onFilterChange(newFilterId, newFilterColor);
+        document.body.setAttribute('data-sld', (newFilterId - 1).toString());
         router.push(`?activity_type=${newFilterId}`, { scroll: false });
       }
     }
