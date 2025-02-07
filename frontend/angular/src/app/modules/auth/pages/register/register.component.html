@@ -9,41 +9,65 @@
             <div class="form-group">
                 <input type="text" id="name" formControlName="name" placeholder=" " required>
                 <label for="name">Nombre</label>
+                <span class="error-message" *ngIf="getErrorMessage('name')">
+                    {{ getErrorMessage('name') }}
+                </span>
             </div>
     
             <div class="form-group">
                 <input type="text" id="lastName" formControlName="lastName" placeholder=" " required>
                 <label for="lastName">Apellidos</label>
+                <span class="error-message" *ngIf="getErrorMessage('lastName')">
+                    {{ getErrorMessage('lastName') }}
+                </span>
             </div>
     
             <div class="form-group full-width">
                 <input type="email" id="email" formControlName="email" placeholder=" " required>
                 <label for="email">Email</label>
+                <span class="error-message" *ngIf="getErrorMessage('email')">
+                    {{ getErrorMessage('email') }}
+                </span>
             </div>
     
             <div class="form-group">
                 <input type="tel" id="phone" formControlName="phone_number" placeholder=" " required>
                 <label for="phone">Teléfono</label>
+                <span class="error-message" *ngIf="getErrorMessage('phone_number')">
+                    {{ getErrorMessage('phone_number') }}
+                </span>
             </div>
     
             <div class="form-group">
                 <input type="date" id="birthdate" formControlName="birthdate" placeholder=" " required>
                 <label for="birthdate">Fecha de nacimiento</label>
+                <span class="error-message" *ngIf="getErrorMessage('birthdate')">
+                    {{ getErrorMessage('birthdate') }}
+                </span>
             </div>
     
             <div class="form-group full-width">
                 <input type="text" id="address" formControlName="address" placeholder=" " required>
                 <label for="address">Dirección</label>
+                <span class="error-message" *ngIf="getErrorMessage('address')">
+                    {{ getErrorMessage('address') }}
+                </span>
             </div>
     
             <div class="form-group">
                 <input type="password" id="password" formControlName="password" placeholder=" " required>
                 <label for="password">Contraseña</label>
+                <span class="error-message" *ngIf="getErrorMessage('password')">
+                    {{ getErrorMessage('password') }}
+                </span>
             </div>
     
             <div class="form-group">
                 <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder=" " required>
                 <label for="confirmPassword">Confirmar contraseña</label>
+                <span class="error-message" *ngIf="getErrorMessage('confirmPassword')">
+                    {{ getErrorMessage('confirmPassword') }}
+                </span>
             </div>
     
             <div class="avatar-preview">

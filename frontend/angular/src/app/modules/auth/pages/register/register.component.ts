@@ -20,6 +20,9 @@ import { UserService } from '../../../../core/services/auth/user.service';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  submitted = false;
+  errorMessage = '';
+
 
   constructor(
     private fb: FormBuilder,
@@ -35,9 +38,23 @@ export class RegisterComponent implements OnInit {
         phone_number: ['', Validators.required],
         birthdate: ['', Validators.required],
         address: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(8)]],
+        password: ['', [
+            Validators.required, 
+            Validators.minLength(8),
+            Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/)]
+          ],
         confirmPassword: ['', Validators.required],
         profile_img: ['']
+      });
+
+      // Listen for changes in password and confirm password fields
+      this.registerForm.get('confirmPassword')?.valueChanges.subscribe(confirmValue => {
+        const passwordValue = this.registerForm.get('password')?.value;
+        if (confirmValue !== passwordValue) {
+          this.registerForm.get('confirmPassword')?.setErrors({ passwordMismatch: true });
+        } else {
+          this.registerForm.get('confirmPassword')?.setErrors(null);
+        }
       });
 
       // Escuchar cambios en el campo email
@@ -48,25 +65,36 @@ export class RegisterComponent implements OnInit {
           });
         }
       });
+  }
+
+
+  getErrorMessage(field: string): string {
+    const control = this.registerForm.get(field);
+    if (control?.errors && (control.dirty || control.touched || this.submitted)) {
+      if (control.errors['required']) return `El campo ${field} es obligatorio`;
+      if (control.errors['email']) return 'Email no válido';
+      if (control.errors['minlength']) return `Mínimo ${control.errors['minlength'].requiredLength} caracteres`;
+      if (control.errors['pattern']) {
+        if (field === 'password') return 'La contraseña debe contener mayúsculas, números y símbolos';
+        if (field === 'phone_number') return 'Teléfono no válido';
+      }
     }
+    return '';
+  }
 
     onSubmit() {
-      console.log('Submit clicked'); 
+      this.submitted = true;
       if (this.registerForm.valid) {
-        console.log('Form is valid:', this.registerForm.value);
         this.userService.register(this.registerForm.value).subscribe({
           next: (response) => {
-            console.log('Register response:', response);
             if (response.status === 'success') {
               this.router.navigate(['/auth/login']);
             }
           },
           error: (error) => {
-            console.error('Error en registro:', error);
+            this.errorMessage = error.error.message || 'Error en el registro';
           }
         });
-      } else {
-        console.log('Form is invalid:', this.registerForm.errors);
       }
     }
 }
