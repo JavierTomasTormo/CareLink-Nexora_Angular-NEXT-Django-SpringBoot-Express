@@ -203,3 +203,40 @@
     border: 3px solid #f67280;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+
+
+
+    .error-message {
+        color: #f44336;
+        font-size: 12px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    input.ng-invalid.ng-touched {
+        border-color: #f44336;
+    }
+
+
+
+    .password-input {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      
+      .password-input i {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+        color: #666;
+        transition: color 0.3s ease;
+      }
+      
+      .password-input i:hover {
+        color: #f67280;
+      }
