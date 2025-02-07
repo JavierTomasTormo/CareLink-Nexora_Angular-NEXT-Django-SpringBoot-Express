@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../../../core/services/auth/user.service';
@@ -11,7 +11,8 @@ import { UserService } from '../../../../core/services/auth/user.service';
   imports: [
     CommonModule,
     ReactiveFormsModule, 
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [UserService],
   templateUrl: './register.component.html',
@@ -49,21 +50,23 @@ export class RegisterComponent implements OnInit {
       });
     }
 
-  onSubmit() {
-    if (this.registerForm.valid) {
-      console.log('Formulario enviado:', this.registerForm.value);
+    onSubmit() {
+      console.log('Submit clicked'); 
+      if (this.registerForm.valid) {
+        console.log('Form is valid:', this.registerForm.value);
+        this.userService.register(this.registerForm.value).subscribe({
+          next: (response) => {
+            console.log('Register response:', response);
+            if (response.status === 'success') {
+              this.router.navigate(['/auth/login']);
+            }
+          },
+          error: (error) => {
+            console.error('Error en registro:', error);
+          }
+        });
+      } else {
+        console.log('Form is invalid:', this.registerForm.errors);
+      }
     }
-    // if (this.registerForm.valid) {
-    //   this.userService.register(this.registerForm.value).subscribe({
-    //     next: (response) => {
-    //       if (response.status === 'success') {
-    //         this.router.navigate(['/auth/login']);
-    //       }
-    //     },
-    //     error: (error) => {
-    //       console.error('Error en registro:', error);
-    //     }
-    //   });
-    // }
-  }
 }
