@@ -45,13 +45,12 @@ export class RegisterComponent implements OnInit {
           password: ['', [
               Validators.required, 
               Validators.minLength(8),
-              Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/)]
+              Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[.!@#$%^&*])/)]
             ],
           confirmPassword: ['', Validators.required],
           profile_img: ['']
         });
 
-        // Listen for changes in password and confirm password fields
         this.registerForm.get('confirmPassword')?.valueChanges.subscribe(confirmValue => {
           const passwordValue = this.registerForm.get('password')?.value;
           if (confirmValue !== passwordValue) {
@@ -61,7 +60,6 @@ export class RegisterComponent implements OnInit {
           }
         });
 
-        // Escuchar cambios en el campo email
         this.registerForm.get('email')?.valueChanges.subscribe(email => {
           if (email) {
             this.registerForm.patchValue({
