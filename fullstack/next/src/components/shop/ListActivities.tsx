@@ -4,17 +4,21 @@ import { AppDispatch } from '@/store';
 import { ActivityData } from '@/store/Constants';
 import { 
   fetchActivities, 
-  selectFilteredActivities, // Usar el selector para actividades filtradas
+  selectFilteredActivities,
   selectActivitiesStatus, 
-  selectActivitiesError, 
-  filterActivitiesByType // Importar la acción de filtrado
+  selectActivitiesError 
 } from '@/store/slices/activitiesSlice';
 import SkeletonLoader from '@/utils/SkeletonLoader';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import styles from '@/styles/shop/ListActivities.module.css';
 
 const ListActivities: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const activities = useSelector(selectFilteredActivities);  // Obtener actividades filtradas
+  const activities = useSelector(selectFilteredActivities);
   const status = useSelector(selectActivitiesStatus);
   const error = useSelector(selectActivitiesError);
 
@@ -66,51 +70,86 @@ const ListActivities: React.FC = () => {
     );
   }
 
+  const getDayOfWeek = (dayNumber: number) => {
+    const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    return days[dayNumber % 7];
+  };
+
   return (
     <div className={styles.activitiesGrid}>
       {activities.map((activity: ActivityData) => (
         <article key={activity.id} className={styles.activityCard}>
-          <div className={styles.activityHeader}>
-            <h3 className={styles.activityTitle}>{activity.name_activitie}</h3>
-            <span className={styles.activityPrice}>${activity.price || 0}</span>
+          <div className={styles.imageWrapper}>
+            {activity.images && activity.images.length > 0 ? (
+              <Swiper
+                modules={[Navigation, Pagination]}
+                navigation
+                pagination={{ clickable: true }}
+                className={styles.swiperContainer}
+              >
+                {activity.images.map((imgObj, index) => (
+                  <SwiperSlide key={index}>
+                    <img 
+                      src={`/assets/shop/activities/${imgObj.img}`} 
+                      alt={`${activity.name_activitie} - Imagen ${index + 1}`} 
+                      className={styles.mainImage} 
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              <div className={styles.noImage}>Sin imagen</div>
+            )}
+            <div className={styles.priceTag}>${activity.price || 0}</div>
           </div>
-          <div className={styles.activityContent}>
-            <p className={styles.activityDescription}>
-              {activity.description || 'Sin descripción disponible'}
-            </p>
-            <div className={styles.activityImages}>
-              {activity.images && activity.images.length > 0 ? (
-                activity.images.map((image, index) => (
-                  <img 
-                    key={index} 
-                    src={`/assets/shop/activities/${image.img}`} 
-                    alt={activity.name_activitie} 
-                    className={styles.activityImage} 
-                  />
-                ))
-              ) : (
-                <p>No hay imágenes disponibles</p>
-              )}
-            </div>
-            <div className={styles.activityMeta}>
-              <div className={styles.durationBadge}>
-                <span className={styles.durationIcon}>⏱</span>
-                <span>{activity.duration} minutos</span>
+          
+          <div className={styles.cardContent}>
+            <h3 className={styles.title}>{activity.name_activitie}</h3>
+            
+            <div className={styles.separator}></div>
+            
+            <div className={styles.infoGrid}>
+              <div className={styles.infoItem}>
+                <span className={styles.icon}>⏱</span>
+                <span className={styles.value}>{activity.duration} min</span>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.icon}>👥</span>
+                <span className={styles.value}>{activity.max_participants} personas</span>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.icon}>💪</span>
+                <span className={styles.value}>Nivel {activity.intensity}</span>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.icon}>📅</span>
+                <span className={styles.value}>{getDayOfWeek(activity.id_dayoftheweek)}</span>
               </div>
             </div>
-            <div className={styles.tagsContainer}>
-              {Array.isArray(activity.caracteristics?.tags) && activity.caracteristics?.tags.length > 0 ? (
-                activity.caracteristics.tags.map((tag: string, index: number) => (
+            
+            <div className={styles.separator}></div>
+            
+            <p className={styles.description}>
+              {activity.description || 'Sin descripción disponible'}
+            </p>
+            
+            <div className={styles.separator}></div>
+            
+            <div className={styles.tagsWrapper}>
+              {Array.isArray(activity.caracteristics) && activity.caracteristics.length > 0 ? (
+                activity.caracteristics.map((tag: string, index: number) => (
                   <span key={index} className={styles.tag}>{tag}</span>
                 ))
               ) : (
                 <span className={styles.noTags}>Sin etiquetas</span>
               )}
             </div>
+            
+            <button className={styles.detailButton}>
+              Explorar Actividad
+              <span className={styles.buttonIcon}>→</span>
+            </button>
           </div>
-          <button className={styles.actionButton}>
-            Ver más detalles
-          </button>
         </article>
       ))}
     </div>

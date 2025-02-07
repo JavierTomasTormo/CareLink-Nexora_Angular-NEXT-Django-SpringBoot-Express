@@ -52,7 +52,7 @@ export interface ActivityData {
   id_day: number;
   id_month: number;
   id_year: number;
-  id_dayofweek: number;
+  id_dayoftheweek: number;
   description: string;
   isactive: number;
   slug: string;

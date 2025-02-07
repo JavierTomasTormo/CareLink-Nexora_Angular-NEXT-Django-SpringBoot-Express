@@ -32,7 +32,7 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li className={styles.navItem}>
-              <Link href="/shop?activity_type=" className={styles.navLink}>
+              <Link href="/shop?activity_type=1" className={styles.navLink}>
                 Actividades
               </Link>
             </li>
