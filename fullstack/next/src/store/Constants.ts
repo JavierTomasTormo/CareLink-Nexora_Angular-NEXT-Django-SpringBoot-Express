@@ -118,3 +118,20 @@ export interface BedRoomState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
+
+
+export const SHARED_ROUTES = {
+  ANGULAR: {
+    AUTH: {
+      LOGIN: 'http://localhost:4200/auth/login',
+      REGISTER: 'http://localhost:4200/auth/register',
+      LOGOUT: 'http://localhost:4200/auth/logout'
+    }
+  },
+  NEXT: {
+    HOME: '/home',
+    SHOP: '/shop',
+    MEALS: '/meals',
+    PROFILE: '/profile'
+  }
+};
