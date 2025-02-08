@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UserService } from '../../../../core/services/auth/user.service';
+import { TokenService } from '../../../../core/services/token/token.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
+    private tokenService: TokenService, 
     private router: Router
   ) {}
 
@@ -49,25 +51,58 @@ export class LoginComponent implements OnInit {
       this.userService.login(this.loginForm.value).subscribe({
         next: (response) => {
           if (response.status === 'success') {
+            console.log(response);
+
+            this.tokenService.setTokens(response.accessToken, response.refreshToken);
+            this.tokenService.setUserInfo(response.user);
+            
             Swal.fire({
               icon: 'success',
-              title: '¡Bienvenido!',
-              text: 'Inicio de sesión exitoso',
-              showConfirmButton: false,
-              timer: 1500
+              title: '¡Bienvenido a VitalNest!',
+              text: `¡Nos alegra verte de nuevo, ${response.user.name}!`,
+              background: '#f8f9fa',
+              confirmButtonText: 'Continuar',
+              confirmButtonColor: '#4CAF50',
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              },
+              customClass: {
+                title: 'text-success',
+                popup: 'border-radius-lg'
+              },
+              timer: 2500,
+              timerProgressBar: true
             }).then(() => {
               this.router.navigate(['/dashboard']);
             });
           }
         },
         error: (error) => {
-          Swal.fire({
+            Swal.fire({
             icon: 'error',
-            title: 'Error en el inicio de sesión',
-            text: error.error.message || 'Credenciales inválidas',
-            confirmButtonText: 'Aceptar',
-            confirmButtonColor: '#f67280'
-          });
+            title: '¡Ups! Algo salió mal',
+            text: error.error.message || 'Las credenciales no son correctas',
+            background: '#f8f9fa',
+            confirmButtonText: 'Intentar de nuevo',
+            confirmButtonColor: '#dc3545',
+            showClass: {
+              popup: 'animate__animated animate__shakeX'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOut'
+            },
+            customClass: {
+              title: 'text-danger fw-bold',
+              popup: 'border-radius-lg shadow-lg',
+              confirmButton: 'btn-lg'
+            },
+            allowOutsideClick: false,
+            timer: 3000,
+            timerProgressBar: true
+            });
         }
       });
     }
