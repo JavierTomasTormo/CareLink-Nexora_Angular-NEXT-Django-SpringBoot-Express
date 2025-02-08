@@ -1,6 +1,40 @@
 <header class="header">
     <div class="container">
         <div class="logo">
+            <a [href]="routes.NEXT.HOME">
+                <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
+            </a>
+        </div>
+        <button class="hamburger" (click)="toggleMenu()" aria-label="Toggle menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <nav class="nav" [class.navOpen]="menuOpen">
+            <ul class="navList">
+                <li class="navItem">
+                    <a [href]="routes.NEXT.HOME" class="navLink">Página Principal</a>
+                </li>
+                <li class="navItem">
+                    <a [href]="routes.NEXT.SHOP + '?activity_type='" class="navLink">Actividades</a>
+                </li>
+                <li class="navItem">
+                    <a [href]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink">Menús</a>
+                </li>
+                <li class="navItem" *ngIf="!tokenService.isAuthenticated()">
+                    <a [routerLink]="routes.ANGULAR.AUTH.LOGIN" class="navLink">Login</a>
+                </li>
+                <li class="navItem" *ngIf="tokenService.isAuthenticated()">
+                    <a (click)="logout()" class="navLink">Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- <header class="header">
+    <div class="container">
+        <div class="logo">
             <a routerLink="/home">
                 <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
             </a>
@@ -25,4 +59,4 @@
         </nav>
     </div>
 </header>
-
+ -->
