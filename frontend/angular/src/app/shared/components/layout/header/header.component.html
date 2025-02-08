@@ -12,7 +12,7 @@
         </button>
         <nav class="nav" [class.navOpen]="menuOpen">
             <ul class="navList">
-                <li class="navItem">
+                <!-- <li class="navItem">
                     <a [href]="routes.NEXT.HOME" class="navLink">Página Principal</a>
                 </li>
                 <li class="navItem">
@@ -20,43 +20,31 @@
                 </li>
                 <li class="navItem">
                     <a [href]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink">Menús</a>
+                </li> -->
+                <li class="navItem">
+                    <a [href]="routes.NEXT.HOME" class="navLink" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Página Principal</a>
                 </li>
-                <li class="navItem" *ngIf="!tokenService.isAuthenticated()">
+                <li class="navItem">
+                    <a [href]="routes.NEXT.SHOP + '?activity_type='" class="navLink" routerLinkActive="active">Actividades</a>
+                </li>
+                <li class="navItem">
+                    <a [href]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink" routerLinkActive="active">Menús</a>
+                </li>
+                <!-- <li class="navItem" *ngIf="!tokenService.isAuthenticated()">
                     <a [routerLink]="routes.ANGULAR.AUTH.LOGIN" class="navLink">Login</a>
                 </li>
                 <li class="navItem" *ngIf="tokenService.isAuthenticated()">
                     <a (click)="logout()" class="navLink">Logout</a>
+                </li> -->
+                <li class="navItem" *ngIf="!tokenService.isAuthenticated()">
+                    <a [routerLink]="routes.ANGULAR.AUTH.LOGIN" class="navLink auth-button">Login</a>
                 </li>
+                <!-- <p>{{ routes.ANGULAR.AUTH.LOGIN }}</p> -->
+                <li class="navItem" *ngIf="tokenService.isAuthenticated()">
+                    <a (click)="logout()" class="navLink auth-button">Logout</a>
+                </li>
+                
             </ul>
         </nav>
     </div>
 </header>
-
-<!-- <header class="header">
-    <div class="container">
-        <div class="logo">
-            <a routerLink="/home">
-                <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
-            </a>
-        </div>
-        <button class="hamburger" (click)="toggleMenu()" aria-label="Toggle menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-        <nav class="nav" [class.navOpen]="menuOpen">
-            <ul class="navList">
-                <li class="navItem">
-                    <a href="http://localhost:3000/" class="navLink">Página Principal</a>
-                </li>
-                <li class="navItem">
-                    <a href="http://localhost:3000/shop?activity_type=" class="navLink">Actividades</a>
-                </li>
-                <li class="navItem">
-                    <a href="http://localhost:3000/meals?type_meal=1" class="navLink">Menús</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
- -->

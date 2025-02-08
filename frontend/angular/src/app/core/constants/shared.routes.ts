@@ -1,14 +1,14 @@
 export const SHARED_ROUTES = {
     ANGULAR: {
         AUTH: {
-            LOGIN: 'http://localhost:4200/auth/login',
-            REGISTER: 'http://localhost:4200/auth/register',
-            LOGOUT: 'http://localhost:4200/auth/logout'
+            LOGIN: '/auth/login',
+            REGISTER: '/auth/register',
+            LOGOUT: '/auth/logout'
         },
         CRITICAL: {
-            MEDICAL: 'http://localhost:4200/medical',
-            EMERGENCY: 'http://localhost:4200/emergency',
-            REPORTS: 'http://localhost:4200/reports'
+            MEDICAL: '/medical',
+            EMERGENCY: '/emergency',
+            REPORTS: '/reports'
         }
     },
     NEXT: {
