@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../../../core/services/auth/user.service';
 import Swal from 'sweetalert2';
 
@@ -13,7 +12,6 @@ import Swal from 'sweetalert2';
   imports: [
     CommonModule,
     ReactiveFormsModule, 
-    HttpClientModule,
     RouterModule
   ],
   providers: [UserService],

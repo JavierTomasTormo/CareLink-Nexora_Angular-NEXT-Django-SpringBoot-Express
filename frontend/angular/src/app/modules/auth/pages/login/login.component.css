@@ -119,7 +119,7 @@
 
 .login__input:focus ~ .login__label,
 .login__input:not(:placeholder-shown) ~ .login__label {
-    transform: translateY(-1.5rem);
+    transform: translateY(-2.5rem);
     font-size: 0.9rem;
     color: #f67280;
 }
