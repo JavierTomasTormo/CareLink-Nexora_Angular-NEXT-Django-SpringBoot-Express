@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UserService } from '../../../../core/services/auth/user.service';
 import { TokenService } from '../../../../core/services/token/token.service';
+import { CookieService } from '../../../../core/services/cookies/cookie.service';
+
 
 @Component({
   selector: 'app-login',
@@ -22,6 +24,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private tokenService: TokenService, 
+    private cookieService: CookieService, 
     private router: Router
   ) {}
 
@@ -51,10 +54,15 @@ export class LoginComponent implements OnInit {
       this.userService.login(this.loginForm.value).subscribe({
         next: (response) => {
           if (response.status === 'success') {
-            console.log(response);
+            // console.log(response);
 
             this.tokenService.setTokens(response.accessToken, response.refreshToken);
             this.tokenService.setUserInfo(response.user);
+            this.cookieService.setCookies(
+              response.accessToken, 
+              response.refreshToken, 
+              response.user
+            );
             
             Swal.fire({
               icon: 'success',
@@ -76,7 +84,8 @@ export class LoginComponent implements OnInit {
               timer: 2500,
               timerProgressBar: true
             }).then(() => {
-              this.router.navigate(['/dashboard']);
+              window.location.href = 'http://localhost:3000/home';
+              // this.router.navigate(['/dashboard']);
             });
           }
         },
