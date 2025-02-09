@@ -135,3 +135,10 @@ export const SHARED_ROUTES = {
     PROFILE: '/profile'
   }
 };
+
+
+export const STORAGE_KEYS = {
+  ACCESS_TOKEN: 'vitalnest_access_token',
+  REFRESH_TOKEN: 'vitalnest_refresh_token',
+  USER_INFO: 'vitalnest_user_info'
+};
