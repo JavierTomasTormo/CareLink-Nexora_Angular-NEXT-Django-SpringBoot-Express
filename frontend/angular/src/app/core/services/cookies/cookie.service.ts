@@ -19,6 +19,14 @@ export class CookieService {
         };
     }
 
+    getRefreshCookie() {
+        return Cookies.get('refreshToken');
+    }
+
+    getAccessCookie() {
+        return Cookies.get('accessToken');
+    }
+
     clearCookies(): void {
         Cookies.remove('accessToken');
         Cookies.remove('refreshToken');

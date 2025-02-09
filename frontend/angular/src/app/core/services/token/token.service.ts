@@ -30,15 +30,14 @@ export class TokenService {
     localStorage.removeItem(TOKEN_ROUTES.TOKEN_USER.USER_KEY);
     localStorage.clear();
     this.cookieService.clearCookies();
-    window.location.href = 'http://localhost:8000/api/auth/tutor/logout';
   }
 
   getAccessToken(): string | null {
-    return localStorage.getItem(TOKEN_ROUTES.TOKEN_USER.TOKEN_KEY);
+    return this.cookieService.getAccessCookie() ||localStorage.getItem(TOKEN_ROUTES.TOKEN_USER.TOKEN_KEY);
   }
 
   getRefreshToken(): string | null {
-    return localStorage.getItem(TOKEN_ROUTES.TOKEN_USER.REFRESH_TOKEN_KEY);
+    return this.cookieService.getRefreshCookie() || localStorage.getItem(TOKEN_ROUTES.TOKEN_USER.REFRESH_TOKEN_KEY);
   }
 
   isAuthenticated(): boolean {
