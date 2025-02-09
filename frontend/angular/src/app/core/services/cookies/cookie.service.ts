@@ -6,8 +6,8 @@ import Cookies from 'js-cookie';
 })
 export class CookieService {
   setCookies(accessToken: string, refreshToken: string, user: any): void {
-    Cookies.set('accessToken', accessToken, { expires: 1 }); // 1 día
-    Cookies.set('refreshToken', refreshToken, { expires: 7 }); // 7 días
+    Cookies.set('accessToken', accessToken, { expires: 1 }); 
+    Cookies.set('refreshToken', refreshToken, { expires: 7 }); 
     Cookies.set('UserInfo', JSON.stringify(user), { expires: 7 });
   }
 

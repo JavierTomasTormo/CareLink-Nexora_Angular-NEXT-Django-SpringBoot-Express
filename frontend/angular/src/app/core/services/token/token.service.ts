@@ -30,7 +30,7 @@ export class TokenService {
     localStorage.removeItem(TOKEN_ROUTES.TOKEN_USER.USER_KEY);
     localStorage.clear();
     this.cookieService.clearCookies();
-    window.location.href = 'http://localhost:8000/auth/logout';
+    window.location.href = 'http://localhost:8000/api/auth/tutor/logout';
   }
 
   getAccessToken(): string | null {
