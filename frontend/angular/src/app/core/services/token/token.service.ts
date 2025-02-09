@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../models/Users/user.model';
 import { TOKEN_ROUTES } from '../../constants/token.routes';
+import { CookieService } from '../cookies/cookie.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
+  constructor(private cookieService: CookieService) {}
 
   setTokens(accessToken: string, refreshToken: string): void {
     localStorage.setItem(TOKEN_ROUTES.TOKEN_USER.TOKEN_KEY, accessToken);
@@ -26,6 +28,9 @@ export class TokenService {
     localStorage.removeItem(TOKEN_ROUTES.TOKEN_USER.TOKEN_KEY);
     localStorage.removeItem(TOKEN_ROUTES.TOKEN_USER.REFRESH_TOKEN_KEY);
     localStorage.removeItem(TOKEN_ROUTES.TOKEN_USER.USER_KEY);
+    localStorage.clear();
+    this.cookieService.clearCookies();
+    window.location.href = 'http://localhost:8000/auth/logout';
   }
 
   getAccessToken(): string | null {
