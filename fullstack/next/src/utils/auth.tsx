@@ -18,7 +18,9 @@ export const logout = (): void => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('UserInfo');
-    cookieService.clearCookies();
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
+    Cookies.remove('UserInfo');
     window.location.href = SHARED_ROUTES.ANGULAR.AUTH.LOGOUT;
 };
 
