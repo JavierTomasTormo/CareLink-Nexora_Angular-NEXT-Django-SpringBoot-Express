@@ -3,24 +3,36 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import styles from '../../styles/layout/Header.module.css';
-import { SHARED_ROUTES } from '@/store/Constants';
-import { isAuthenticated, logout, authListener } from '../../utils/auth';
+import { SHARED_ROUTES, UserData,  DEFAULT_USER } from '@/store/Constants';
+import { isAuthenticated, logout, authListener, getUserInfo } from '../../utils/auth';
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState<UserData>(DEFAULT_USER);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+
+
 
   useEffect(() => {
     setIsAuth(isAuthenticated());
-    const cleanup = authListener((newAuthState) => {
-      setIsAuth(newAuthState);
-    });
+      const userInfo = getUserInfo();
+      if (userInfo) {
+        setUser(userInfo);
+      }
+      const cleanup = authListener((newAuthState) => {
+        setIsAuth(newAuthState);
+      });
     return cleanup;
   }, []);
 
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const toggleProfileMenu = () => {
+    setProfileMenuOpen(!profileMenuOpen);
   };
 
   return (
@@ -53,30 +65,68 @@ const Header: React.FC = () => {
                 Menús
               </Link>
             </li>
+
             {!isAuth ? (
               <li className={styles.navItem}>
-                <Link
-                  href={SHARED_ROUTES.ANGULAR.AUTH.LOGIN}
+                <Link 
+                  href={SHARED_ROUTES.ANGULAR.AUTH.LOGIN} 
                   className={`${styles.navLink} ${styles.authButton}`}
                 >
                   Login
                 </Link>
               </li>
             ) : (
-              <li className={styles.navItem}>
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    logout();
-                    setIsAuth(false); 
-                  }}
-                  className={`${styles.navLink} ${styles.authButton}`}
-                >
-                  Logout
-                </a>
+              <li className={`${styles.navItem} ${styles.profileContainer}`}>
+                <div className={styles.profileTrigger} onClick={toggleProfileMenu}>
+                  {user?.profile_img ? (
+                    <img 
+                      src={user.profile_img} 
+                      alt="Profile" 
+                      className={styles.profileImage}
+                    />
+                  ) : (
+                    <i className={`fas fa-user ${styles.profileIcon}`}></i>
+                  )}
+                </div>
+
+                <div className={`${styles.profileDropdown} ${profileMenuOpen ? styles.show : ''}`}>
+                  <div className={styles.profileHeader}>
+                    {user?.profile_img ? (
+                      <img 
+                        src={user.profile_img} 
+                        alt="Profile" 
+                        className={styles.dropdownProfileImage}
+                      />
+                    ) : (
+                      <i className={`fas fa-user ${styles.profileIcon}`}></i>
+                    )}
+                    <div className={styles.profileInfo}>
+                      <p className={styles.profileName}>{user?.name}</p>
+                      <p className={styles.profileEmail}>{user?.email}</p>
+                    </div>
+                  </div>
+                  <div className={styles.profileMenu}>
+                    <Link 
+                      href={SHARED_ROUTES.ANGULAR.AUTH.PROFILE} 
+                      className={styles.profileLink}
+                    >
+                      <i className="fas fa-user"></i> Mi Perfil
+                    </Link>
+                    <a 
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.location.href = SHARED_ROUTES.ANGULAR.AUTH.LOGOUT;
+                      }} 
+                      className={`${styles.profileLink} ${styles.logout}`}
+                    >
+                      <i className="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </a>
+                  </div>
+                </div>
               </li>
             )}
+
           </ul>
         </nav>
       </div>
