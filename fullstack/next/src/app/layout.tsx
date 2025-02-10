@@ -4,29 +4,31 @@ import Footer from "@/components/layout/Footer";
 import "../styles/global.css";
 import styles from "../styles/layout/Layout.module.css";
 import AuthProvider from "@/providers/AuthProvider";
-
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import type { Metadata } from 'next'
+
+import type { Metadata, Viewport } from 'next';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+  maximumScale: 1.0,
+  userScalable: false,
+  themeColor: '#4CAF50'
+};
 
 export const metadata: Metadata = {
   title: 'VitalNest | Cuidado Geriátrico Especializado',
-  description: 'Centro de cuidado geriátrico especializado con servicios profesionales las 24 horas. Ofrecemos atención personalizada, monitoreo médico y ambiente familiar para nuestros adultos mayores.',
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
-    shortcut: '/favicon.ico',
-  },
-  keywords: ['cuidado geriátrico', 'adultos mayores', 'residencia tercera edad', 'atención médica', 'VitalNest'],
-  viewport: 'width=device-width, initial-scale=1.0',
-  robots: 'index, follow',
+  description: 'Centro especializado en cuidados geriátricos personalizados, ofreciendo atención médica profesional y servicios de calidad para adultos mayores.',
+  keywords: 'cuidado geriátrico, adultos mayores, atención médica, residencia geriátrica, cuidados especializados',
+  authors: [{ name: 'VitalNest' }],
   openGraph: {
     title: 'VitalNest | Cuidado Geriátrico Especializado',
-    description: 'Centro de cuidado geriátrico con atención profesional 24/7',
+    description: 'Centro especializado en cuidados geriátricos personalizados',
     type: 'website',
     locale: 'es_ES',
-    siteName: 'VitalNest'
-  }
-}
+  },
+  robots: 'index, follow'
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

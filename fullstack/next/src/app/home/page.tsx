@@ -8,30 +8,39 @@ import BestRoomsSection from '@/components/home/BestRoomsSection/BestRoomsSectio
 import GallerySection from '@/components/home/GallerySection/GallerySection';
 import BlogSection from '@/components/home/BlogSection/BlogSection';
 import Head from 'next/head';
-import type { Metadata } from 'next'
+
+import type { Metadata, Viewport } from 'next';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false
+};
 
 export const metadata: Metadata = {
   title: 'VitalNest - Gestión Integral de Residencias para Mayores',
-  description: 'Sistema de gestión especializado para residencias de ancianos. Ofrecemos control de medicaciones, dietas personalizadas, actividades especializadas y cuidados específicos para personas mayores.',
-  keywords: 'residencia ancianos, gestión residencial, cuidado mayores, control medicación, dietas especiales, habitaciones adaptadas, actividades seniors, atención personalizada',
+  description: 'Sistema de gestión especializado para residencias de ancianos. Ofrecemos control de medicaciones, dietas personalizadas y cuidados específicos para personas mayores.',
+  keywords: ['residencia ancianos', 'gestión residencial', 'cuidado mayores', 'control medicación', 'dietas especiales', 'atención personalizada'],
+  authors: [{ name: 'VitalNest Care Management' }],
   openGraph: {
     title: 'VitalNest - Sistema de Gestión para Residencias de Mayores',
-    description: 'Plataforma integral para la gestión de residencias de ancianos. Control de medicaciones, dietas y cuidados personalizados para el bienestar de nuestros mayores.',
-    type: 'website',
+    description: 'Plataforma integral para la gestión de residencias de ancianos. Control de medicaciones, dietas y cuidados personalizados.',
     url: 'https://www.vitalnest.com',
+    siteName: 'VitalNest',
+    type: 'website',
     images: [
       {
         url: 'https://www.vitalnest.com/images/care-center.jpg',
         width: 1200,
         height: 630,
-        alt: 'VitalNest Care Center',
-      },
-    ],
-  },
-  authors: [{ name: 'VitalNest Care Management' }],
-  robots: 'index, follow',
-  viewport: 'width=device-width, initial-scale=1',
-}
+        alt: 'VitalNest Care Center'
+      }
+    ]
+  }
+};
+
+
 export default function HomePage() {
   return (
     <>
