@@ -12,20 +12,11 @@
         </button>
         <nav class="nav" [class.navOpen]="menuOpen">
             <ul class="navList">
-                <!-- <li class="navItem">
-                    <a [href]="routes.NEXT.HOME" class="navLink">Página Principal</a>
-                </li>
-                <li class="navItem">
-                    <a [href]="routes.NEXT.SHOP + '?activity_type='" class="navLink">Actividades</a>
-                </li>
-                <li class="navItem">
-                    <a [href]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink">Menús</a>
-                </li> -->
                 <li class="navItem">
                     <a [href]="routes.NEXT.HOME" class="navLink" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Página Principal</a>
                 </li>
                 <li class="navItem">
-                    <a [href]="routes.NEXT.SHOP + '?activity_type='" class="navLink" routerLinkActive="active">Actividades</a>
+                    <a [href]="routes.NEXT.SHOP + '?activity_type=1'" class="navLink" routerLinkActive="active">Actividades</a>
                 </li>
                 <li class="navItem">
                     <a [href]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink" routerLinkActive="active">Menús</a>
@@ -36,13 +27,7 @@
                 <li class="navItem" *ngIf="!tokenService.isAuthenticated()">
                     <a [routerLink]="routes.ANGULAR.AUTH.LOGIN" class="navLink auth-button">Login</a>
                 </li>
-                <!-- <li class="navItem" *ngIf="tokenService.isAuthenticated()">
-                    <a (click)="logout()" class="navLink auth-button">Logout</a>
-                </li> -->
                 <li class="navItem profile-container" *ngIf="tokenService.isAuthenticated()">
-                    <!-- <div class="profile-trigger" (click)="toggleProfileMenu()">
-                        <img [src]="user.profile_img" alt="Profile" class="profile-image"/>
-                    </div> -->
                     <div class="profile-trigger" (click)="toggleProfileMenu()">
                         <ng-container *ngIf="user?.profile_img; else defaultIcon">
                             <img [src]="user.profile_img" alt="Profile" class="profile-image"/>
@@ -51,10 +36,6 @@
                             <i class="fas fa-user profile-icon"></i>
                         </ng-template>
                     </div>
-
-                    <!-- <div class="profile-dropdown" [class.show]="profileMenuOpen">
-                        <div class="profile-header">
-                            <img [src]="user.profile_img" alt="Profile" class="dropdown-profile-image"/> -->
                         <div class="profile-dropdown" [class.show]="profileMenuOpen">
                             <div class="profile-header">
                                 <ng-container *ngIf="user?.profile_img; else dropdownDefaultIcon">
