@@ -191,6 +191,16 @@
         padding: 0.8rem;
     }
 }
+
+
+
+
+
+
+
+
+
+
 /* Add these styles to your existing CSS */
 .navLink.active {
     color: #2c3e50;
@@ -214,4 +224,141 @@
     .navLink.active {
         background-color: #f8f9fa;
     }
+}
+
+
+
+.profile-container {
+    position: relative;
+}
+
+.profile-trigger {
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 50%;
+    border: 2px solid #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.profile-trigger:hover {
+    border-color: #34495e;
+    transform: scale(1.05);
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-dropdown {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    width: 280px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.profile-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.profile-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dropdown-profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.profile-email {
+    color: #666;
+    margin: 4px 0 0;
+    font-size: 0.85rem;
+}
+
+.profile-menu {
+    padding: 10px;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    color: #2c3e50;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.profile-link:hover {
+    background-color: #d1d2d3;
+}
+
+.profile-link.logout {
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+
+.profile-link i {
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .profile-dropdown {
+        position: fixed;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    
+    .profile-dropdown.show {
+        transform: translateX(-50%) translateY(0);
+    }
+}
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 50%;
+}
+
+.profile-dropdown .profile-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
 }
