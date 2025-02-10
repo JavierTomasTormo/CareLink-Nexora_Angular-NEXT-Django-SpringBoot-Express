@@ -14,6 +14,18 @@ export const isAuthenticated = (): boolean => {
     return false;
 };
 
+export const getUserInfo = () => {
+    return Cookies.get('UserInfo') || localStorage.getItem('UserInfo');
+};
+
+export const getAccessToken = () => {
+    return Cookies.get('accessToken') || localStorage.getItem('accessToken');
+};
+
+export const getRefreshToken = () => {
+    return Cookies.get('refreshToken') || localStorage.getItem('refreshToken');
+};
+
 export const logout = (): void => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');

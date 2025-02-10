@@ -32,6 +32,29 @@ export const CREATE_BEDROOM = 'bedrooms/createBedRoom';
 export const UPDATE_BEDROOM = 'bedrooms/updateBedRoom';
 
 
+export interface UserData {
+  id_user: number;
+  email: string;
+  name: string;
+  isactive: number;
+  createdat: string;
+  updatedat: string;
+  phone_number: string;
+  address: string;
+  profile_img: string;
+}
+
+export const DEFAULT_USER: UserData = {
+  id_user: 0,
+  email: '',
+  name: '',
+  isactive: 0,
+  createdat: '',
+  updatedat: '',
+  phone_number: '',
+  address: '',
+  profile_img: ''
+};
 
 export interface RoomData {
   id: number;
@@ -125,7 +148,8 @@ export const SHARED_ROUTES = {
     AUTH: {
       LOGIN: 'http://localhost:4200/auth/login',
       REGISTER: 'http://localhost:4200/auth/register',
-      LOGOUT: 'http://localhost:4200/auth/logout'
+      LOGOUT: 'http://localhost:4200/auth/logout',
+      PROFILE: 'http://localhost:4200/auth/profile' 
     }
   },
   NEXT: {
