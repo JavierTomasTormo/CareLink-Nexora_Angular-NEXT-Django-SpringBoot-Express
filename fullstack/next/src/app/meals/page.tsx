@@ -8,30 +8,31 @@ import Slide from "@/components/meals/Slide";
 import Filters from "@/components/meals/Filters";
 import Meals from "@/components/meals/Meals";
 import FiltersMeals from "@/components/meals/FiltersMeals";
-import type { Metadata } from 'next'
+
+import type { Metadata, Viewport } from 'next';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1
+};
 
 export const metadata: Metadata = {
-  title: 'VitalNest - Gestión Integral de Residencias para Mayores',
-  description: 'Sistema de gestión especializado para residencias de ancianos. Ofrecemos control de medicaciones, dietas personalizadas, actividades especializadas y cuidados específicos para personas mayores.',
-  keywords: 'residencia ancianos, gestión residencial, cuidado mayores, control medicación, dietas especiales, habitaciones adaptadas, actividades seniors, atención personalizada',
+  title: 'VitalNest | Meal Plans & Dishes',
+  description: 'Explore our diverse selection of healthy meals, from breakfast to dinner. Custom meal plans, dietary options, and nutritious dishes tailored to your needs.',
+  keywords: 'healthy meals, meal plans, diet food, breakfast, lunch, dinner, nutrition, dietary options',
   openGraph: {
-    title: 'VitalNest - Sistema de Gestión para Residencias de Mayores',
-    description: 'Plataforma integral para la gestión de residencias de ancianos. Control de medicaciones, dietas y cuidados personalizados para el bienestar de nuestros mayores.',
+    title: 'VitalNest | Meal Plans & Dishes',
+    description: 'Discover nutritious and delicious meals customized to your dietary preferences',
     type: 'website',
-    url: 'https://www.vitalnest.com',
-    images: [
-      {
-        url: 'https://www.vitalnest.com/images/care-center.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'VitalNest Care Center',
-      },
-    ],
+    siteName: 'VitalNest',
   },
-  authors: [{ name: 'VitalNest Care Management' }],
   robots: 'index, follow',
-  viewport: 'width=device-width, initial-scale=1',
-}
+  authors: [{ name: 'VitalNest Team' }],
+  category: 'Food & Health'
+};
+
+
+
 export default function MealsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
