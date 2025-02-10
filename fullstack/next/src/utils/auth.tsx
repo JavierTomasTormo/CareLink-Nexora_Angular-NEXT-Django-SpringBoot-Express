@@ -15,7 +15,8 @@ export const isAuthenticated = (): boolean => {
 };
 
 export const getUserInfo = () => {
-    return Cookies.get('UserInfo') || localStorage.getItem('UserInfo');
+    const user = Cookies.get('UserInfo') || localStorage.getItem('UserInfo');
+    return user ? JSON.parse(user) : null;
 };
 
 export const getAccessToken = () => {
