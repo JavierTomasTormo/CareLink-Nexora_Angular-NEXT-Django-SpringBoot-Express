@@ -13,7 +13,7 @@ export const getAllActivities = async () => {
                 return { ...activity, images: imagesResponse.data };
             })
         );
-        console.log('Activities with images:', activitiesWithImages);
+        // console.log('Activities with images:', activitiesWithImages);
         return activitiesWithImages;
     } catch (error) {
         console.error('Error fetching all activities:', error);
