@@ -19,6 +19,11 @@ export class CookieService {
         };
     }
 
+    getCurrentUser() {
+      const user = Cookies.get('UserInfo');
+        return user ? JSON.parse(user) : null;
+    }
+
     getRefreshCookie() {
         return Cookies.get('refreshToken');
     }
