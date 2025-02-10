@@ -5,6 +5,9 @@ import "../styles/global.css";
 import styles from "../styles/layout/Layout.module.css";
 import AuthProvider from "@/providers/AuthProvider";
 
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">

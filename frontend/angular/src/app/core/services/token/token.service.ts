@@ -20,8 +20,7 @@ export class TokenService {
   }
 
   getUserInfo(): User | null {
-    const userStr = localStorage.getItem(TOKEN_ROUTES.TOKEN_USER.USER_KEY);
-    return userStr ? JSON.parse(userStr) : null;
+    return this.cookieService.getCurrentUser() || localStorage.getItem(TOKEN_ROUTES.TOKEN_USER.USER_KEY);
   }
 
   clearAll(): void {
@@ -41,6 +40,6 @@ export class TokenService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getAccessToken() && !!this.getUserInfo();
+    return !!this.getAccessToken() && !!this.getUserInfo() && !!this.getRefreshToken();
   }
 }

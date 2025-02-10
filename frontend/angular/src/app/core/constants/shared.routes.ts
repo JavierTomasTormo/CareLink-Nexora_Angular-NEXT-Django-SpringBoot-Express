@@ -3,7 +3,8 @@ export const SHARED_ROUTES = {
         AUTH: {
             LOGIN: '/auth/login',
             REGISTER: '/auth/register',
-            LOGOUT: '/auth/logout'
+            LOGOUT: '/auth/logout',
+            PROFILE: '/auth/profile'
         },
         CRITICAL: {
             MEDICAL: '/medical',
