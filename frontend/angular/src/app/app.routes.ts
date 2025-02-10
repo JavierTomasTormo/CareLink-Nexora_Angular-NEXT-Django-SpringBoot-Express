@@ -11,6 +11,21 @@ export const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
+  // {
+  //   path: 'medical',
+  //   canActivate: [AuthGuard],
+  //   loadChildren: () => import('./modules/medical/medical.routes').then(m => m.MEDICAL_ROUTES)
+  // },
+  // {
+  //   path: 'emergency',
+  //   canActivate: [AuthGuard],
+  //   loadChildren: () => import('./modules/emergency/emergency.routes').then(m => m.EMERGENCY_ROUTES)
+  // },
+  // {
+  //   path: 'reports',
+  //   canActivate: [AuthGuard],
+  //   loadChildren: () => import('./modules/reports/reports.routes').then(m => m.REPORTS_ROUTES)
+  // },
   { 
     path: '404', 
     component: ErrorComponent 

@@ -1,3 +1,8 @@
+
+
+
+
+
 .login {
     min-height: 100vh;
     background: rgba(253, 245, 230, 0.95);
@@ -5,6 +10,15 @@
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    animation: gradientBG 15s ease infinite;
+    background: linear-gradient(-45deg, rgba(253, 245, 230, 0.95), rgba(246, 114, 128, 0.1), rgba(255, 252, 250, 0.95));
+    background-size: 400% 400%;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
 }
 
 .login__content {
@@ -16,7 +30,14 @@
     overflow: hidden;
     transform-style: preserve-3d;
     perspective: 1000px;
-    animation: floatIn 0.6s ease-out;
+    animation: floatIn 0.8s ease-out, pulse 3s infinite;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1) }
+    50% { transform: scale(1.005) }
+    100% { transform: scale(1) }
 }
 
 @keyframes floatIn {
@@ -79,11 +100,12 @@
     border-bottom: 2px solid #ddd;
     background: transparent;
     font-size: 1.1rem;
-    transition: all 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .login__input:focus {
     border-bottom-color: #f67280;
+    transform: translateY(-2px);
 }
 
 .login__label {
@@ -97,25 +119,34 @@
 
 .login__input:focus ~ .login__label,
 .login__input:not(:placeholder-shown) ~ .login__label {
+    transform: translateY(-2.5rem);
+    font-size: 0.9rem;
     color: #f67280;
 }
+
 
 .login__button {
     width: 100%;
     padding: 1.2rem;
-    background: #f67280;
+    background: linear-gradient(45deg, #f67280, #f8b195);
     color: white;
     border: none;
     border-radius: 50px;
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-
     margin-top: 1rem;
 }
+
+.login__button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 7px 20px rgba(246, 114, 128, 0.4);
+    background: linear-gradient(45deg, #f8b195, #f67280);
+}
+
 
 .login__button::before {
     content: '';
@@ -152,14 +183,19 @@
     background: #fff;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px) }
+    50% { transform: translateY(-5px) }
+    100% { transform: translateY(0px) }
 }
 
 .login__social-btn:hover {
     background: #fff5f5;
+    transform: rotate(360deg) scale(1.1);
 }
 
 .login__forgot {
@@ -198,4 +234,50 @@
 
 .login__signin:hover {
     color: #b21f1f;
+}
+
+
+
+.password-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input i {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s ease;
+    animation: wiggle 2s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0) }
+    25% { transform: rotate(10deg) }
+    75% { transform: rotate(-10deg) }
+}
+
+.password-input i:hover {
+    color: #f67280;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translateX(-1px) }
+    20%, 80% { transform: translateX(2px) }
+    30%, 50%, 70% { transform: translateX(-4px) }
+    40%, 60% { transform: translateX(4px) }
+}
+
+input.ng-invalid.ng-touched {
+    border-bottom-color: #f44336;
 }

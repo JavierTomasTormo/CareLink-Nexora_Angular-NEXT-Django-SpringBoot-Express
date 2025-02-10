@@ -1,7 +1,7 @@
 <header class="header">
     <div class="container">
         <div class="logo">
-            <a routerLink="/home">
+            <a [href]="routes.NEXT.HOME">
                 <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
             </a>
         </div>
@@ -13,16 +13,54 @@
         <nav class="nav" [class.navOpen]="menuOpen">
             <ul class="navList">
                 <li class="navItem">
-                    <a href="http://localhost:3000/" class="navLink">Página Principal</a>
+                    <a [href]="routes.NEXT.HOME" class="navLink" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Página Principal</a>
                 </li>
                 <li class="navItem">
-                    <a href="http://localhost:3000/shop?activity_type=" class="navLink">Actividades</a>
+                    <a [href]="routes.NEXT.SHOP + '?activity_type=1'" class="navLink" routerLinkActive="active">Actividades</a>
                 </li>
                 <li class="navItem">
-                    <a href="http://localhost:3000/meals?type_meal=1" class="navLink">Menús</a>
+                    <a [href]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink" routerLinkActive="active">Menús</a>
                 </li>
+
+
+
+                <li class="navItem" *ngIf="!tokenService.isAuthenticated()">
+                    <a [routerLink]="routes.ANGULAR.AUTH.LOGIN" class="navLink auth-button">Login</a>
+                </li>
+                <li class="navItem profile-container" *ngIf="tokenService.isAuthenticated()">
+                    <div class="profile-trigger" (click)="toggleProfileMenu()">
+                        <ng-container *ngIf="user?.profile_img; else defaultIcon">
+                            <img [src]="user.profile_img" alt="Profile" class="profile-image"/>
+                        </ng-container>
+                        <ng-template #defaultIcon>
+                            <i class="fas fa-user profile-icon"></i>
+                        </ng-template>
+                    </div>
+                        <div class="profile-dropdown" [class.show]="profileMenuOpen">
+                            <div class="profile-header">
+                                <ng-container *ngIf="user?.profile_img; else dropdownDefaultIcon">
+                                    <img [src]="user.profile_img" alt="Profile" class="dropdown-profile-image"/>
+                                </ng-container>
+                                <ng-template #dropdownDefaultIcon>
+                                    <i class="fas fa-user profile-icon"></i>
+                                </ng-template>
+                            <div class="profile-info">
+                                <p class="profile-name">{{user.name}}</p>
+                                <p class="profile-email">{{user.email}}</p>
+                            </div>
+                        </div>
+                        <div class="profile-menu">
+                            <a [routerLink]="routes.ANGULAR.AUTH.PROFILE" class="profile-link">
+                                <i class="fas fa-user"></i> Mi Perfil
+                            </a>
+                            <a (click)="logout()" class="profile-link logout">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                
             </ul>
         </nav>
     </div>
 </header>
-

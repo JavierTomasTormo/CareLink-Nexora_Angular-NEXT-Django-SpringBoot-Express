@@ -223,20 +223,20 @@
 
 
 
-    .password-input {
-        position: relative;
-        display: flex;
-        align-items: center;
-      }
-      
-      .password-input i {
-        position: absolute;
-        right: 10px;
-        cursor: pointer;
-        color: #666;
-        transition: color 0.3s ease;
-      }
-      
-      .password-input i:hover {
-        color: #f67280;
-      }
+        .password-input {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .password-input i {
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+        
+        .password-input i:hover {
+            color: #f67280;
+        }

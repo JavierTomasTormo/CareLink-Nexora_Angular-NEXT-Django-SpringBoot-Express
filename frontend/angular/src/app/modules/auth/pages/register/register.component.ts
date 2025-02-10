@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../../../core/services/auth/user.service';
 import Swal from 'sweetalert2';
 
@@ -13,7 +12,6 @@ import Swal from 'sweetalert2';
   imports: [
     CommonModule,
     ReactiveFormsModule, 
-    HttpClientModule,
     RouterModule
   ],
   providers: [UserService],
@@ -45,13 +43,12 @@ export class RegisterComponent implements OnInit {
           password: ['', [
               Validators.required, 
               Validators.minLength(8),
-              Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/)]
+              Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[.!@#$%^&*])/)]
             ],
           confirmPassword: ['', Validators.required],
           profile_img: ['']
         });
 
-        // Listen for changes in password and confirm password fields
         this.registerForm.get('confirmPassword')?.valueChanges.subscribe(confirmValue => {
           const passwordValue = this.registerForm.get('password')?.value;
           if (confirmValue !== passwordValue) {
@@ -61,7 +58,6 @@ export class RegisterComponent implements OnInit {
           }
         });
 
-        // Escuchar cambios en el campo email
         this.registerForm.get('email')?.valueChanges.subscribe(email => {
           if (email) {
             this.registerForm.patchValue({

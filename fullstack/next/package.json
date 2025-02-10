@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "@reduxjs/toolkit": "^2.5.1",
+    "@types/js-cookie": "^3.0.6",
     "axios": "^1.7.9",
     "embla-carousel": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "framer-motion": "^12.0.6",
+    "js-cookie": "^3.0.5",
     "next": "15.1.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs';
         providedIn: 'root'
     })
     export class LoadingService {
-    // Observable para controlar estado de carga
     private isLoading = new BehaviorSubject<boolean>(false);
     public loading$ = this.isLoading.asObservable();
 
