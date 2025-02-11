@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface InscriptionService {
     List<InscriptionDTO> getAllInscriptions();
     Optional<InscriptionDTO> getInscriptionById(Long id);
+    InscriptionDTO createInscription(String token, InscriptionDTO inscriptionDTO);  // Recibir token
 }

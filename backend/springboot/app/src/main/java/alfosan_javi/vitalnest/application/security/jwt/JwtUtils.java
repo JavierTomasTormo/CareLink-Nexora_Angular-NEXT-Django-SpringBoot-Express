@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -21,78 +21,103 @@ public class JwtUtils {
     @Value("${security.jwt.token.secret-key}")
     private String jwtSecret;
 
-    @Value("${security.jwt.token.expire-length}")
-    private long jwtExpirationMs;
-
     private Key secretKey;
 
     @PostConstruct
     public void init() {
-        if (jwtSecret != null && !jwtSecret.isEmpty()) {
-            if (jwtSecret.length() < 64) {
-                logger.warn("La clave secreta proporcionada es muy corta. Se utilizará una clave de 512 bits generada automáticamente.");
+        try {
+            if (jwtSecret == null || jwtSecret.trim().isEmpty()) {
+                throw new IllegalArgumentException("La clave secreta no está definida.");
             }
-            this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-        } else {
-            logger.info("No se proporcionó clave secreta en el archivo de configuración. Generando una clave secreta de 512 bits.");
-            this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-        }
-    }
 
-    public String generateAccessToken(String email) {
-        try {
-            return Jwts.builder()
-                    .setSubject(email)
-                    .setIssuedAt(new Date())
-                    .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                    .signWith(secretKey, SignatureAlgorithm.HS512)
-                    .compact();
+            // Inicializa la clave secreta desde el valor de la propiedad
+            this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+            logger.info("Clave secreta inicializada correctamente.");
         } catch (Exception e) {
-            logger.error("Error generating access token for user: {}. Error: {}", email, e.getMessage());
-            throw new RuntimeException("Error generating access token", e);
+            logger.error("Error al inicializar la clave secreta: {}", e.getMessage());
+            throw new RuntimeException("Error al inicializar la clave secreta.", e);
         }
     }
 
-    public boolean validateJwtToken(String token) {
+    // Extraer el ID del usuario desde el JWT
+    public Long getUserIdFromJwtToken(String token) {
         try {
-            Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token);
-            return true;
-        } catch (ExpiredJwtException e) {
-            logger.warn("JWT token expired: {}", token);
-        } catch (UnsupportedJwtException e) {
-            logger.error("Unsupported JWT token: {}", token);
-        } catch (MalformedJwtException e) {
-            logger.error("Malformed JWT token: {}", token);
-        } catch (SignatureException e) {
-            logger.error("Invalid JWT signature: {}", token);
-        } catch (Exception e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
-        }
-        return false;
-    }
+            if (token == null || token.trim().isEmpty()) {
+                throw new IllegalArgumentException("Token JWT es nulo o vacío");
+            }
 
-    public String getUserEmailFromJwtToken(String token) {
-        try {
-            return Jwts.parserBuilder()
+            token = token.trim();
+            if (token.split("\\.").length != 3) {
+                throw new MalformedJwtException("Token JWT no tiene un formato válido");
+            }
+
+            logger.info("Token procesado correctamente: {}", token);  // Log para verificar token
+
+            Claims claims = Jwts.parserBuilder()
                     .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject();
-        } catch (JwtException e) {
-            logger.error("Error extracting email from JWT token: {}", e.getMessage());
-            throw new RuntimeException("Error extracting email from JWT token", e);
+                    .getBody();
+
+            if (claims.getExpiration().before(new Date())) {
+                throw new ExpiredJwtException(null, claims, "El token ha expirado");
+            }
+
+            // Cambiar el tipo de conversión a Integer
+            return claims.get("id_user", Integer.class).longValue();  // Convertir de Integer a Long
+
+        } catch (JwtException | IllegalArgumentException e) {
+            logger.error("Error al procesar el JWT: {}", e.getMessage());
+            throw new RuntimeException("Error al procesar el JWT: " + e.getMessage());
         }
     }
 
+    // Extraer el rol del usuario desde el JWT
+    public String getUserRoleFromToken(String token) {
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            return claims.get("role", String.class);  // Extraer 'role'
+        } catch (Exception e) {
+            logger.error("Error al obtener el rol del token: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    // Obtener el JWT desde la cabecera 'Authorization' en la solicitud
     public String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+            String token = bearerToken.substring(7).trim();  // Eliminar el prefijo 'Bearer ' y limpiar cualquier espacio extra
+            logger.info("Token recibido (sin prefijo Bearer): [{}]", token);  // Verificación detallada del token
+            if (token.contains(" ")) {
+                logger.error("El token contiene espacios extra, lo cual es inválido: [{}]", token);
+                throw new RuntimeException("El token contiene espacios extra, lo cual es inválido");
+            }
+            return token;
         }
         return null;
     }
+
+
+
+    // Extraer el email del usuario desde el JWT
+   public String getUserEmailFromToken(String token) {
+        try {
+            String cleanedToken = token.replace("Bearer ", "").trim();  // Eliminar el prefijo 'Bearer ' y cualquier espacio adicional
+            Claims claims = Jwts.parser()
+                                .setSigningKey(secretKey)
+                                .parseClaimsJws(cleanedToken)
+                                .getBody();
+            return claims.get("email", String.class);  // Obtener el email desde los claims
+        } catch (Exception e) {
+            logger.error("Error al obtener el email desde el token JWT", e);
+            return null;
+        }
+    }
+
 }
