@@ -2,6 +2,8 @@ from pathlib import Path
 import os
 from datetime import timedelta
 from dotenv import load_dotenv
+from corsheaders.defaults import default_headers
+
 
 # Cargar variables de entorno
 load_dotenv()
@@ -116,17 +118,21 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
 ]
 
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'X-Refresh-Token',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     
-    'vitalnest.middlewares.verify_token.VerifyTokenMiddleware',  
+        'vitalnest.middlewares.verify_token.VerifyTokenMiddleware',  
 ]
 
 ROOT_URLCONF = 'core.urls'

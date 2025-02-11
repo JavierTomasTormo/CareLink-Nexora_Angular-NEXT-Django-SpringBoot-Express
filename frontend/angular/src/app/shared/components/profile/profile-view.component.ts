@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CookieService } from '../../../core/services/cookies/cookie.service';
 import { User } from '../../../core/models/Users/user.model';
+import { UserService } from '../../../core/services/auth/user.service';
 
 @Component({
   selector: 'app-profile-view',
@@ -18,7 +19,10 @@ export class ProfileViewComponent {
   baseProfileUrl: string = 'https://api.dicebear.com/7.x/lorelei/svg?seed=';
   profileSlug: string = ''; 
 
-  constructor(private cookieService: CookieService) {
+  constructor(
+    private cookieService: CookieService,
+    private userService: UserService
+    ) {
     this.user = this.cookieService.getCurrentUser();
     this.extractProfileSlug();
   }
@@ -35,13 +39,29 @@ export class ProfileViewComponent {
 
   onSubmit(): void {
     this.isLoading = true;
-    this.user.profile_img = this.baseProfileUrl + this.profileSlug; // Construir URL final
+    // console.log(this.cookieService.getCookies());
 
-    // Simulación de actualización con delay
-    setTimeout(() => {
-      console.log('Usuario actualizado:', this.user);
-      this.isEditing = false;
-      this.isLoading = false;
-    }, 1500);
+    this.user.profile_img = this.baseProfileUrl + this.profileSlug; 
+
+    this.userService.updateUser(this.user.id_user, this.user).subscribe(
+      updatedUser => {
+        const updatedUserWithIdUser = {
+          ...updatedUser,
+          id_user: updatedUser.id ?? this.user.id_user,
+        };
+        this.user = updatedUserWithIdUser;
+        this.cookieService.setCookies(
+          this.cookieService.getAccessCookie()!,
+          this.cookieService.getRefreshCookie()!,
+          updatedUserWithIdUser
+        );
+        this.isEditing = false;
+        this.isLoading = false;
+      },
+      error => {
+        console.error('Error actualizando el usuario:', error);
+        this.isLoading = false;
+      }
+    );
   }
 }

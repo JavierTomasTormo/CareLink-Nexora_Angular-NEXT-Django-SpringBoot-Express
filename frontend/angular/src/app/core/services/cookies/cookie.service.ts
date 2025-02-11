@@ -13,10 +13,11 @@ export class CookieService {
   }
 
     getCookies() {
+        const userInfo = Cookies.get('UserInfo');
         return {
             accessToken: Cookies.get('accessToken'),
             refreshToken: Cookies.get('refreshToken'),
-            UserInfo: Cookies.get('UserInfo')
+            UserInfo: userInfo ? JSON.parse(userInfo) : null
         };
     }
 

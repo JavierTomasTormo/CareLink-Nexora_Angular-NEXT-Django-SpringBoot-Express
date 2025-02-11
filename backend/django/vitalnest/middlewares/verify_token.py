@@ -41,6 +41,12 @@ class VerifyTokenMiddleware:
             
             '/api/rooms/room/',  # POST (create)
             '/api/rooms/room/'   # PUT/PATCH/DELETE
+
+            # User endpoints
+            '/api/users/tutor/',  # POST (create)
+            '/api/users/tutor/',  # PUT/PATCH/DELETE
+            '/api/users/patient/',  # POST (create)
+            '/api/users/patient/',  # PUT/PATCH/DELETE
         ]
 
 
@@ -54,7 +60,8 @@ class VerifyTokenMiddleware:
 
         # Verificar token solo para rutas protegidas
         auth_header = request.headers.get('Authorization')
-        if not auth_header:
+        refresh_token = request.headers.get('X-Refresh-Token')
+        if not auth_header or not refresh_token:
             return JsonResponse({'status': 'error', 'message': 'No token provided'}, status=401)
 
         try:
@@ -63,7 +70,7 @@ class VerifyTokenMiddleware:
                 return JsonResponse({'status': 'error', 'message': 'Invalid token format'}, status=401)
             
             token = auth_parts[1]
-            user = verify_refresh_token(token)
+            user = verify_refresh_token(refresh_token)
             if not user:
                 return JsonResponse({'status': 'error', 'message': 'Invalid or expired token'}, status=401)
 

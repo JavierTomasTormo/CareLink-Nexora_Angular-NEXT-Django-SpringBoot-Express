@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
+
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
     const tokenService = inject(TokenService);
     const router = inject(Router);
@@ -13,9 +14,10 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
         return next(req);
     }
 
-    const token = tokenService.getAccessToken();
-    if (token) {
-        req = addToken(req, token);
+    const accessToken = tokenService.getAccessToken();
+    const refreshToken = tokenService.getRefreshToken();
+    if (accessToken && refreshToken) {
+        req = addToken(req, accessToken, refreshToken);
     }
 
     return next(req).pipe(
@@ -29,10 +31,11 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
         );
 }; 
 
-const addToken = (request: HttpRequest<unknown>, token: string): HttpRequest<unknown> => {
+const addToken = (request: HttpRequest<unknown>, accessToken: string, refreshToken: string): HttpRequest<unknown> => {
     return request.clone({
         setHeaders: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${accessToken}`,
+            'X-Refresh-Token': refreshToken
         }
     });
 };
