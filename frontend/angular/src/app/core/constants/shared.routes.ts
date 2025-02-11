@@ -4,7 +4,7 @@ export const SHARED_ROUTES = {
             LOGIN: '/auth/login',
             REGISTER: '/auth/register',
             LOGOUT: '/auth/logout',
-            PROFILE: '/auth/profile'
+            PROFILE: '/profile/view'
         },
         CRITICAL: {
             MEDICAL: '/medical',

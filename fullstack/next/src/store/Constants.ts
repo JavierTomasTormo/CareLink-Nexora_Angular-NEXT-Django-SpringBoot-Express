@@ -149,7 +149,7 @@ export const SHARED_ROUTES = {
       LOGIN: 'http://localhost:4200/auth/login',
       REGISTER: 'http://localhost:4200/auth/register',
       LOGOUT: 'http://localhost:4200/auth/logout',
-      PROFILE: 'http://localhost:4200/auth/profile' 
+      PROFILE: 'http://localhost:4200/profile/view' 
     }
   },
   NEXT: {
