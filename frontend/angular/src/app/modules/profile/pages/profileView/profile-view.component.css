@@ -1,0 +1,33 @@
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fadeIn { animation: fadeIn 0.5s ease-in-out; }
+  
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  .card:hover { transform: scale(1.05); }
+  
+  .label { font-weight: bold; color: #4A5568; }
+  .input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+  .input-disabled { background: #E2E8F0; cursor: not-allowed; }
+  
+  .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider { position: absolute; cursor: not-allowed; background: #ccc; transition: 0.4s; border-radius: 20px; }
+  input:checked + .slider { background: #4CAF50; }
+  
+  .btn-primary { background: #4F46E5; color: white; padding: 10px 20px; border-radius: 8px; transition: 0.3s; }
+  .btn-primary:hover { background: #4338CA; }
+  
+  .btn-secondary { background: #6B7280; color: white; padding: 10px 20px; border-radius: 8px; transition: 0.3s; }
+  .btn-secondary:hover { background: #4B5563; }
+  
