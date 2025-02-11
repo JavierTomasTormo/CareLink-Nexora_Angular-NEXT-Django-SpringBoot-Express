@@ -37,27 +37,23 @@ export class ProfileViewComponent {
     }
   }
 
-  // onSubmit(): void {
-  //   this.isLoading = true;
-  //   this.user.profile_img = this.baseProfileUrl + this.profileSlug; // Construir URL final
-
-  //   setTimeout(() => {
-  //     console.log('Usuario actualizado:', this.user);
-  //     this.isEditing = false;
-  //     this.isLoading = false;
-  //   }, 500);
-  // }
   onSubmit(): void {
     this.isLoading = true;
-    this.user.profile_img = this.baseProfileUrl + this.profileSlug; // Construir URL final
+    // console.log(this.cookieService.getCookies());
+
+    this.user.profile_img = this.baseProfileUrl + this.profileSlug; 
 
     this.userService.updateUser(this.user.id_user, this.user).subscribe(
       updatedUser => {
-        this.user = updatedUser;
+        const updatedUserWithIdUser = {
+          ...updatedUser,
+          id_user: updatedUser.id ?? this.user.id_user,
+        };
+        this.user = updatedUserWithIdUser;
         this.cookieService.setCookies(
           this.cookieService.getAccessCookie()!,
           this.cookieService.getRefreshCookie()!,
-          this.user
+          updatedUserWithIdUser
         );
         this.isEditing = false;
         this.isLoading = false;
