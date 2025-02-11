@@ -6,6 +6,10 @@ import { TokenService } from '../token/token.service';
 import { API_ROUTES } from '../../constants/api.routes';
 import { LoginResponse, LoginRequest } from '../../models/Auth/login.model';
 import { RegisterResponse, RegisterRequest } from '../../models/Auth/register.model';
+import { User } from '../../models/Users/user.model';
+
+
+
 
 @Injectable({
     providedIn: 'root'
@@ -26,5 +30,9 @@ import { RegisterResponse, RegisterRequest } from '../../models/Auth/register.mo
     
         logout(): Observable<any> {
             return this.http.post(API_ROUTES.AUTH.LOGOUT, {});
+        }
+
+        updateUser(userId: number, userData: Partial<User>): Observable<User> {
+            return this.http.put<User>(`${API_ROUTES.AUTH.UPDATE}/${userId}/`, userData);
         }
     }
