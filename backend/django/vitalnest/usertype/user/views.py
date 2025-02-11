@@ -32,9 +32,9 @@ class UserDetail(APIView):
 
     def put(self, request, pk):
         user = self.get_object(pk)
-        
-        print("Datos del usuario recibidos del frontend:", request.data)
-        print("Token recibido:", request.headers.get('Authorization'))
+
+        # print("Datos del usuario recibidos del frontend:", request.data)
+        # print("Token recibido:", request.headers.get('Authorization'))
 
         serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
