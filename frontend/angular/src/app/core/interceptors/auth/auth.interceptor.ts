@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
+
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
     const tokenService = inject(TokenService);
     const router = inject(Router);

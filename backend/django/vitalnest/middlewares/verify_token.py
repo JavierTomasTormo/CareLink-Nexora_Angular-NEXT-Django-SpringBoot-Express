@@ -41,6 +41,12 @@ class VerifyTokenMiddleware:
             
             '/api/rooms/room/',  # POST (create)
             '/api/rooms/room/'   # PUT/PATCH/DELETE
+
+            # User endpoints
+            '/api/users/tutor/',  # POST (create)
+            '/api/users/tutor/',  # PUT/PATCH/DELETE
+            '/api/users/patient/',  # POST (create)
+            '/api/users/patient/',  # PUT/PATCH/DELETE
         ]
 
 
