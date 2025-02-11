@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { CookieService } from '../../../../core/services/cookies/cookie.service';
-import { User } from '../../../../core/models/Users/user.model';
+import { CookieService } from '../../../core/services/cookies/cookie.service';
+import { User } from '../../../core/models/Users/user.model';
 
 @Component({
   selector: 'app-profile-view',
