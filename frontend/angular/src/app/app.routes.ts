@@ -9,6 +9,11 @@ export const routes: Routes = [
     pathMatch: 'full' 
   },
   {
+    path: 'payments',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./modules/payments/payments.module').then(m => m.PaymentsModule)  // Usando carga perezosa (lazy loading)
+  },
+  {
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },

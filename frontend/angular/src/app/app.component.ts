@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/layout/header/header.component';   
 import { FooterComponent } from './shared/components/layout/footer/footer.component';
+import { FormsModule } from '@angular/forms'; // ✅ Importa FormsModule aquí también
 
 @Component({
     selector: 'app-root',
@@ -11,12 +12,13 @@ import { FooterComponent } from './shared/components/layout/footer/footer.compon
         CommonModule, 
         RouterOutlet,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        FormsModule // ✅ Agregar FormsModule aquí
     ],
     template: `
         <main>
             <app-header></app-header>
-                <router-outlet></router-outlet>
+            <router-outlet></router-outlet>
             <app-footer></app-footer>
         </main>
     `

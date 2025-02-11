@@ -1,0 +1,14 @@
+<br><br><br><br><br>
+<h1>Stripe Demo - Pago en Euros (€)</h1>
+<p>Tarjeta de prueba: <code>4242 4242 4242 4242</code></p>
+
+<form (submit)="pay($event)">
+  <label for="amount">Monto a pagar (EUR):</label>
+  <!-- ngModel está vinculado al valor de `amount` en el componente -->
+  <input type="number" [(ngModel)]="amount" id="amount" required min="1">
+
+  <div id="card-element" class="form-group"></div>
+  <div id="card-errors" *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+
+  <button type="submit">Pagar</button>
+</form>
