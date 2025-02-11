@@ -39,7 +39,7 @@ public class InscriptionController {
 
             // Obtén el ID y el email desde el token JWT
             Long userId = jwtUtils.getUserIdFromJwtToken(cleanedToken);
-            String email = jwtUtils.getUserEmailFromToken(cleanedToken);  // Asegúrate de tener este método en JwtUtils
+            String email = jwtUtils.getUserEmailFromToken(cleanedToken); 
 
             // Si el token no tiene el ID o el email, arroja un error
             if (userId == null || email == null) {

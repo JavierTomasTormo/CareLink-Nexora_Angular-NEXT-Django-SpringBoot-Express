@@ -22,13 +22,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable()) // Deshabilita CSRF (usamos JWT)
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT sin estado
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeRequests(auth -> auth
-                .requestMatchers("/payments/**").permitAll() // Pagos sin autenticación
+                .requestMatchers("/payments/**").permitAll()
                 .requestMatchers("/inscriptions/create").authenticated() // Inscripciones requieren autenticación
                 .anyRequest().authenticated() // Cualquier otra petición también requiere autenticación
             )
-            .addFilterBefore(new JwtAuthenticationFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class); // Filtro JWT
+            .addFilterBefore(new JwtAuthenticationFilter(jwtUtils), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

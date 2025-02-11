@@ -48,7 +48,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                     
-                    // 💡 Corregido: Ahora `email` está definido antes del log
+                    
                     logger.info("Usuario autenticado con ID: {}, email: {} y rol: {}", userId, email, role);
                 }
             } catch (Exception e) {

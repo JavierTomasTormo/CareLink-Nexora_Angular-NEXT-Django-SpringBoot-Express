@@ -42,7 +42,7 @@ public class InscriptionServiceImpl implements InscriptionService {
     @Override
     public InscriptionDTO createInscription(String token, InscriptionDTO inscriptionDTO) {
         Long userId = jwtUtils.getUserIdFromJwtToken(token);
-        String email = jwtUtils.getUserEmailFromToken(token);  // Obtener el email del token
+        String email = jwtUtils.getUserEmailFromToken(token);
         String role = jwtUtils.getUserRoleFromToken(token);
 
         if (userId == null) {
@@ -55,11 +55,11 @@ public class InscriptionServiceImpl implements InscriptionService {
 
         // Crear la inscripción
         Inscription inscription = inscriptionAssembler.toEntity(inscriptionDTO);
-        inscription.setIdUser(userId);  // Asignar el id del usuario desde el token
-        inscription.setEmail(email);    // Asignar el email del usuario desde el token
+        inscription.setIdUser(userId);
+        inscription.setEmail(email);
         inscription.setCreatedAt(java.time.LocalDateTime.now());
         inscription.setUpdatedAt(java.time.LocalDateTime.now());
-        inscription.setIsActive(1);     // Establecer que está activa
+        inscription.setIsActive(1);
 
         // Guardar la inscripción en la base de datos
         Inscription savedInscription = inscriptionRepository.save(inscription);
