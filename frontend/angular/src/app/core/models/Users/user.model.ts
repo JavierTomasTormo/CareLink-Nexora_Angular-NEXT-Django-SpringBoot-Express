@@ -1,5 +1,6 @@
 export interface User {
     id_user: number;
+    id?: number;
     email: string;
     name: string;
     isactive: number;
