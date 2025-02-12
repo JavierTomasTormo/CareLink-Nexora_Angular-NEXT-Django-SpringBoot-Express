@@ -15,6 +15,8 @@ class VerifyTokenMiddleware:
             '/api/auth/refresh-token',
             '/api/verify-refresh-token/',  
 
+            '/api/users/patient/',  
+            '/api/users/patient/',  
             
             # List and Detail endpoints (GET methods are public)
             '/api/activities/',
@@ -47,8 +49,6 @@ class VerifyTokenMiddleware:
             # User endpoints
             '/api/users/tutor/',  # POST (create)
             '/api/users/tutor/',  # PUT/PATCH/DELETE
-            '/api/users/patient/',  # POST (create)
-            '/api/users/patient/',  # PUT/PATCH/DELETE
         ]
 
 

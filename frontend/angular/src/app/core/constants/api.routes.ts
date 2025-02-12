@@ -7,6 +7,8 @@ export const API_ROUTES = {
         LOGOUT: `${environment.apiUrl}/auth/tutor/logout`,
         UPDATE: `${environment.apiUrl}/users/tutor`,
         VERIFY_REFRESH_TOKEN: `${environment.apiUrl}/verify-refresh-token/`,
-
+    },
+    USER_PATIENT: {
+        LIST_BY_USER: (userId: number) => `${environment.apiUrl}/users/patient/?user_id=${userId}`,
     }
 };
