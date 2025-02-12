@@ -1,0 +1,36 @@
+<nav class="border-b border-gray-200">
+    <div class="grid grid-cols-2 md:flex md:justify-center md:space-x-8 gap-2">
+        <button [class.text-indigo-600]="activeTab === 'profile'"
+                [class.border-b-2]="activeTab === 'profile'"
+                [class.border-indigo-600]="activeTab === 'profile'"
+                (click)="changeTab('profile')"
+                class="py-3 md:py-4 px-4 md:px-6 font-medium hover:text-indigo-600 transition-colors duration-200 focus:outline-none text-sm md:text-base">
+            <i class="fas fa-user mr-2"></i>
+            Mi Perfil
+        </button>
+        <button [class.text-indigo-600]="activeTab === 'family'"
+                [class.border-b-2]="activeTab === 'family'"
+                [class.border-indigo-600]="activeTab === 'family'"
+                (click)="changeTab('family')"
+                class="py-3 md:py-4 px-4 md:px-6 font-medium hover:text-indigo-600 transition-colors duration-200 focus:outline-none text-sm md:text-base">
+            <i class="fas fa-users mr-2"></i>
+            Familiares
+        </button>
+        <button [class.text-indigo-600]="activeTab === 'reservations'"
+                [class.border-b-2]="activeTab === 'reservations'"
+                [class.border-indigo-600]="activeTab === 'reservations'"
+                (click)="changeTab('reservations')"
+                class="py-3 md:py-4 px-4 md:px-6 font-medium hover:text-indigo-600 transition-colors duration-200 focus:outline-none text-sm md:text-base">
+            <i class="fas fa-calendar-alt mr-2"></i>
+            Reservas
+        </button>
+        <button [class.text-indigo-600]="activeTab === 'payments'"
+                [class.border-b-2]="activeTab === 'payments'"
+                [class.border-indigo-600]="activeTab === 'payments'"
+                (click)="changeTab('payments')"
+                class="py-3 md:py-4 px-4 md:px-6 font-medium hover:text-indigo-600 transition-colors duration-200 focus:outline-none text-sm md:text-base">
+            <i class="fas fa-credit-card mr-2"></i>
+            Pagos
+        </button>
+    </div>
+</nav>
