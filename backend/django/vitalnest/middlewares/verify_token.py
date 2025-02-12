@@ -13,6 +13,8 @@ class VerifyTokenMiddleware:
             '/api/auth/tutor/register',
             '/api/auth/tutor/logout',
             '/api/auth/refresh-token',
+            '/api/verify-refresh-token/',  
+
             
             # List and Detail endpoints (GET methods are public)
             '/api/activities/',

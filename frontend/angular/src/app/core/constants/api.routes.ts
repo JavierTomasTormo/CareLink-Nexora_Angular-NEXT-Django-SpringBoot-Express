@@ -6,5 +6,7 @@ export const API_ROUTES = {
         REGISTER: `${environment.apiUrl}/auth/tutor/register`,
         LOGOUT: `${environment.apiUrl}/auth/tutor/logout`,
         UPDATE: `${environment.apiUrl}/users/tutor`,
+        VERIFY_REFRESH_TOKEN: `${environment.apiUrl}/verify-refresh-token/`,
+
     }
 };
