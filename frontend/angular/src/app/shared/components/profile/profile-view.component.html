@@ -143,3 +143,27 @@
         </form>
     </div>
 </div>
+
+
+<nav class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+    <div class="max-w-3xl mx-auto px-4">
+        <div class="flex space-x-8 py-4">
+            <button [class.text-indigo-600]="activeTab === 'profile'"
+                    [class.border-b-2]="activeTab === 'profile'"
+                    [class.border-indigo-600]="activeTab === 'profile'"
+                    (click)="setActiveTab('profile')"
+                    class="pb-2 font-medium hover:text-indigo-600 transition-colors">
+                <i class="fas fa-user mr-2"></i>
+                Mi Perfil
+            </button>
+            <button [class.text-indigo-600]="activeTab === 'family'"
+                    [class.border-b-2]="activeTab === 'family'"
+                    [class.border-indigo-600]="activeTab === 'family'"
+                    (click)="setActiveTab('family')"
+                    class="pb-2 font-medium hover:text-indigo-600 transition-colors">
+                <i class="fas fa-users mr-2"></i>
+                Mis Familiares
+            </button>
+        </div>
+    </div>
+</nav>
