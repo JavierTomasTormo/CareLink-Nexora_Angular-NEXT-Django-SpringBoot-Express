@@ -5,8 +5,6 @@ import { CookieService } from '../../../../core/services/cookies/cookie.service'
 import { User } from '../../../../core/models/Users/user.model';
 import { UserService } from '../../../../core/services/auth/user.service';
 import { ProfileTabsComponent } from '../profile-tabs/profile-tabs.component';
-import { SHARED_ROUTES } from '../../../../core/constants/shared.routes';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -27,7 +25,6 @@ export class ProfileViewComponent {
   constructor(
     private cookieService: CookieService,
     private userService: UserService,
-    private router: Router
     ) {
     this.user = this.cookieService.getCurrentUser();
     this.extractProfileSlug();
@@ -47,27 +44,6 @@ export class ProfileViewComponent {
   setActiveTab(activeTab: string): void {
     console.log('Active tab changed to:', activeTab);
     this.activeTab = activeTab;
-    this.navigateToTab(activeTab);
-  }
-
-  navigateToTab(tab: string): void {
-    switch (tab) {
-      case 'profile':
-        this.router.navigate([SHARED_ROUTES.ANGULAR.AUTH.PROFILE]);
-        break;
-      case 'family':
-        this.router.navigate([SHARED_ROUTES.ANGULAR.AUTH.FAMILY]);
-        break;
-      case 'reservations':
-        this.router.navigate([SHARED_ROUTES.ANGULAR.AUTH.RESERVATIONS]);
-        break;
-      case 'payments':
-        this.router.navigate([SHARED_ROUTES.ANGULAR.AUTH.PAYMENTS]);
-        break;
-      default:
-        this.router.navigate([SHARED_ROUTES.ANGULAR.AUTH.PROFILE]);
-        break;
-    }
   }
 
   onSubmit(): void {

@@ -5,9 +5,9 @@ export const SHARED_ROUTES = {
             REGISTER: '/auth/register',
             LOGOUT: '/auth/logout',
             PROFILE: '/profile/view',
-            FAMILY: '/profile/family',
-            RESERVATIONS: '/profile/reservations',
-            PAYMENTS: '/profile/payments',
+            FAMILY: '/profile/family/view',
+            RESERVATIONS: '/profile/reservations/view',
+            PAYMENTS: '/profile/payments/view',
 
         },
         CRITICAL: {
