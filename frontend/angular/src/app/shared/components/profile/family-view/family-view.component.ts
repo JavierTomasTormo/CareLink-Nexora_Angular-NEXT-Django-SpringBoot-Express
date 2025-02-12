@@ -30,8 +30,8 @@ export class FamilyViewComponent implements OnInit {
   loadUserPatients(): void {
     this.userPatientService.getUserPatientsByUser(this.user.id_user).subscribe(
       (data: UserPatient[]) => {
-      this.userPatients = data;
-      console.log('User Patients:', this.userPatients); 
+        this.userPatients = data;
+        console.log('User Patients:', this.userPatients); 
       },
       error => {
       console.error('Error loading user patients:', error);

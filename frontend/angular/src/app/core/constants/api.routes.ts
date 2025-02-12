@@ -9,6 +9,6 @@ export const API_ROUTES = {
         VERIFY_REFRESH_TOKEN: `${environment.apiUrl}/verify-refresh-token/`,
     },
     USER_PATIENT: {
-        LIST_BY_USER: (userId: number) => `${environment.apiUrl}/users/patient/?user_id=${userId}`,
+        LIST_BY_USER: (userId: number) => `${environment.apiUrl}/users/patient/?id_user=${userId}`,
     }
 };
