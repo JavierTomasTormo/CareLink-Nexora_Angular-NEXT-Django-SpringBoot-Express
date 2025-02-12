@@ -112,6 +112,24 @@ const Header: React.FC = () => {
                     >
                       <i className="fas fa-user"></i> Mi Perfil
                     </Link>
+                    <Link 
+                      href={SHARED_ROUTES.ANGULAR.AUTH.FAMILY} 
+                      className={styles.profileLink}
+                    >
+                      <i className="fas fa-users"></i> Mis Familiares
+                    </Link>
+                    <Link 
+                      href={SHARED_ROUTES.ANGULAR.AUTH.RESERVATIONS} 
+                      className={styles.profileLink}
+                    >
+                      <i className="fas fa-calendar-alt"></i> Mis Reservas
+                    </Link>
+                    <Link 
+                      href={SHARED_ROUTES.ANGULAR.AUTH.PAYMENTS} 
+                      className={styles.profileLink}
+                    >
+                      <i className="fas fa-credit-card"></i> Mis Pagos
+                    </Link>
                     <a 
                       href="#" 
                       onClick={(e) => {

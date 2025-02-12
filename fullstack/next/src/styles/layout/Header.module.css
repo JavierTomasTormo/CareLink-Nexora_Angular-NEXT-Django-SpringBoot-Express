@@ -103,99 +103,92 @@
 /* Responsive styles */
 @media (max-width: 768px) {
   .hamburger {
-  display: flex;
+    display: flex;
   }
 
   .nav {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  flex-direction: column;
-  background: #f8f9fa;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: #f8f9fa;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   .navOpen {
-  display: flex;
-  animation: slideDown 0.3s ease-out forwards;
+    display: flex;
+    animation: slideDown 0.3s ease-out forwards;
   }
 
   @keyframes slideDown {
-  from {
+    from {
       opacity: 0;
       transform: translateY(-10px);
-  }
-  to {
+    }
+    to {
       opacity: 1;
       transform: translateY(0);
-  }
+    }
   }
 
   .navList {
-  flex-direction: column;
-  gap: 1.2rem;
-  padding: 1.5rem;
-  width: 100%;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.5rem;
+    width: 100%;
   }
 
   .navLink {
-  font-size: 1.1rem;
-  padding: 0.8rem 1.5rem;
-  width: 100%;
-  text-align: center;
-  display: block;
-  background: white;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    width: 100%;
+    text-align: center;
+    display: block;
+    background: white;
+    border-radius: 8px;
+    transition: all 0.3s ease;
   }
 
   .navLink:hover {
-  background: #edf2f7;
-  transform: translateY(-2px);
+    background: #edf2f7;
+    transform: translateY(-2px);
   }
 }
 
-
-/* Add these styles to your existing CSS */
 .navItem .auth-button {
-background-color: #2c3e50;
-color: white;
-padding: 0.7rem 1.4rem;
-border-radius: 4px;
-font-weight: 500;
-font-size: 0.9rem;
-letter-spacing: 0.5px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-transition: all 0.2s ease;
-cursor: pointer;
+  background-color: #2c3e50;
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .navItem .auth-button:hover {
-background-color: #34495e;
-transform: translateY(-1px);
-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  background-color: #34495e;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 .navItem .auth-button::after {
-display: none;
+  display: none;
 }
 
 @media (max-width: 768px) {
-.navItem .auth-button {
-  background-color: #2c3e50;
-  width: 100%;
-  padding: 0.8rem;
+  .navItem .auth-button {
+    background-color: #2c3e50;
+    width: 100%;
+    padding: 0.8rem;
+  }
 }
-}
-
-
-
-
-
 
 .navLink.active {
   color: #2c3e50;
@@ -339,17 +332,17 @@ display: none;
 
 @media (max-width: 768px) {
   .navLink.active {
-      background-color: #f8f9fa;
+    background-color: #f8f9fa;
   }
 
   .profileDropdown {
-      position: fixed;
-      width: 90%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-10px);
+    position: fixed;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
   }
   
   .profileDropdown.show {
-      transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 }
