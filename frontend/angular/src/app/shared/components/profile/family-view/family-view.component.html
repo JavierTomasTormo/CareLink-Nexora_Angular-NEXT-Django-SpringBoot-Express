@@ -1,0 +1,31 @@
+
+<div *ngIf="userPatients.length > 0; else noFamilyMembers" class="p-4">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div *ngFor="let patient of userPatients" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{patient.name_patient}}</h3>
+            <div class="space-y-2 text-gray-600">
+                <p class="flex items-center"><span class="w-24 font-medium">Email:</span> {{patient.email}}</p>
+                <p class="flex items-center"><span class="w-24 font-medium">Phone:</span> {{patient.phone_number}}</p>
+                <p class="flex items-center"><span class="w-24 font-medium">Birthday:</span> {{patient.birthday}}</p>
+                <p class="flex items-center"><span class="w-24 font-medium">Status:</span> 
+                    <span [class]="patient.isactive ? 'text-green-500' : 'text-red-500'">
+                        {{patient.isactive ? 'Active' : 'Inactive'}}
+                    </span>
+                </p>
+                <div *ngIf="patient.allergies" class="mt-3">
+                    <p class="font-medium">Allergies:</p>
+                    <p class="text-sm">{{patient.allergies}}</p>
+                </div>
+                <div *ngIf="patient.difficulties" class="mt-3">
+                    <p class="font-medium">Difficulties:</p>
+                    <p class="text-sm">{{patient.difficulties}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #noFamilyMembers>
+    <div class="p-8 text-center text-gray-500">
+        <p class="text-lg">No hay familiares a cargo.</p>
+    </div>
+</ng-template>
