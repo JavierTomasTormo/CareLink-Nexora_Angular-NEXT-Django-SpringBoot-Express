@@ -5,6 +5,6 @@ export const API_ROUTES = {
         LOGIN: `${environment.apiUrl}/auth/tutor/login`,
         REGISTER: `${environment.apiUrl}/auth/tutor/register`,
         LOGOUT: `${environment.apiUrl}/auth/tutor/logout`,
-        UPDATE: `${environment.apiUrl}/users/tutor`
+        UPDATE: `${environment.apiUrl}/users/tutor`,
     }
 };

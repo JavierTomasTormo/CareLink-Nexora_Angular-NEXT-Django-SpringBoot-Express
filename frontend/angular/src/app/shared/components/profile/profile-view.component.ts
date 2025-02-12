@@ -18,6 +18,7 @@ export class ProfileViewComponent {
   isLoading: boolean = false;
   baseProfileUrl: string = 'https://api.dicebear.com/7.x/lorelei/svg?seed=';
   profileSlug: string = ''; 
+  activeTab: string = '';
 
   constructor(
     private cookieService: CookieService,
@@ -35,6 +36,11 @@ export class ProfileViewComponent {
     if (this.user.profile_img) {
       this.profileSlug = this.user.profile_img.replace(this.baseProfileUrl, '');
     }
+  }
+
+
+  setActiveTab(activeTab: string): void {
+    console.log('Active tab changed to:', activeTab);
   }
 
   onSubmit(): void {

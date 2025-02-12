@@ -1,4 +1,44 @@
 <div class="pt-20">
+
+    <div *ngIf="!isEditing" class="mb-8">
+        <nav class="border-b border-gray-200">
+            <div class="flex justify-center space-x-8">
+                <button [class.text-indigo-600]="activeTab === 'profile'"
+                        [class.border-b-2]="activeTab === 'profile'"
+                        [class.border-indigo-600]="activeTab === 'profile'"
+                        (click)="setActiveTab('profile')"
+                        class="py-4 px-6 font-medium hover:text-indigo-600 transition-colors duration-200 focus:outline-none">
+                    <i class="fas fa-user mr-2"></i>
+                    Mi Perfil
+                </button>
+                <button [class.text-indigo-600]="activeTab === 'family'"
+                        [class.border-b-2]="activeTab === 'family'"
+                        [class.border-indigo-600]="activeTab === 'family'"
+                        (click)="setActiveTab('family')"
+                        class="py-4 px-6 font-medium hover:text-indigo-600 transition-colors duration-200 focus:outline-none">
+                    <i class="fas fa-users mr-2"></i>
+                    Mis Familiares
+                </button>
+                <button [class.text-indigo-600]="activeTab === 'reservations'"
+                        [class.border-b-2]="activeTab === 'reservations'"
+                        [class.border-indigo-600]="activeTab === 'reservations'"
+                        (click)="setActiveTab('reservations')"
+                        class="py-4 px-6 font-medium hover:text-indigo-600 transition-colors duration-200 focus:outline-none">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    Mis Reservas
+                </button>
+                <button [class.text-indigo-600]="activeTab === 'payments'"
+                        [class.border-b-2]="activeTab === 'payments'"
+                        [class.border-indigo-600]="activeTab === 'payments'"
+                        (click)="setActiveTab('payments')"
+                        class="py-4 px-6 font-medium hover:text-indigo-600 transition-colors duration-200 focus:outline-none">
+                    <i class="fas fa-credit-card mr-2"></i>
+                    Mis Pagos
+                </button>
+            </div>
+        </nav>
+    </div>
+    
     <div class="max-w-3xl mx-auto p-8 bg-gradient-to-br from-gray-50 to-gray-100 shadow-2xl rounded-xl mt-10 border border-gray-200 animate-fadeIn">
             <div *ngIf="!isEditing">
                 <div class="flex flex-col items-center mb-8">
@@ -142,28 +182,8 @@
                 </div>
         </form>
     </div>
+
+
 </div>
 
 
-<nav class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-    <div class="max-w-3xl mx-auto px-4">
-        <div class="flex space-x-8 py-4">
-            <button [class.text-indigo-600]="activeTab === 'profile'"
-                    [class.border-b-2]="activeTab === 'profile'"
-                    [class.border-indigo-600]="activeTab === 'profile'"
-                    (click)="setActiveTab('profile')"
-                    class="pb-2 font-medium hover:text-indigo-600 transition-colors">
-                <i class="fas fa-user mr-2"></i>
-                Mi Perfil
-            </button>
-            <button [class.text-indigo-600]="activeTab === 'family'"
-                    [class.border-b-2]="activeTab === 'family'"
-                    [class.border-indigo-600]="activeTab === 'family'"
-                    (click)="setActiveTab('family')"
-                    class="pb-2 font-medium hover:text-indigo-600 transition-colors">
-                <i class="fas fa-users mr-2"></i>
-                Mis Familiares
-            </button>
-        </div>
-    </div>
-</nav>

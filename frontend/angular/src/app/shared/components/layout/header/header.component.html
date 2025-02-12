@@ -56,6 +56,15 @@
                             <a [routerLink]="routes.ANGULAR.AUTH.PROFILE" class="profile-link">
                                 <i class="fas fa-user"></i> Mi Perfil
                             </a>
+                            <a [routerLink]="routes.ANGULAR.AUTH.FAMILY" class="profile-link">
+                                <i class="fas fa-users"></i> Mis Familiares
+                            </a>
+                            <a [routerLink]="routes.ANGULAR.AUTH.RESERVATIONS" class="profile-link">
+                                <i class="fas fa-calendar-alt"></i> Mis Reservas
+                            </a>
+                            <a [routerLink]="routes.ANGULAR.AUTH.PAYMENTS" class="profile-link">
+                                <i class="fas fa-credit-card"></i> Mis Pagos
+                            </a>
                             <a (click)="logout()" class="profile-link logout">
                                 <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
                             </a>
