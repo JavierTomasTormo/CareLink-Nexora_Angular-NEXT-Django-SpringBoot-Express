@@ -1,0 +1,224 @@
+.activityDetails {
+    max-width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    color: #000000;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: #000000;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    border-bottom: 2px solid #000000;
+    padding-bottom: 0.5rem;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.swiperContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.mainImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.mainImage:hover {
+    transform: scale(1.02);
+}
+.inscriptionButton {
+    padding: 1.2rem 2.5rem;
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 2rem;
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.inscriptionButton:hover {
+    background: #000000;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.inscriptionButton:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.noImage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    color: #000000;
+    font-size: 1.2rem;
+}
+
+.detailsContent {
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #000000;
+}
+
+.description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #000000;
+    margin-bottom: 2rem;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.infoItem:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: #000000;
+}
+
+.value {
+    font-size: 1.1rem;
+    color: #000000;
+    font-weight: 500;
+}
+
+.tagsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.tag {
+    padding: 0.5rem 1rem;
+    background: #f0f0f0;
+    color: #000000;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    background: #e0e0e0;
+    transform: translateY(-1px);
+}
+
+.noTags {
+    color: #000000;
+    font-style: italic;
+}
+
+.loaderContainer {
+    padding: 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.errorContainer, .emptyContainer {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.errorContent, .emptyContent {
+    max-width: 600px;
+}
+
+.errorTitle, .emptyTitle {
+    font-size: 1.8rem;
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
+.errorMessage, .emptyMessage {
+    color: #000000;
+    margin-bottom: 1.5rem;
+}
+
+.retryButton {
+    padding: 0.8rem 1.5rem;
+    background: #f0f0f0;
+    color: #000000;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.retryButton:hover {
+    background: #e0e0e0;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .activityDetails {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .imageWrapper {
+        height: 300px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .infoGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

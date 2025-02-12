@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import { AppDispatch } from '@/store';
 import { ActivityData } from '@/store/Constants';
 import { 
@@ -20,6 +21,7 @@ import styles from '@/styles/shop/ListActivities.module.css';
 
 const ListActivities: React.FC<{ typeActivity: number | null }> = ({ typeActivity }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const activities = useSelector(selectFilteredActivities);
   const status = useSelector(selectActivitiesStatus);
   const error = useSelector(selectActivitiesError);
@@ -79,6 +81,10 @@ const ListActivities: React.FC<{ typeActivity: number | null }> = ({ typeActivit
   const getDayOfWeek = (dayNumber: number) => {
     const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     return days[dayNumber % 7];
+  };
+
+  const handleExploreActivity = (id: number) => {
+    router.push(`/details_activities/${id}`);
   };
 
   return (
@@ -151,7 +157,10 @@ const ListActivities: React.FC<{ typeActivity: number | null }> = ({ typeActivit
               )}
             </div>
             
-            <button className={styles.detailButton}>
+            <button 
+              className={styles.detailButton}
+              onClick={() => handleExploreActivity(activity.id)}
+            >
               Explorar Actividad
               <span className={styles.buttonIcon}>→</span>
             </button>
