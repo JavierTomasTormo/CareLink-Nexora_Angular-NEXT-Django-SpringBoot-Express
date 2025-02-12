@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileViewComponent } from '../../shared/components/profile/profile-view.component'; // Actualiza la ruta
+import { ProfileViewComponent } from '../../shared/components/profile/profileView/profile-view.component'; // Actualiza la ruta
 
 
 const routes: Routes = [

@@ -1,7 +1,7 @@
 <header class="header">
     <div class="container">
         <div class="logo">
-            <a [routerLink]="routes.NEXT.HOME">
+            <a [href]="routes.NEXT.HOME">
                 <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
             </a>
         </div>
@@ -13,13 +13,13 @@
         <nav class="nav" [class.navOpen]="menuOpen">
             <ul class="navList">
                 <li class="navItem">
-                    <a [routerLink]="routes.NEXT.HOME" class="navLink" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Página Principal</a>
+                    <a [href]="routes.NEXT.HOME" class="navLink" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Página Principal</a>
                 </li>
                 <li class="navItem">
-                    <a [routerLink]="routes.NEXT.SHOP + '?activity_type=1'" class="navLink" routerLinkActive="active">Actividades</a>
+                    <a [href]="routes.NEXT.SHOP + '?activity_type=1'" class="navLink" routerLinkActive="active">Actividades</a>
                 </li>
                 <li class="navItem">
-                    <a [routerLink]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink" routerLinkActive="active">Menús</a>
+                    <a [href]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink" routerLinkActive="active">Menús</a>
                 </li>
 
                 <!-- 🔹 NUEVA OPCIÓN PARA PAGOS -->
