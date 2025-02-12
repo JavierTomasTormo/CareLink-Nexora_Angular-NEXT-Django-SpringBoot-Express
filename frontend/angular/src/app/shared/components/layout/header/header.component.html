@@ -1,7 +1,7 @@
 <header class="header">
     <div class="container">
         <div class="logo">
-            <a [href]="routes.NEXT.HOME">
+            <a [routerLink]="routes.NEXT.HOME">
                 <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
             </a>
         </div>
@@ -13,16 +13,19 @@
         <nav class="nav" [class.navOpen]="menuOpen">
             <ul class="navList">
                 <li class="navItem">
-                    <a [href]="routes.NEXT.HOME" class="navLink" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Página Principal</a>
+                    <a [routerLink]="routes.NEXT.HOME" class="navLink" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Página Principal</a>
                 </li>
                 <li class="navItem">
-                    <a [href]="routes.NEXT.SHOP + '?activity_type=1'" class="navLink" routerLinkActive="active">Actividades</a>
+                    <a [routerLink]="routes.NEXT.SHOP + '?activity_type=1'" class="navLink" routerLinkActive="active">Actividades</a>
                 </li>
                 <li class="navItem">
-                    <a [href]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink" routerLinkActive="active">Menús</a>
+                    <a [routerLink]="routes.NEXT.MEALS + '?type_meal=1'" class="navLink" routerLinkActive="active">Menús</a>
                 </li>
 
-
+                <!-- 🔹 NUEVA OPCIÓN PARA PAGOS -->
+                <li class="navItem">
+                    <a [routerLink]="'/payments'" class="navLink" routerLinkActive="active">Pagos</a>
+                </li>
 
                 <li class="navItem" *ngIf="!tokenService.isAuthenticated()">
                     <a [routerLink]="routes.ANGULAR.AUTH.LOGIN" class="navLink auth-button">Login</a>
@@ -36,14 +39,14 @@
                             <i class="fas fa-user profile-icon"></i>
                         </ng-template>
                     </div>
-                        <div class="profile-dropdown" [class.show]="profileMenuOpen">
-                            <div class="profile-header">
-                                <ng-container *ngIf="user?.profile_img; else dropdownDefaultIcon">
-                                    <img [src]="user.profile_img" alt="Profile" class="dropdown-profile-image"/>
-                                </ng-container>
-                                <ng-template #dropdownDefaultIcon>
-                                    <i class="fas fa-user profile-icon"></i>
-                                </ng-template>
+                    <div class="profile-dropdown" [class.show]="profileMenuOpen">
+                        <div class="profile-header">
+                            <ng-container *ngIf="user?.profile_img; else dropdownDefaultIcon">
+                                <img [src]="user.profile_img" alt="Profile" class="dropdown-profile-image"/>
+                            </ng-container>
+                            <ng-template #dropdownDefaultIcon>
+                                <i class="fas fa-user profile-icon"></i>
+                            </ng-template>
                             <div class="profile-info">
                                 <p class="profile-name">{{user.name}}</p>
                                 <p class="profile-email">{{user.email}}</p>
@@ -59,7 +62,6 @@
                         </div>
                     </div>
                 </li>
-                
             </ul>
         </nav>
     </div>

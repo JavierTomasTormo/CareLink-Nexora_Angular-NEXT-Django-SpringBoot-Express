@@ -43,6 +43,10 @@ dependencies {
     // Dependencias adicionales
     implementation("javax.annotation:javax.annotation-api:1.3.2")
     implementation("javax.servlet:javax.servlet-api:4.0.1")
+
+    // Stripe Payments
+    implementation("com.stripe:stripe-java:22.16.0")
+
 }
 
 tasks.named<Jar>("bootJar") {
