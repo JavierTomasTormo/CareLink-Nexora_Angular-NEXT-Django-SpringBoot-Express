@@ -18,7 +18,8 @@
         display: table;
         height: 100%;
         text-align: center;
-        background-color: rgba(0,0,0,0.4);
+        background-color: rgba(0,0,0,0.5);
+        backdrop-filter: blur(2px);
         animation: bannerIn 2s;
     }
     
@@ -37,36 +38,60 @@
     }
     
     .banner__title {
-        font-size: 56px;
-        color: #fff;
-        margin-top: 0;
-        margin-bottom: 20px;
-        letter-spacing: 1px;
-        font-weight: 500;
+        font-size: clamp(40px, 8vw, 72px);
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        margin: 0 0 20px;
+        letter-spacing: 2px;
+        font-weight: 700;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        line-height: 1.2;
         animation: opacity 3s;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .banner__text {
-        font-size: 14px;
-        color: #fff;
-        margin: 0;
-        margin-bottom: 18px;
+        font-size: clamp(16px, 3vw, 24px);
+        color: #ffffff;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        margin: 0 auto 28px;
+        line-height: 1.6;
+        font-weight: 400;
+        max-width: 600px;
         animation: opacity 3s;
+        letter-spacing: 0.5px;
     }
     
     .btn {
         color: #fff;
-        padding: 10px 20px;
-        font-size: 11px;
         letter-spacing: 3px;
-        font-weight: 500;
         background-color: #daa37f;
-        border-radius: 0;
         text-align: center;
         text-transform: uppercase;
         text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 16px 32px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border: 2px solid transparent;
     }
     
+    .btn:hover {
+        background-color: #e3935a;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+    }
+    
+    .btn:focus {
+        outline: none;
+        border-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(37,99,235,0.5);
+    }
+
     .btn__opacity {
         animation: opacity 3s;
     }
