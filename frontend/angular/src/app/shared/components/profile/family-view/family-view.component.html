@@ -1,449 +1,259 @@
 <div class="pt-24">
     <app-profile-tabs [activeTab]="activeTab" (tabChange)="setActiveTab($event)"></app-profile-tabs>
 
-      <div class="container mx-auto px-4 py-8">
+    <div class="container mx-auto px-4 py-8">
+
+
+      <ng-container *ngIf="userPatients.length > 0; else noFamilyMembers">
         <!-- Metrics Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div (click)="filterPatients('all')" 
-           [class.active-metric]="currentFilter === 'all'"
-           class="metric-card hover:scale-105 transition-transform">
-        <i class="fas fa-users text-3xl mb-2"></i>
-        <div class="text-xl font-bold">{{userPatients.length}}</div>
-        <div class="text-gray-600">Total Family Members</div>
-          </div>
-          
-          <div (click)="filterPatients('active')"
-           [class.active-metric]="currentFilter === 'active'"
-           class="metric-card hover:scale-105 transition-transform">
-        <i class="fas fa-user-check text-3xl mb-2 text-green-600"></i>
-        <div class="text-xl font-bold text-green-600">{{metrics.active}}</div>
-        <div class="text-gray-600">Active Members</div>
-          </div>
-      
-          <div (click)="filterPatients('specialNeeds')"
-           [class.active-metric]="currentFilter === 'specialNeeds'"
-           class="metric-card hover:scale-105 transition-transform">
-        <i class="fas fa-wheelchair text-3xl mb-2 text-yellow-600"></i>
-        <div class="text-xl font-bold text-yellow-600">{{metrics.specialNeeds}}</div>
-        <div class="text-gray-600">Special Needs</div>
-          </div>
-      
-          <div (click)="filterPatients('allergies')"
-           [class.active-metric]="currentFilter === 'allergies'"
-           class="metric-card hover:scale-105 transition-transform">
-        <i class="fas fa-allergies text-3xl mb-2 text-purple-600"></i>
-        <div class="text-xl font-bold text-purple-600">{{metrics.allergies}}</div>
-        <div class="text-gray-600">With Allergies</div>
-          </div>
-        </div>
-      
-        <!-- Main Content -->
-        <div [ngClass]="{'grid-view': viewMode === 'list', 'detail-view': viewMode === 'detail'}">
-          <!-- Lista de pacientes -->
-          <div class="patients-list" [class.collapsed]="viewMode === 'detail'">
-            <div class="bg-white rounded-lg shadow-lg">
-              <div class="p-4 border-b flex justify-between items-center">
-                <h3 class="text-lg font-semibold"><i class="fas fa-family mr-2"></i>Family Members</h3>
-                <!-- Disability Chart -->
-                <div class="w-32 h-32">
-                  <canvas baseChart
-                    [data]="disabilityData"
-                    [options]="chartOptions"
-                    [type]="'doughnut'">
-                  </canvas>
-                </div>
-              </div>
-          <div class="divide-y">
-            <div *ngFor="let patient of filteredPatients" 
-             (click)="selectPatient(patient)"
-             [class.selected]="selectedPatient?.id === patient.id"
-             class="patient-card hover:bg-gray-50 transition-colors">
-              <div class="flex items-center justify-between p-4">
-            <div>
-              <h4 class="font-medium"><i class="fas fa-user-circle mr-2"></i>{{patient.name_patient}}</h4>
-              <p class="text-sm text-gray-600"><i class="fas fa-envelope mr-2"></i>{{patient.email}}</p>
+            <div (click)="filterPatients('all')" 
+                [class.active-metric]="currentFilter === 'all'"
+                class="metric-card hover:scale-105 transition-transform">
+                <i class="fas fa-users text-3xl mb-2"></i>
+                <div class="text-xl font-bold">{{userPatients.length}}</div>
+                <div class="text-gray-600">Total Family Members</div>
             </div>
-            <div class="flex items-center gap-2">
-              <span *ngIf="patient.discapacity" class="tag tag-purple">
-                <i class="fas fa-wheelchair mr-1"></i>Special Needs
-              </span>
-              <span [class]="patient.isactive ? 'status-active' : 'status-inactive'">
-                <i class="fas" [ngClass]="patient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
-                {{patient.isactive ? 'Active' : 'Inactive'}}
-              </span>
-            </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          </div>
-      
-<!-- Patient Details View -->
-<div *ngIf="selectedPatient" class="patient-detail">
-    <div class="bg-white rounded-lg shadow-lg p-6">
-        <!-- Header with Back Button -->
-        <div class="flex justify-between items-center mb-6 border-b pb-4">
-            <div class="flex items-center">
-                <button (click)="backToList()" class="btn-back hover:bg-gray-100 mr-4">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <h2 class="text-2xl font-bold flex items-center">
-                    <i class="fas fa-user-circle text-blue-600 mr-2"></i>
-                    {{selectedPatient.name_patient}}
-                </h2>
-            </div>
-            <div [class]="selectedPatient.isactive ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'" 
-                 class="px-4 py-2 rounded-full font-semibold flex items-center">
-                <i class="fas" [ngClass]="selectedPatient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
-                <span class="ml-2">{{selectedPatient.isactive ? 'Active' : 'Inactive'}}</span>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-12 gap-6">
-            <!-- Left Column - Main Information -->
-            <div class="col-span-12 lg:col-span-8">
-                <!-- Personal Information Card -->
-                <div class="bg-white shadow-sm rounded-lg p-6 mb-6 border border-gray-100">
-                    <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
-                        <i class="fas fa-id-card text-blue-500 mr-2"></i>Personal Information
-                    </h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="info-item">
-                            <label class="text-sm text-gray-600">Birthday</label>
-                            <p class="font-medium"><i class="fas fa-birthday-cake text-purple-500 mr-2"></i>{{selectedPatient.birthday | date}}</p>
-                        </div>
-                        <div class="info-item">
-                            <label class="text-sm text-gray-600">Phone</label>
-                            <p class="font-medium"><i class="fas fa-phone text-green-500 mr-2"></i>{{selectedPatient.phone_number}}</p>
-                        </div>
-                        <div class="info-item">
-                            <label class="text-sm text-gray-600">Email</label>
-                            <p class="font-medium"><i class="fas fa-envelope text-blue-500 mr-2"></i>{{selectedPatient.email}}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Health Information -->
-                <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-100">
-                    <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
-                        <i class="fas fa-heartbeat text-red-500 mr-2"></i>Health Information
-                    </h3>
                     
-                    <!-- Allergies Section -->
-                    <div class="mb-6">
-                        <h4 class="text-md font-medium text-red-600 mb-2 flex items-center">
-                            <i class="fas fa-allergies mr-2"></i>Allergies
-                        </h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span *ngFor="let allergy of selectedPatient.allergies" 
-                                class="bg-red-50 text-red-700 px-3 py-1 rounded-full text-sm border border-red-100">
-                                {{allergy}}
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Difficulties Section -->
-                    <div>
-                        <h4 class="text-md font-medium text-purple-600 mb-2 flex items-center">
-                            <i class="fas fa-notes-medical mr-2"></i>Difficulties
-                        </h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span *ngFor="let difficulty of selectedPatient.difficulties"
-                                class="bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm border border-purple-100">
-                                {{difficulty}}
-                            </span>
-                        </div>
-                    </div>
-                </div>
+            <div (click)="filterPatients('active')"
+                [class.active-metric]="currentFilter === 'active'"
+                class="metric-card hover:scale-105 transition-transform">
+                <i class="fas fa-user-check text-3xl mb-2 text-green-600"></i>
+                <div class="text-xl font-bold text-green-600">{{metrics.active}}</div>
+                <div class="text-gray-600">Active Members</div>
             </div>
-
-            <!-- Right Column - Analytics -->
-            <div class="col-span-12 lg:col-span-4">
-                <!-- Health Overview Chart -->
-                <div class="bg-white shadow-sm rounded-lg p-4 border border-gray-100">
-                    <h3 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
-                        <i class="fas fa-chart-line text-indigo-500 mr-2"></i>Health Overview
-                    </h3>
-                    <div class="w-full h-64">
-                        <canvas baseChart
-                            [data]="patientDetailsData"
-                            [options]="radarChartOptions"
-                            [type]="'radar'">
-                        </canvas>
-                    </div>
-                </div>
-
-                <!-- Quick Stats -->
-                <div class="bg-white shadow-sm rounded-lg p-4 mt-6 border border-gray-100">
-                    <h3 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
-                        <i class="fas fa-clipboard-list text-green-500 mr-2"></i>Quick Stats
-                    </h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                            <span class="text-sm text-gray-600">Last Check-up</span>
-                            <span class="font-medium"> {{ selectedPatient.updatedat | date }}</span>
-                        </div>
-                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
-                            <span class="text-sm text-gray-600">Next Appointment</span>
-                            <span class="font-medium text-blue-600">In 2 weeks</span>
-                        </div>
-                    </div>
-                </div>
+                
+            <div (click)="filterPatients('specialNeeds')"
+                [class.active-metric]="currentFilter === 'specialNeeds'"
+                class="metric-card hover:scale-105 transition-transform">
+                <i class="fas fa-wheelchair text-3xl mb-2 text-yellow-600"></i>
+                <div class="text-xl font-bold text-yellow-600">{{metrics.specialNeeds}}</div>
+                <div class="text-gray-600">Special Needs</div>
+            </div>
+                
+            <div (click)="filterPatients('allergies')"
+                [class.active-metric]="currentFilter === 'allergies'"
+                class="metric-card hover:scale-105 transition-transform">
+                <i class="fas fa-allergies text-3xl mb-2 text-purple-600"></i>
+                <div class="text-xl font-bold text-purple-600">{{metrics.allergies}}</div>
+                <div class="text-gray-600">With Allergies</div>
+            </div>
         </div>
-    </div>
-</div>
-
-      
-    
-    <ng-template #noFamilyMembers>
-    <div class="p-8 text-center text-gray-500">
-        <i class="fas fa-users-slash text-5xl mb-4"></i>
-        <p class="text-lg">No hay familiares a cargo.</p>
-    </div>
-    </ng-template>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="pt-24">
-    <app-profile-tabs [activeTab]="activeTab" (tabChange)="setActiveTab($event)"></app-profile-tabs>
-
-      <div class="container mx-auto px-4 py-8">
-        <!-- Metrics Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div (click)="filterPatients('all')" 
-           [class.active-metric]="currentFilter === 'all'"
-           class="metric-card hover:scale-105 transition-transform">
-        <i class="fas fa-users text-3xl mb-2"></i>
-        <div class="text-xl font-bold">{{userPatients.length}}</div>
-        <div class="text-gray-600">Total Family Members</div>
-          </div>
-          
-          <div (click)="filterPatients('active')"
-           [class.active-metric]="currentFilter === 'active'"
-           class="metric-card hover:scale-105 transition-transform">
-        <i class="fas fa-user-check text-3xl mb-2 text-green-600"></i>
-        <div class="text-xl font-bold text-green-600">{{metrics.active}}</div>
-        <div class="text-gray-600">Active Members</div>
-          </div>
-      
-          <div (click)="filterPatients('specialNeeds')"
-           [class.active-metric]="currentFilter === 'specialNeeds'"
-           class="metric-card hover:scale-105 transition-transform">
-        <i class="fas fa-wheelchair text-3xl mb-2 text-yellow-600"></i>
-        <div class="text-xl font-bold text-yellow-600">{{metrics.specialNeeds}}</div>
-        <div class="text-gray-600">Special Needs</div>
-          </div>
-      
-          <div (click)="filterPatients('allergies')"
-           [class.active-metric]="currentFilter === 'allergies'"
-           class="metric-card hover:scale-105 transition-transform">
-        <i class="fas fa-allergies text-3xl mb-2 text-purple-600"></i>
-        <div class="text-xl font-bold text-purple-600">{{metrics.allergies}}</div>
-        <div class="text-gray-600">With Allergies</div>
-          </div>
-        </div>
-      
+                
         <!-- Main Content -->
         <div [ngClass]="{'grid-view': viewMode === 'list', 'detail-view': viewMode === 'detail'}">
-          <!-- Lista de pacientes -->
-          <div class="patients-list" [class.collapsed]="viewMode === 'detail'">
-            <div class="bg-white rounded-lg shadow-lg">
-              <div class="p-4 border-b flex justify-between items-center">
-                <h3 class="text-lg font-semibold"><i class="fas fa-family mr-2"></i>Family Members</h3>
-                <!-- Disability Chart -->
-                <div class="w-32 h-32">
-                  <canvas baseChart
-                    [data]="disabilityData"
-                    [options]="chartOptions"
-                    [type]="'doughnut'">
-                  </canvas>
-                </div>
-              </div>
-          <div class="divide-y">
-            <div *ngFor="let patient of filteredPatients" 
-             (click)="selectPatient(patient)"
-             [class.selected]="selectedPatient?.id === patient.id"
-             class="patient-card hover:bg-gray-50 transition-colors">
-              <div class="flex items-center justify-between p-4">
-            <div>
-              <h4 class="font-medium"><i class="fas fa-user-circle mr-2"></i>{{patient.name_patient}}</h4>
-              <p class="text-sm text-gray-600"><i class="fas fa-envelope mr-2"></i>{{patient.email}}</p>
-            </div>
-            <div class="flex items-center gap-2">
-              <span *ngIf="patient.discapacity" class="tag tag-purple">
-                <i class="fas fa-wheelchair mr-1"></i>Special Needs
-              </span>
-              <span [class]="patient.isactive ? 'status-active' : 'status-inactive'">
-                <i class="fas" [ngClass]="patient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
-                {{patient.isactive ? 'Active' : 'Inactive'}}
-              </span>
-            </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          </div>
-      
-<!-- Patient Details View -->
-<div *ngIf="selectedPatient" class="patient-detail">
-    <div class="bg-white rounded-lg shadow-lg p-6">
-        <!-- Header with Back Button -->
-        <div class="flex justify-between items-center mb-6 border-b pb-4">
-            <div class="flex items-center">
-                <button (click)="backToList()" class="btn-back hover:bg-gray-100 mr-4">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <h2 class="text-2xl font-bold flex items-center">
-                    <i class="fas fa-user-circle text-blue-600 mr-2"></i>
-                    {{selectedPatient.name_patient}}
-                </h2>
-            </div>
-            <div [class]="selectedPatient.isactive ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'" 
-                 class="px-4 py-2 rounded-full font-semibold flex items-center">
-                <i class="fas" [ngClass]="selectedPatient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
-                <span class="ml-2">{{selectedPatient.isactive ? 'Active' : 'Inactive'}}</span>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-12 gap-6">
-            <!-- Left Column - Analytics & Health Overview -->
-            <div class="col-span-12 lg:col-span-5">
-            <!-- Health Overview Chart - Now Larger -->
-            <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-100">
-                <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
-                <i class="fas fa-chart-line text-indigo-500 mr-2"></i>Health Overview
-                </h3>
-                <div class="w-full h-96"> <!-- Increased height -->
-                <canvas baseChart
-                    [data]="patientDetailsData"
-                    [options]="radarChartOptions"
-                    [type]="'radar'">
-                </canvas>
+            <!-- Lista de pacientes -->
+            <div class="patients-list" [class.collapsed]="viewMode === 'detail'">
+                <div class="bg-white rounded-lg shadow-lg">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <h3 class="text-lg font-semibold"><i class="fas fa-family mr-2"></i>Family Members</h3>
+                        <!-- Disability Chart -->
+                        <div class="w-32 h-32">
+                            <canvas baseChart
+                                [data]="disabilityData"
+                                [options]="chartOptions"
+                                [type]="'doughnut'">
+                            </canvas>
+                        </div>
+                    </div>
+                    <div class="divide-y">
+                        <div *ngFor="let patient of filteredPatients" 
+                            (click)="selectPatient(patient)"
+                            [class.selected]="selectedPatient?.id === patient.id"
+                            class="patient-card hover:bg-gray-50 transition-colors">
+                            <div class="flex items-center justify-between p-4">
+                                <div>
+                                    <h4 class="font-medium"><i class="fas fa-user-circle mr-2"></i>{{patient.name_patient}}</h4>
+                                    <p class="text-sm text-gray-600"><i class="fas fa-envelope mr-2"></i>{{patient.email}}</p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span *ngIf="patient.discapacity" class="tag tag-purple">
+                                        <i class="fas fa-wheelchair mr-1"></i>Special Needs
+                                    </span>
+                                    <span [class]="patient.isactive ? 'status-active' : 'status-inactive'">
+                                        <i class="fas" [ngClass]="patient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                                        {{patient.isactive ? 'Active' : 'Inactive'}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Quick Stats -->
-            <div class="bg-white shadow-sm rounded-lg p-6 mt-6 border border-gray-100">
-                <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
-                <i class="fas fa-clipboard-list text-green-500 mr-2"></i>Quick Stats
-                </h3>
-                <div class="space-y-4">
-                <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
-                    <span class="text-sm font-medium text-gray-600">Last Check-up</span>
-                    <span class="font-medium"> {{ selectedPatient.updatedat | date }}</span>
-                </div>
-                <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
-                    <span class="text-sm font-medium text-gray-600">Next Appointment</span>
-                    <span class="font-medium text-blue-600">In 2 weeks</span>
-                </div>
-                </div>
-            </div>
-            </div>
-
-            <!-- Right Column - Patient Information -->
-            <div class="col-span-12 lg:col-span-7">
-            <!-- Personal Information Card -->
-            <div class="bg-white shadow-sm rounded-lg p-6 mb-6 border border-gray-100">
-                <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
-                <i class="fas fa-id-card text-blue-500 mr-2"></i>Personal Information
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="info-item p-3 bg-gray-50 rounded">
-                    <label class="text-sm text-gray-600 block mb-1">Birthday</label>
-                    <p class="font-medium"><i class="fas fa-birthday-cake text-purple-500 mr-2"></i>{{selectedPatient.birthday | date}}</p>
-                </div>
-                <div class="info-item p-3 bg-gray-50 rounded">
-                    <label class="text-sm text-gray-600 block mb-1">Phone</label>
-                    <p class="font-medium"><i class="fas fa-phone text-green-500 mr-2"></i>{{selectedPatient.phone_number}}</p>
-                </div>
-                <div class="info-item p-3 bg-gray-50 rounded md:col-span-2">
-                    <label class="text-sm text-gray-600 block mb-1">Email</label>
-                    <p class="font-medium"><i class="fas fa-envelope text-blue-500 mr-2"></i>{{selectedPatient.email}}</p>
-                </div>
-                </div>
-            </div>
-
-            <!-- Health Information -->
-            <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-100">
-                <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
-                <i class="fas fa-heartbeat text-red-500 mr-2"></i>Health Information
-                </h3>
                 
-                <!-- Allergies Section -->
-                <div class="mb-6 p-4 bg-red-50 rounded-lg"></div>
-                <h4 class="text-md font-medium text-red-600 mb-3 flex items-center">
-                    <i class="fas fa-allergies mr-2"></i>Allergies
-                </h4>
-                <div class="flex flex-wrap gap-2">
-                    <span *ngFor="let allergy of selectedPatient.allergies" 
-                    class="bg-white text-red-700 px-4 py-2 rounded-full text-sm border border-red-200">
-                    {{allergy}}
-                    </span>
-                </div>
-                </div>
+            <!-- Patient Details View -->
+            <div *ngIf="selectedPatient" class="patient-detail">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <!-- Header with Back Button -->
+                    <div class="flex justify-between items-center mb-6 border-b pb-4">
+                        <div class="flex items-center">
+                            <button (click)="backToList()" class="btn-back hover:bg-gray-100 mr-4">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <h2 class="text-2xl font-bold flex items-center">
+                                <i class="fas fa-user-circle text-blue-600 mr-2"></i>
+                                {{selectedPatient.name_patient}}
+                            </h2>
+                        </div>
+                        <div [class]="selectedPatient.isactive ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'" 
+                            class="px-4 py-2 rounded-full font-semibold flex items-center">
+                            <i class="fas" [ngClass]="selectedPatient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                            <span class="ml-2">{{selectedPatient.isactive ? 'Active' : 'Inactive'}}</span>
+                        </div>
+                    </div>
 
-                <!-- Difficulties Section -->
-                <div class="p-4 bg-purple-50 rounded-lg">
-                <h4 class="text-md font-medium text-purple-600 mb-3 flex items-center">
-                    <i class="fas fa-notes-medical mr-2"></i>Difficulties
-                </h4>
-                <div class="flex flex-wrap gap-2">
-                    <span *ngFor="let difficulty of selectedPatient.difficulties"
-                    class="bg-white text-purple-700 px-4 py-2 rounded-full text-sm border border-purple-200">
-                    {{difficulty}}
-                    </span>
-                </div>
+                    <div class="grid grid-cols-12 gap-6">
+                        <!-- Left Column - Analytics & Health Overview -->
+                        <div class="col-span-12 lg:col-span-5">
+                            <!-- Health Overview Chart - Now Larger -->
+                            <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-100 h-full">
+                                <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+                                    <i class="fas fa-chart-line text-indigo-500 mr-2"></i>Health Overview
+                                </h3>
+                                <div class="w-full" style="height: calc(100% - 40px);">
+                                    <canvas baseChart
+                                        [data]="patientDetailsData"
+                                        [options]="radarChartOptions"
+                                        [type]="'radar'">
+                                    </canvas>
+                                    <div class="mt-6 space-y-4">
+                                        <!-- Health Score Bar -->
+                                        <div class="progress-stat">
+                                            <div class="flex justify-between mb-1">
+                                                <span class="text-sm font-medium text-gray-700">Health Score</span>
+                                                <span class="text-sm font-medium text-gray-700">{{calculateHealthScore(selectedPatient) | number:'1.0-2'}}%</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-blue-600 h-2 rounded-full" [style.width.%]="calculateHealthScore(selectedPatient) | number:'1.0-2'"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Activity Level Bar -->
+                                        <div class="progress-stat">
+                                            <div class="flex justify-between mb-1">
+                                                <span class="text-sm font-medium text-gray-700">Activity Level</span>
+                                                <span class="text-sm font-medium text-gray-700">{{calculateActivityLevel(selectedPatient) | number:'1.0-2'}}%</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-green-600 h-2 rounded-full" [style.width.%]="calculateActivityLevel(selectedPatient) | number:'1.0-2'"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Medication Adherence Bar -->
+                                        <div class="progress-stat">
+                                            <div class="flex justify-between mb-1">
+                                                <span class="text-sm font-medium text-gray-700">Medication Adherence</span>
+                                                <span class="text-sm font-medium text-gray-700">{{calculateMedicationAdherence(selectedPatient) | number:'1.0-2'}}%</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                                <div class="bg-purple-600 h-2 rounded-full" [style.width.%]="calculateMedicationAdherence(selectedPatient) | number:'1.0-2'"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column - Patient Information -->
+                        <div class="col-span-12 lg:col-span-7">
+                            <!-- Personal Information Card -->
+                            <div class="bg-white shadow-sm rounded-lg p-6 mb-6 border border-gray-100">
+                                <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+                                    <i class="fas fa-id-card text-blue-500 mr-2"></i>Personal Information
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="info-item p-3 bg-gray-50 rounded">
+                                        <label class="text-sm text-gray-600 block mb-1">Birthday</label>
+                                        <p class="font-medium"><i class="fas fa-birthday-cake text-purple-500 mr-2"></i>{{selectedPatient.birthday | date}}</p>
+                                    </div>
+                                    <div class="info-item p-3 bg-gray-50 rounded">
+                                        <label class="text-sm text-gray-600 block mb-1">Phone</label>
+                                        <p class="font-medium"><i class="fas fa-phone text-green-500 mr-2"></i>{{selectedPatient.phone_number}}</p>
+                                    </div>
+                                    <div class="info-item p-3 bg-gray-50 rounded md:col-span-2">
+                                        <label class="text-sm text-gray-600 block mb-1">Email</label>
+                                        <p class="font-medium"><i class="fas fa-envelope text-blue-500 mr-2"></i>{{selectedPatient.email}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Health Information -->
+                            <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-100">
+                                <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+                                    <i class="fas fa-heartbeat text-red-500 mr-2"></i>Health Information
+                                </h3>
+                                        
+                                <!-- Allergies Section -->
+                                <div class="mb-6 p-4 bg-red-50 rounded-lg">
+                                    <h4 class="text-md font-medium text-red-600 mb-3 flex items-center">
+                                        <i class="fas fa-allergies mr-2"></i>Allergies
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span *ngFor="let allergy of selectedPatient.allergies" 
+                                            class="bg-white text-red-700 px-4 py-2 rounded-full text-sm border border-red-200">
+                                            {{allergy}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Difficulties Section -->
+                                <div class="p-4 bg-purple-50 rounded-lg">
+                                    <h4 class="text-md font-medium text-purple-600 mb-3 flex items-center">
+                                        <i class="fas fa-notes-medical mr-2"></i>Difficulties
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span *ngFor="let difficulty of selectedPatient.difficulties"
+                                            class="bg-white text-purple-700 px-4 py-2 rounded-full text-sm border border-purple-200">
+                                            {{difficulty}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Stats - Full Width -->
+                        <div class="col-span-12">
+                            <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-100">
+                                <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+                                    <i class="fas fa-clipboard-list text-green-500 mr-2"></i>Quick Stats
+                                </h3>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                        <span class="text-sm font-medium text-gray-600">Last Check-up</span>
+                                        <span class="font-medium">{{ selectedPatient.updatedat | date }}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                        <span class="text-sm font-medium text-gray-600">Next Appointment</span>
+                                        <span class="font-medium text-blue-600">In 2 weeks</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+      </ng-container>
+
+        <ng-template #noFamilyMembers>
+            <div class="min-h-[400px] flex items-center justify-center">
+                <div class="text-center p-8 bg-white rounded-lg shadow-sm max-w-md">
+                    <div class="mb-6">
+                        <i class="fas fa-user-friends text-6xl text-gray-300"></i>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-2">
+                        No tienes familiares registrados
+                    </h2>
+                    <p class="text-gray-600 mb-6">
+                        Para comenzar a gestionar la salud de tus seres queridos, 
+                        necesitas añadir familiares a tu cuenta.
+                    </p>
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-plus mr-2"></i>
+                        Añadir Familiar
+                    </button>
+                </div>
             </div>
-        </div>
-        </div>
-    </div>
-</div>
-
-      
-    
-    <ng-template #noFamilyMembers>
-    <div class="p-8 text-center text-gray-500">
-        <i class="fas fa-users-slash text-5xl mb-4"></i>
-        <p class="text-lg">No hay familiares a cargo.</p>
-    </div>
-    </ng-template>
-</div>
-
-
-
-
-
-
+        </ng-template>
+      </div>
+  </div>

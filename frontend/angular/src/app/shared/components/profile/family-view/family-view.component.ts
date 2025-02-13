@@ -8,6 +8,20 @@ import { CookieService } from '../../../../core/services/cookies/cookie.service'
 import { UserPatient } from '../../../../core/models/Users/user-patient.model';
 import { User } from '../../../../core/models/Users/user.model';
 
+
+interface HealthMetrics {
+  healthScore: number;
+  activityLevel: number;
+  medicationAdherence: number;
+  dietScore: number;
+  sleepQuality: number;
+}
+
+interface PatientMetrics {
+  labels: string[];
+  values: number[];
+}
+
 @Component({
   selector: 'app-family-view',
   standalone: true,
@@ -23,6 +37,7 @@ export class FamilyViewComponent implements OnInit {
   currentFilter: string = '';
   viewMode: 'list' | 'detail' = 'list';
   activeTab: string = 'family';
+
 
   metrics = {
     active: 0,
@@ -92,6 +107,18 @@ export class FamilyViewComponent implements OnInit {
   };
 
 
+  patientChartData: ChartData<'radar'> = {
+    labels: ['Salud General', 'Actividad', 'Medicación', 'Dieta', 'Sueño'],
+    datasets: [{
+      data: [],
+      label: 'Métricas de Salud',
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgb(54, 162, 235)',
+      pointBackgroundColor: 'rgb(54, 162, 235)',
+    }]
+  };
+
+
   constructor(
     private userPatientService: UserPatientService,
     private cookieService: CookieService
@@ -136,6 +163,24 @@ export class FamilyViewComponent implements OnInit {
     this.updatePatientDetailsChart(patient);
   }
 
+  showPatientDetails(patient: UserPatient): void {
+    this.selectedPatient = patient;
+    this.updatePatientMetrics(patient);
+  }
+
+  private updatePatientMetrics(patient: UserPatient): void {
+    const metrics = this.calculatePatientMetrics(patient);
+    
+    // Actualizar datos del gráfico
+    this.patientChartData.datasets[0].data = [
+      metrics.healthScore,
+      metrics.activityLevel,
+      metrics.medicationAdherence,
+      metrics.dietScore,
+      metrics.sleepQuality
+    ];
+  }
+
   // updatePatientCharts(patient: UserPatient): void {
   //   this.patientHealthData.datasets[0].data = [65, 70, 68, 72, 75, 73];
   //   this.patientActivityData.datasets[0].data = [80, 65, 90, 85];
@@ -151,53 +196,59 @@ export class FamilyViewComponent implements OnInit {
     ];
   }
 
-  private updatePatientDetailsChart(patient: UserPatient): void {
-    // Aquí puedes generar datos basados en el paciente real
-    // Este es un ejemplo de datos simulados
+  updatePatientDetailsChart(patient: UserPatient): void {
+    const metrics = this.calculatePatientMetrics(patient);
+    
+    // Actualizar datos del gráfico radar
     this.patientDetailsData.datasets[0].data = [
-      this.calculateHealthScore(patient),
-      this.calculateActivityLevel(patient),
-      this.calculateMedicationAdherence(patient),
-      this.calculateDietScore(patient),
-      this.calculateSleepQuality(patient)
+      metrics.healthScore,
+      metrics.activityLevel,
+      metrics.medicationAdherence,
+      metrics.dietScore,
+      metrics.sleepQuality
     ];
   }
 
+  private calculatePatientMetrics(patient: UserPatient): HealthMetrics {
+    const healthScore = 100 - 
+      ((patient.allergies?.length || 0) * 5) - 
+      ((patient.difficulties?.length || 0) * 5) - 
+      (patient.discapacity ? 10 : 0);
 
-  private calculateHealthScore(patient: UserPatient): number {
-    // Base score starts at 100
-    let score = 100;
-    
-    // Reduce score for each allergy
-    score -= (patient.allergies?.length || 0) * 5;
-    
-    // Reduce score for each difficulty
-    score -= (patient.difficulties?.length || 0) * 5;
-    
-    // Adjust for special needs
-    if (patient.discapacity) score -= 10;
-    
-    return Math.max(score, 0); // Ensure score doesn't go below 0
+    // Cálculos basados en la condición del paciente
+    const activityLevel = patient.difficulties?.includes('mobility') ? 10 : 85;
+    const medicationAdherence = patient.isactive ? 90 : 20;
+    const dietScore = patient.allergies?.length ? 15 : 95;
+    const sleepQuality = patient.difficulties?.includes('sleep') ? 25 : 88;
+
+    return {
+      healthScore: Math.max(healthScore, 0),
+      activityLevel,
+      medicationAdherence,
+      dietScore,
+      sleepQuality
+    };
   }
 
-  private calculateActivityLevel(patient: UserPatient): number {
-    // Ejemplo: retorna un valor entre 0-100 basado en la actividad del paciente
-    return Math.random() * 100;
+
+  public calculateHealthScore(patient: UserPatient): number {
+    return this.calculatePatientMetrics(patient).healthScore;
   }
 
-  private calculateMedicationAdherence(patient: UserPatient): number {
-    // Ejemplo: retorna un valor entre 0-100 basado en la adherencia a medicamentos
-    return Math.random() * 100;
+  public calculateActivityLevel(patient: UserPatient): number {
+    return this.calculatePatientMetrics(patient).activityLevel;
   }
 
-  private calculateDietScore(patient: UserPatient): number {
-    // Ejemplo: retorna un valor entre 0-100 basado en la dieta
-    return Math.random() * 100;
+  public calculateMedicationAdherence(patient: UserPatient): number {
+    return this.calculatePatientMetrics(patient).medicationAdherence;
   }
 
-  private calculateSleepQuality(patient: UserPatient): number {
-    // Ejemplo: retorna un valor entre 0-100 basado en la calidad del sueño
-    return Math.random() * 100;
+  public calculateDietScore(patient: UserPatient): number {
+    return this.calculatePatientMetrics(patient).dietScore;
+  }
+
+  public calculateSleepQuality(patient: UserPatient): number {
+    return this.calculatePatientMetrics(patient).sleepQuality;
   }
 
   
@@ -225,6 +276,8 @@ export class FamilyViewComponent implements OnInit {
         break;
     }
   }
+
+  
 
   setActiveTab(activeTab: string): void {
       console.log('Active tab changed to:', activeTab);
