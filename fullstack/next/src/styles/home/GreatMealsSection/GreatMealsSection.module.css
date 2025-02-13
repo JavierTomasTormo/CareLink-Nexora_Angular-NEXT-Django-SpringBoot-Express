@@ -1,5 +1,5 @@
     .sect_great {
-        background-image: url('../../../../public/assets/defaultImages/GreatMealsDefault.jpeg'); /*https://image.ibb.co/kvDRDb/section_bg_10.jpg'*/
+        background-image: url('../../../../public/assets/defaultImages/GreatMealsDefault.jpeg');
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -7,74 +7,129 @@
         background-color: #fff;
         padding: 130px 0;
     }
-    
+
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 15px;
     }
-    
+
     .row {
         display: flex;
         justify-content: flex-end;
     }
-    
+
     .content_wrapper {
         width: 41.66667%;
         margin-left: 50%;
     }
-    
+
     .description {
         padding: 40px;
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
     }
-    
+
+    .description:hover {
+        transform: translateY(-5px);
+    }
+
     .description_title {
         margin-top: 0;
         margin-bottom: 15px;
         font-size: 30px;
         text-transform: uppercase;
+        color: #333;
+        border-bottom: 2px solid #daa37f;
+        padding-bottom: 10px;
     }
-    
+
     .description_p {
         margin-bottom: 40px;
         color: #767676;
-        line-height: 23px;
+        line-height: 1.6;
         font-family: 'Nunito', sans-serif;
     }
-    
+
     .btn {
         color: #fff;
-        padding: 10px 20px;
-        font-size: 11px;
+        padding: 12px 25px;
+        font-size: 12px;
         letter-spacing: 3px;
-        font-weight: 500;
+        font-weight: 600;
         background-color: #daa37f;
-        border-radius: 0;
+        border-radius: 25px;
         text-align: center;
         text-transform: uppercase;
         text-decoration: none;
         display: inline-block;
+        transition: all 0.3s ease;
+        border: 2px solid #daa37f;
     }
-    
-    @media screen and (max-width: 991px) {
+
+    .btn:hover {
+        background-color: transparent;
+        color: #daa37f;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(218, 163, 127, 0.3);
+    }
+
+    /* Tablets */
+    @media screen and (max-width: 992px) {
         .content_wrapper {
-        width: 50%;
-        margin-left: 45%;
+            width: 60%;
+            margin-left: 30%;
         }
-    }
-    
-    @media screen and (max-width: 767px) {
+
+        .description_title {
+            font-size: 26px;
+        }
+
         .sect_great {
-        padding: 60px 0;
+            padding: 100px 0;
         }
-        
-        .row {
-        justify-content: center;
-        }
-    
+    }
+
+    /* Tablets pequeñas y móviles grandes */
+    @media screen and (max-width: 768px) {
         .content_wrapper {
-        width: 100%;
-        margin-left: 0;
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        .description {
+            padding: 30px;
+        }
+
+        .description_title {
+            font-size: 24px;
+        }
+    }
+
+    /* Móviles */
+    @media screen and (max-width: 576px) {
+        .content_wrapper {
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .row {
+            justify-content: center;
+        }
+
+        .sect_great {
+            padding: 60px 0;
+            background-attachment: scroll;
+        }
+
+        .description_title {
+            font-size: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 11px;
         }
     }
