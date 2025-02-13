@@ -77,6 +77,7 @@ const BlogSection = () => {
                         </div>
                     ))}
                 </div>
+                <div className={styles.row_center}>
                 <Image 
                     src="/Logo_VitalNest.png" 
                     alt="VitalNest" 
@@ -84,6 +85,7 @@ const BlogSection = () => {
                     height={150} 
                     className={styles.logo}
                 />
+                </div>
             </div>
         </div>
         </>

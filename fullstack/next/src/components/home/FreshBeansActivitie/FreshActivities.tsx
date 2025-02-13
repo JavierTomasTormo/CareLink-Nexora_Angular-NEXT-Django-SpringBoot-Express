@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import styles from '@/styles/home/FreshBeansActivitie/FreshActivities.module.css';
 import { FreshActivitiesSkeleton } from '@/components/skeletons/HomeSkeletons';
 
@@ -19,18 +20,30 @@ const FreshActivities = () => {
     }
     
     return (
-        <div className={styles.half_sect}>
+        <motion.div 
+            className={styles.half_sect}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+        >
             <div className={styles.half_first}>
-                <div className={styles.description}>
-                    <h2 className={styles.description_title}>NUESTRAS ACTIVIDADES</h2>
+                <motion.div 
+                    className={styles.description}
+                    initial={{ x: -50 }}
+                    animate={{ x: 0 }}
+                    transition={{ delay: 0.3, duration: 0.8 }}
+                >
+                    <h2 className={styles.description_title}>Actividades Vitales</h2>
                     <p className={styles.description_p}>
-                        Descubre una amplia gama de actividades diseñadas para mejorar tu bienestar. Desde sesiones de yoga y meditación hasta clases de fitness y talleres nutricionales, nuestra diversa oferta de programas se adapta a todos los niveles de experiencia y objetivos de bienestar.
+                        Descubre una amplia gama de actividades diseñadas para enriquecer la vida de tus seres queridos. 
+                        Nuestros programas están cuidadosamente planificados para estimular tanto el cuerpo como la mente, 
+                        promoviendo un estilo de vida activo y saludable en un ambiente acogedor y seguro.
                     </p>
-                    <a href="#" className={styles.btn}>Ver Actividades</a>
-                </div>
+                    <a href="#" className={styles.btn}>Explorar Actividades</a>
+                </motion.div>
             </div>
             <div className={styles.half_second}></div>
-        </div>
+        </motion.div>
     );
 };
 

@@ -8,10 +8,10 @@ import BestRoomsSection from '@/components/home/BestRoomsSection/BestRoomsSectio
 // import GallerySection from '@/components/home/GallerySection/GallerySection';
 import BlogSection from '@/components/home/BlogSection/BlogSection';
 import Head from 'next/head';
-
 import AnimatedSection from './AnimatedSection';
-
 import type { Metadata, Viewport } from 'next';
+
+
 
 export const viewport: Viewport = {
   width: 'device-width',
