@@ -5,9 +5,11 @@ import AdditionalInfo from '@/components/home/AdditionalInfo/AdditionalInfo';
 import FreshActivities from '@/components/home/FreshBeansActivitie/FreshActivities';
 import GreatMealsSection from '@/components/home/GreatMealsSection/GreatMealsSection';
 import BestRoomsSection from '@/components/home/BestRoomsSection/BestRoomsSection';
-import GallerySection from '@/components/home/GallerySection/GallerySection';
+// import GallerySection from '@/components/home/GallerySection/GallerySection';
 import BlogSection from '@/components/home/BlogSection/BlogSection';
 import Head from 'next/head';
+
+import AnimatedSection from './AnimatedSection';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -56,15 +58,33 @@ export default function HomePage() {
         <meta property="og:image" content="https://www.vitalnest.com/images/care-center.jpg" />
       </Head>
 
-      <BannerSection />
-      <TypesSection />
-      {/* <OurStory /> */}
-      <AdditionalInfo />
-      <FreshActivities />
-      <GreatMealsSection />
-      <BestRoomsSection />
-      {/* <GallerySection /> */}
-      <BlogSection />
+      <main>
+        <BannerSection />
+        
+        <AnimatedSection>
+          <TypesSection />
+        </AnimatedSection>
+
+        <AnimatedSection>
+          <AdditionalInfo />
+        </AnimatedSection>
+
+        <AnimatedSection>
+          <FreshActivities />
+        </AnimatedSection>
+
+        <AnimatedSection>
+          <GreatMealsSection />
+        </AnimatedSection>
+
+        <AnimatedSection>
+          <BestRoomsSection />
+        </AnimatedSection>
+
+        <AnimatedSection>
+          <BlogSection />
+        </AnimatedSection>
+    </main>
     </>
   );
 }
