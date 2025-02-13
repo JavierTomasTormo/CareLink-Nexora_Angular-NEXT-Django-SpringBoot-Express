@@ -128,3 +128,98 @@
     background-color: #e5e7eb;
   }
   
+
+
+  @media (max-width: 1024px) {
+    .patients-list.collapsed {
+      grid-column: span 12;
+    }
+
+    .patient-detail {
+      grid-column: span 12;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .metric-card {
+      padding: 1rem;
+    }
+
+    .patient-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .patient-card .flex {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .patient-card .flex .gap-2 {
+      margin-top: 0.5rem;
+    }
+
+    .info-item {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .info-item .label {
+      font-size: 0.75rem;
+    }
+
+    .info-item .value {
+      font-size: 0.875rem;
+    }
+
+    .progress-stat {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .progress-stat .flex {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .progress-stat .w-full {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .metric-card {
+      padding: 0.75rem;
+    }
+
+    .patient-card {
+      padding: 0.75rem;
+    }
+
+    .info-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .info-item .label {
+      font-size: 0.75rem;
+    }
+
+    .info-item .value {
+      font-size: 0.875rem;
+    }
+
+    .progress-stat {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .progress-stat .flex {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .progress-stat .w-full {
+      width: 100%;
+    }
+  }
