@@ -1,62 +1,81 @@
     .sect {
         padding: 130px 0;
+        transition: background-color 0.3s ease;
     }
-    
+
     .sect_grey {
-        background-color: #ebebeb;
+        background-color: #f5f5f5;
     }
-    
+
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 15px;
     }
-    
+
     .row_center {
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-    
+
     .col_intro {
         display: inline-block;
         max-width: 500px;
         margin-bottom: 50px;
+        padding: 20px;
+        border-bottom: 2px solid #daa37f;
     }
-    
+
     .sect_title {
         margin-top: 0;
         text-transform: uppercase;
         line-height: 40px;
         font-size: 30px;
         margin-bottom: 20px;
+        color: #333;
+        transition: color 0.3s ease;
     }
-    
+
     .sect_subtitle {
         color: #767676;
         margin: 0;
+        line-height: 1.6;
+        font-family: 'Nunito', sans-serif;
+        opacity: 0.8;
     }
-    
+
     .articles_grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
         margin-bottom: 50px;
     }
-    
+
     .article_pre {
         background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
     }
-    
+
+    .article_pre:hover {
+        transform: translateY(-5px);
+    }
+
     .article_img {
         padding-bottom: 80%;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        border-radius: 15px 15px 0 0;
     }
-    
+
     .article_info {
         padding: 25px 20px;
     }
-    
+
     .article_title {
         letter-spacing: 1px;
         font-size: 16px;
@@ -64,54 +83,93 @@
         text-transform: uppercase;
         font-weight: 600;
         margin-bottom: 10px;
+        color: #333;
     }
-    
+
     .article_date {
-        color: #767676;
+        color: #daa37f;
         font-size: 12px;
         display: block;
         margin-bottom: 15px;
+        font-weight: 500;
     }
-    
+
     .article_excerpt {
         margin: 0;
         line-height: 22px;
         color: #767676;
-        }
-        
-        .logo {
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-        }
+    }
 
     .btn {
         color: #fff;
-        padding: 10px 20px;
-        font-size: 11px;
+        padding: 12px 25px;
+        font-size: 12px;
         letter-spacing: 3px;
-        font-weight: 500;
+        font-weight: 600;
         background-color: #daa37f;
-        border-radius: 0;
+        border-radius: 25px;
         text-decoration: none;
-        text-transform: uppercase;
-        display: inline-block;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: 2px solid #daa37f;
+            }
+
+
+            .logo {
+            margin-bottom: 20px;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            /* width: 100%; */
+            }
+
+            .row_center {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+    .btn:hover {
+        background-color: transparent;
+        color: #daa37f;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(218, 163, 127, 0.3);
     }
-    
-    @media screen and (max-width: 991px) {
+
+    @media screen and (max-width: 992px) {
         .sect {
-        padding: 80px 0;
+            padding: 100px 0;
+        }
+        .sect_title {
+            font-size: 26px;
         }
     }
-    
-    @media screen and (max-width: 767px) {
+
+    @media screen and (max-width: 768px) {
         .articles_grid {
-        grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
-        
-        .article_pre {
-        margin-bottom: 15px;
+        .sect_title {
+            font-size: 24px;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .sect {
+            padding: 60px 0;
+        }
+        .articles_grid {
+            grid-template-columns: 1fr;
+        }
+        .sect_title {
+            font-size: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 11px;
         }
     }
