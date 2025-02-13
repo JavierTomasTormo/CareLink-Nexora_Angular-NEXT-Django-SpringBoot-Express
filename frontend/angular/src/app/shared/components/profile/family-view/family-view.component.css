@@ -1,0 +1,130 @@
+.grid-view {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  
+  .detail-view {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .patients-list {
+    grid-column: span 12;
+    transition: all 0.3s;
+  }
+  
+  .patients-list.collapsed {
+    grid-column: span 4;
+  }
+  
+  .patient-detail {
+    grid-column: span 8;
+  }
+  
+  .metric-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+  }
+  
+  .active-metric {
+    border-color: #3b82f6;
+    transform: translateY(-0.25rem);
+  }
+  
+  .patient-card {
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  
+  .patient-card:hover {
+    background-color: #f9fafb;
+  }
+  
+  .patient-card.selected {
+    background-color: #eff6ff;
+    border-left: 4px solid #3b82f6;
+  }
+  
+  .info-section {
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .label {
+    font-size: 0.875rem;
+    color: #4b5563;
+  }
+  
+  .value {
+    font-weight: 500;
+  }
+  
+  .tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+  }
+  
+  .tag-red {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+  
+  .tag-purple {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+  }
+  
+  .status-active {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    background-color: #dcfce7;
+    color: #166534;
+  }
+  
+  .status-inactive {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+  
+  .charts-container {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .chart-section {
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  
+  .btn-back {
+    padding: 0.5rem 1rem;
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    color: #374151;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-back:hover {
+    background-color: #e5e7eb;
+  }
+  
