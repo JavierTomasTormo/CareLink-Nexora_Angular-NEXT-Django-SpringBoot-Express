@@ -130,3 +130,80 @@
         font-size: 0.9rem;
     }
 }
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 10px;
+        gap: 20px;
+    }
+
+    .card_top,
+    .card_right,
+    .card_bottom,
+    .card_left {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        min-height: 300px;
+    }
+}
+
+/* Animated entrance effects */
+.card_left {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.card_right {
+    animation: slideInRight 0.8s ease-out;
+}
+
+.card_top {
+    animation: slideInTop 0.8s ease-out;
+}
+
+.card_bottom {
+    animation: slideInBottom 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInTop {
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInBottom {
+    from {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
