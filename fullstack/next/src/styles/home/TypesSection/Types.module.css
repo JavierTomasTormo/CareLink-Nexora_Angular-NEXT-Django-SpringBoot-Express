@@ -48,6 +48,11 @@
     .coffee {
         padding: 0 25px;
         text-align: center;
+
+        display: flex;
+        flex-direction: column;
+        min-height: 400px;
+        position: relative;
     }
     
     .coffee_img {
@@ -59,32 +64,81 @@
         transform: translateY(-10px);
     }
     
-    .coffee_name {
+    /* .coffee_name {
         letter-spacing: 1px;
         font-size: 16px;
         text-transform: uppercase;
         font-weight: 600;
         margin-top: 25px;
         margin-bottom: 15px;
+    } */
+    .coffee_name {
+        color: #2d3748;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 15px;
     }
     
-    .coffee_descr {
+    /* .coffee_descr {
         margin: 0;
         line-height: 23px;
         color: #767676;
+    } */
+    .coffee_descr {
+        color: #4a5568;
+        line-height: 1.6;
+        font-size: 16px;
+        margin-bottom: 25px;
+        flex-grow: 1;
+    }
+
+
+
+    .card_btn {
+        background: linear-gradient(135deg, #daa37f, #c28b6b);
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        bottom: 0;
+        width: 80%;
+        margin: 0 auto;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 8px rgba(218, 163, 127, 0.4);
     }
     
+    .card_btn:hover {
+        background: linear-gradient(135deg, #c28b6b, #b17a5b);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(194, 139, 107, 0.4);
+    }
+    
+    .card_btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(194, 139, 107, 0.5);
+    }
+    
+    
     .sect_title {
-        margin-top: 0;
-        text-transform: uppercase;
-        line-height: 40px;
-        font-size: 30px;
+        color: #2d3748;
+        font-size: 36px;
+        font-weight: 700;
         margin-bottom: 20px;
+        text-transform: none;
     }
     
     .sect_subtitle {
-        margin-bottom: 0;
-        color: #767676;
+        color: #4a5568;
+        font-size: 18px;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto 40px;
     }
     
     .btn {
@@ -109,10 +163,16 @@
     
     @media screen and (max-width: 768px) {
         .row_small {
-        grid-template-columns: 1fr;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .coffee {
+            padding: 20px;
         }
         
         .coffee_img {
-        width: 35%;
+            width: 60px;
+            height: 60px;
         }
     }
