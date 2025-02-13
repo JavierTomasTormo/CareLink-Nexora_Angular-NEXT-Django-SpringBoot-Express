@@ -1,5 +1,5 @@
     .banner {
-        background-image: url('../../../../public/assets/defaultImages/bannerDefault.jpeg');/*https://image.ibb.co/meT7Jb/header_bg_1.jpg*/
+        background-image: url('../../../../public/assets/defaultImages/bannerDefault.jpeg');
         background-color: #000;
         background-position: center;
         background-size: cover;
@@ -9,7 +9,7 @@
         height: 100vh;
         position: relative;
     }
-    
+
     .banner__overlay {
         position: absolute;
         top: 0;
@@ -18,16 +18,16 @@
         display: table;
         height: 100%;
         text-align: center;
-        background-color: rgba(0,0,0,0.5);
-        backdrop-filter: blur(2px);
+        background-color: rgba(0,0,0,0.75);
+        /* backdrop-filter: blur(2px); */
         animation: bannerIn 2s;
     }
-    
+
     .banner__container {
         display: table-cell;
         vertical-align: middle;
     }
-    
+
     .banner__scroll_down {
         position: absolute;
         bottom: 15px;
@@ -36,7 +36,7 @@
         cursor: pointer;
         animation: opacity 3s;
     }
-    
+
     .banner__title {
         font-size: clamp(40px, 8vw, 72px);
         color: #ffffff;
@@ -44,14 +44,16 @@
         margin: 0 0 20px;
         letter-spacing: 2px;
         font-weight: 700;
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        text-transform: uppercase;
         line-height: 1.2;
         animation: opacity 3s;
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
+        border-bottom: 2px solid #daa37f;
+        padding-bottom: 10px;
     }
-    
+
     .banner__text {
         font-size: clamp(16px, 3vw, 24px);
         color: #ffffff;
@@ -62,54 +64,51 @@
         max-width: 600px;
         animation: opacity 3s;
         letter-spacing: 0.5px;
+        font-family: 'Nunito', sans-serif;
+        opacity: 0.8;
     }
-    
+
     .btn {
         color: #fff;
+        padding: 12px 25px;
+        font-size: 12px;
         letter-spacing: 3px;
+        font-weight: 600;
         background-color: #daa37f;
+        border-radius: 25px;
         text-align: center;
         text-transform: uppercase;
         text-decoration: none;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 16px 32px;
-        border-radius: 8px;
+        display: inline-block;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        border: 2px solid transparent;
+        border: 2px solid #daa37f;
     }
-    
+
     .btn:hover {
-        background-color: #e3935a;
+        background-color: transparent;
+        color: #daa37f;
         transform: translateY(-2px);
-        box-shadow: 0 6px 8px rgba(0,0,0,0.2);
-    }
-    
-    .btn:focus {
-        outline: none;
-        border-color: #ffffff;
-        box-shadow: 0 0 0 3px rgba(37,99,235,0.5);
+        box-shadow: 0 5px 15px rgba(218, 163, 127, 0.3);
     }
 
     .btn__opacity {
         animation: opacity 3s;
     }
-    
+
     @keyframes bannerIn {
         0% {  
-        background-color: rgba(0,0,0,1);
+            background-color: rgba(0,0,0,1);
         }
         100% { 
-        background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.75);
         }
     }
-    
+
     @keyframes opacity {
         0% {  
-        opacity: 0;
+            opacity: 0;
         }
         100% { 
-        opacity: 1;
+            opacity: 1;
         }
     }
