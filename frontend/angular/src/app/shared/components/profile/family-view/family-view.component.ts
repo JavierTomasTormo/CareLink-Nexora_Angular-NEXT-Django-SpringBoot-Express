@@ -8,20 +8,6 @@ import { CookieService } from '../../../../core/services/cookies/cookie.service'
 import { UserPatient } from '../../../../core/models/Users/user-patient.model';
 import { User } from '../../../../core/models/Users/user.model';
 
-
-interface HealthMetrics {
-  healthScore: number;
-  activityLevel: number;
-  medicationAdherence: number;
-  dietScore: number;
-  sleepQuality: number;
-}
-
-interface PatientMetrics {
-  labels: string[];
-  values: number[];
-}
-
 @Component({
   selector: 'app-family-view',
   standalone: true,
@@ -38,25 +24,11 @@ export class FamilyViewComponent implements OnInit {
   viewMode: 'list' | 'detail' = 'list';
   activeTab: string = 'family';
 
-
   metrics = {
     active: 0,
     specialNeeds: 0,
-    allergies: 0,
-    difficulties: 0
+    allergies: 0
   };
-
-  // patientHealthData: ChartData<'line'> = {
-  //   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  //   datasets: [
-  //     {
-  //       label: 'Health Score',
-  //       data: [],
-  //       borderColor: '#4CAF50',
-  //       tension: 0.1
-  //     }
-  //   ]
-  // };
 
   disabilityData: ChartData<'doughnut'> = {
     labels: ['With Disability', 'Without Disability'],
@@ -76,24 +48,12 @@ export class FamilyViewComponent implements OnInit {
     }]
   };
 
-  // patientActivityData: ChartData<'bar'> = {
-  //   labels: ['Exercise', 'Sleep', 'Diet', 'Medication'],
-  //   datasets: [
-  //     {
-  //       label: 'Compliance Score',
-  //       data: [],
-  //       backgroundColor: ['#4CAF50', '#2196F3', '#FFC107', '#9C27B0']
-  //     }
-  //   ]
-  // };
-
   chartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
       legend: { position: 'bottom' }
     }
   };
-
 
   radarChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -106,19 +66,6 @@ export class FamilyViewComponent implements OnInit {
     }
   };
 
-
-  patientChartData: ChartData<'radar'> = {
-    labels: ['Salud General', 'Actividad', 'Medicación', 'Dieta', 'Sueño'],
-    datasets: [{
-      data: [],
-      label: 'Métricas de Salud',
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgb(54, 162, 235)',
-      pointBackgroundColor: 'rgb(54, 162, 235)',
-    }]
-  };
-
-
   constructor(
     private userPatientService: UserPatientService,
     private cookieService: CookieService
@@ -130,16 +77,6 @@ export class FamilyViewComponent implements OnInit {
     this.loadUserPatients();
   }
 
-  // loadUserPatients(): void {
-  //   this.userPatientService.getUserPatientsByUser(this.user.id_user).subscribe({
-  //     next: (data) => {
-  //       this.userPatients = data;
-  //       this.filteredPatients = data;
-  //       this.updateMetrics();
-  //     },
-  //     error: (error) => console.error('Error loading patients:', error)
-  //   });
-  // }
   loadUserPatients(): void {
     this.userPatientService.getUserPatientsByUser(this.user.id_user).subscribe({
       next: (data) => {
@@ -152,27 +89,13 @@ export class FamilyViewComponent implements OnInit {
     });
   }
 
-  // selectPatient(patient: UserPatient): void {
-  //   this.selectedPatient = patient;
-  //   this.viewMode = 'detail';
-  //   this.updatePatientCharts(patient);
-  // }
   selectPatient(patient: UserPatient): void {
     this.selectedPatient = patient;
     this.viewMode = 'detail';
-    this.updatePatientDetailsChart(patient);
-  }
-
-  showPatientDetails(patient: UserPatient): void {
-    this.selectedPatient = patient;
-    this.updatePatientMetrics(patient);
-  }
-
-  private updatePatientMetrics(patient: UserPatient): void {
+    
     const metrics = this.calculatePatientMetrics(patient);
     
-    // Actualizar datos del gráfico
-    this.patientChartData.datasets[0].data = [
+    this.patientDetailsData.datasets[0].data = [
       metrics.healthScore,
       metrics.activityLevel,
       metrics.medicationAdherence,
@@ -181,10 +104,6 @@ export class FamilyViewComponent implements OnInit {
     ];
   }
 
-  // updatePatientCharts(patient: UserPatient): void {
-  //   this.patientHealthData.datasets[0].data = [65, 70, 68, 72, 75, 73];
-  //   this.patientActivityData.datasets[0].data = [80, 65, 90, 85];
-  // }
   private updateDisabilityChart(): void {
     const withDisability = this.userPatients.filter(p => p.discapacity).length;
     const total = this.userPatients.length;
@@ -196,26 +115,12 @@ export class FamilyViewComponent implements OnInit {
     ];
   }
 
-  updatePatientDetailsChart(patient: UserPatient): void {
-    const metrics = this.calculatePatientMetrics(patient);
-    
-    // Actualizar datos del gráfico radar
-    this.patientDetailsData.datasets[0].data = [
-      metrics.healthScore,
-      metrics.activityLevel,
-      metrics.medicationAdherence,
-      metrics.dietScore,
-      metrics.sleepQuality
-    ];
-  }
-
-  private calculatePatientMetrics(patient: UserPatient): HealthMetrics {
+  private calculatePatientMetrics(patient: UserPatient) {
     const healthScore = 100 - 
       ((patient.allergies?.length || 0) * 5) - 
       ((patient.difficulties?.length || 0) * 5) - 
       (patient.discapacity ? 10 : 0);
 
-    // Cálculos basados en la condición del paciente
     const activityLevel = patient.difficulties?.includes('mobility') ? 10 : 85;
     const medicationAdherence = patient.isactive ? 90 : 20;
     const dietScore = patient.allergies?.length ? 15 : 95;
@@ -230,7 +135,6 @@ export class FamilyViewComponent implements OnInit {
     };
   }
 
-
   public calculateHealthScore(patient: UserPatient): number {
     return this.calculatePatientMetrics(patient).healthScore;
   }
@@ -242,16 +146,6 @@ export class FamilyViewComponent implements OnInit {
   public calculateMedicationAdherence(patient: UserPatient): number {
     return this.calculatePatientMetrics(patient).medicationAdherence;
   }
-
-  public calculateDietScore(patient: UserPatient): number {
-    return this.calculatePatientMetrics(patient).dietScore;
-  }
-
-  public calculateSleepQuality(patient: UserPatient): number {
-    return this.calculatePatientMetrics(patient).sleepQuality;
-  }
-
-  
 
   backToList(): void {
     this.viewMode = 'list';
@@ -277,8 +171,6 @@ export class FamilyViewComponent implements OnInit {
     }
   }
 
-  
-
   setActiveTab(activeTab: string): void {
       console.log('Active tab changed to:', activeTab);
       this.activeTab = activeTab;
@@ -288,8 +180,7 @@ export class FamilyViewComponent implements OnInit {
     this.metrics = {
       active: this.userPatients.filter(p => p.isactive).length,
       specialNeeds: this.userPatients.filter(p => p.discapacity).length,
-      allergies: this.userPatients.reduce((acc, p) => acc + (p.allergies?.length || 0), 0),
-      difficulties: this.userPatients.reduce((acc, p) => acc + (p.difficulties?.length || 0), 0)
+      allergies: this.userPatients.reduce((acc, p) => acc + (p.allergies?.length || 0), 0)
     };
   }
 }

@@ -126,6 +126,7 @@ export interface RoomState {
 
 export interface ActivityState {
   activities: ActivityData[];
+  filteredActivities: ActivityData[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }

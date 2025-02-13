@@ -6,7 +6,7 @@ import { RootState } from '@/store';
 
 const initialState: ActivityState = {
     activities: [],
-    filteredActivities: [], // Asegúrate de agregar el estado filtrado
+    filteredActivities: [], 
     status: 'idle',
     error: null,
 };
@@ -20,6 +20,8 @@ export const fetchActivity = createAsyncThunk(FETCH_ACTIVITY_BY_ID, async (id: n
     const response = await getActivityById(id);
     return response;
 });
+
+
 
 export const createNewActivity = createAsyncThunk(CREATE_ACTIVITY, async (activityData: ActivityData) => {
     const response = await createActivity(activityData);
