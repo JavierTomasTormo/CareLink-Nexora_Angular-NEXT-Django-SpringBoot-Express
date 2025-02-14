@@ -183,7 +183,10 @@ export class FamilyViewComponent implements OnInit {
     return patient.isactive ? 'tag-active' : 'tag-inactive';
   }
 
-
+  hasAllegies(patient: UserPatient): boolean {
+    return patient.allergies && patient.allergies.length > 0;
+  }
+  
 
   private updateMetrics(): void {
     this.metrics = {

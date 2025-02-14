@@ -72,27 +72,51 @@
     font-weight: 500;
   }
   
-  /* .tag {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-  } */
 
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: all 0.2s;
-    
-    i {
-        font-size: 0.875rem;
-    }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  
+  i {
+      font-size: 1rem;
+  }
+
+  .tag-text {
+      margin-left: 0.5rem;
+  }
 }
   
+
+
+.tags-collapsed {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  align-items: center;
+
+  .tag {
+      padding: 0.375rem;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      i {
+          margin: 0;
+      }
+  }
+}
+
+
   .tag-red {
     background-color: #fee2e2;
     color: #991b1b;
@@ -207,42 +231,7 @@
     }
   }
 
-  @media (max-width: 640px) {
-    .metric-card {
-      padding: 0.75rem;
-    }
 
-    .patient-card {
-      padding: 0.75rem;
-    }
-
-    .info-item {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .info-item .label {
-      font-size: 0.75rem;
-    }
-
-    .info-item .value {
-      font-size: 0.875rem;
-    }
-
-    .progress-stat {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .progress-stat .flex {
-      width: 100%;
-      justify-content: space-between;
-    }
-
-    .progress-stat .w-full {
-      width: 100%;
-    }
-  }
 
 
   .tag-container {
@@ -266,6 +255,43 @@
 }
 
 @media (max-width: 640px) {
+
+  .metric-card {
+    padding: 0.75rem;
+  }
+
+  .patient-card {
+    padding: 0.75rem;
+  }
+
+  .info-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info-item .label {
+    font-size: 0.75rem;
+  }
+
+  .info-item .value {
+    font-size: 0.875rem;
+  }
+
+  .progress-stat {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .progress-stat .flex {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .progress-stat .w-full {
+    width: 100%;
+  }
+
+
   .status-tag {
     padding: 0.25rem;
     font-size: 0;
@@ -279,21 +305,43 @@
   .status-tag span {
     display: none;
   }
-}
-
-
-@media (max-width: 640px) {
   .tag {
-      padding: 0.375rem;
-      min-width: 28px;
-      justify-content: center;
-      
-      .tag-text {
-          display: none;
-      }
-      
-      i {
-          margin: 0;
-      }
-  }
+    padding: 0.375rem 0.5rem;
+    min-width: 28px;
+    justify-content: center;
+    
+    .tag-text {
+        display: none;
+    }
+    
+    i {
+        margin: 0;
+    }
 }
+
+
+.tags-collapsed {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tags-collapsed::after {
+  content: '';
+  flex-basis: 100%;
+  height: 0;
+}
+
+.tags-collapsed .tag:nth-child(n+3) {
+  margin-top: 0.5rem;
+}
+.flex.flex-wrap.items-center.gap-2 {
+    justify-content: flex-end;
+    gap: 0.5rem !important;
+}
+}
+
+

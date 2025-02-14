@@ -66,43 +66,30 @@
                                     <h4 class="font-medium"><i class="fas fa-user-circle mr-2"></i>{{patient.name_patient}}</h4>
                                     <p class="text-sm text-gray-600"><i class="fas fa-envelope mr-2"></i>{{patient.email}}</p>
                                 </div>
-                                <!-- <div class="flex items-center gap-2">
-                                    <span *ngIf="patient.discapacity" class="tag tag-blue">
-                                        <i class="fas fa-wheelchair mr-1"></i>Discapacidad
-                                    </span>
-                                    <span *ngIf="hasDifficulties(patient)" 
-                                            class="tag tag-purple">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                        <span class="hidden md:inline ml-1">Dificultades</span>
-                                    </span>
-                                    <span [class]="patient.isactive ? 'status-active' : 'status-inactive'">
-                                        <i class="fas" [ngClass]="patient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
-                                        {{patient.isactive ? 'Active' : 'Inactive'}}
-                                    </span>
-                                </div> -->
-
-                                <div class="flex flex-wrap items-center gap-2">
+                                <div class="flex flex-wrap items-center justify-end gap-2" [class.tags-collapsed]="viewMode === 'detail'">
                                     <div *ngIf="patient.discapacity" 
-                                            class="tag bg-blue-100 text-blue-800">
-                                        <div class="flex items-center">
-                                            <i class="fas fa-wheelchair"></i>
-                                            <span class="tag-text ml-2">Discapacidad</span>
-                                        </div>
+                                        class="tag bg-blue-100 text-blue-800">
+                                        <i class="fas fa-wheelchair"></i>
+                                        <span class="tag-text" [class.hidden]="viewMode === 'detail'">Discapacidad</span>
                                     </div>
                                     
                                     <div *ngIf="hasDifficulties(patient)" 
-                                            class="tag bg-purple-100 text-purple-800">
-                                        <div class="flex items-center">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                            <span class="tag-text ml-2">Dificultades</span>
-                                        </div>
+                                        class="tag bg-purple-100 text-purple-800">
+                                        <i class="fas fa-notes-medical"></i>
+                                        <span class="tag-text" [class.hidden]="viewMode === 'detail'">Dificultades</span>
+                                    </div>
+
+                                    <div *ngIf="hasAllegies(patient)" 
+                                        class="tag bg-red-100 text-red-800">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <span class="tag-text" [class.hidden]="viewMode === 'detail'">Alergias</span>
                                     </div>
                                     
                                     <div [class]="'tag ' + (patient.isactive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800')">
-                                        <div class="flex items-center">
-                                            <i class="fas" [class]="patient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
-                                            <span class="tag-text ml-2">{{patient.isactive ? 'Activo' : 'Inactivo'}}</span>
-                                        </div>
+                                        <i class="fas" [class]="patient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                                        <span class="tag-text" [class.hidden]="viewMode === 'detail'">
+                                            {{patient.isactive ? 'Activo' : 'Inactivo'}}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +234,7 @@
                                         </div>
                                         <p class="text-sm text-blue-600 italic">
                                             <i class="fas fa-info-circle mr-1"></i>
-                                            Nivel de asistencia requerida según evaluación de discapacidad medica
+                                            Nivel de asistencia requerida según evaluación medica de discapacidad 
                                         </p>
                                     </div>
                                 </div>
