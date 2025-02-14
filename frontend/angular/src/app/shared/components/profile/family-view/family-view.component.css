@@ -72,11 +72,26 @@
     font-weight: 500;
   }
   
-  .tag {
+  /* .tag {
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     font-size: 0.875rem;
-  }
+  } */
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s;
+    
+    i {
+        font-size: 0.875rem;
+    }
+}
   
   .tag-red {
     background-color: #fee2e2;
@@ -86,6 +101,11 @@
   .tag-purple {
     background-color: #f3e8ff;
     color: #6b21a8;
+  }
+
+  .tag-blue {
+    background-color: #bce3f9;
+    color: #2149a8;
   }
   
   .status-active {
@@ -223,3 +243,57 @@
       width: 100%;
     }
   }
+
+
+  .tag-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.status-tag {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.status-difficulty {
+  background-color: #ddd6fe;
+  color: #5b21b6;
+}
+
+@media (max-width: 640px) {
+  .status-tag {
+    padding: 0.25rem;
+    font-size: 0;
+  }
+
+  .status-tag i {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  .status-tag span {
+    display: none;
+  }
+}
+
+
+@media (max-width: 640px) {
+  .tag {
+      padding: 0.375rem;
+      min-width: 28px;
+      justify-content: center;
+      
+      .tag-text {
+          display: none;
+      }
+      
+      i {
+          margin: 0;
+      }
+  }
+}

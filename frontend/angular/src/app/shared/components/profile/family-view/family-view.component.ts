@@ -176,6 +176,15 @@ export class FamilyViewComponent implements OnInit {
       this.activeTab = activeTab;
   } 
 
+  hasDifficulties(patient: UserPatient): boolean {
+    return patient.difficulties && patient.difficulties.length > 0;
+  }
+  getTagClass(patient: UserPatient): string {
+    return patient.isactive ? 'tag-active' : 'tag-inactive';
+  }
+
+
+
   private updateMetrics(): void {
     this.metrics = {
       active: this.userPatients.filter(p => p.isactive).length,

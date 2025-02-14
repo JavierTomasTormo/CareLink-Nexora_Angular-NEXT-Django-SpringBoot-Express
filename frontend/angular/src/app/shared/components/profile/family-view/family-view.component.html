@@ -28,7 +28,7 @@
                 class="metric-card hover:scale-105 transition-transform">
                 <i class="fas fa-wheelchair text-3xl mb-2 text-yellow-600"></i>
                 <div class="text-xl font-bold text-yellow-600">{{metrics.specialNeeds}}</div>
-                <div class="text-gray-600">Special Needs</div>
+                <div class="text-gray-600">Discapacidad</div>
             </div>
                 
             <div (click)="filterPatients('allergies')"
@@ -66,14 +66,44 @@
                                     <h4 class="font-medium"><i class="fas fa-user-circle mr-2"></i>{{patient.name_patient}}</h4>
                                     <p class="text-sm text-gray-600"><i class="fas fa-envelope mr-2"></i>{{patient.email}}</p>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span *ngIf="patient.discapacity" class="tag tag-purple">
-                                        <i class="fas fa-wheelchair mr-1"></i>Special Needs
+                                <!-- <div class="flex items-center gap-2">
+                                    <span *ngIf="patient.discapacity" class="tag tag-blue">
+                                        <i class="fas fa-wheelchair mr-1"></i>Discapacidad
+                                    </span>
+                                    <span *ngIf="hasDifficulties(patient)" 
+                                            class="tag tag-purple">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <span class="hidden md:inline ml-1">Dificultades</span>
                                     </span>
                                     <span [class]="patient.isactive ? 'status-active' : 'status-inactive'">
                                         <i class="fas" [ngClass]="patient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
                                         {{patient.isactive ? 'Active' : 'Inactive'}}
                                     </span>
+                                </div> -->
+
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <div *ngIf="patient.discapacity" 
+                                            class="tag bg-blue-100 text-blue-800">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-wheelchair"></i>
+                                            <span class="tag-text ml-2">Discapacidad</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div *ngIf="hasDifficulties(patient)" 
+                                            class="tag bg-purple-100 text-purple-800">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            <span class="tag-text ml-2">Dificultades</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div [class]="'tag ' + (patient.isactive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800')">
+                                        <div class="flex items-center">
+                                            <i class="fas" [class]="patient.isactive ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                                            <span class="tag-text ml-2">{{patient.isactive ? 'Activo' : 'Inactivo'}}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -149,6 +179,23 @@
                                                 <div class="bg-purple-600 h-2 rounded-full" [style.width.%]="calculateMedicationAdherence(selectedPatient) | number:'1.0-2'"></div>
                                             </div>
                                         </div>
+                                        <br>
+                                        <!-- Quick Stats - Movido aquí -->
+                                        <div class="mt-6">
+                                            <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+                                                <i class="fas fa-clipboard-list text-green-500 mr-2"></i>Quick Stats
+                                            </h3>
+                                            <div class="space-y-3">
+                                                <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                                    <span class="text-sm font-medium text-gray-600">Last Check-up</span>
+                                                    <span class="font-medium">{{ selectedPatient.updatedat | date }}</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                                    <span class="text-sm font-medium text-gray-600">Next Appointment</span>
+                                                    <span class="font-medium text-blue-600">In 2 weeks</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -183,6 +230,28 @@
                                     <i class="fas fa-heartbeat text-red-500 mr-2"></i>Health Information
                                 </h3>
                                         
+                                <!-- Disability Section -->
+                                <div class="mb-6 p-4 bg-blue-50 rounded-lg">
+                                    <h4 class="text-md font-medium text-blue-600 mb-3 flex items-center">
+                                        <i class="fas fa-wheelchair mr-2"></i>Disability Level
+                                    </h4>
+                                    <div class="relative pt-1">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <span class="text-sm font-semibold text-blue-700">Disability Percentage</span>
+                                            <span class="text-sm font-bold text-blue-700">{{selectedPatient.discapacity}}%</span>
+                                        </div>
+                                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
+                                            <div [style.width]="selectedPatient.discapacity + '%'" 
+                                                class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500 transition-all duration-500">
+                                            </div>
+                                        </div>
+                                        <p class="text-sm text-blue-600 italic">
+                                            <i class="fas fa-info-circle mr-1"></i>
+                                            Nivel de asistencia requerida según evaluación de discapacidad medica
+                                        </p>
+                                    </div>
+                                </div>
+
                                 <!-- Allergies Section -->
                                 <div class="mb-6 p-4 bg-red-50 rounded-lg">
                                     <h4 class="text-md font-medium text-red-600 mb-3 flex items-center">
@@ -206,25 +275,6 @@
                                             class="bg-white text-purple-700 px-4 py-2 rounded-full text-sm border border-purple-200">
                                             {{difficulty}}
                                         </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Quick Stats - Full Width -->
-                        <div class="col-span-12">
-                            <div class="bg-white shadow-sm rounded-lg p-6 border border-gray-100">
-                                <h3 class="text-lg font-semibold mb-4 text-gray-800 flex items-center">
-                                    <i class="fas fa-clipboard-list text-green-500 mr-2"></i>Quick Stats
-                                </h3>
-                                <div class="space-y-4">
-                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
-                                        <span class="text-sm font-medium text-gray-600">Last Check-up</span>
-                                        <span class="font-medium">{{ selectedPatient.updatedat | date }}</span>
-                                    </div>
-                                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
-                                        <span class="text-sm font-medium text-gray-600">Next Appointment</span>
-                                        <span class="font-medium text-blue-600">In 2 weeks</span>
                                     </div>
                                 </div>
                             </div>
