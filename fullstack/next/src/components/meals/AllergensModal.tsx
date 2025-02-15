@@ -53,32 +53,21 @@ const AllergensModal = ({ selectedAllergens, onAllergenChange, onClose }: Allerg
     };
 
     document.addEventListener('keydown', handleEscapeKey);
-
     return () => {
       document.removeEventListener('keydown', handleEscapeKey);
     };
   }, [onClose]);
 
-  const handleAllergenChange = (allergen: string) => {
-    onAllergenChange(allergen);
-  };
-
-  const handleResetFilters = () => {
-    const allAllergens = Object.values(allergensList).flat();
-    allAllergens.forEach(allergen => {
-      if (selectedAllergens.includes(allergen)) {
-        onAllergenChange(allergen);
-      }
-    });
-    setSearchTerm("");
-  };
-
   const filteredAllergensList = Object.entries(allergensList).reduce((acc, [category, allergens]) => {
-    const filteredAllergens = allergens.filter(allergen => 
+    const selected = allergens.filter(allergen => selectedAllergens.includes(allergen));
+    const unselected = allergens.filter(allergen => !selectedAllergens.includes(allergen));
+    
+    const sortedAllergens = [...selected, ...unselected].filter(allergen => 
       allergen.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    if (filteredAllergens.length > 0) {
-      acc[category as keyof typeof allergensList] = filteredAllergens;
+    
+    if (sortedAllergens.length > 0) {
+      acc[category as keyof typeof allergensList] = sortedAllergens;
     }
     return acc;
   }, {} as typeof allergensList);
@@ -88,9 +77,15 @@ const AllergensModal = ({ selectedAllergens, onAllergenChange, onClose }: Allerg
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
           <button className={styles.closeX} onClick={onClose}>×</button>
-          <button className={styles.resetButton} onClick={handleResetFilters}>Reset Filter</button>
         </div>
         <h2>🚫 Filter by Allergens</h2>
+        <div className={styles.selectedAllergensBar}>
+          {selectedAllergens.map((allergen) => (
+            <span key={allergen} className={styles.selectedAllergenTag}>
+              {allergen} <button onClick={() => onAllergenChange(allergen)}>×</button>
+            </span>
+          ))}
+        </div>
         <input
           type="text"
           placeholder="Search allergens..."
@@ -107,7 +102,7 @@ const AllergensModal = ({ selectedAllergens, onAllergenChange, onClose }: Allerg
                   <input
                     type="checkbox"
                     checked={selectedAllergens.includes(allergen)}
-                    onChange={() => handleAllergenChange(allergen)}
+                    onChange={() => onAllergenChange(allergen)}
                   />
                   {allergen}
                 </label>
