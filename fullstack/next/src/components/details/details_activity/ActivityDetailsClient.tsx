@@ -31,8 +31,7 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
         if (!isLoggedIn) {
             router.push('http://localhost:4200/auth/login');
         } else {
-            // Logic to enroll the user in the activity
-            console.log(`User ${userInfo?.username} is enrolling in activity ${activityId}`);
+            router.push(`/inscriptions/${activityId}`);
         }
     };
 
