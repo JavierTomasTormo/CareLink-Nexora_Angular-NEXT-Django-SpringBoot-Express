@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   robots: 'index, follow',
 };
 
-export default function ActivityDetailsPage({ params }: { params: { id: string } }) {
-    return <ActivityDetailsClient activityId={params.id} />;
-  }
-  
+export default async function ActivityDetailsPage({ params }: { params: { id: string } }) {
+  const { id } = await params;
+  return <ActivityDetailsClient activityId={id} />;
+}
