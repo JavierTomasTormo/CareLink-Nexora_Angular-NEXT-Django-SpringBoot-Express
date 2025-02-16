@@ -47,6 +47,14 @@
                 <div class="bg-white rounded-lg shadow-lg">
                     <div class="p-4 border-b flex justify-between items-center">
                         <h3 class="text-lg font-semibold"><i class="fas fa-family mr-2"></i>Family Members</h3>
+
+                            <a (click)="registerPatient()" 
+                                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 cursor-pointer"
+                                style="cursor: pointer">
+                                <i class="fas fa-plus"></i>
+                                Añadir Familiar
+                            </a>
+                        
                         <!-- Disability Chart -->
                         <div class="w-32 h-32">
                             <canvas baseChart

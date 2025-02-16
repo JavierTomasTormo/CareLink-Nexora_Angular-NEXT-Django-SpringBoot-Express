@@ -1,0 +1,79 @@
+<!-- patient-register.component.html -->
+<div class="pt-24">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-user-plus text-blue-600 mr-2"></i>
+                Registrar Nuevo Familiar
+            </h2>
+
+            <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="space-y-6">
+                <!-- Información Personal -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700">Nombre</label>
+                        <input type="text" formControlName="name_patient" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700">Email (opcional)</label>
+                        <input type="email" formControlName="email" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700">Teléfono</label>
+                        <input type="tel" formControlName="phone_number" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
+                        <input type="date" formControlName="birthday" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <!-- Información Médica -->
+                <div class="border-t pt-6">
+                    <h3 class="text-lg font-medium mb-4">Información Médica</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700">Porcentaje de Discapacidad</label>
+                            <input type="number" formControlName="discapacity" min="0" max="100"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700">Alergias</label>
+                            <input type="text" formControlName="allergies" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    placeholder="Separa las alergias con comas">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700">Dificultades</label>
+                            <input type="text" formControlName="difficulties" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    placeholder="Separa las dificultades con comas">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-6 border-t">
+                    <button type="button" routerLink="/family-view"
+                            class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Cancelar
+                    </button>
+                    <button type="submit"
+                            [disabled]="!patientForm.valid"
+                            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50">
+                        Registrar Familiar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
