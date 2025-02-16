@@ -17,9 +17,6 @@ import {
   DIFFICULTIES_CATEGORIES 
 } from '../../../../core/constants/modal.content';
 
-
-
-
 @Component({
   selector: 'app-patient-register',
   standalone: true,
@@ -44,7 +41,6 @@ export class PatientRegisterComponent implements OnInit {
   difficultiesForm: FormGroup;
   isSubmitting = false;
 
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -54,7 +50,7 @@ export class PatientRegisterComponent implements OnInit {
     this.currentUser = this.cookieService.getCurrentUser();
     this.patientForm = this.fb.group({
       name_patient: ['', [Validators.required]],
-      email: ['', [Validators.email, Validators.required]],
+      email: ['', [Validators.email]],
       phone_number: [''],
       birthday: ['', [Validators.required]],
       allergies: [[]],
@@ -70,7 +66,6 @@ export class PatientRegisterComponent implements OnInit {
     });
   }
 
-
   getAllergiesByCategory(category: keyof AllergyCategories): string[] {
     return this.allergiesCategories[category];
   }
@@ -79,7 +74,6 @@ export class PatientRegisterComponent implements OnInit {
     return Object.keys(this.allergiesCategories) as Array<keyof AllergyCategories>;
   }
 
-  
   toggleAllergyModal(): void {
     this.showAllergiesModal = !this.showAllergiesModal;
   }
@@ -96,65 +90,64 @@ export class PatientRegisterComponent implements OnInit {
     });
   }
 
-addCustomAllergy(): void {
-  const value = this.allergiesForm.get('customAllergy')?.value;
-  if (value?.trim()) {
-    this.selectedAllergies.push(value.trim());
-    this.allergiesForm.patchValue({ customAllergy: '' });
-    this.patientForm.patchValue({
-      allergies: this.selectedAllergies
-    });
+  addCustomAllergy(): void {
+    const value = this.allergiesForm.get('customAllergy')?.value;
+    if (value?.trim()) {
+      this.selectedAllergies.push(value.trim());
+      this.allergiesForm.patchValue({ customAllergy: '' });
+      this.patientForm.patchValue({
+        allergies: this.selectedAllergies
+      });
+    }
   }
-}
 
-getDifficultiesByCategory(category: keyof DifficultiesCategories): string[] {
-  return this.difficultiesCategories[category];
-}
-
-getDifficultyCategories(): Array<keyof DifficultiesCategories> {
-  return Object.keys(this.difficultiesCategories) as Array<keyof DifficultiesCategories>;
-}
-
-toggleDifficultyModal(): void {
-  this.showDifficultiesModal = !this.showDifficultiesModal;
-}
-
-toggleDifficulty(difficulty: string): void {
-  const index = this.selectedDifficulties.indexOf(difficulty);
-  if (index > -1) {
-    this.selectedDifficulties.splice(index, 1);
-  } else {
-    this.selectedDifficulties.push(difficulty);
+  getDifficultiesByCategory(category: keyof DifficultiesCategories): string[] {
+    return this.difficultiesCategories[category];
   }
-  this.patientForm.patchValue({
-    difficulties: this.selectedDifficulties
-  });
-}
 
-addCustomDifficulty(): void {
-  const value = this.difficultiesForm.get('customDifficulty')?.value;
-  if (value?.trim()) {
-    this.selectedDifficulties.push(value.trim());
-    this.difficultiesForm.patchValue({ customDifficulty: '' });
+  getDifficultyCategories(): Array<keyof DifficultiesCategories> {
+    return Object.keys(this.difficultiesCategories) as Array<keyof DifficultiesCategories>;
+  }
+
+  toggleDifficultyModal(): void {
+    this.showDifficultiesModal = !this.showDifficultiesModal;
+  }
+
+  toggleDifficulty(difficulty: string): void {
+    const index = this.selectedDifficulties.indexOf(difficulty);
+    if (index > -1) {
+      this.selectedDifficulties.splice(index, 1);
+    } else {
+      this.selectedDifficulties.push(difficulty);
+    }
     this.patientForm.patchValue({
       difficulties: this.selectedDifficulties
     });
   }
-}
 
-getDiscapacityValue(): number {
-  return this.patientForm.get('discapacity')?.value || 0;
-}
+  addCustomDifficulty(): void {
+    const value = this.difficultiesForm.get('customDifficulty')?.value;
+    if (value?.trim()) {
+      this.selectedDifficulties.push(value.trim());
+      this.difficultiesForm.patchValue({ customDifficulty: '' });
+      this.patientForm.patchValue({
+        difficulties: this.selectedDifficulties
+      });
+    }
+  }
 
-getDiscapacityColor(): string {
-  const value = this.getDiscapacityValue();
-  if (value < 33) return 'bg-green-500';
-  if (value < 66) return 'bg-yellow-500';
-  return 'bg-red-500';
-}
+  getDiscapacityValue(): number {
+    return this.patientForm.get('discapacity')?.value || 0;
+  }
+
+  getDiscapacityColor(): string {
+    const value = this.getDiscapacityValue();
+    if (value < 33) return 'bg-green-500';
+    if (value < 66) return 'bg-yellow-500';
+    return 'bg-red-500';
+  }
 
   ngOnInit(): void {
-
     this.patientForm.get('phone_number')?.valueChanges.subscribe(value => {
       if (!value) {
         this.patientForm.patchValue({
@@ -168,52 +161,21 @@ getDiscapacityColor(): string {
     this.router.navigate([SHARED_ROUTES.ANGULAR.AUTH.FAMILY]);
   }
 
-  // onSubmit(): void {
-  //   if (this.patientForm.valid && !this.isSubmitting) {
-  //     Swal.fire({
-  //       title: '¿Estás seguro?',
-  //       text: '¿Deseas registrar este familiar?',
-  //       icon: 'question',
-  //       showCancelButton: true,
-  //       confirmButtonText: 'Sí, registrar',
-  //       cancelButtonText: 'Cancelar',
-  //       confirmButtonColor: '#3085d6',
-  //       cancelButtonColor: '#d33'
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //         this.isSubmitting = true;
-  //         const patientData = {
-  //           ...this.patientForm.value,
-  //           id_user: this.currentUser.id_user,
-  //           createdat: new Date(),
-  //           updatedat: new Date()
-  //         };
+  generateRandomSlug(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  }
 
-  //         this.userPatientService.createUserPatient(patientData).subscribe({
-  //           next: () => {
-  //             Swal.fire(
-  //               '¡Registrado!',
-  //               'El familiar ha sido registrado exitosamente.',
-  //               'success'
-  //             ).then(() => this.navigateToFamily());
-  //           },
-  //           error: (error) => {
-  //             console.error('Error creating patient:', error);
-  //             Swal.fire(
-  //               'Error',
-  //               'No se pudo registrar el familiar.',
-  //               'error'
-  //             );
-  //             this.isSubmitting = false;
-  //           },
-  //           complete: () => {
-  //             this.isSubmitting = false;
-  //           }
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
+  generateEmail(name: string): string {
+    const formattedName = name.trim().toLowerCase().replace(/\s+/g, '.');
+    const slug = this.generateRandomSlug(6);
+    return `${formattedName}_${slug}@gmail.com`;
+  }
+
   onSubmit(): void {
     if (this.patientForm.valid && !this.isSubmitting) {
       Swal.fire({
@@ -228,12 +190,12 @@ getDiscapacityColor(): string {
       }).then((result) => {
         if (result.isConfirmed) {
           this.isSubmitting = true;
-          
+
           // Formatear datos
           const patientData = {
             ...this.patientForm.value,
             id_user: this.currentUser.id_user,
-            email: this.patientForm.value.email || this.currentUser.email,
+            email: this.patientForm.value.email || this.generateEmail(this.patientForm.value.name_patient),
             phone_number: this.patientForm.value.phone_number || this.currentUser.phone_number,
             allergies: this.selectedAllergies,
             difficulties: this.selectedDifficulties,
@@ -254,7 +216,7 @@ getDiscapacityColor(): string {
             error: (error) => {
               console.error('Error creating patient:', error);
               let errorMessage = 'No se pudo registrar el familiar.';
-              
+
               if (error.error) {
                 const errors = [];
                 if (error.error.email) errors.push('Email: ' + error.error.email);
