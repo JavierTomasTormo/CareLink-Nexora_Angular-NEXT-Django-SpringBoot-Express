@@ -6,17 +6,8 @@ import { UserPatientService } from '../../../../core/services/users/user-patient
 import { CookieService } from '../../../../core/services/cookies/cookie.service';
 import { UserPatient } from '../../../../core/models/Users/user-patient.model';
 import { SHARED_ROUTES } from '../../../../core/constants/shared.routes';
+import { AllergyCategories, DEFAULT_ACTIVE_CATEGORY, ALLERGIES_CATEGORIES } from '../../../../core/constants/modal.content';
 
-
-
-type AllergyCategories = {
-  'Alimentación': string[];
-  'Medicamentos': string[];
-  'Ambientales': string[];
-  'Contacto': string[];
-  'Físicos': string[];
-  'Insectos y Plantas': string[];
-}
 
 
 @Component({
@@ -32,62 +23,9 @@ export class PatientRegisterComponent implements OnInit {
   currentUser: any;
   showAllergiesModal = false;
   selectedAllergies: string[] = [];
+  activeCategory: keyof AllergyCategories = DEFAULT_ACTIVE_CATEGORY;
+  allergiesCategories = ALLERGIES_CATEGORIES;
 
-  activeCategory: keyof AllergyCategories = 'Alimentación';
-
-  allergiesCategories = {
-    'Alimentación': [
-      'Frutos secos',
-      'Lactosa',
-      'Gluten',
-      'Mariscos',
-      'Huevo',
-      'Soja',
-      'Chocolate',
-      'Colorantes alimentarios',
-      'Conservantes alimentarios',
-      'Frutas (plátano, fresa, kiwi, melocotón, etc.)',
-      'Vegetales (apio, zanahoria, tomate, etc.)',
-      'Legumbres (guisantes, lentejas, garbanzos, etc.)',
-      'Especias (canela, pimienta, cúrcuma, etc.)',
-      'Alcohol',
-      'Cafeína',
-      'Alimentos fermentados (queso, vino, vinagre, etc.)',
-      'Proteína de la leche de vaca',
-      'Carnes rojas (síndrome alfa-gal)',
-      'Algas y aditivos marinos',
-      'Harinas y polvo de cereales',
-      'Gelatina'
-    ],
-    'Medicamentos': [
-      'Penicilina',
-      'Medicamentos antiinflamatorios (AINEs)',
-      'Sulfitos'
-    ],
-    'Ambientales': [
-      'Polen',
-      'Ácaros',
-      'Moho',
-      'Caspa de animales (perros, gatos, caballos, etc.)',
-      'Cloro',
-      'Luz solar (fotosensibilidad)'
-    ],
-    'Contacto': [
-      'Látex',
-      'Níquel (alergia de contacto)',
-      'Perfumes y fragancias',
-      'Detergentes y productos de limpieza'
-    ],
-    'Físicos': [
-      'Frío (urticaria por frío)',
-      'Calor (urticaria colinérgica)'
-    ],
-    'Insectos y Plantas': [
-      'Picaduras de abejas/avispas',
-      'Plantas (hiedra venenosa, roble venenoso, etc.)'
-    ]
-  };
-  
 
   constructor(
     private fb: FormBuilder,
