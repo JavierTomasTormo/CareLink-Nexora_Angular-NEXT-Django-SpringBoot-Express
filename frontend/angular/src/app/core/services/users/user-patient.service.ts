@@ -22,9 +22,14 @@ export class UserPatientService {
 
     createUserPatient(userPatient: UserPatient): Observable<UserPatient> {
         const headers = this.tokenService.getAuthorizationHeader() || {};
+        const payload = {
+            ...userPatient,
+            allergies: Array.isArray(userPatient.allergies) ? userPatient.allergies : [],
+            difficulties: Array.isArray(userPatient.difficulties) ? userPatient.difficulties : []
+        };
         return this.http.post<UserPatient>(
                 API_ROUTES.USER_PATIENT.CREATE, 
-                userPatient, 
+                payload, 
                 { headers, responseType: 'json' }
         );
     }

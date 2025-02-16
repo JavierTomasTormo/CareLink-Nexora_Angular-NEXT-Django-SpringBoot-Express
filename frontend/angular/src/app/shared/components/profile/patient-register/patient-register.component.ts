@@ -242,8 +242,8 @@ getDiscapacityColor(): string {
             id_user: this.currentUser.id_user,
             email: this.patientForm.value.email || this.currentUser.email,
             phone_number: this.patientForm.value.phone_number || this.currentUser.phone_number,
-            allergies: JSON.stringify(this.selectedAllergies),
-            difficulties: JSON.stringify(this.selectedDifficulties),
+            allergies: this.selectedAllergies,
+            difficulties: this.selectedDifficulties,
             createdat: new Date().toISOString(),
             updatedat: new Date().toISOString()
           };
