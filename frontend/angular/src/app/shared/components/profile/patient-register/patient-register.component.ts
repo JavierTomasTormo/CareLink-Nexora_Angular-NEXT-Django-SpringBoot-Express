@@ -6,6 +6,8 @@ import { UserPatientService } from '../../../../core/services/users/user-patient
 import { CookieService } from '../../../../core/services/cookies/cookie.service';
 import { UserPatient } from '../../../../core/models/Users/user-patient.model';
 import { SHARED_ROUTES } from '../../../../core/constants/shared.routes';
+import Swal from 'sweetalert2';
+
 import { 
   AllergyCategories, 
   DEFAULT_ACTIVE_CATEGORY, 
@@ -40,6 +42,7 @@ export class PatientRegisterComponent implements OnInit {
   activeDifficultyCategory: keyof DifficultiesCategories = DEFAULT_DIFFICULTY_CATEGORY;
   difficultiesCategories = DIFFICULTIES_CATEGORIES;
   difficultiesForm: FormGroup;
+  isSubmitting = false;
 
 
   constructor(
@@ -165,24 +168,49 @@ getDiscapacityColor(): string {
   }
 
   onSubmit(): void {
-    if (this.patientForm.valid) {
-      console.log('Form submitted:', this.patientForm.value);
+    if (this.patientForm.valid && !this.isSubmitting) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Deseas registrar este familiar?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, registrar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.isSubmitting = true;
+          const patientData = {
+            ...this.patientForm.value,
+            id_user: this.currentUser.id_user,
+            createdat: new Date(),
+            updatedat: new Date()
+          };
 
-      // const patientData = {
-      //   ...this.patientForm.value,
-      //   id_user: this.currentUser.id_user,
-      //   createdat: new Date(),
-      //   updatedat: new Date()
-      // };
-
-      // this.userPatientService.createUserPatient(patientData).subscribe({
-      //   next: () => {
-      //     navigateToFamily();
-      //   },
-      //   error: (error) => {
-      //     console.error('Error creating patient:', error);
-      //   }
-      // });
+          this.userPatientService.createUserPatient(patientData).subscribe({
+            next: () => {
+              Swal.fire(
+                '¡Registrado!',
+                'El familiar ha sido registrado exitosamente.',
+                'success'
+              ).then(() => this.navigateToFamily());
+            },
+            error: (error) => {
+              console.error('Error creating patient:', error);
+              Swal.fire(
+                'Error',
+                'No se pudo registrar el familiar.',
+                'error'
+              );
+              this.isSubmitting = false;
+            },
+            complete: () => {
+              this.isSubmitting = false;
+            }
+          });
+        }
+      });
     }
   }
 }

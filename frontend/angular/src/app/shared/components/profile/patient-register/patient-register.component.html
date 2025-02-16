@@ -302,9 +302,13 @@
                         Cancelar
                     </button>
                     <button type="submit"
-                            [disabled]="!patientForm.valid"
-                            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50">
-                        Registrar Familiar
+                            [disabled]="!patientForm.valid || isSubmitting"
+                            class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium 
+                                text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 
+                                focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 
+                                transition-all duration-300 flex items-center">
+                        <i class="fas" [class]="isSubmitting ? 'fa-spinner fa-spin' : 'fa-save'"></i>
+                        <span class="ml-2">{{ isSubmitting ? 'Registrando...' : 'Registrar Familiar' }}</span>
                     </button>
                 </div>
             <!-- </form> -->

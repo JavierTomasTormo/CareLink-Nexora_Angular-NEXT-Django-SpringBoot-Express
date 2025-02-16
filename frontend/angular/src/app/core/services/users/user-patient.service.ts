@@ -15,4 +15,8 @@ export class UserPatientService {
         // console.log('API URL', API_ROUTES.USER_PATIENT.LIST_BY_USER(id_user));
         return this.http.get<UserPatient[]>(API_ROUTES.USER_PATIENT.LIST_BY_USER(id_user));
     }
+
+    createUserPatient(userPatient: UserPatient): Observable<UserPatient> {
+        return this.http.post<UserPatient>(API_ROUTES.USER_PATIENT.CREATE, userPatient);
+    }
 }
