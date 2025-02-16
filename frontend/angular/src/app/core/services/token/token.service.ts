@@ -42,4 +42,16 @@ export class TokenService {
   isAuthenticated(): boolean {
     return !!this.getAccessToken() && !!this.getUserInfo() && !!this.getRefreshToken();
   }
+
+  getAuthorizationHeader(): { Authorization: string } | null {
+    const accessToken = this.getAccessToken();
+    if (accessToken) {
+      return {
+        Authorization: `Bearer ${accessToken}`
+      };
+    }
+    return null;
+  }
+
+
 }
