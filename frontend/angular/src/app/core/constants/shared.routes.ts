@@ -8,7 +8,7 @@ export const SHARED_ROUTES = {
             FAMILY: '/profile/family/view',
             RESERVATIONS: '/profile/reservations/view',
             PAYMENTS: '/profile/payments/view',
-
+            PATIENT_REGISTER: '/profile/family/patient/register'
         },
         CRITICAL: {
             MEDICAL: '/medical',

@@ -7,6 +7,9 @@ import { UserPatientService } from '../../../../core/services/users/user-patient
 import { CookieService } from '../../../../core/services/cookies/cookie.service';
 import { UserPatient } from '../../../../core/models/Users/user-patient.model';
 import { User } from '../../../../core/models/Users/user.model';
+import { Router } from '@angular/router';
+import { SHARED_ROUTES } from '../../../../core/constants/shared.routes';
+
 
 @Component({
   selector: 'app-family-view',
@@ -23,6 +26,7 @@ export class FamilyViewComponent implements OnInit {
   currentFilter: string = '';
   viewMode: 'list' | 'detail' = 'list';
   activeTab: string = 'family';
+  
 
   metrics = {
     active: 0,
@@ -68,7 +72,8 @@ export class FamilyViewComponent implements OnInit {
 
   constructor(
     private userPatientService: UserPatientService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) {
     this.user = this.cookieService.getCurrentUser();
   }
@@ -195,4 +200,16 @@ export class FamilyViewComponent implements OnInit {
       allergies: this.userPatients.reduce((acc, p) => acc + (p.allergies?.length || 0), 0)
     };
   }
+
+
+  registerPatient(): void {
+    // console.log('Current URL:', this.router.url);
+    this.router.navigate([SHARED_ROUTES.ANGULAR.AUTH.PATIENT_REGISTER]);
+    // console.log('Current URL--2:', this.router.url);
+  }
+
+
 }
+
+
+

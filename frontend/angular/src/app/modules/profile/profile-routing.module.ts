@@ -4,7 +4,7 @@ import { ProfileViewComponent } from '../../shared/components/profile/profileVie
 import { FamilyViewComponent } from '../../shared/components/profile/family-view/family-view.component'; // Actualiza la ruta
 import { PaymentsViewComponent } from '../../shared/components/profile/payments-view/payments-view.component'; // Actualiza la ruta
 import { BookingsViewComponent } from '../../shared/components/profile/bookings-view/bookings-view.component'; // Actualiza la ruta
-
+import { PatientRegisterComponent } from '../../shared/components/profile/patient-register/patient-register.component'; // Actualiza la ruta
 
 const routes: Routes = [
   { 
@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'payments/view',
     component: PaymentsViewComponent
+  },
+  {
+    path: 'family/patient/register',
+    component: PatientRegisterComponent
   },
 
   // { 
