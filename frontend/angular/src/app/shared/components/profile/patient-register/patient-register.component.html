@@ -3,7 +3,7 @@
 
         <div class="flex justify-between items-center mb-8">
             <button (click)="navigateToFamily()" 
-                class="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+                class="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform h</div>over:scale-105">
             <i class="fas fa-chevron-circle-left mr-2 text-lg"></i>
             <span class="font-semibold">Volver a Familiares</span>
             </button>
@@ -58,27 +58,21 @@
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
 
-                        <!-- <div class="form-group">
-                            <label class="block text-sm font-medium text-gray-700">Alergias</label>
-                            <input type="text" formControlName="allergies" 
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                    placeholder="Separa las alergias con comas">
-                        </div> -->
                         <div class="form-group">
                             <label class="block text-sm font-medium text-gray-700">Alergias</label>
                             <div class="mt-1 flex flex-col space-y-2">
                                 <button type="button" 
                                         (click)="toggleAllergyModal()"
-                                        class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                                        class="inline-flex items-center px-4 py-2 border border-blue-300 rounded-lg shadow-sm text-sm font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 transition-all duration-300">
                                     <i class="fas fa-plus-circle mr-2"></i>
                                     Seleccionar Alergias
                                 </button>
                                 <div *ngIf="selectedAllergies.length > 0" class="flex flex-wrap gap-2 mt-2">
                                     <span *ngFor="let allergy of selectedAllergies" 
-                                            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                            class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-red-100 text-red-800 shadow-sm transition-all duration-300 hover:bg-red-200">
                                         {{allergy}}
                                         <button type="button" (click)="toggleAllergy(allergy)" 
-                                                class="ml-2 inline-flex items-center p-0.5 hover:bg-red-200 rounded-full">
+                                                class="ml-2 inline-flex items-center p-1 hover:bg-red-300 rounded-full transition-colors duration-300">
                                             <i class="fas fa-times"></i>
                                         </button>
                                     </span>
@@ -88,77 +82,82 @@
 
 
                         <!-- Modal de Alergias -->
-                        <div *ngIf="showAllergiesModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-                            <div class="relative top-20 mx-auto p-5 border w-3/4 max-w-4xl shadow-lg rounded-md bg-white">
+                        <div *ngIf="showAllergiesModal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm overflow-y-auto h-full w-full z-50 transition-all duration-300 pt-24">
+                            <div class="relative top-10 mx-auto p-6 border w-11/12 max-w-3xl shadow-2xl rounded-xl bg-white transform transition-all duration-300">
                                 <div class="flex justify-between items-center mb-4">
-                                    <h3 class="text-lg font-medium">Seleccionar Alergias</h3>
-                                    <button (click)="toggleAllergyModal()" class="text-gray-400 hover:text-gray-600">
-                                        <i class="fas fa-times"></i>
+                                    <h3 class="text-xl font-bold text-gray-800">Seleccionar Alergias</h3>
+                                    <button (click)="toggleAllergyModal()" class="text-gray-500 hover:text-gray-700 transition-colors duration-300">
+                                        <i class="fas fa-times text-xl"></i>
                                     </button>
                                 </div>
-                        
+
                                 <!-- Categorías -->
-                                <div class="flex space-x-2 mb-4 overflow-x-auto pb-2">
+                                <div class="flex space-x-2 mb-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-100">
                                     <button *ngFor="let category of getCategories()"
                                             (click)="activeCategory = category"
-                                            [class.bg-blue-500]="activeCategory === category"
+                                            [class.bg-blue-600]="activeCategory === category"
                                             [class.text-white]="activeCategory === category"
-                                            class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap
-                                                    hover:bg-blue-100 transition-colors">
+                                            [class.shadow-lg]="activeCategory === category"
+                                            class="px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap
+                                                transition-all duration-300 hover:transform hover:scale-105
+                                                border-2 border-blue-200 hover:border-blue-400">
                                         {{category}}
                                     </button>
                                 </div>
-                        
+
                                 <!-- Alergias por categoría -->
-                                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[250px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 p-2">
                                     <div *ngFor="let allergy of getAllergiesByCategory(activeCategory)"
                                             (click)="toggleAllergy(allergy)"
-                                            class="cursor-pointer p-3 rounded border hover:bg-gray-50 transition-colors
-                                                flex items-center space-x-2"
-                                            [class.bg-blue-50]="selectedAllergies.includes(allergy)">
+                                            class="cursor-pointer p-3 rounded-lg border-2 hover:border-blue-400 transition-all duration-300
+                                                flex items-center space-x-2 shadow-sm hover:shadow-md transform hover:scale-102"
+                                            [class.bg-blue-50]="selectedAllergies.includes(allergy)"
+                                            [class.border-blue-400]="selectedAllergies.includes(allergy)">
                                         <input type="checkbox"
                                                 [checked]="selectedAllergies.includes(allergy)"
-                                                class="form-checkbox h-4 w-4 text-blue-600">
-                                        <span>{{allergy}}</span>
+                                                class="form-checkbox h-4 w-4 text-blue-600 rounded-md">
+                                        <span class="font-medium text-sm">{{allergy}}</span>
                                     </div>
                                 </div>
-                        
+
                                 <!-- Alergia personalizada -->
-                                <div class="mt-4 pt-4 border-t">
+                                <div class="mt-4 pt-4 border-t border-gray-200">
                                     <form [formGroup]="allergiesForm" class="flex space-x-2">
                                         <input type="text" 
                                                 formControlName="customAllergy"
-                                                class="flex-1 rounded-md border-gray-300"
-                                                placeholder="Otra alergia...">
+                                                class="flex-1 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 text-sm"
+                                                placeholder="Agregar otra alergia...">
                                         <button type="button"
                                                 (click)="addCustomAllergy()"
-                                                class="px-4 py-2 bg-blue-600 text-white rounded-md">
+                                                class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 text-sm">
+                                            <i class="fas fa-plus mr-2"></i>
                                             Añadir
                                         </button>
                                     </form>
                                 </div>
-                        
+
                                 <!-- Alergias seleccionadas -->
-                                <div class="mt-4 pt-4 border-t">
-                                    <h4 class="text-sm font-medium text-gray-700 mb-2">Seleccionadas:</h4>
-                                    <div class="flex flex-wrap gap-2">
+                                <div class="mt-4 pt-4 border-t border-gray-200">
+                                    <h4 class="text-base font-semibold text-gray-800 mb-3">Alergias Seleccionadas</h4>
+                                    <div class="flex flex-wrap gap-2 max-h-[100px] overflow-y-auto">
                                         <span *ngFor="let allergy of selectedAllergies" 
-                                                class="inline-flex items-center px-3 py-1 rounded-full text-sm 
-                                                        font-medium bg-blue-100 text-blue-800">
+                                                class="inline-flex items-center px-3 py-1.5 rounded-full text-sm 
+                                                    font-medium bg-blue-100 text-blue-800 shadow-sm hover:shadow-md
+                                                    transition-all duration-300">
                                             {{allergy}}
                                             <button type="button" (click)="toggleAllergy(allergy)" 
-                                                    class="ml-2 inline-flex items-center p-0.5 hover:bg-blue-200 rounded-full">
+                                                    class="ml-2 inline-flex items-center p-1 hover:bg-blue-200 rounded-full transition-all duration-300">
                                                 <i class="fas fa-times"></i>
                                             </button>
                                         </span>
                                     </div>
                                 </div>
-                        
-                                <div class="mt-4 flex justify-end">
+
+                                <div class="mt-6 flex justify-end space-x-4">
                                     <button type="button"
                                             (click)="toggleAllergyModal()"
-                                            class="px-4 py-2 bg-blue-600 text-white rounded-md">
-                                        Aceptar
+                                            class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 text-sm">
+                                        Confirmar
                                     </button>
                                 </div>
                             </div>
