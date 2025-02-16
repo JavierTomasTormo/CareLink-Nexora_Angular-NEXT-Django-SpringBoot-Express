@@ -6,7 +6,15 @@ import { UserPatientService } from '../../../../core/services/users/user-patient
 import { CookieService } from '../../../../core/services/cookies/cookie.service';
 import { UserPatient } from '../../../../core/models/Users/user-patient.model';
 import { SHARED_ROUTES } from '../../../../core/constants/shared.routes';
-import { AllergyCategories, DEFAULT_ACTIVE_CATEGORY, ALLERGIES_CATEGORIES } from '../../../../core/constants/modal.content';
+import { 
+  AllergyCategories, 
+  DEFAULT_ACTIVE_CATEGORY, 
+  ALLERGIES_CATEGORIES, 
+  DifficultiesCategories, 
+  DEFAULT_DIFFICULTY_CATEGORY, 
+  DIFFICULTIES_CATEGORIES 
+} from '../../../../core/constants/modal.content';
+
 
 
 
@@ -21,10 +29,17 @@ export class PatientRegisterComponent implements OnInit {
   patientForm: FormGroup;
   allergiesForm: FormGroup;
   currentUser: any;
+
   showAllergiesModal = false;
   selectedAllergies: string[] = [];
   activeCategory: keyof AllergyCategories = DEFAULT_ACTIVE_CATEGORY;
   allergiesCategories = ALLERGIES_CATEGORIES;
+
+  showDifficultiesModal = false;
+  selectedDifficulties: string[] = [];
+  activeDifficultyCategory: keyof DifficultiesCategories = DEFAULT_DIFFICULTY_CATEGORY;
+  difficultiesCategories = DIFFICULTIES_CATEGORIES;
+  difficultiesForm: FormGroup;
 
 
   constructor(
@@ -34,7 +49,6 @@ export class PatientRegisterComponent implements OnInit {
     private cookieService: CookieService
   ) {
     this.currentUser = this.cookieService.getCurrentUser();
-
     this.patientForm = this.fb.group({
       name_patient: ['', [Validators.required]],
       email: ['', [Validators.email]],
@@ -45,9 +59,11 @@ export class PatientRegisterComponent implements OnInit {
       discapacity: [0],
       isactive: [1]
     });
-
     this.allergiesForm = this.fb.group({
       customAllergy: ['']
+    });
+    this.difficultiesForm = this.fb.group({
+      customDifficulty: ['']
     });
   }
 
@@ -84,6 +100,41 @@ addCustomAllergy(): void {
     this.allergiesForm.patchValue({ customAllergy: '' });
     this.patientForm.patchValue({
       allergies: this.selectedAllergies
+    });
+  }
+}
+
+getDifficultiesByCategory(category: keyof DifficultiesCategories): string[] {
+  return this.difficultiesCategories[category];
+}
+
+getDifficultyCategories(): Array<keyof DifficultiesCategories> {
+  return Object.keys(this.difficultiesCategories) as Array<keyof DifficultiesCategories>;
+}
+
+toggleDifficultyModal(): void {
+  this.showDifficultiesModal = !this.showDifficultiesModal;
+}
+
+toggleDifficulty(difficulty: string): void {
+  const index = this.selectedDifficulties.indexOf(difficulty);
+  if (index > -1) {
+    this.selectedDifficulties.splice(index, 1);
+  } else {
+    this.selectedDifficulties.push(difficulty);
+  }
+  this.patientForm.patchValue({
+    difficulties: this.selectedDifficulties
+  });
+}
+
+addCustomDifficulty(): void {
+  const value = this.difficultiesForm.get('customDifficulty')?.value;
+  if (value?.trim()) {
+    this.selectedDifficulties.push(value.trim());
+    this.difficultiesForm.patchValue({ customDifficulty: '' });
+    this.patientForm.patchValue({
+      difficulties: this.selectedDifficulties
     });
   }
 }
