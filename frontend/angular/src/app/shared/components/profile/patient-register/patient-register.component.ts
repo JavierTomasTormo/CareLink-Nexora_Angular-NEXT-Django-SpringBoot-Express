@@ -54,7 +54,7 @@ export class PatientRegisterComponent implements OnInit {
     this.currentUser = this.cookieService.getCurrentUser();
     this.patientForm = this.fb.group({
       name_patient: ['', [Validators.required]],
-      email: ['', [Validators.email]],
+      email: ['', [Validators.email, Validators.required]],
       phone_number: [''],
       birthday: ['', [Validators.required]],
       allergies: [[]],
@@ -154,13 +154,6 @@ getDiscapacityColor(): string {
 }
 
   ngOnInit(): void {
-    this.patientForm.get('email')?.valueChanges.subscribe(value => {
-      if (!value) {
-        this.patientForm.patchValue({
-          email: this.currentUser.email
-        });
-      }
-    });
 
     this.patientForm.get('phone_number')?.valueChanges.subscribe(value => {
       if (!value) {
