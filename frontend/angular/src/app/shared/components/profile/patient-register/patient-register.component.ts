@@ -139,6 +139,17 @@ addCustomDifficulty(): void {
   }
 }
 
+getDiscapacityValue(): number {
+  return this.patientForm.get('discapacity')?.value || 0;
+}
+
+getDiscapacityColor(): string {
+  const value = this.getDiscapacityValue();
+  if (value < 33) return 'bg-green-500';
+  if (value < 66) return 'bg-yellow-500';
+  return 'bg-red-500';
+}
+
   ngOnInit(): void {
     this.patientForm.get('email')?.valueChanges.subscribe(value => {
       if (!value) {

@@ -1,49 +1,68 @@
 <div class="pt-24">
-    <div class="max-w-4xl mx-auto px-4 py-8">
-
+    <div class="max-w-6xl mx-auto px-4 py-8">
         <div class="flex justify-between items-center mb-8">
             <button (click)="navigateToFamily()" 
-                class="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform h</div>over:scale-105">
+                class="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
             <i class="fas fa-chevron-circle-left mr-2 text-lg"></i>
             <span class="font-semibold">Volver a Familiares</span>
             </button>
             <i class="fas fa-users text-3xl text-blue-600 animate-pulse"></i>
         </div>
 
-
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-6 flex items-center">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="text-2xl font-bold mb-8 flex items-center">
                 <i class="fas fa-user-plus text-blue-600 mr-2"></i>
                 Registrar Nuevo Familiar
             </h2>
 
+            <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="grid grid-cols-2 gap-8">
+                <!-- Columna Izquierda -->
+                <div class="space-y-8">
+                    <!-- Información Personal -->
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-user-circle mr-2 text-blue-600"></i>
+                            Información Personal
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="form-group transition-all duration-300 hover:transform hover:scale-[1.02]">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-user mr-2 text-blue-500"></i>Nombre
+                                </label>
+                                <input type="text" formControlName="name_patient" 
+                                        class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300">
+                                <p class="text-xs text-gray-500 mt-2">Ingrese su nombre completo</p>
+                            </div>
 
+                            <div class="form-group transition-all duration-300 hover:transform hover:scale-[1.02]">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-envelope mr-2 text-blue-500"></i>Email
+                                </label>
+                                <input type="email" formControlName="email" 
+                                        class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300"
+                                        placeholder="ejemplo@correo.com">
+                                <p class="text-xs text-gray-500 mt-2">Campo opcional</p>
+                            </div>
 
-            <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="space-y-6">
-                <!-- Información Personal -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="form-group">
-                        <label class="block text-sm font-medium text-gray-700">Nombre</label>
-                        <input type="text" formControlName="name_patient" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                    </div>
+                            <div class="form-group transition-all duration-300 hover:transform hover:scale-[1.02]">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-phone mr-2 text-blue-500"></i>Teléfono
+                                </label>
+                                <input type="tel" formControlName="phone_number" 
+                                        class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300"
+                                        placeholder="(123) 456-7890">
+                                <p class="text-xs text-gray-500 mt-2">Ingrese un número de contacto válido</p>
+                            </div>
 
-                    <div class="form-group">
-                        <label class="block text-sm font-medium text-gray-700">Email (opcional)</label>
-                        <input type="email" formControlName="email" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="block text-sm font-medium text-gray-700">Teléfono</label>
-                        <input type="tel" formControlName="phone_number" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
-                        <input type="date" formControlName="birthday" 
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <div class="form-group transition-all duration-300 hover:transform hover:scale-[1.02]">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    <i class="fas fa-calendar mr-2 text-blue-500"></i>Fecha de Nacimiento
+                                </label>
+                                <input type="date" formControlName="birthday" 
+                                        class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300">
+                                <p class="text-xs text-gray-500 mt-2">Seleccione su fecha de nacimiento</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -52,10 +71,34 @@
                     <h3 class="text-lg font-medium mb-4">Información Médica</h3>
                     
                     <div class="space-y-4">
-                        <div class="form-group">
-                            <label class="block text-sm font-medium text-gray-700">Porcentaje de Discapacidad</label>
-                            <input type="number" formControlName="discapacity" min="0" max="100"
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <div class="form-group transition-all duration-300 p-4 rounded-lg border hover:shadow-md">
+                            <label class="block text-base font-medium text-gray-700 mb-3">
+                                <i class="fas fa-wheelchair mr-2 text-blue-500"></i>
+                                Grado de Discapacidad
+                            </label>
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-4">
+                                    <input type="range" 
+                                            formControlName="discapacity" 
+                                            min="0" 
+                                            max="100"
+                                            class="w-full h-3 rounded-lg cursor-pointer accent-blue-500">
+                                    <span class="text-lg font-bold min-w-[4rem] text-center">
+                                        {{getDiscapacityValue()}}%
+                                    </span>
+                                </div>
+                                <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div [class]="getDiscapacityColor()"
+                                            class="h-full transition-all duration-300"
+                                            [style.width.%]="getDiscapacityValue()">
+                                    </div>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-500">
+                                    <span>Leve</span>
+                                    <span>Moderado</span>
+                                    <span>Severo</span>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -266,7 +309,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
