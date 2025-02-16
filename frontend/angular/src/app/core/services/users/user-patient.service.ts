@@ -3,12 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_ROUTES } from '../../constants/api.routes';
 import { UserPatient } from '../../models/Users/user-patient.model';
+import { TokenService } from '../token/token.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserPatientService {
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private tokenService: TokenService
+    ) {}
 
     getUserPatientsByUser(id_user: number): Observable<UserPatient[]> {
         // console.log('ID USER', id_user);
@@ -17,6 +21,11 @@ export class UserPatientService {
     }
 
     createUserPatient(userPatient: UserPatient): Observable<UserPatient> {
-        return this.http.post<UserPatient>(API_ROUTES.USER_PATIENT.CREATE, userPatient);
+        const headers = this.tokenService.getAuthorizationHeader() || {};
+        return this.http.post<UserPatient>(
+                API_ROUTES.USER_PATIENT.CREATE, 
+                userPatient, 
+                { headers, responseType: 'json' }
+        );
     }
 }

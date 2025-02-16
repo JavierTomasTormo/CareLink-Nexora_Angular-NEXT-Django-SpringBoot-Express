@@ -55,7 +55,7 @@ export class PatientRegisterComponent implements OnInit {
     this.patientForm = this.fb.group({
       name_patient: ['', [Validators.required]],
       email: ['', [Validators.email]],
-      phone_number: ['', [Validators.required]],
+      phone_number: [''],
       birthday: ['', [Validators.required]],
       allergies: [[]],
       difficulties: [[]],
@@ -161,12 +161,66 @@ getDiscapacityColor(): string {
         });
       }
     });
+
+    this.patientForm.get('phone_number')?.valueChanges.subscribe(value => {
+      if (!value) {
+        this.patientForm.patchValue({
+          phone_number: this.currentUser.phone_number
+        });
+      }
+    });
   }
 
   navigateToFamily(): void {
     this.router.navigate([SHARED_ROUTES.ANGULAR.AUTH.FAMILY]);
   }
 
+  // onSubmit(): void {
+  //   if (this.patientForm.valid && !this.isSubmitting) {
+  //     Swal.fire({
+  //       title: '¿Estás seguro?',
+  //       text: '¿Deseas registrar este familiar?',
+  //       icon: 'question',
+  //       showCancelButton: true,
+  //       confirmButtonText: 'Sí, registrar',
+  //       cancelButtonText: 'Cancelar',
+  //       confirmButtonColor: '#3085d6',
+  //       cancelButtonColor: '#d33'
+  //     }).then((result) => {
+  //       if (result.isConfirmed) {
+  //         this.isSubmitting = true;
+  //         const patientData = {
+  //           ...this.patientForm.value,
+  //           id_user: this.currentUser.id_user,
+  //           createdat: new Date(),
+  //           updatedat: new Date()
+  //         };
+
+  //         this.userPatientService.createUserPatient(patientData).subscribe({
+  //           next: () => {
+  //             Swal.fire(
+  //               '¡Registrado!',
+  //               'El familiar ha sido registrado exitosamente.',
+  //               'success'
+  //             ).then(() => this.navigateToFamily());
+  //           },
+  //           error: (error) => {
+  //             console.error('Error creating patient:', error);
+  //             Swal.fire(
+  //               'Error',
+  //               'No se pudo registrar el familiar.',
+  //               'error'
+  //             );
+  //             this.isSubmitting = false;
+  //           },
+  //           complete: () => {
+  //             this.isSubmitting = false;
+  //           }
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
   onSubmit(): void {
     if (this.patientForm.valid && !this.isSubmitting) {
       Swal.fire({
@@ -181,36 +235,50 @@ getDiscapacityColor(): string {
       }).then((result) => {
         if (result.isConfirmed) {
           this.isSubmitting = true;
+          
+          // Formatear datos
           const patientData = {
             ...this.patientForm.value,
             id_user: this.currentUser.id_user,
-            createdat: new Date(),
-            updatedat: new Date()
+            email: this.patientForm.value.email || this.currentUser.email,
+            phone_number: this.patientForm.value.phone_number || this.currentUser.phone_number,
+            allergies: JSON.stringify(this.selectedAllergies),
+            difficulties: JSON.stringify(this.selectedDifficulties),
+            createdat: new Date().toISOString(),
+            updatedat: new Date().toISOString()
           };
 
           this.userPatientService.createUserPatient(patientData).subscribe({
             next: () => {
-              Swal.fire(
-                '¡Registrado!',
-                'El familiar ha sido registrado exitosamente.',
-                'success'
-              ).then(() => this.navigateToFamily());
+              Swal.fire({
+                title: '¡Registrado!',
+                text: 'El familiar ha sido registrado exitosamente.',
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+              }).then(() => this.navigateToFamily());
             },
             error: (error) => {
               console.error('Error creating patient:', error);
-              Swal.fire(
-                'Error',
-                'No se pudo registrar el familiar.',
-                'error'
-              );
-              this.isSubmitting = false;
-            },
-            complete: () => {
+              let errorMessage = 'No se pudo registrar el familiar.';
+              
+              if (error.error) {
+                const errors = [];
+                if (error.error.email) errors.push('Email: ' + error.error.email);
+                if (error.error.phone_number) errors.push('Teléfono: ' + error.error.phone_number);
+                if (errors.length > 0) {
+                  errorMessage = errors.join('\n');
+                }
+              }
+
+              Swal.fire('Error', errorMessage, 'error');
               this.isSubmitting = false;
             }
           });
         }
       });
+    } else {
+      Swal.fire('Error', 'Por favor, complete todos los campos requeridos correctamente.', 'warning');
     }
   }
 }
