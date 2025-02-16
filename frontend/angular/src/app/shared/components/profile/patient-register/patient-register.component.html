@@ -1,11 +1,23 @@
-<!-- patient-register.component.html -->
 <div class="pt-24">
     <div class="max-w-4xl mx-auto px-4 py-8">
+
+        <div class="flex justify-between items-center mb-8">
+            <button (click)="navigateToFamily()" 
+                class="flex items-center px-4 py-2 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+            <i class="fas fa-chevron-circle-left mr-2 text-lg"></i>
+            <span class="font-semibold">Volver a Familiares</span>
+            </button>
+            <i class="fas fa-users text-3xl text-blue-600 animate-pulse"></i>
+        </div>
+
+
         <div class="bg-white rounded-lg shadow-lg p-6">
             <h2 class="text-2xl font-bold mb-6 flex items-center">
                 <i class="fas fa-user-plus text-blue-600 mr-2"></i>
                 Registrar Nuevo Familiar
             </h2>
+
+
 
             <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" class="space-y-6">
                 <!-- Información Personal -->
@@ -46,11 +58,110 @@
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label class="block text-sm font-medium text-gray-700">Alergias</label>
                             <input type="text" formControlName="allergies" 
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                     placeholder="Separa las alergias con comas">
+                        </div> -->
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700">Alergias</label>
+                            <div class="mt-1 flex flex-col space-y-2">
+                                <button type="button" 
+                                        (click)="toggleAllergyModal()"
+                                        class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                                    <i class="fas fa-plus-circle mr-2"></i>
+                                    Seleccionar Alergias
+                                </button>
+                                <div *ngIf="selectedAllergies.length > 0" class="flex flex-wrap gap-2 mt-2">
+                                    <span *ngFor="let allergy of selectedAllergies" 
+                                            class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                        {{allergy}}
+                                        <button type="button" (click)="toggleAllergy(allergy)" 
+                                                class="ml-2 inline-flex items-center p-0.5 hover:bg-red-200 rounded-full">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Modal de Alergias -->
+                        <div *ngIf="showAllergiesModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                            <div class="relative top-20 mx-auto p-5 border w-3/4 max-w-4xl shadow-lg rounded-md bg-white">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-lg font-medium">Seleccionar Alergias</h3>
+                                    <button (click)="toggleAllergyModal()" class="text-gray-400 hover:text-gray-600">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                        
+                                <!-- Categorías -->
+                                <div class="flex space-x-2 mb-4 overflow-x-auto pb-2">
+                                    <button *ngFor="let category of getCategories()"
+                                            (click)="activeCategory = category"
+                                            [class.bg-blue-500]="activeCategory === category"
+                                            [class.text-white]="activeCategory === category"
+                                            class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap
+                                                    hover:bg-blue-100 transition-colors">
+                                        {{category}}
+                                    </button>
+                                </div>
+                        
+                                <!-- Alergias por categoría -->
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                    <div *ngFor="let allergy of getAllergiesByCategory(activeCategory)"
+                                            (click)="toggleAllergy(allergy)"
+                                            class="cursor-pointer p-3 rounded border hover:bg-gray-50 transition-colors
+                                                flex items-center space-x-2"
+                                            [class.bg-blue-50]="selectedAllergies.includes(allergy)">
+                                        <input type="checkbox"
+                                                [checked]="selectedAllergies.includes(allergy)"
+                                                class="form-checkbox h-4 w-4 text-blue-600">
+                                        <span>{{allergy}}</span>
+                                    </div>
+                                </div>
+                        
+                                <!-- Alergia personalizada -->
+                                <div class="mt-4 pt-4 border-t">
+                                    <form [formGroup]="allergiesForm" class="flex space-x-2">
+                                        <input type="text" 
+                                                formControlName="customAllergy"
+                                                class="flex-1 rounded-md border-gray-300"
+                                                placeholder="Otra alergia...">
+                                        <button type="button"
+                                                (click)="addCustomAllergy()"
+                                                class="px-4 py-2 bg-blue-600 text-white rounded-md">
+                                            Añadir
+                                        </button>
+                                    </form>
+                                </div>
+                        
+                                <!-- Alergias seleccionadas -->
+                                <div class="mt-4 pt-4 border-t">
+                                    <h4 class="text-sm font-medium text-gray-700 mb-2">Seleccionadas:</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span *ngFor="let allergy of selectedAllergies" 
+                                                class="inline-flex items-center px-3 py-1 rounded-full text-sm 
+                                                        font-medium bg-blue-100 text-blue-800">
+                                            {{allergy}}
+                                            <button type="button" (click)="toggleAllergy(allergy)" 
+                                                    class="ml-2 inline-flex items-center p-0.5 hover:bg-blue-200 rounded-full">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                        
+                                <div class="mt-4 flex justify-end">
+                                    <button type="button"
+                                            (click)="toggleAllergyModal()"
+                                            class="px-4 py-2 bg-blue-600 text-white rounded-md">
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
