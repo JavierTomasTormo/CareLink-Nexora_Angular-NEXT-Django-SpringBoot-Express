@@ -33,4 +33,18 @@ export class UserPatientService {
                 { headers, responseType: 'json' }
         );
     }
+
+    updateUserPatient(patientId: number, userPatient: UserPatient): Observable<UserPatient> {
+        const headers = this.tokenService.getAuthorizationHeader() || {};
+        const payload = {
+            ...userPatient,
+            allergies: Array.isArray(userPatient.allergies) ? userPatient.allergies : [],
+            difficulties: Array.isArray(userPatient.difficulties) ? userPatient.difficulties : []
+        };
+        return this.http.put<UserPatient>(
+            API_ROUTES.USER_PATIENT.UPDATE(patientId), 
+            payload,
+            { headers }
+        );
+    }
 }

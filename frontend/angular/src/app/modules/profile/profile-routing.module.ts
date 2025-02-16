@@ -5,6 +5,8 @@ import { FamilyViewComponent } from '../../shared/components/profile/family-view
 import { PaymentsViewComponent } from '../../shared/components/profile/payments-view/payments-view.component'; // Actualiza la ruta
 import { BookingsViewComponent } from '../../shared/components/profile/bookings-view/bookings-view.component'; // Actualiza la ruta
 import { PatientRegisterComponent } from '../../shared/components/profile/patient-register/patient-register.component'; // Actualiza la ruta
+import { PatientUpdateComponent } from '../../shared/components/profile/patient-update/patient-update.component'; // Actualiza la ruta
+
 
 const routes: Routes = [
   { 
@@ -27,15 +29,12 @@ const routes: Routes = [
     path: 'family/patient/register',
     component: PatientRegisterComponent
   },
+  {
+    path: 'family/patient/update/:id',
+    component: PatientUpdateComponent
+  },
 
-  // { 
-  //   path: 'register', 
-  //   component: RegisterComponent 
-  // },
-  // {
-  //   path: 'logout',
-  //   component: LogoutComponent
-  // },
+
   { 
     path: '', 
     redirectTo: 'view', 
