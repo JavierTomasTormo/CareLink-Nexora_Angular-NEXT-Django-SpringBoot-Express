@@ -209,6 +209,12 @@ export class FamilyViewComponent implements OnInit {
   }
 
 
+  editPatient(): void {
+    const patient = this.selectedPatient;
+    this.router.navigate([SHARED_ROUTES.ANGULAR.AUTH.PATIENT_UPDATE, patient!.id]);
+  }
+
+
 }
 
 
