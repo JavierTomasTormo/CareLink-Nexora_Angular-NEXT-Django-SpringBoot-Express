@@ -45,15 +45,14 @@
             <!-- Lista de pacientes -->
             <div class="patients-list" [class.collapsed]="viewMode === 'detail'">
                 <div class="bg-white rounded-lg shadow-lg">
+                    <a (click)="registerPatient()" 
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 cursor-pointer"
+                        style="cursor: pointer; max-width: 170px;">
+                        <i class="fas fa-plus"></i>
+                        Añadir Familiar
+                    </a>
                     <div class="p-4 border-b flex justify-between items-center">
                         <h3 class="text-lg font-semibold"><i class="fas fa-family mr-2"></i>Family Members</h3>
-
-                            <a (click)="registerPatient()" 
-                                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 cursor-pointer"
-                                style="cursor: pointer">
-                                <i class="fas fa-plus"></i>
-                                Añadir Familiar
-                            </a>
                         
                         <!-- Disability Chart -->
                         <div class="w-32 h-32">
@@ -191,6 +190,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                            <br><br><br>
+                                        <button (click)="editPatient()" 
+                                                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300">
+                                            <i class="fas fa-edit mr-2"></i>
+                                            Editar Familiar
+                                        </button>
+
+
                                     </div>
                                 </div>
                             </div>
