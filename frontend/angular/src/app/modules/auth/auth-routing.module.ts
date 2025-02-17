@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../../shared/components/auth/login/login.component';//../../shared/components/profile/profile-view.component
+import { LoginComponent } from '../../shared/components/auth/login/login.component';
 import { RegisterComponent } from '../../shared/components/auth/register/register.component';
 import { LogoutComponent } from '../../shared/components/auth/logout/logout.component';  
 

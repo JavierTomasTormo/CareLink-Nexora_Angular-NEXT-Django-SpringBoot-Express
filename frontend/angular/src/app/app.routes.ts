@@ -22,21 +22,6 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
   },
-  // {
-  //   path: 'medical',
-  //   canActivate: [AuthGuard],
-  //   loadChildren: () => import('./modules/medical/medical.routes').then(m => m.MEDICAL_ROUTES)
-  // },
-  // {
-  //   path: 'emergency',
-  //   canActivate: [AuthGuard],
-  //   loadChildren: () => import('./modules/emergency/emergency.routes').then(m => m.EMERGENCY_ROUTES)
-  // },
-  // {
-  //   path: 'reports',
-  //   canActivate: [AuthGuard],
-  //   loadChildren: () => import('./modules/reports/reports.routes').then(m => m.REPORTS_ROUTES)
-  // },
   { 
     path: '404', 
     component: ErrorComponent 
@@ -45,9 +30,4 @@ export const routes: Routes = [
     path: '**', 
     redirectTo: '404' 
   },
-  // {//ESTO ES UN CASO DE USO PARA EL AUTHGUARD CUANDO TENGAMOS ALGO HAY QUE IMPLEMENTAR EL GUARD EN TODO
-  //   path: 'dashboard',
-  //   canActivate: [AuthGuard],
-  //   loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
-  // }
 ];

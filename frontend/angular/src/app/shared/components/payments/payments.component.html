@@ -4,7 +4,6 @@
 
 <form (submit)="pay($event)">
   <label for="amount">Monto a pagar (EUR):</label>
-  <!-- ngModel está vinculado al valor de `amount` en el componente -->
   <input type="number" [(ngModel)]="amount" id="amount" required min="1">
 
   <div id="card-element" class="form-group"></div>

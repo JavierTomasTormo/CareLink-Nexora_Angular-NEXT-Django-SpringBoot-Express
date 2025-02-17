@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileViewComponent } from '../../shared/components/profile/profileView/profile-view.component'; // Actualiza la ruta
-import { FamilyViewComponent } from '../../shared/components/profile/family-view/family-view.component'; // Actualiza la ruta
-import { PaymentsViewComponent } from '../../shared/components/profile/payments-view/payments-view.component'; // Actualiza la ruta
-import { BookingsViewComponent } from '../../shared/components/profile/bookings-view/bookings-view.component'; // Actualiza la ruta
-import { PatientRegisterComponent } from '../../shared/components/profile/patient-register/patient-register.component'; // Actualiza la ruta
-import { PatientUpdateComponent } from '../../shared/components/profile/patient-update/patient-update.component'; // Actualiza la ruta
+import { ProfileViewComponent } from '../../shared/components/profile/profileView/profile-view.component'; 
+import { FamilyViewComponent } from '../../shared/components/profile/family-view/family-view.component'; 
+import { PaymentsViewComponent } from '../../shared/components/profile/payments-view/payments-view.component'; 
+import { BookingsViewComponent } from '../../shared/components/profile/bookings-view/bookings-view.component'; 
+import { PatientRegisterComponent } from '../../shared/components/profile/patient-register/patient-register.component'; 
+import { PatientUpdateComponent } from '../../shared/components/profile/patient-update/patient-update.component'; 
 
 
 const routes: Routes = [

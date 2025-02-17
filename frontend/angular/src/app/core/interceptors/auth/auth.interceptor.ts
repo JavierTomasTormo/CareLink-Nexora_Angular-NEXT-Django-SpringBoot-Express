@@ -35,15 +35,6 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
     );
 };
 
-// const addToken = (request: HttpRequest<unknown>, accessToken: string, refreshToken: string): HttpRequest<unknown> => {
-//     return request.clone({
-//         setHeaders: {
-//             Authorization: `Bearer ${accessToken}`,
-//             'X-Refresh-Token': refreshToken
-//         }
-//     });
-// };
-
 const isPublicRoute = (url: string): boolean => {
     const publicRoutes = ['/auth/login', '/auth/register'];
     return publicRoutes.some(route => url.includes(route));

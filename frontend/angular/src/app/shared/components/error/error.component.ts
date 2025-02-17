@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 })
 export class ErrorComponent implements AfterViewInit {
   @ViewChildren('codeElement') codeElements!: QueryList<ElementRef>;
-  private readonly typingSpeed = 30; // Slower typing for smoother effect
+  private readonly typingSpeed = 30;
 
   ngAfterViewInit() {
     this.animateSequentially();

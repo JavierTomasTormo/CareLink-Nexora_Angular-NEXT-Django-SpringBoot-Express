@@ -10,13 +10,12 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 export class PaymentsComponent implements OnInit {
   stripe: Stripe | null = null;
   cardElement: any;
-  amount: number = 10;  // Valor por defecto
+  amount: number = 10;  
   errorMessage: string = '';
 
   constructor(private paymentService: PaymentService) {}
 
   async ngOnInit() {
-    // Cargar Stripe
     this.stripe = await loadStripe('pk_test_51QrKjnKX69XtcRsLuOj75ACotBmlmniVU1bdHgTpR7M3KUd8QWw7In1rcntKnrgflATuTd2MSFVIxmkZHfaxwCku00yQjq1hu7');
     
     if (!this.stripe) {
@@ -30,26 +29,21 @@ export class PaymentsComponent implements OnInit {
   }
 
   async pay(event: Event) {
-    // Prevenir el envío predeterminado del formulario
     event.preventDefault();
 
-    // Obtener el valor del monto directamente del formulario utilizando `event.target`
     const form = event.target as HTMLFormElement;
     const amountInput = form.querySelector("#amount") as HTMLInputElement;
 
-    // Capturamos el valor del input 'amount' y lo convertimos a número
     const amount = parseFloat(amountInput.value) || 0;
     const amountInCents = Math.round(amount * 100); // Convertimos a centavos
 
     console.log('Amount to send (in cents): ', amountInCents);
 
-    // Verificar si Stripe ha cargado correctamente
     if (!this.stripe) {
       this.errorMessage = 'Stripe no ha sido cargado correctamente.';
       return;
     }
 
-    // Crear el método de pago con la tarjeta
     const { paymentMethod, error } = await this.stripe.createPaymentMethod({
       type: 'card',
       card: this.cardElement,
@@ -60,7 +54,6 @@ export class PaymentsComponent implements OnInit {
       return;
     }
 
-    // Llamar al servicio para crear el PaymentIntent
     this.paymentService.createPayment(amountInCents).subscribe(
       async (res) => {
         const clientSecret = res.clientSecret;

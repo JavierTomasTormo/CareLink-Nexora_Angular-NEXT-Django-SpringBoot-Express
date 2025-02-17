@@ -131,16 +131,6 @@
                                 </div>
                                 <!-- Categorías -->
                                 <div class="flex space-x-2 mb-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-blue-100">
-                                    <!-- <button *ngFor="let category of getCategories()"
-                                            (click)="activeCategory = category"
-                                            [class.bg-blue-600]="activeCategory === category"
-                                            [class.text-white]="activeCategory === category"
-                                            [class.shadow-lg]="activeCategory === category"
-                                            class="px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap
-                                                transition-all duration-300 hover:transform hover:scale-105
-                                                border-2 border-blue-200 hover:border-blue-400">
-                                        {{category}}
-                                    </button> -->
                                     <button type="button" 
                                             *ngFor="let category of getCategories()"
                                             (click)="activeCategory = category"
@@ -240,16 +230,6 @@
                                 </div>
                                 <!-- Categorías -->
                                 <div class="flex space-x-2 mb-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-purple-100">
-                                    <!-- <button *ngFor="let category of getDifficultyCategories()"
-                                            (click)="activeDifficultyCategory = category"
-                                            [class.bg-purple-600]="activeDifficultyCategory === category"
-                                            [class.text-white]="activeDifficultyCategory === category"
-                                            [class.shadow-lg]="activeDifficultyCategory === category"
-                                            class="px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap
-                                                transition-all duration-300 hover:transform hover:scale-105
-                                                border-2 border-purple-200 hover:border-purple-400">
-                                        {{category}}
-                                    </button> -->
                                     <button type="button" 
                                             *ngFor="let category of getDifficultyCategories()"
                                             (click)="activeDifficultyCategory = category"
