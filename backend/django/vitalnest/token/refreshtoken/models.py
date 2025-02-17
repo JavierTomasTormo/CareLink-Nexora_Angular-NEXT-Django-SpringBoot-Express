@@ -6,8 +6,6 @@ class RefreshToken(models.Model):
     email = models.EmailField(max_length=255)
     refresh_token = models.CharField(max_length=255)
     expires_at = models.CharField(max_length=255)
-    # createdat = models.DateTimeField(auto_now_add=True)
-    # updatedat = models.DateTimeField(auto_now=True)
     createdat = models.DateTimeField(auto_now_add=True)
     updatedat = models.DateTimeField(auto_now=True)
 

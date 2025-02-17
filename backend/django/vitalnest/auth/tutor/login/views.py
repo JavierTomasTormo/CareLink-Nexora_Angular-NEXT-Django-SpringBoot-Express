@@ -19,16 +19,13 @@ class LoginTutorView(View):
             email = data['email']
             password = data['password']
             
-            # Verificar email
             try:
                 user = User.objects.get(email=email)
                 #print("DEBUG - Email check: Valid")
                 
-                # Verificar password
                 if check_password(password, user.password):
                     #print("DEBUG - Password check: Valid")
 
-                    # Generar token
                     access_token = generate_access_token(user)
                     #print("DEBUG - Access token generated", access_token)
                     refresh_token = generate_refresh_token(user)

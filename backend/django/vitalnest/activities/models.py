@@ -19,7 +19,6 @@ class Activity(models.Model):
     capacity = models.IntegerField()
     duration = models.IntegerField()
     
-    # Nuevo campo activity_type
     TYPE_CHOICES = [
         (1, "Cuidados"),
         (2, "Exteriores"),

@@ -32,11 +32,9 @@ def generate_refresh_token(user):
     # print("DEBUG - When expires:", expires_at)
 
     try:
-        # Verifica si ya existe un refresh token
         refresh_token_obj = RefreshToken.objects.filter(id_user=user).first()
         
         if refresh_token_obj:
-            # Actualizar el token existente
             refresh_token_obj.refresh_token = refresh_token
             refresh_token_obj.expires_at = expires_at
             refresh_token_obj.save()

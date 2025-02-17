@@ -6,7 +6,6 @@ class VerifyTokenMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # Rutas públicas que no requieren token
         public_paths = [
             # Auth endpoints
             '/api/auth/tutor/login', 
@@ -18,7 +17,6 @@ class VerifyTokenMiddleware:
             '/api/users/patient/',  
             '/api/users/patient/',  
             
-            # List and Detail endpoints (GET methods are public)
             '/api/activities/',
             '/api/activities/',
             
@@ -31,9 +29,7 @@ class VerifyTokenMiddleware:
             '/api/rooms/room/',
             '/api/rooms/room/'
         ]
-                # Rutas protegidas que requieren token
         protected_paths = [
-            # Protected endpoints for Create, Update, Delete operations
             '/api/activities/',  # POST (create)
             '/api/activities/',  # PUT/PATCH/DELETE
             
@@ -52,15 +48,12 @@ class VerifyTokenMiddleware:
         ]
 
 
-        # Si la ruta es pública, permitir acceso sin token
         if request.path in public_paths:
             return self.get_response(request)
 
-        # Si la ruta no está protegida, permitir acceso sin token
         if request.path not in protected_paths:
             return self.get_response(request)
 
-        # Verificar token solo para rutas protegidas
         auth_header = request.headers.get('Authorization')
         refresh_token = request.headers.get('X-Refresh-Token')
         if not auth_header or not refresh_token:

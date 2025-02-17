@@ -9,9 +9,8 @@ def generate_access_token(user):
     user_role = UserRole.objects.get(id_user=user)
     role = Role.objects.get(id=user_role.id_role_id)
 
-    clean_email = user.email.strip()  # Eliminar espacios antes y después del email
+    clean_email = user.email.strip()
 
-    # Construir el payload
     payload = {
         'id_user': user.id,
         'email': clean_email,  # Usar el email limpio
@@ -21,14 +20,12 @@ def generate_access_token(user):
     }
     
     try:
-        # Codificar el JWT
         token = jwt.encode(
             payload,
             settings.SECRET_KEY_JWT,
             algorithm='HS256'
         ).strip()
 
-        # Asegúrate de que no haya saltos de línea o espacios extra en el token
         token = token.replace("\n", "").replace("\r", "").strip()
 
         return {
