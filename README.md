@@ -84,48 +84,63 @@ VitalNest es más que una plataforma - es un ecosistema digital diseñado para r
 ## 🚀 Arquitectura Tecnológica
 
 <div align="center">
-```mermaid
+
+  ```mermaid
+
 graph TB
-  subgraph Clients ["🌐 Cliente"]
-    direction LR
-    Browser["💻 Navegador Web"] <--> Mobile["📱 App Móvil"]
-  end
+    %% Sección de Clientes
+    subgraph Clients ["📱 Clientes"]
+        Browser["🌐 Navegador/Móvil (Angular, Next.js)"]
+    end
+    %% Sección de Frontend
+    subgraph Frontend ["🎨 Frontend"]
+        Angular["🔐 Angular (Auth)"]
+        Next["🌐 Next.js (App Principal)"]
+    end
+    %% Sección de Backend
+    subgraph Backend ["⚙️ Backend"]
+        Spring["🍃 Spring Boot (Pagos)"]
+        Django["🐍 Django (Core, Usuarios)"]
+        Express["🚂 Express.js (WebSockets)"]
+    end
+    %% Sección de Almacenamiento
+    subgraph Storage ["💾 DB"]
+        Postgres["🛢️ PostgreSQL"]
+    end
+    %% Sección de Infraestructura
+    subgraph Infra ["☁️ Infra"]
+        Firebase["🔥 Firebase (Auth)"]
+        AWS["☁️ AWS S3 (Archivos)"]
+        Docker["🐳 Docker"]
+    end
+    %% Conexiones
+    Clients --> Frontend
+    Frontend --> Backend
+    Backend --> Storage
+    Backend --> Infra
+    %% Estilos personalizados
+    style Clients fill:#ffdd57,stroke:#000,stroke-width:2px
+    style Frontend fill:#ff9900,stroke:#000,stroke-width:2px
+    style Backend fill:#00aaff,stroke:#000,stroke-width:2px
+    style Storage fill:#33cc33,stroke:#000,stroke-width:2px
+    style Infra fill:#ff66cc,stroke:#000,stroke-width:2px
 
-  subgraph Frontend ["🎨 Frontend Powerhouse"]
-    direction LR
-    Auth["🔐 Angular 18
-    Auth Service"] <--> Next["⚡ Next.js 15
-    Main App"] <--> React["⚛️ React 18
-    Components"]
-  end
-
-  subgraph Backend ["🛠️ Backend Power"]
-    direction LR
-    Spring["🍃 Spring Boot
-    Gestión Residentes"] <--> Django["🐍 Django
-    Core System"]
-    Django <--> Express["🚂 Express
-    Notificaciones"]
-  end
-
-  subgraph Database ["🗄️ Base de Datos"]
-    direction LR
-    Postgres[("🐘 PostgreSQL
-    Data Principal")] <--> Redux[("🔄 Redux
-    State Management")]
-  end
-
-  Clients ==> Frontend
-  Frontend ==> Backend
-  Backend ==> Database
-
-  style Clients fill:#FFD700,stroke:#000,stroke-width:2px
-  style Frontend fill:#FF6B6B,stroke:#000,stroke-width:2px
-  style Backend fill:#4ECDC4,stroke:#000,stroke-width:2px
-  style Database fill:#96CEB4,stroke:#000,stroke-width:2px
 ```
 
 </div>
+
+
+<div align="center">
+
+  ```mermaid
+
+
+
+```
+
+</div>
+
+
 
 ## 💻 Stack Tecnológico
 
