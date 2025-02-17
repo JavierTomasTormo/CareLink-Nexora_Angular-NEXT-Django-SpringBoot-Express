@@ -1,15 +1,17 @@
 <div align="center">
 
 # 🏡 VitalNest ✨
-### Tu hogar digital para la gestión integral de residencias
+### Tu hogar digital para la gestión integral de residencias - La revolución en el cuidado
 
 ![VitalNest Banner](https://via.placeholder.com/1200x300?text=Welcome+to+VitalNest)
 
-[![Estado del Proyecto](https://img.shields.io/badge/Estado-En%20Desarrollo-brightgreen)](https://github.com/yourusername/vitalnest)
-[![Licencia](https://img.shields.io/badge/Licencia-MIT-blue)](https://github.com/yourusername/vitalnest/LICENSE)
-[![Versión](https://img.shields.io/badge/Versión-1.0.0-orange)](https://github.com/yourusername/vitalnest/releases)
-[![Documentación](https://img.shields.io/badge/Docs-Ready-success)](https://github.com/yourusername/vitalnest/wiki)
-[![Docker](https://img.shields.io/badge/Docker-Ready-blue)](https://github.com/yourusername/vitalnest/docker)
+[![Estado del Proyecto](https://img.shields.io/badge/Estado-En%20Desarrollo-brightgreen)]()
+[![Licencia](https://img.shields.io/badge/Licencia-MIT-blue)]()
+[![Versión](https://img.shields.io/badge/Versión-2.0.0-orange)]()
+[![Documentación](https://img.shields.io/badge/Docs-Ready-success)]()
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue)]()
+[![Tests](https://img.shields.io/badge/Tests-Passing-success)]()
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-Automated-blueviolet)]()
 
 ---
 
@@ -82,45 +84,45 @@ VitalNest es más que una plataforma - es un ecosistema digital diseñado para r
 ## 🚀 Arquitectura Tecnológica
 
 <div align="center">
-
 ```mermaid
 graph TB
-    subgraph Clients ["📱 Clientes"]
-        direction LR
-        Browser["🌐 Navegador"] <--> Mobile["📱 App Móvil"]
-    end
+  subgraph Clients ["🌐 Cliente"]
+    direction LR
+    Browser["💻 Navegador Web"] <--> Mobile["📱 App Móvil"]
+  end
 
-    subgraph Frontend ["🎨 Frontend"]
-        direction LR
-        Auth["🔐 Angular
-        Autenticación"] <--> Next["🌐 Next.js
-        Main App"]
-    end
+  subgraph Frontend ["🎨 Frontend Powerhouse"]
+    direction LR
+    Auth["🔐 Angular 18
+    Auth Service"] <--> Next["⚡ Next.js 15
+    Main App"] <--> React["⚛️ React 18
+    Components"]
+  end
 
-    subgraph Backend ["⚙️ Backend"]
-        direction LR
-        Spring["🍃 Spring Boot
-        Pagos"] <--> Django["🐍 Django
-        Core"]
-        Django <--> Express["🚂 Express
-        Notificaciones"]
-    end
+  subgraph Backend ["🛠️ Backend Power"]
+    direction LR
+    Spring["🍃 Spring Boot
+    Gestión Residentes"] <--> Django["🐍 Django
+    Core System"]
+    Django <--> Express["🚂 Express
+    Notificaciones"]
+  end
 
-    subgraph Storage ["💾 Almacenamiento"]
-        direction LR
-        Postgres[("PostgreSQL
-        Datos")] <--> Redis[("Redis
-        Cache")]
-    end
+  subgraph Database ["🗄️ Base de Datos"]
+    direction LR
+    Postgres[("🐘 PostgreSQL
+    Data Principal")] <--> Redux[("🔄 Redux
+    State Management")]
+  end
 
-    Clients ==> Frontend
-    Frontend ==> Backend
-    Backend ==> Storage
+  Clients ==> Frontend
+  Frontend ==> Backend
+  Backend ==> Database
 
-    style Clients fill:#ffd700,stroke:#fff,stroke-width:2px
-    style Frontend fill:#ff9900,stroke:#fff,stroke-width:2px
-    style Backend fill:#00aaff,stroke:#fff,stroke-width:2px
-    style Storage fill:#33cc33,stroke:#fff,stroke-width:2px
+  style Clients fill:#FFD700,stroke:#000,stroke-width:2px
+  style Frontend fill:#FF6B6B,stroke:#000,stroke-width:2px
+  style Backend fill:#4ECDC4,stroke:#000,stroke-width:2px
+  style Database fill:#96CEB4,stroke:#000,stroke-width:2px
 ```
 
 </div>
