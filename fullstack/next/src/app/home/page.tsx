@@ -1,11 +1,9 @@
 import BannerSection from '@/components/home/Banner/BannerSection';
 import TypesSection from '@/components/home/TypesSection/TypesSection';
-// import OurStory from '@/components/home/StorySection/OurStory'; // Eliminar esta línea
 import AdditionalInfo from '@/components/home/AdditionalInfo/AdditionalInfo';
 import FreshActivities from '@/components/home/FreshBeansActivitie/FreshActivities';
 import GreatMealsSection from '@/components/home/GreatMealsSection/GreatMealsSection';
 import BestRoomsSection from '@/components/home/BestRoomsSection/BestRoomsSection';
-// import GallerySection from '@/components/home/GallerySection/GallerySection';
 import BlogSection from '@/components/home/BlogSection/BlogSection';
 import Head from 'next/head';
 import AnimatedSection from './AnimatedSection';

@@ -70,10 +70,6 @@ return (
                 </div>
             ))}
         </div>
-        
-        {/* <div className={styles.row_center}>
-        <a href="#" className={styles.btn}>Full menu</a>
-        </div> */}
     </div>
     </section>
 );

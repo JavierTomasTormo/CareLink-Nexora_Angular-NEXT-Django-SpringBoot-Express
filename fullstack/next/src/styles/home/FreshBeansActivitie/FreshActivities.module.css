@@ -89,7 +89,6 @@
     background: rgba(0, 0, 0, 0.1);
 }
 
-/* Media queries remain the same but with updated font sizes */
 @media screen and (max-width: 991px) {
     .half_first {
         padding: 60px 40px;
