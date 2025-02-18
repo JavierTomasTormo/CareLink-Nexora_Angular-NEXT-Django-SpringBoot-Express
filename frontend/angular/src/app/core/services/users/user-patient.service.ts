@@ -15,8 +15,8 @@ export class UserPatientService {
     ) {}
 
     getUserPatientsByUser(id_user: number): Observable<UserPatient[]> {
-        // console.log('ID USER', id_user);
-        // console.log('API URL', API_ROUTES.USER_PATIENT.LIST_BY_USER(id_user));
+        console.log('ID USER', id_user);
+        console.log('API URL', API_ROUTES.USER_PATIENT.LIST_BY_USER(id_user));
         return this.http.get<UserPatient[]>(API_ROUTES.USER_PATIENT.LIST_BY_USER(id_user));
     }
 
