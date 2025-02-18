@@ -9,4 +9,5 @@ public interface InscriptionRepository {
     Optional<Inscription> findById(Long id);
     Inscription save(Inscription inscription);
     void deleteById(Long id);
+    List<Inscription> findByIdUser(Long idUser); // Nuevo método
 }

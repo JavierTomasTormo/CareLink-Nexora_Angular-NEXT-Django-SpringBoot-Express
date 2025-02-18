@@ -33,4 +33,9 @@ public class InscriptionRepositoryImpl implements InscriptionRepository {
     public void deleteById(Long id) {
         jpaInscriptionRepository.deleteById(id);
     }
+
+    @Override
+    public List<Inscription> findByIdUser(Long idUser) {
+        return jpaInscriptionRepository.findByIdUser(idUser);
+    }
 }

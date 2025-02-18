@@ -9,4 +9,5 @@ public interface InscriptionService {
     List<InscriptionDTO> getAllInscriptions();
     Optional<InscriptionDTO> getInscriptionById(Long id);
     InscriptionDTO createInscription(String token, InscriptionDTO inscriptionDTO);
+    List<InscriptionDTO> getInscriptionsByUserId(Long userId);
 }

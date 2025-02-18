@@ -57,4 +57,26 @@ public class InscriptionController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
     }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<InscriptionDTO>> getInscriptionsByUser(@RequestHeader("Authorization") String token) {
+        try {
+            // Eliminar el prefijo 'Bearer ' y cualquier espacio innecesario
+            String cleanedToken = token.replace("Bearer ", "").trim();
+
+            // Obtén el ID del usuario desde el token JWT
+            Long userId = jwtUtils.getUserIdFromJwtToken(cleanedToken);
+
+            // Si el token no tiene el ID, arroja un error
+            if (userId == null) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+            }
+
+            // Llama al servicio para obtener las inscripciones del usuario
+            List<InscriptionDTO> inscriptions = inscriptionService.getInscriptionsByUserId(userId);
+            return ResponseEntity.ok(inscriptions);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+    }
 }

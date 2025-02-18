@@ -67,5 +67,11 @@ public class InscriptionServiceImpl implements InscriptionService {
         return inscriptionAssembler.toModel(savedInscription);
     }
 
+    @Override
+    public List<InscriptionDTO> getInscriptionsByUserId(Long userId) {
+        return inscriptionRepository.findByIdUser(userId).stream()
+                .map(inscriptionAssembler::toModel)
+                .collect(Collectors.toList());
+    }
 
 }
