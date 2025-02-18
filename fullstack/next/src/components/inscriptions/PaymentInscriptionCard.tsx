@@ -5,8 +5,11 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { createPaymentIntent } from '@/services/payments/paymentsService';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styles from '@/styles/inscriptions/PaymentInscriptionCard.module.css';
+import Swal from 'sweetalert2';
+import { createInscription } from '@/services/inscriptions/inscriptionService';
+import { useRouter } from 'next/navigation';
 
-const PaymentInscriptionCard: React.FC<{ amount: number }> = ({ amount }) => {
+const PaymentInscriptionCard: React.FC<{ amount: number, activityId: number, patientId: number, specialRequest: string }> = ({ amount, activityId, patientId, specialRequest }) => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const [cardElement, setCardElement] = useState<any>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -24,6 +27,7 @@ const PaymentInscriptionCard: React.FC<{ amount: number }> = ({ amount }) => {
   const amexCardMask = '#### ###### #####';
   const otherCardMask = '#### #### #### ####';
   const cardNumberRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (cardNumberRef.current) {
@@ -42,60 +46,135 @@ const PaymentInscriptionCard: React.FC<{ amount: number }> = ({ amount }) => {
         card.mount('#card-element');
         setCardElement(card);
       } else {
-        setErrorMessage('Error al cargar Stripe');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error al cargar Stripe',
+          confirmButtonColor: '#3085d6'
+        });
       }
     };
 
     initializeStripe();
   }, []);
 
-  const handlePayment = async (event: React.FormEvent) => {
+  const generateUniqueId = (str: string) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = (hash << 5) - hash + char;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+};
+
+// Dentro de la función handlePayment
+const handlePayment = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
 
     if (!stripe || !cardElement) {
-      setErrorMessage('Stripe no ha sido cargado correctamente.');
-      setIsLoading(false);
-      return;
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Stripe no ha sido cargado correctamente.',
+            confirmButtonColor: '#3085d6'
+        });
+        setIsLoading(false);
+        return;
     }
 
     const { paymentMethod, error } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
+        type: 'card',
+        card: cardElement,
     });
 
     if (error) {
-      setErrorMessage(error.message || 'Error en el pago');
-      setIsLoading(false);
-      return;
+        Swal.fire({
+            icon: 'error',
+            title: 'Error en el pago',
+            text: error.message || 'Error en el pago',
+            confirmButtonColor: '#3085d6'
+        });
+        setIsLoading(false);
+        return;
     }
 
     try {
-      const amountInCents = Math.round(amount);
-      const response = await createPaymentIntent(amountInCents);
+        const amountInCents = Math.round(amount);
+        const response = await createPaymentIntent(amountInCents);
 
-      if (response && response.clientSecret) {
-        const clientSecret = response.clientSecret;
+        if (response && response.clientSecret) {
+            const clientSecret = response.clientSecret;
 
-        const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: paymentMethod.id,
-        });
+            const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: paymentMethod.id,
+            });
 
-        if (confirmError) {
-          setErrorMessage(confirmError.message || 'Error al procesar el pago');
-        } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-          alert('¡Pago realizado con éxito!');
+            if (confirmError) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: confirmError.message || 'Error al procesar el pago',
+                    confirmButtonColor: '#3085d6'
+                });
+            } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Pago realizado con éxito!',
+                    text: '¡Gracias por tu compra!',
+                    confirmButtonColor: '#3085d6',
+                    showConfirmButton: true,
+                    timer: 3000,
+                    timerProgressBar: true
+                }).then(async () => {
+                    // Realizar la inscripción después del pago exitoso
+                    try {
+                        const inscriptionData = {
+                            idActivity: activityId,
+                            idHour: 1,
+                            idDay: 1,
+                            idMonth: 1,
+                            idYear: 1,
+                            idPayment: generateUniqueId(paymentIntent.id),
+                            idPatient: patientId,
+                            state: 'pending',
+                            specialRequest: specialRequest
+                        };
+                        console.log('Inscription data:', inscriptionData); // Añadido para depuración
+                        await createInscription(inscriptionData);
+                        router.push('/success');
+                    } catch (error) {
+                        console.error('Error creating inscription:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Error al crear la inscripción',
+                            confirmButtonColor: '#3085d6'
+                        });
+                    }
+                });
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El clientSecret no está presente en la respuesta del backend.',
+                confirmButtonColor: '#3085d6'
+            });
         }
-      } else {
-        setErrorMessage('El clientSecret no está presente en la respuesta del backend.');
-      }
     } catch (err) {
-      console.error('Error al procesar el pago:', err);
-      setErrorMessage('Error al procesar el pago');
+        console.error('Error al procesar el pago:', err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al procesar el pago',
+            confirmButtonColor: '#3085d6'
+        });
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
-  };
+};
 
   const getCardType = () => {
     const number = cardNumber;

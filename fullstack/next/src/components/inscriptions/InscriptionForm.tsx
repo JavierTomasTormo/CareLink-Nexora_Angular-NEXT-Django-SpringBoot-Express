@@ -8,20 +8,65 @@ import styles from '@/styles/inscriptions/InscriptionForm.module.css';
 import { useRouter } from 'next/navigation';
 import { FaUser, FaCalendar, FaDollarSign, FaDumbbell, FaComment } from 'react-icons/fa';
 import PaymentInscriptionCard from './PaymentInscriptionCard';
+import { isAuthenticated, getUserInfo } from '@/utils/auth';
+import { getPatientsByUserId } from '@/services/inscriptions/user-patientService';
 
 const InscriptionForm: React.FC<{ activityId: string }> = ({ activityId }) => {
     const dispatch = useDispatch<AppDispatch>();
     const router = useRouter();
     const activity = useSelector((state: RootState) => state.activities.activities.find(a => a.id === parseInt(activityId)));
-    const [selectedUser, setSelectedUser] = useState<string>('Pepe');
+    const [selectedUser, setSelectedUser] = useState<string>('');
     const [specialRequest, setSpecialRequest] = useState<string>('');
     const [isLoading, setIsLoading] = useState(false);
+    const [patients, setPatients] = useState<{ id: number, name_patient: string }[]>([]);
+    const [userInfo, setUserInfo] = useState<{ id_user: number } | null>(null);
 
     useEffect(() => {
         if (!activity) {
             dispatch(fetchActivity(parseInt(activityId)));
         }
     }, [activityId, dispatch, activity]);
+
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            const user = getUserInfo();
+            console.log('User info:', user);
+            if (user && user.id_user) {
+                setUserInfo(user);
+            } else {
+                console.error('No user info available');
+            }
+        };
+
+        fetchUserInfo();
+    }, []);
+
+    useEffect(() => {
+        const fetchPatients = async () => {
+            if (!userInfo || !userInfo.id_user) {
+                console.error('No user info available');
+                return;
+            }
+
+            try {
+                console.log(`Fetching patients for user ID: ${userInfo.id_user}`);
+                const patientsData = await getPatientsByUserId(userInfo.id_user);
+                console.log('Patients fetched:', patientsData);
+
+                if (Array.isArray(patientsData) && patientsData.length > 0) {
+                    setPatients(patientsData);
+                } else {
+                    console.log('No patients found or invalid data format');
+                }
+            } catch (error) {
+                console.error('Error fetching patients:', error);
+            }
+        };
+
+        if (userInfo) {
+            fetchPatients();
+        }
+    }, [userInfo]);
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -76,7 +121,7 @@ const InscriptionForm: React.FC<{ activityId: string }> = ({ activityId }) => {
                             </label>
                             <input 
                                 type="text" 
-                                value={`$${activity.price}`} 
+                                value={`${activity.price}`} 
                                 readOnly 
                                 className={styles.input} 
                             />
@@ -104,16 +149,23 @@ const InscriptionForm: React.FC<{ activityId: string }> = ({ activityId }) => {
                                 value={selectedUser} 
                                 onChange={(e) => setSelectedUser(e.target.value)} 
                                 className={styles.select}
+                                required
                             >
-                                <option value="Pepe">Pepe</option>
-                                <option value="Pepa">Pepa</option>
+                                <option value="">Seleccione un usuario</option>
+                                {patients && patients.length > 0 ? (
+                                    patients.map(patient => (
+                                        <option key={patient.id} value={patient.id}>{patient.name_patient}</option>
+                                    ))
+                                ) : (
+                                    <option value="" disabled>No hay usuarios disponibles</option>
+                                )}
                             </select>
                         </div>
 
                         <div className={styles.formGroup}>
                             <label className={styles.label}>
                                 <FaComment className={styles.inputIcon} />
-                                Special Request
+                                Solicitud Especial
                             </label>
                             <textarea 
                                 value={specialRequest} 
@@ -124,16 +176,17 @@ const InscriptionForm: React.FC<{ activityId: string }> = ({ activityId }) => {
                         </div>
                     </div>
 
-                    <button 
-                        type="submit" 
-                        className={styles.submitButton}
-                        disabled={isLoading}
-                    >
-                        {isLoading ? 'Procesando...' : 'Confirmar Inscripción'}
-                    </button>
+                    {/* <button type="submit" className={styles.submitButton} disabled={isLoading}>
+                        {isLoading ? 'Procesando...' : 'Inscribirse'}
+                    </button> */}
                 </form>
             </div>
-            <PaymentInscriptionCard amount={activity.price} />
+            <PaymentInscriptionCard 
+                amount={activity.price} 
+                activityId={activity.id} 
+                patientId={parseInt(selectedUser)} 
+                specialRequest={specialRequest} 
+            />
         </div>
     );
 };
