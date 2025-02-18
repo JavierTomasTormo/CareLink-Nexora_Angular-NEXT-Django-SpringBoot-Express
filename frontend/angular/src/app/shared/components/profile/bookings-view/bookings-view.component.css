@@ -1,0 +1,140 @@
+.admin-dashboard {
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  .dashboard-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .loading-state {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .error-message {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .bookings-table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+  }
+  
+  .table th {
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+  }
+  
+  .table-striped tbody tr:nth-of-type(even) {
+    background-color: #e9ecef;
+  }
+  
+  .activity-tooltip, .patient-tooltip {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .activity-info, .patient-info {
+    margin-bottom: 10px;
+  }
+  
+  .caracteristics ul, .allergies ul, .difficulties ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .caracteristics li, .allergies li, .difficulties li {
+    background-color: #e9ecef;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .discapacity {
+    color: #dc3545;
+    font-weight: bold;
+  }
+  
+  .status-badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+  }
+  
+  .status-badge.pending {
+    background-color: #ffc107;
+  }
+  
+  .status-badge.completed {
+    background-color: #28a745;
+  }
+  
+  .status-badge.cancelled {
+    background-color: #dc3545;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-buttons .btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .action-buttons .btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+  }
+  
+  .action-buttons .btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: #fff;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-title {
+    margin: 0;
+  }
+  
+  .close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #fff;
+  }

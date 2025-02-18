@@ -7,7 +7,6 @@ import { BookingsViewComponent } from '../../shared/components/profile/bookings-
 import { PatientRegisterComponent } from '../../shared/components/profile/patient-register/patient-register.component'; 
 import { PatientUpdateComponent } from '../../shared/components/profile/patient-update/patient-update.component'; 
 
-
 const routes: Routes = [
   { 
     path: 'view', 
@@ -33,15 +32,12 @@ const routes: Routes = [
     path: 'family/patient/update/:id',
     component: PatientUpdateComponent
   },
-
-
   { 
     path: '', 
     redirectTo: 'view', 
     pathMatch: 'full' 
   }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

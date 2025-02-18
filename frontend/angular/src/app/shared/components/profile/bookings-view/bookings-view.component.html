@@ -1,1 +1,140 @@
-<p>bookings-view works!</p>
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Reservations Dashboard</h1>
+  </div>
+
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner">
+      <i class="fas fa-spinner fa-spin"></i>
+      Loading bookings...
+    </div>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    <div class="alert alert-danger">
+      <i class="fas fa-exclamation-circle"></i>
+      {{ errorMessage }}
+    </div>
+  </div>
+
+  <div class="dashboard-content" *ngIf="!isLoading && !errorMessage">
+    <div class="bookings-table">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Email</th>
+            <th>Created At</th>
+            <th>Activity</th>
+            <th>Patient</th>
+            <th>Payment ID</th>
+            <th>Status</th>
+            <th>Special Request</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <td>
+              <span class="booking-id">#{{ booking.id }}</span>
+            </td>
+            <td>
+              <span class="email">{{ booking.email }}</span>
+            </td>
+            <td>
+              <span class="created-at">{{ booking.createdAt[0] }}-{{ booking.createdAt[1] }}-{{ booking.createdAt[2] }} {{ booking.createdAt[3] }}:{{ booking.createdAt[4] }}</span>
+            </td>
+            <td>
+              <button class="btn btn-info btn-sm" (click)="showActivityDetails(activityModal, booking.activity)">
+                {{ booking.activity?.name_activitie || 'Loading...' }}
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-info btn-sm" (click)="showPatientDetails(patientModal, booking.patient)">
+                {{ booking.patient?.name_patient || 'Loading...' }}
+              </button>
+            </td>
+            <td>
+              <span class="payment-id">{{ booking.idPayment }}</span>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="booking.state">
+                {{ booking.state }}
+              </span>
+            </td>
+            <td>
+              <span class="special-request">{{ booking.specialRequest || 'No special request' }}</span>
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-primary btn-sm">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-danger btn-sm">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Activity Modal -->
+<ng-template #activityModal>
+  <div class="modal-header">
+    <h5 class="modal-title">Activity Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="activity-info">
+      <h3>{{ selectedActivity?.name_activitie }}</h3>
+      <p><strong>Description:</strong> {{ selectedActivity?.description }}</p>
+      <p><strong>Duration:</strong> {{ selectedActivity?.duration }} minutes</p>
+      <p><strong>Price:</strong> ${{ selectedActivity?.price }}</p>
+      <p><strong>Intensity:</strong> {{ selectedActivity?.intensity }}</p>
+      <p><strong>Max Participants:</strong> {{ selectedActivity?.max_participants }}</p>
+      <div class="caracteristics">
+        <strong>Caracteristics:</strong>
+        <ul>
+          <li *ngFor="let caracteristic of selectedActivity?.caracteristics">{{ caracteristic }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Patient Modal -->
+<ng-template #patientModal>
+  <div class="modal-header">
+    <h5 class="modal-title">Patient Details</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="patient-info">
+      <h3>{{ selectedPatient?.name_patient }}</h3>
+      <p><strong>Email:</strong> {{ selectedPatient?.email }}</p>
+      <p><strong>Phone:</strong> {{ selectedPatient?.phone_number }}</p>
+      <p><strong>Birthday:</strong> {{ selectedPatient?.birthday }}</p>
+      <p><strong>Discapacity:</strong> <span class="discapacity">{{ selectedPatient?.discapacity }}%</span></p>
+      <div class="allergies">
+        <strong>Allergies:</strong>
+        <ul>
+          <li *ngFor="let allergy of selectedPatient?.allergies">{{ allergy }}</li>
+        </ul>
+      </div>
+      <div class="difficulties">
+        <strong>Difficulties:</strong>
+        <ul>
+          <li *ngFor="let difficulty of selectedPatient?.difficulties">{{ difficulty }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ng-template>
