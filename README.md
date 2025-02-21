@@ -1,9 +1,8 @@
-<div align="center">
+# 🏥 CareLink Nexora ✨
 
-# 🏡 VitalNest ✨
-### Tu hogar digital para la gestión integral de residencias - La revolución en el cuidado
+### Tu conexión digital para el cuidado integral - Innovación con calidez humana
 
-![VitalNest Banner](https://via.placeholder.com/1200x300?text=Welcome+to+VitalNest)
+![CareLink Nexora Banner](https://via.placeholder.com/1200x300?text=Welcome+to+CareLink+Nexora)
 
 [![Estado del Proyecto](https://img.shields.io/badge/Estado-En%20Desarrollo-brightgreen)]()
 [![Licencia](https://img.shields.io/badge/Licencia-MIT-blue)]()
@@ -15,78 +14,40 @@
 
 ---
 
-<p align="center">
-  <a href="#-características">Características</a> •
-  <a href="#-instalación">Instalación</a> •
-  <a href="#-arquitectura">Arquitectura</a> •
-  <a href="#-vistas">Vistas</a> •
-  <a href="#-equipo">Equipo</a>
-</p>
+[Características](#-características) •
+[Instalación](#-instalación) •
+[Arquitectura](#-arquitectura) •
+[Vistas](#-vistas) •
+[Equipo](#-equipo)
 
-</div>
+## 🌟 Bienvenidos a CareLink Nexora
 
-## 🌟 Bienvenidos a VitalNest
+> *"Conectando el cuidado humano con la innovación tecnológica"*
 
-> *"Transformando la gestión de residencias en una experiencia extraordinaria"*
-
-VitalNest es más que una plataforma - es un ecosistema digital diseñado para revolucionar la forma en que gestionamos las residencias. Combinamos tecnología de vanguardia con un enfoque centrado en el ser humano para crear espacios más felices y eficientes. 🎯
+CareLink Nexora representa la perfecta fusión entre la calidez del cuidado personal y la innovación tecnológica. Nuestra plataforma combina lo mejor de ambos mundos: la confiabilidad y cercanía de CareLink con la sofisticación y modernidad de Nexora, creando un ecosistema digital que prioriza tanto la eficiencia como el bienestar humano. 🎯
 
 ## ✨ Características Principales
 
-<table>
-<tr>
-<td width="50%">
+| **🤝 Conexión Humana**                              | **🔬 Innovación Nexora**                          |
+|---------------------------------------------------|--------------------------------------------------|
+| 📅 Gestión personalizada de cuidados               | 🤖 IA para optimización de cuidados              |
+| 🎯 Sistema de seguimiento integral                | 📈 Analítica predictiva                          |
+| ⏰ Atención continua y proactiva                   | ⚡ Respuesta en tiempo real                       |
+| 🌟 Experiencias personalizadas                     | 🎯 Personalización inteligente                   |
+| 📊 Análisis de bienestar                          | 📱 Tecnología adaptativa                         |
 
-### 🎨 Gestión de Actividades
-- 📅 Calendario interactivo de eventos
-- 🎯 Sistema de inscripción inteligente
-- ⏰ Recordatorios automáticos
-- 🤝 Actividades grupales e individuales
-- 📊 Seguimiento de participación
+| **💊 Control Médico Inteligente**                   | **📱 Comunicación Unificada**                    |
+|---------------------------------------------------|--------------------------------------------------|
+| ⏰ Gestión avanzada de medicación                  | 📲 Plataforma multicanal                         |
+| 📋 Historia clínica digital                        | 📱 Integración con WhatsApp                      |
+| 🔔 Sistema de alertas inteligentes                 | 📧 Sistema de notificaciones                     |
+| 💉 Gestión de inventario médico                    | 🤖 Asistente virtual                             |
+| 👩‍⚕️ Teleconsulta integrada                       | 🔄 Comunicación en tiempo real                   |
 
-</td>
-<td width="50%">
-
-### 🍏 Control de Dietas
-- 🥗 Planificación personalizada
-- 📈 Seguimiento nutricional
-- ⚠️ Alertas de alergias
-- 🍎 Menús semanales
-- 📱 App para cocina
-
-</td>
-</tr>
-
-<tr>
-<td width="50%">
-
-### 💊 Gestión de Medicamentos
-- ⏰ Programación de dosis
-- 📋 Historial médico digital
-- 🔔 Notificaciones inteligentes
-- 💉 Control de inventario
-- 👩‍⚕️ Conexión con personal médico
-
-</td>
-<td width="50%">
-
-### 📱 Sistema de Notificaciones
-- 📲 Notificaciones en app
-- 📱 WhatsApp integrado
-- 📧 Alertas por email
-- 🤖 Bot de Telegram
-- 🔄 Sincronización en tiempo real
-
-</td>
-</tr>
-</table>
 
 ## 🚀 Arquitectura Tecnológica
 
-<div align="center">
-
-  ```mermaid
-
+```mermaid
 graph TB
     %% Sección de Clientes
     subgraph Clients ["📱 Clientes"]
@@ -124,90 +85,86 @@ graph TB
     style Backend fill:#00aaff,stroke:#000,stroke-width:2px
     style Storage fill:#33cc33,stroke:#000,stroke-width:2px
     style Infra fill:#ff66cc,stroke:#000,stroke-width:2px
-
 ```
-
-</div>
-
-
-<div align="center">
-
-  ```mermaid
-
-
-
-```
-
-</div>
-
-
 
 ## 💻 Stack Tecnológico
 
 ### Frontend Powerhouse
 - **🔐 Auth Service**: Angular 18
-  ```typescript
-  const security = "máxima prioridad" 
-  ```
-- **🌐 Main Application**: Next.js 15
-  ```javascript
-  const performance = "optimizada"
-  ```
+```typescript
+const security = "máxima prioridad"
+```
 
+### 🌐 Main Application: Next.js 15
+```typescript
+const performance = "optimizada"
+```
 ### Backend Robusto
 - **🍃 Spring Boot**: Gestión de pagos y reservas
 - **🐍 Django**: Core del sistema y usuarios
 - **🚂 Express**: Sistema de notificaciones
+
+
+
+
+
 
 ## 🛠️ Instalación y Configuración
 
 ### Requisitos del Sistema
 
 #### Lenguajes y Runtimes
-| Componente | Versión | Descripción |
-|------------|---------|-------------|
-| Node.js    | ≥16.x   | Runtime para aplicaciones JavaScript |
-| Python     | ≥3.9    | Backend Django REST Framework |
-| Java       | ≥17     | Backend Spring Boot |
-| TypeScript | ≥4.x    | Tipado estático para JavaScript |
+
+| Componente  | Versión | Descripción                                      |
+|-------------|---------|--------------------------------------------------|
+| Node.js     | ≥16.x   | Runtime para aplicaciones JavaScript             |
+| Python      | ≥3.9    | Backend Django REST Framework                    |
+| Java        | ≥17     | Backend Spring Boot                              |
+| TypeScript  | ≥4.x    | Tipado estático para JavaScript                  |
 
 #### Frameworks y Librerías
-| Componente | Versión | Descripción |
-|------------|---------|-------------|
-| Angular    | ≥19.x   | Framework frontend |
-| React      | ≥18.x   | Librería frontend |
-| Next.js    | ≥13.x   | Framework React SSR |
-| Django     | ≥4.x    | Framework Python |
-| Spring Boot| ≥3.x    | Framework Java |
-| Express    | ≥4.x    | Framework Node.js |
+
+| Componente  | Versión | Descripción                                      |
+|-------------|---------|--------------------------------------------------|
+| Angular     | ≥19.x   | Framework frontend                               |
+| Next.js     | ≥13.x   | Framework React SSR                              |
+| Django      | ≥4.x    | Framework Python                                 |
+| Spring Boot | ≥3.x    | Framework Java                                   |
+| Express     | ≥4.x    | Framework Node.js                                |
 
 #### Bases de Datos y Cache
-| Componente | Versión | Descripción |
-|------------|---------|-------------|
-| PostgreSQL | ≥13     | Base de datos principal |
-| Redux      | ≥7.x    | Sistema de store |
+
+| Componente  | Versión | Descripción                                      |
+|-------------|---------|--------------------------------------------------|
+| PostgreSQL  | ≥13     | Base de datos principal                          |
+| Redux       | ≥7.x    | Sistema de store                                 |
 
 #### Herramientas de Desarrollo
-| Componente | Versión | Descripción |
-|------------|---------|-------------|
-| Docker     | ≥20.x   | Contenedorización |
-| Git        | ≥2.x    | Control de versiones |
-| npm/yarn   | ≥8.x    | Gestores de paquetes JS |
-| pip        | ≥22.x   | Gestor de paquetes Python |
-| Gradle      | ≥3.x    | Gestor de dependencias Java |
+
+| Componente  | Versión | Descripción                                      |
+|-------------|---------|--------------------------------------------------|
+| Docker      | ≥20.x   | Contenedorización                                |
+| Git         | ≥2.x    | Control de versiones                             |
+| npm/yarn    | ≥8.x    | Gestores de paquetes JS                          |
+| pip         | ≥22.x   | Gestor de paquetes Python                        |
+| Gradle      | ≥3.x    | Gestor de dependencias Java                      |
 
 #### Seguridad y Autenticación
-| Componente | Versión | Descripción |
-|------------|---------|-------------|
-| JWT        | ≥9.x    | Tokens de autenticación |
-| Argon2     | ≥21.x   | Hashing de contraseñas |
-| OAuth2     | ≥2.0    | Protocolo de autorización |
+
+| Componente  | Versión | Descripción                                      |
+|-------------|---------|--------------------------------------------------|
+| JWT         | ≥9.x    | Tokens de autenticación                          |
+| Argon2      | ≥21.x   | Hashing de contraseñas                           |
+
+
+
+
 
 ### 🚀 Inicio Rápido con Docker
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/yourusername/vitalnest.git
+git clone https://github.com/yourusername/carelink-nexora.git
 
 # Iniciar con Docker Compose
 docker-compose up -d
@@ -215,46 +172,19 @@ docker-compose up -d
 
 ## 📸 Vistas del Sistema
 
-<div align="center">
-<table>
-<tr>
-<td align="center">
-<img src="https://via.placeholder.com/400x300?text=Dashboard" alt="Dashboard"/>
-<br>
-<em>Dashboard Principal 🎮</em>
-</td>
-<td align="center">
-<img src="https://via.placeholder.com/400x300?text=Actividades" alt="Actividades"/>
-<br>
-<em>Gestión de Actividades 🎨</em>
-</td>
-</tr>
-<tr>
-<td align="center">
-<img src="https://via.placeholder.com/400x300?text=Dietas" alt="Dietas"/>
-<br>
-<em>Sistema de Dietas 🥗</em>
-</td>
-<td align="center">
-<img src="https://via.placeholder.com/400x300?text=Medicamentos" alt="Medicamentos"/>
-<br>
-<em>Control de Medicamentos 💊</em>
-</td>
-</tr>
-</table>
-</div>
+| ![Dashboard](https://via.placeholder.com/400x300?text=Dashboard) | ![Cuidados](https://via.placeholder.com/400x300?text=Cuidados) |
+|:---:|:---:|
+| *Panel de Control Nexora 🎮* | *Gestión de Cuidados 🤝* |
+| ![Monitoreo](https://via.placeholder.com/400x300?text=Monitoreo) | ![Comunicación](https://via.placeholder.com/400x300?text=Comunicacion) |
+| *Sistema de Monitoreo 📊* | *Centro de Comunicación 💬* |
 
 ## 👥 Nuestro Increíble Equipo
 
-<div align="center">
-
-| <img src="https://github.com/2-DAW-PROJECTS/images_proyects/blob/master/image-removebg-preview%20(1).png" alt="Javier profile" width="230" height="150" /> | <img src="https://github.com/2-DAW-PROJECTS/images_proyects/blob/master/bobesponja.png" alt="Llorenç profile" width="150" height="150" /> |
-|:---:|:---:|
-| **Javier Tomás Tormo** | **Llorenç Alfonso Sanchis** |
-| ⚙️ Full Stack | ⚙️ Full Stack |
-| [![GitHub](https://img.shields.io/badge/GitHub-JavierTomasTormo-black?style=flat-square&logo=github)](https://github.com/JavierTomasTormo) | [![GitHub](https://img.shields.io/badge/GitHub-alfosan-black?style=flat-square&logo=github)](https://github.com/alfosan) |
-
-</div>
+| ![Javier profile](https://github.com/2-DAW-PROJECTS/images_proyects/blob/master/image-removebg-preview%20(1).png) |
+|:---:|
+| **Javier Tomás Tormo** |
+| ⚙️ Full Stack |
+| [![GitHub](https://img.shields.io/badge/GitHub-JavierTomasTormo-black?style=flat-square&logo=github)](https://github.com/JavierTomasTormo) |
 
 ## 🤝 ¿Quieres Contribuir?
 
@@ -262,32 +192,32 @@ docker-compose up -d
 
 1. 🍴 Fork el proyecto
 2. 🔧 Crea tu Feature Branch
-   ```bash
-   git checkout -b feature/CaracteristicaIncreible
-   ```
+```bash
+git checkout -b feature/CaracteristicaIncreible
+```
+
 3. 💫 Commit tus cambios
-   ```bash
-   git commit -m '✨ Add: Característica Increíble'
-   ```
-4. 📤 Push a la Branch
-5. 🎉 Abre un Pull Request
+```bash
+git commit -m '✨ Add: Característica Increíble'
+```
 
-## 📝 Licencia
+📤 **Push a la Branch**  
+🎉 **Abre un Pull Request**  
 
-<div align="center">
+📝 **Licencia**  
+Este proyecto está bajo la Licencia MIT - mira el archivo LICENSE.md para detalles.
 
-Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE.md](LICENSE.md) para detalles
+🌟 **¿Necesitas Ayuda?**  
 
----
+| Imagen                                                      | Enlace                                                                 |
+|-------------------------------------------------------------|------------------------------------------------------------------------|
+| <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" alt="LinkedIn" height="40"> | [LinkedIn](https://www.linkedin.com/in/javier-tomás-tormo-81452132a/) |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" width="40" height="40">  | [GitHub](https://github.com/JavierTomasTormo)                         |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Gmail" width="40" height="40">          | [Gmail](mailto:javiertomastormo@gmail.com)                             |
 
-### 🌟 ¿Necesitas Ayuda?
+Made with 💖 & ☕ by CareLink Nexora Team
 
-[![Email](https://img.shields.io/badge/Email-support%40vitalnest.com-blue?style=for-the-badge&logo=mail.ru)](mailto:support@vitalnest.com)
-[![Twitter](https://img.shields.io/badge/Twitter-%40VitalNest-blue?style=for-the-badge&logo=twitter)](https://twitter.com/VitalNest)
-[![Discord](https://img.shields.io/badge/Discord-Join%20Us-7289DA?style=for-the-badge&logo=discord)](https://discord.gg/vitalnest)
 
-<p align="center">
-  <sub>Made with 💖 & ☕ by VitalNest Team</sub>
-</p>
 
-</div>
+
+
