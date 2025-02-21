@@ -86,7 +86,8 @@
 <ng-template #activityModal>
   <div class="modal-header">
     <h5 class="modal-title">Activity Details</h5>
-    <button type="button" class="close" aria-label="Close" (click)="modalRef?.hide()">
+    <!-- <button type="button" class="close" aria-label="Close" (click)="modalRef?.hide()"> -->
+    <button type="button" class="close" aria-label="Close" (click)="modalRef?.close()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -112,7 +113,8 @@
 <ng-template #patientModal>
   <div class="modal-header">
     <h5 class="modal-title">Patient Details</h5>
-    <button type="button" class="close" aria-label="Close" (click)="modalRef?.hide()">
+    <!-- <button type="button" class="close" aria-label="Close" (click)="modalRef?.hide()"> -->
+      <button type="button" class="close" aria-label="Close" (click)="modalRef?.close()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
