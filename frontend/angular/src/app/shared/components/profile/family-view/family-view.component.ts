@@ -7,7 +7,7 @@ import { UserPatientService } from '../../../../core/services/users/user-patient
 import { CookieService } from '../../../../core/services/cookies/cookie.service';
 import { UserPatient } from '../../../../core/models/Users/user-patient.model';
 import { User } from '../../../../core/models/Users/user.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SHARED_ROUTES } from '../../../../core/constants/shared.routes';
 
 
@@ -73,13 +73,29 @@ export class FamilyViewComponent implements OnInit {
   constructor(
     private userPatientService: UserPatientService,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.user = this.cookieService.getCurrentUser();
   }
 
   ngOnInit(): void {
     this.loadUserPatients();
+  
+    this.route.queryParams.subscribe(params => {
+      const patientEmail = params['email'];
+      if (patientEmail) {
+        this.userPatientService.getUserPatientsByUser(this.user.id_user).subscribe({
+          next: (data) => {
+            this.userPatients = data;
+            this.filteredPatients = data;
+            this.updateMetrics();
+            this.updateDisabilityChart();
+            this.selectPatientByEmail(patientEmail);
+          }
+        });
+      }
+    });
   }
 
   loadUserPatients(): void {
@@ -107,6 +123,16 @@ export class FamilyViewComponent implements OnInit {
       metrics.dietScore,
       metrics.sleepQuality
     ];
+  }
+
+  selectPatientByEmail(email: string): void {
+    const patient = this.userPatients.find(p => p.email === email);
+    // console.log('Selected patient email:', email);
+    // console.log('Patients:', this.userPatients);
+    // console.log('Selected patient:', patient);
+    if (patient) {
+      this.selectPatient(patient);
+    }
   }
 
   private updateDisabilityChart(): void {
