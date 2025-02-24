@@ -26,6 +26,7 @@
     "@ngrx/entity": "^18.0.0",
     "@ngrx/store": "^18.0.0",
     "@ngrx/store-devtools": "^18.0.0",
+    "@popperjs/core": "^2.11.8",
     "@stripe/stripe-js": "^5.6.0",
     "@types/chart.js": "^2.9.41",
     "@types/js-cookie": "^3.0.6",

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookingsService } from '../../../../core/services/bookings/bookings.service';
 import { ActivityService } from '../../../../core/services/activities/activity.service';
 import { UserPatientService } from '../../../../core/services/users/user-patient.service';
@@ -10,7 +10,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-bookings-view',
   standalone: true,
-  imports: [CommonModule, BrowserAnimationsModule],
+  imports: [CommonModule],
   templateUrl: './bookings-view.component.html',
   styleUrls: ['./bookings-view.component.css']
 })
@@ -43,23 +43,27 @@ export class BookingsViewComponent implements OnInit {
     this.selectedPatient = patient;
     this.modalRef = this.modalService.open(modal);
   }
-  
+
 
   fetchBookings(): void {
+    this.isLoading = true;
     this.bookingsService.getBookings().subscribe({
       next: (data) => {
-        console.log('Bookings data:', data); 
         this.bookings = data;
         this.loadAdditionalData();
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error fetching bookings:', error);
-        this.errorMessage = 'Error fetching bookings';
         this.isLoading = false;
+        if (error.status === 403) {
+          this.errorMessage = 'You are not authorized to view these bookings. Please log in again.';
+        } else {
+          this.errorMessage = 'Unable to load bookings. Please try again later.';
+        }
       }
     });
   }
+
 
   loadAdditionalData(): void {
     this.bookings.forEach(booking => {
