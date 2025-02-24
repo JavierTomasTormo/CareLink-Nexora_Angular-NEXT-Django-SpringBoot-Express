@@ -4,8 +4,8 @@ import { BookingsService } from '../../../../core/services/bookings/bookings.ser
 import { ActivityService } from '../../../../core/services/activities/activity.service';
 import { UserPatientService } from '../../../../core/services/users/user-patient.service';
 import { UserPatient } from '../../../../core/models/Users/user-patient.model';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgChartsModule } from 'ng2-charts';
+import { ChartConfiguration, ChartData } from 'chart.js';
 import { ProfileTabsComponent } from '../profile-tabs/profile-tabs.component';
 
 @Component({
@@ -21,40 +21,49 @@ export class BookingsViewComponent implements OnInit {
   errorMessage = '';
   selectedActivity: any;
   selectedPatient: UserPatient | undefined;
-  modalRef?: NgbModalRef;
+  activeFilter: string = 'all';
+  filteredBookings: any[] = [];
+  totalGastado: number = 0;
   activeTab: string = 'reservations';
 
-
-  // Métricas
-  totalGastado = 0;
-  actividadesPreferidas: any[] = [];
-  
-  // Configuración del gráfico de actividades
-  activityChartData: {
-    labels: string[];
-    datasets: {
-      data: number[];
-      backgroundColor: string[];
-    }[];
-  } = {
+  // Configuración de gráficos
+  dailySpendingData: ChartData = {
     labels: [],
     datasets: [{
       data: [],
-      backgroundColor: [
-        '#4F46E5',
-        '#7C3AED',
-        '#EC4899',
-        '#F59E0B',
-        '#10B981'
-      ]
+      borderColor: '#4F46E5',
+      backgroundColor: 'rgba(79, 70, 229, 0.2)',
+      label: 'Gasto Diario (€)'
     }]
+  };
+
+  chartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom'
+      },
+      title: {
+        display: true,
+        text: 'Gasto Diario'
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: function(value) {
+            return value + '€';
+          }
+        }
+      }
+    }
   };
 
   constructor(
     private bookingsService: BookingsService,
     private activityService: ActivityService,
-    private userPatientService: UserPatientService,
-    private modalService: NgbModal
+    private userPatientService: UserPatientService
   ) {}
 
   ngOnInit(): void {
@@ -64,14 +73,14 @@ export class BookingsViewComponent implements OnInit {
   setActiveTab(activeTab: string): void {
     console.log('Active tab changed to:', activeTab);
     this.activeTab = activeTab;
-  } 
-
+  }
 
   fetchBookings(): void {
     this.isLoading = true;
     this.bookingsService.getBookings().subscribe({
       next: (data) => {
         this.bookings = data;
+        this.filteredBookings = data;
         this.loadAdditionalData();
         this.calculateMetrics();
         this.isLoading = false;
@@ -88,20 +97,25 @@ export class BookingsViewComponent implements OnInit {
   }
 
   loadAdditionalData(): void {
+    let activitiesLoaded = 0;
+    const totalActivities = this.bookings.length;
+
     this.bookings.forEach(booking => {
-
-      console.log('Booking:', booking);
-
       this.activityService.getActivityById(booking.idActivity).subscribe({
         next: (activityData) => {
           booking.activity = activityData;
-          this.updateMetrics();
+          activitiesLoaded++;
+          if (activitiesLoaded === totalActivities) {
+            this.updateMetrics();
+          }
         },
         error: (error) => console.error('Error al obtener datos de actividad:', error)
       });
 
       this.userPatientService.getUserPatientsByUser(booking.idPatient).subscribe({
-        next: (patientData) => booking.patient = patientData,
+        next: (patientData) => {
+          booking.patient = Array.isArray(patientData) ? patientData : [patientData];
+        },
         error: (error) => console.error('Error al obtener datos del paciente:', error)
       });
     });
@@ -109,33 +123,41 @@ export class BookingsViewComponent implements OnInit {
 
   calculateMetrics(): void {
     this.updateTotalGastado();
-    this.updateActividadesPreferidas();
+    this.updateDailySpending();
+    console.log('Bookings:', this.bookings);
   }
 
   updateTotalGastado(): void {
-    this.totalGastado = this.bookings.reduce((total, booking) => 
-      total + (parseFloat(booking.activity?.price) || 0), 0);
+    this.totalGastado = this.filteredBookings.reduce((total, booking) => {
+      const price = booking.activity?.price ? parseFloat(booking.activity.price) : 0;
+      return total + price;
+    }, 0);
   }
 
-  updateActividadesPreferidas(): void {
-    const activityCount = new Map();
-    this.bookings.forEach(booking => {
-      const activityName = booking.activity?.name_activitie;
-      if (activityName) {
-        activityCount.set(activityName, (activityCount.get(activityName) || 0) + 1);
+  updateDailySpending(): void {
+    const dailyTotals = new Map<string, number>();
+
+    this.filteredBookings.forEach(booking => {
+      if (booking.activity?.price) {
+        const date = `${booking.idDay}/${booking.idMonth}/${booking.createdAt[0]}`;
+        const price = parseFloat(booking.activity.price);
+        dailyTotals.set(date, (dailyTotals.get(date) || 0) + price);
       }
     });
 
-    this.actividadesPreferidas = Array.from(activityCount.entries())
-      .map(([name, count]) => ({name, count}))
-      .sort((a, b) => b.count - a.count);
-
-    this.updateChartData();
+    const sortedDates = Array.from(dailyTotals.keys()).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+    this.dailySpendingData.labels = sortedDates;
+    this.dailySpendingData.datasets[0].data = sortedDates.map(date => dailyTotals.get(date) || 0);
   }
 
-  updateChartData(): void {
-    this.activityChartData.labels = this.actividadesPreferidas.map(a => a.name);
-    this.activityChartData.datasets[0].data = this.actividadesPreferidas.map(a => a.count);
+  filterBookings(status: string): void {
+    this.activeFilter = status;
+    if (status === 'all') {
+      this.filteredBookings = this.bookings;
+    } else {
+      this.filteredBookings = this.bookings.filter(b => b.state === status);
+    }
+    this.calculateMetrics();
   }
 
   getPendingBookings(): number {
@@ -148,28 +170,6 @@ export class BookingsViewComponent implements OnInit {
 
   getCancelledBookings(): number {
     return this.bookings.filter(b => b.state === 'cancelled').length;
-  }
-
-  get pendingBookingsCount(): number {
-    return this.bookings.filter(b => b.state === 'pending').length;
-  }
-
-  get completedBookingsCount(): number {
-    return this.bookings.filter(b => b.state === 'completed').length;
-  }
-
-  get cancelledBookingsCount(): number {
-    return this.bookings.filter(b => b.state === 'cancelled').length;
-  }
-
-  showActivityDetails(modal: any, activity: any): void {
-    this.selectedActivity = activity;
-    this.modalRef = this.modalService.open(modal);
-  }
-
-  showPatientDetails(modal: any, patient: UserPatient): void {
-    this.selectedPatient = patient;
-    this.modalRef = this.modalService.open(modal);
   }
 
   private updateMetrics(): void {
