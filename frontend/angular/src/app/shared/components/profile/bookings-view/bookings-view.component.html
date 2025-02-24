@@ -31,8 +31,8 @@
       <!-- Metrics Cards -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div (click)="filterBookings('all')" 
-             [class.border-blue-500]="activeFilter === 'all'"
-             class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+              [class.border-blue-500]="activeFilter === 'all'"
+              class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-500 text-sm">Total Bookings</p>
@@ -46,8 +46,8 @@
 
         <!-- Pending Card -->
         <div (click)="filterBookings('pending')" 
-             [class.border-blue-500]="activeFilter === 'pending'"
-             class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+              [class.border-blue-500]="activeFilter === 'pending'"
+              class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-500 text-sm">Pending</p>
@@ -61,8 +61,8 @@
 
         <!-- Completed Card -->
         <div (click)="filterBookings('completed')"
-             [class.border-blue-500]="activeFilter === 'completed'"
-             class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+              [class.border-blue-500]="activeFilter === 'completed'"
+              class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-500 text-sm">Completed</p>
@@ -76,8 +76,8 @@
 
         <!-- Cancelled Card -->
         <div (click)="filterBookings('cancelled')"
-             [class.border-blue-500]="activeFilter === 'cancelled'"
-             class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+              [class.border-blue-500]="activeFilter === 'cancelled'"
+              class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-500 text-sm">Cancelled</p>
@@ -219,3 +219,10 @@
     </div>
   </div>
 </div>
+
+<!-- Añadir al final del template -->
+<app-activity-details-modal
+  [activity]="selectedActivity"
+  [isOpen]="showActivityModal"
+  (closeModal)="showActivityModal = false">
+</app-activity-details-modal>

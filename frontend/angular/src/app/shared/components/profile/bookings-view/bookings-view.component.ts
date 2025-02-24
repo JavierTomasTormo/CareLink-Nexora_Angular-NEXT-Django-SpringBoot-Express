@@ -8,11 +8,12 @@ import { NgChartsModule, BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { ProfileTabsComponent } from '../profile-tabs/profile-tabs.component';
 import { Router } from '@angular/router';
+import { ActivityDetailsModalComponent } from '../../modals/activity-details-modal/activity-details-modal.component';
 
 @Component({
   selector: 'app-bookings-view',
   standalone: true,
-  imports: [CommonModule, NgChartsModule, ProfileTabsComponent],
+  imports: [CommonModule, NgChartsModule, ProfileTabsComponent, ActivityDetailsModalComponent],
   templateUrl: './bookings-view.component.html',
   styleUrls: ['./bookings-view.component.css']
 })
@@ -31,6 +32,8 @@ export class BookingsViewComponent implements OnInit {
   sortDirectionCreatedAt: 'asc' | 'desc' = 'asc';
   sortDirectionStatus: 'asc' | 'desc' = 'asc';
   totalGastado: number = 0;
+  selectedActivity: any = null;
+  showActivityModal: boolean = false;
 
 
   currentPage: number = 1;
@@ -115,6 +118,8 @@ export class BookingsViewComponent implements OnInit {
   setActiveTab(activeTab: string): void {
     this.activeTab = activeTab;
   }
+
+
 
   fetchBookings(): void {
     this.isLoading = true;
@@ -317,8 +322,10 @@ export class BookingsViewComponent implements OnInit {
     }
   }
 
-  showActivityDetails(booking: any): void {
-    console.log('Booking details:', booking);
+  showActivityDetails(activity: any): void {
+    // console.log('Activity selected:', activity);
+    this.selectedActivity = activity;
+    this.showActivityModal = true;
   }
 
   showPatientDetails(booking: any): void {
