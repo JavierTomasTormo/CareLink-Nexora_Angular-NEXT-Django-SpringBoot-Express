@@ -32,7 +32,7 @@ public class JwtUtils {
 
             // Inicializa la clave secreta desde el valor de la propiedad
             this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-            logger.info("Clave secreta inicializada correctamente.");
+            logger.info("Clave secreta inicializada correctamente.", jwtSecret);
         } catch (Exception e) {
             logger.error("Error al inicializar la clave secreta: {}", e.getMessage());
             throw new RuntimeException("Error al inicializar la clave secreta.", e);
