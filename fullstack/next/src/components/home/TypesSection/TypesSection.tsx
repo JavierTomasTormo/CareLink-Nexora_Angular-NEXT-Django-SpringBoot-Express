@@ -63,7 +63,7 @@ return (
         <div className={styles.row_small}>
             {coffeeTypes.map((coffee, index) => (
                 <div key={index} className={styles.coffee}>
-                    <Image src={coffee.image} className={styles.coffee_img} alt={coffee.name} width={512} height={512} />
+                    <Image src={coffee.image} className={styles.coffee_img} alt={coffee.name} width={207} height={205} />
                     <h2 className={styles.coffee_name}>{coffee.name}</h2>
                     <p className={styles.coffee_descr}>{coffee.description}</p>
                     <button className={styles.card_btn}>

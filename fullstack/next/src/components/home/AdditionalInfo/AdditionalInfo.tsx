@@ -26,14 +26,14 @@ const AdditionalInfo = () => {
                         <Image src="https://www.suacasa.es/images/suacasa-servicios-portada.jpg" alt="Servicio 1" layout="fill" objectFit="cover" />
                         {/* <img src="https://www.suacasa.es/images/suacasa-servicios-portada.jpg" alt="Servicio 1" /> */}
                     <div className={styles.card_text}>
-                        <p>Ofrecemos servicios especializados para el cuidado integral de nuestros residentes.</p>
+                        <p>Servicios especializados para el cuidado.</p>
                     </div>
                 </div>
                 <div className={styles.card_top}>
                         <Image src="https://www.eninter.com/wp-content/uploads/2024/09/elevador-para-escaleras-768x768.png" alt="Servicio 2" layout="fill" objectFit="cover" />
                         {/* <img src="https://www.eninter.com/wp-content/uploads/2024/09/elevador-para-escaleras-768x768.png" alt="Servicio 2" /> */}
                     <div className={styles.card_text}>
-                        <p>Instalaciones modernas diseñadas para el confort y la seguridad.</p>
+                        <p>Instalaciones modernas diseñadas para el confort.</p>
                     </div>
                 </div>
                 <div className={styles.card_right}>

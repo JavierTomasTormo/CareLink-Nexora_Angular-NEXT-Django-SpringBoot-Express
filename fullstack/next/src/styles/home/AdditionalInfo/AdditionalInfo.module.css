@@ -22,6 +22,8 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .card_top:hover,
@@ -51,20 +53,21 @@
     height: calc(100% - 200px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end; /* Align content to bottom */
     background: white;
+    margin-top: auto; /* Push to bottom of flex container */
 }
 
 .card_text p {
     margin: 0;
-    color: #767676;
-    font-size: 1rem;
+    color: #ffffff;
     line-height: 1.6;
     font-family: 'Nunito', sans-serif;
     text-align: left;
     position: relative;
     padding-left: 20px;
-    border-left: 2px solid #daa37f;
+    border-left: 4px solid #daa37f;
+    background-color: #0000008a;
 }
 
 /* Media queries remain the same but with updated styles */
