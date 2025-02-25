@@ -1,5 +1,4 @@
 import styles from '../../styles/layout/Footer.module.css';
-import Image from 'next/image';
 import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { MdPhone, MdEmail, MdLocationOn, MdAccessTime } from 'react-icons/md';
@@ -15,13 +14,6 @@ const Footer: React.FC = () => {
       
       <div className={styles.footerContent}>
         <div className={styles.footerBrand}>
-          {/* <Image 
-            src="/Logo_VitalNest.png" 
-            alt="VitalNest" 
-            width={200} 
-            height={150} 
-            className={styles.logo}
-          /> */}
           <p className={styles.brandText}>
             Elevando los estándares del cuidado geriátrico con elegancia y dedicación desde 2025.
           </p>

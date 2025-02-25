@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import styles from "@/styles/meals/SlideMeals.module.css";
 import { Swiper as SwiperType } from "swiper";
-
+import Image from "next/image";
 
 interface Product {
   id: string;
@@ -153,7 +153,7 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps &
               <div className={styles.center}>
                 {index === activeSlide && (
                   <>
-                    <img className={styles.bottleImg} src={product.productImage} alt={product.title} />
+                    <Image className={styles.bottleImg} src={product.productImage} alt={product.title} width={500} height={500} />
                   </>
                 )}
               </div>

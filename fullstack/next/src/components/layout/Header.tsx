@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import styles from '../../styles/layout/Header.module.css';
 import { SHARED_ROUTES, UserData,  DEFAULT_USER } from '@/store/Constants';
-import { isAuthenticated, logout, authListener, getUserInfo } from '../../utils/auth';
+import { isAuthenticated, authListener, getUserInfo } from '../../utils/auth';
+import Image from 'next/image';
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,7 +41,7 @@ const Header: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.logo}>
           <Link href={SHARED_ROUTES.NEXT.HOME}>
-            <img src="/Logo_VitalNest.png" alt="VitalNest Logo" />
+            <Image src="/Logo_VitalNest.png" alt="VitalNest Logo" width={150} height={50} />
           </Link>
         </div>
         <button className={styles.hamburger} onClick={toggleMenu} aria-label="Toggle menu">
@@ -79,10 +80,12 @@ const Header: React.FC = () => {
               <li className={`${styles.navItem} ${styles.profileContainer}`}>
                 <div className={styles.profileTrigger} onClick={toggleProfileMenu}>
                   {user?.profile_img ? (
-                    <img 
+                    <Image 
                       src={user.profile_img} 
                       alt="Profile" 
                       className={styles.profileImage}
+                      width={40}
+                      height={40}
                     />
                   ) : (
                     <i className={`fas fa-user ${styles.profileIcon}`}></i>
@@ -92,10 +95,12 @@ const Header: React.FC = () => {
                 <div className={`${styles.profileDropdown} ${profileMenuOpen ? styles.show : ''}`}>
                   <div className={styles.profileHeader}>
                     {user?.profile_img ? (
-                      <img 
+                      <Image 
                         src={user.profile_img} 
                         alt="Profile" 
                         className={styles.dropdownProfileImage}
+                        width={40}
+                        height={40}
                       />
                     ) : (
                       <i className={`fas fa-user ${styles.profileIcon}`}></i>
