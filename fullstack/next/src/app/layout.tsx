@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   description: 'Centro especializado en cuidados geriátricos personalizados, ofreciendo atención médica profesional y servicios de calidad para adultos mayores.',
   keywords: 'cuidado geriátrico, adultos mayores, atención médica, residencia geriátrica, cuidados especializados',
   authors: [{ name: 'VitalNest' }],
+  icons: {
+    icon: '/favicon.ico',
+  },
   openGraph: {
     title: 'VitalNest | Cuidado Geriátrico Especializado',
     description: 'Centro especializado en cuidados geriátricos personalizados',

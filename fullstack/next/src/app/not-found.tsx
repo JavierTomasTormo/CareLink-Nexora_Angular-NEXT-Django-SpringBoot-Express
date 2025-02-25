@@ -44,7 +44,7 @@ export default function NotFound() {
                 {/* <code> */}
                     <span> else if</span> (<b>hemos_metido_la_pata</b>) {'{'}
                     <br/><br/>
-                    <span>    </span><em>alert</em>(<i>"Intentelo mas tarde."</i>);
+                    <span>    </span><em>alert</em>(<i>&quot;Intentelo mas tarde.&quot;</i>);
                     <br/>
                     <span>    </span><span>window</span>.<em>location</em> = home;
                     <br/><br/>

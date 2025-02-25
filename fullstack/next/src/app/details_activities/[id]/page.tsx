@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from 'next';
 import ActivityDetailsClient from '@/components/details/details_activity/ActivityDetailsClient';
 
+
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -23,7 +29,11 @@ export const metadata: Metadata = {
   robots: 'index, follow',
 };
 
-export default async function ActivityDetailsPage({ params }: { params: { id: string } }) {
-  const { id } = await params;
-  return <ActivityDetailsClient activityId={id} />;
+// export default async function ActivityDetailsPage({ params }: { params: { id: string } }) {
+//   const { id } = params;
+//   return <ActivityDetailsClient activityId={id} />;
+// }
+
+export default async function Page({ params }: Props) {
+  return <ActivityDetailsClient activityId={params.id} />;
 }
