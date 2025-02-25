@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store';
 import { fetchActivity, selectActivitiesStatus, selectActivitiesError } from '@/store/slices/activitiesSlice';
@@ -10,29 +10,21 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { Navigation, Pagination } from 'swiper/modules';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated, getUserInfo } from '@/utils/auth';
+import { isAuthenticated } from '@/utils/auth';
 import { Avatar } from '@mui/material';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, PieChart, Pie, Cell } from 'recharts';
+import Image from 'next/image';
+import { Tooltip, Legend, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, PieChart, Pie, Cell } from 'recharts';
 import { FaWheelchair, FaSignLanguage, FaAccessibleIcon, FaParking, FaHeart, FaUsers } from 'react-icons/fa';
 import { MdOutlineLocalHospital, MdSportsGymnastics, MdWaterDrop } from 'react-icons/md';
 
 const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId }) => {
-    // Redux and Router setup
     const dispatch = useDispatch<AppDispatch>();
     const router = useRouter();
     const activity = useSelector((state: RootState) => state.activities.activities.find(a => a.id === parseInt(activityId)));
     const status = useSelector(selectActivitiesStatus);
     const error = useSelector(selectActivitiesError);
     const isLoggedIn = isAuthenticated();
-    const userInfo = getUserInfo();
 
-    // Mock Data
-    const performanceData = [
-        { name: 'Semana 1', calories: 300, usuarios: 25 },
-        { name: 'Semana 2', calories: 400, usuarios: 30 },
-        { name: 'Semana 3', calories: 350, usuarios: 28 },
-        { name: 'Semana 4', calories: 500, usuarios: 35 },
-    ];
 
     const healthMetrics = {
         beneficiosSalud: 85,
@@ -40,15 +32,6 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
         mejoraPostura: 75,
         reduccionEstres: 88,
     };
-
-    const attendanceData = [
-        { hora: '7:00', asistencia: 15 },
-        { hora: '9:00', asistencia: 25 },
-        { hora: '12:00', asistencia: 20 },
-        { hora: '16:00', asistencia: 30 },
-        { hora: '18:00', asistencia: 35 },
-        { hora: '20:00', asistencia: 28 },
-    ];
 
     const comentariosFijos = [
         {
@@ -169,10 +152,12 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
                             >
                                 {activity.images.map((imgObj, index) => (
                                     <SwiperSlide key={index}>
-                                        <img 
+                                        <Image 
                                             src={`/assets/shop/activities/${imgObj.img}`} 
                                             alt={`${activity.name_activitie} - Imagen ${index + 1}`} 
                                             className={styles.mainImage} 
+                                            width={500}
+                                            height={500}
                                         />
                                     </SwiperSlide>
                                 ))}
@@ -306,18 +291,16 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
                 {/* Blog Section */}
                 <section className={styles.blogSection}>
                     <h2>📝 Blog Relacionado</h2>
-                    <div className={styles.blogEntries}>
-                        {blogEntries.map((entry, index) => (
-                            <div key={index} className={styles.blogEntry}>
-                                <img src={entry.imagen} alt={entry.titulo} />
-                                <div className={styles.blogContent}>
-                                    <h4>{entry.titulo}</h4>
-                                    <p>{entry.resumen}</p>
-                                    <span>Por {entry.autor} - {entry.fecha}</span>
-                                </div>
+                    {blogEntries.map((entry, index) => (
+                        <div key={index} className={styles.blogEntry}>
+                            <Image src={entry.imagen} alt={entry.titulo} width={500} height={500} />
+                            <div className={styles.blogContent}>
+                                <h4>{entry.titulo}</h4>
+                                <p>{entry.resumen}</p>
+                                <span>Por {entry.autor} - {entry.fecha}</span>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </section>
 
                 {/* Facilities Section */}

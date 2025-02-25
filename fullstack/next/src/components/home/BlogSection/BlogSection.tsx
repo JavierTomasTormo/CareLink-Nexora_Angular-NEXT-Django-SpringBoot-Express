@@ -80,9 +80,9 @@ const BlogSection = () => {
                 <div className={styles.row_center}>
                 <Image 
                     src="/Logo_VitalNest.png" 
-                    alt="VitalNest" 
+                    alt="CareLink" 
                     width={200} 
-                    height={150} 
+                    height={200} 
                     className={styles.logo}
                 />
                 </div>
