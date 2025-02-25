@@ -6,19 +6,19 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#ffffff'
+  themeColor: '#0078D7'
 };
 
 export const metadata: Metadata = {
-  title: 'VitalNest | Shop - Activities & Services',
-  description: 'Explore our wide range of elderly care activities including rehabilitation, outdoor activities, relaxation services, educational programs, and specialized care services.',
-  keywords: 'elderly care activities, rehabilitation services, outdoor activities, relaxation therapy, educational programs, senior care',
+  title: 'CareLink by Nexora | Catálogo de Servicios',
+  description: 'Explore nuestra amplia gama de servicios para residencias geriátricas: rehabilitación, actividades terapéuticas, servicios médicos y cuidados especializados.',
+  keywords: 'servicios geriátricos, atención personalizada, rehabilitación, terapia ocupacional, CareLink, Nexora, gestión residencial',
   openGraph: {
-    title: 'VitalNest | Shop - Activities & Services',
-    description: 'Discover specialized activities and services for elderly care at VitalNest',
+    title: 'CareLink by Nexora | Catálogo de Servicios',
+    description: 'Servicios especializados para residencias de ancianos integrados en la plataforma CareLink',
     type: 'website',
-    url: 'https://vitalnest.com/shop',
-    siteName: 'VitalNest',
+    url: 'https://carelink.nexora.com/shop',
+    siteName: 'CareLink by Nexora',
   },
   robots: 'index, follow',
 };
