@@ -1,20 +1,21 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { loadStripe, Stripe,  StripeCardElement } from '@stripe/stripe-js';
 import { createPaymentIntent } from '@/services/payments/paymentsService';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styles from '@/styles/inscriptions/PaymentInscriptionCard.module.css';
 import Swal from 'sweetalert2';
 import { createInscription } from '@/services/inscriptions/inscriptionService';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const PaymentInscriptionCard: React.FC<{ amount: number, activityId: number, patientId: number, specialRequest: string }> = ({ amount, activityId, patientId, specialRequest }) => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
-  const [cardElement, setCardElement] = useState<any>(null);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [cardElement, setCardElement] = useState<StripeCardElement | null>(null);
+  const [errorMessage, ] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentCardBackground, setCurrentCardBackground] = useState(Math.floor(Math.random() * 25 + 1));
+  const [currentCardBackground, ] = useState(Math.floor(Math.random() * 25 + 1));
   const [cardName, setCardName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [cardMonth, setCardMonth] = useState('');
@@ -22,7 +23,7 @@ const PaymentInscriptionCard: React.FC<{ amount: number, activityId: number, pat
   const [cardCvv, setCardCvv] = useState('');
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [focusElementStyle, setFocusElementStyle] = useState<React.CSSProperties | null>(null);
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [, setIsInputFocused] = useState(false);
   const minCardYear = new Date().getFullYear();
   const amexCardMask = '#### ###### #####';
   const otherCardMask = '#### #### #### ####';
@@ -105,7 +106,7 @@ const handlePayment = async (event: React.FormEvent) => {
         const response = await createPaymentIntent(amountInCents);
 
         if (response && response.clientSecret) {
-            const clientSecret = response.clientSecret;
+            const clientSecret = String(response.clientSecret);
 
             const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: paymentMethod.id,
@@ -251,28 +252,6 @@ const handlePayment = async (event: React.FormEvent) => {
     });
   };
 
-  const focusInput = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setIsInputFocused(true);
-    const target = e.target;
-    const rect = target.getBoundingClientRect();
-    const cardForm = document.querySelector(`.${styles['card-form']}`);
-    const cardFormRect = cardForm?.getBoundingClientRect();
-
-    if (cardFormRect) {
-      setFocusElementStyle({
-        width: `${target.offsetWidth}px`,
-        height: `${target.offsetHeight}px`,
-        transform: `translateX(${rect.left - cardFormRect.left}px) translateY(${rect.top - cardFormRect.top}px)`,
-        opacity: 1
-      });
-    }
-  };
-
-  const blurInput = () => {
-    setIsInputFocused(false);
-    setFocusElementStyle(null);
-  };
-
   return (
     <div className={styles.wrapper}>
       <div className={styles['card-form']}>
@@ -284,22 +263,30 @@ const handlePayment = async (event: React.FormEvent) => {
                 style={focusElementStyle || undefined}
               ></div>
               <div className={styles['card-item__cover']}>
-                <img
+                <Image
                   src={`https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/${currentCardBackground}.jpeg`}
                   className={styles['card-item__bg']}
+                  alt="Card background"
+                  width={500}
+                  height={300}
                 />
               </div>
               <div className={styles['card-item__wrapper']}>
                 <div className={styles['card-item__top']}>
-                  <img
+                  <Image
                     src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png"
                     className={styles['card-item__chip']}
+                    alt="Card chip"
+                    width={50}
+                    height={50}
                   />
                   <div className={styles['card-item__type']}>
-                    <img
+                    <Image
                       src={`https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/${getCardType()}.png`}
-                      alt=""
+                      alt={`${getCardType()} card type`}
                       className={styles['card-item__typeImg']}
+                      width={50}
+                      height={50}
                     />
                   </div>
                 </div>
@@ -330,11 +317,13 @@ const handlePayment = async (event: React.FormEvent) => {
             </div>
             <div className={`${styles['card-item__side']} ${styles['-back']}`}>
               <div className={styles['card-item__cover']}>
-                <img
+                <Image
                   src={`https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/${currentCardBackground}.jpeg`}
                   className={styles['card-item__bg']}
-                />
-              </div>
+                  alt="Card background"
+                  width={500}
+                  height={300}
+                />              </div>
               <div className={styles['card-item__band']}></div>
               <div className={styles['card-item__cvv']}>
                 <div className={styles['card-item__cvvTitle']}>CVV</div>
@@ -344,9 +333,12 @@ const handlePayment = async (event: React.FormEvent) => {
                   ))}
                 </div>
                 <div className={styles['card-item__type']}>
-                  <img
+                  <Image
                     src={`https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/${getCardType()}.png`}
                     className={styles['card-item__typeImg']}
+                    alt={`${getCardType()} card type`}
+                    width={50}
+                    height={50}
                   />
                 </div>
               </div>
@@ -432,7 +424,7 @@ const handlePayment = async (event: React.FormEvent) => {
                       handleFlipCard(true);
                       handleFocusInput(e);
                     }}
-                    onBlur={(e) => {
+                    onBlur={() => {
                       handleFlipCard(false);
                       handleBlurInput();
                     }}

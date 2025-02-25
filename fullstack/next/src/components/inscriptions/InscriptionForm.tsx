@@ -8,7 +8,7 @@ import styles from '@/styles/inscriptions/InscriptionForm.module.css';
 import { useRouter } from 'next/navigation';
 import { FaUser, FaCalendar, FaDollarSign, FaDumbbell, FaComment } from 'react-icons/fa';
 import PaymentInscriptionCard from './PaymentInscriptionCard';
-import { isAuthenticated, getUserInfo } from '@/utils/auth';
+import { getUserInfo } from '@/utils/auth';
 import { getPatientsByUserId } from '@/services/inscriptions/user-patientService';
 
 const InscriptionForm: React.FC<{ activityId: string }> = ({ activityId }) => {
@@ -17,7 +17,7 @@ const InscriptionForm: React.FC<{ activityId: string }> = ({ activityId }) => {
     const activity = useSelector((state: RootState) => state.activities.activities.find(a => a.id === parseInt(activityId)));
     const [selectedUser, setSelectedUser] = useState<string>('');
     const [specialRequest, setSpecialRequest] = useState<string>('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [, setIsLoading] = useState(false);
     const [patients, setPatients] = useState<{ id: number, name_patient: string }[]>([]);
     const [userInfo, setUserInfo] = useState<{ id_user: number } | null>(null);
 
@@ -175,10 +175,6 @@ const InscriptionForm: React.FC<{ activityId: string }> = ({ activityId }) => {
                             />
                         </div>
                     </div>
-
-                    {/* <button type="submit" className={styles.submitButton} disabled={isLoading}>
-                        {isLoading ? 'Procesando...' : 'Inscribirse'}
-                    </button> */}
                 </form>
             </div>
             <PaymentInscriptionCard 
