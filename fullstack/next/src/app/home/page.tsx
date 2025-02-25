@@ -19,26 +19,48 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'VitalNest - Gestión Integral de Residencias para Mayores',
-  description: 'Sistema de gestión especializado para residencias de ancianos. Ofrecemos control de medicaciones, dietas personalizadas y cuidados específicos para personas mayores.',
-  keywords: ['residencia ancianos', 'gestión residencial', 'cuidado mayores', 'control medicación', 'dietas especiales', 'atención personalizada'],
-  authors: [{ name: 'VitalNest Care Management' }],
+  title: 'CareLink by Nexora - Gestión Integral de Residencias',
+  description: 'Sistema avanzado de gestión para residencias de ancianos desarrollado por Nexora Technologies. Solución integral para control de medicaciones, seguimiento médico y gestión de personal.',
+  keywords: ['CareLink', 'Nexora', 'gestión residencias', 'software geriátrico', 'control medicación', 'historial médico', 'gestión sanitaria'],
+  authors: [{ name: 'Nexora Technologies' }],
   openGraph: {
-    title: 'VitalNest - Sistema de Gestión para Residencias de Mayores',
-    description: 'Plataforma integral para la gestión de residencias de ancianos. Control de medicaciones, dietas y cuidados personalizados.',
-    url: 'https://www.vitalnest.com',
-    siteName: 'VitalNest',
+    title: 'CareLink by Nexora - Gestión Integral de Residencias',
+    description: 'Plataforma avanzada para la gestión de residencias geriátricas. Control de medicaciones, expedientes médicos y administración completa.',
+    url: 'https://carelink.nexora.com',
+    siteName: 'CareLink by Nexora',
     type: 'website',
     images: [
       {
-        url: 'https://www.vitalnest.com/images/care-center.jpg',
+        url: 'https://carelink.nexora.com/images/carelink-dashboard.jpg',
         width: 1200,
         height: 630,
-        alt: 'VitalNest Care Center'
+        alt: 'CareLink Dashboard'
       }
     ]
   }
 };
+
+// export const metadata: Metadata = {
+//   title: 'CareLink - Gestión Integral de Residencias',
+//   description: 'Sistema de gestión especializado para residencias de ancianos. Ofrecemos control de medicaciones, dietas personalizadas y cuidados específicos para personas mayores.',
+//   keywords: ['residencia ancianos', 'gestión residencial', 'cuidado mayores', 'control medicación', 'dietas especiales', 'atención personalizada'],
+//   authors: [{ name: 'VitalNest Care Management' }],
+//   openGraph: {
+//     title: 'VitalNest - Sistema de Gestión para Residencias de Mayores',
+//     description: 'Plataforma integral para la gestión de residencias de ancianos. Control de medicaciones, dietas y cuidados personalizados.',
+//     url: 'https://www.vitalnest.com',
+//     siteName: 'VitalNest',
+//     type: 'website',
+//     images: [
+//       {
+//         url: 'https://www.vitalnest.com/images/care-center.jpg',
+//         width: 1200,
+//         height: 630,
+//         alt: 'VitalNest Care Center'
+//       }
+//     ]
+//   }
+// };
 
 
 export default function HomePage() {
