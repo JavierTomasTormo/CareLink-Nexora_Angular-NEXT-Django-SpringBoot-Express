@@ -1,18 +1,49 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false, // Cambiar a false mejora el rendimiento en desarrollo
   images: {
-    domains: ['picsum.photos'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+        pathname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
+        pathname: '**',
+      }
+    ],
+    minimumCacheTTL: 60, // Aumenta la caché de imágenes
   },
   webpack: (config, { dev, isServer }) => {
     if (dev && !isServer) {
       config.watchOptions = {
-        poll: 1000,
-        aggregateTimeout: 500,
+        poll: 500, // Reducido para respuesta más rápida
+        aggregateTimeout: 200, // Reducido para compilación más rápida
+        ignored: ['node_modules/**'],
       };
     }
+    
+    if (!isServer) {
+      // Optimizaciones para el navegador
+      config.optimization = {
+        ...config.optimization,
+        runtimeChunk: 'single',
+        splitChunks: {
+          chunks: 'all',
+          maxInitialRequests: 25,
+          minSize: 20000,
+        },
+      };
+    }
+    
     return config;
+  },
+  devIndicators: {
+    buildActivity: true,
+    buildActivityPosition: 'bottom-right',
   },
   experimental: {
     optimizeCss: true,
@@ -21,36 +52,18 @@ const nextConfig: NextConfig = {
         "*.js": ["swc-loader"]
       },
     },
+    // Permitir suspense para streaming
+    serverActions: {},
   },
   onDemandEntries: {
     maxInactiveAge: 60 * 60 * 1000,
     pagesBufferLength: 5,
   },
-  staticPageGenerationTimeout: 120,
-  async redirects() {
-    return [];
-  },
+  staticPageGenerationTimeout: 180, // Aumentado para permitir cargas más grandes
+  compress: true, // Asegura que la compresión esté activada
+  productionBrowserSourceMaps: false, // Desactivar en producción para mejorar rendimiento
+  swcMinify: true, // Usar SWC para minificación
   poweredByHeader: false,
 };
 
 export default nextConfig;
-
-// import type { NextConfig } from "next";
-
-// const nextConfig: NextConfig = {
-//   reactStrictMode: true,
-//   images: {
-//     domains: ['picsum.photos'],
-//   },
-//   webpack: (config, { dev, isServer }) => {
-//     if (dev && !isServer) {
-//       config.watchOptions = {
-//         poll: 800,
-//         aggregateTimeout: 300,
-//       };
-//     }
-//     return config;
-//   },
-// };
-
-// export default nextConfig;
