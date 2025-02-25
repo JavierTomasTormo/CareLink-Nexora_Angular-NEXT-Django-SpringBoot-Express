@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from 'react-redux';
 import styles from "@/styles/meals/Filters.module.css";
@@ -11,13 +11,13 @@ const Filters = ({ onFilterChange, activeSlideId }: { onFilterChange: (id: numbe
   const searchParams = useSearchParams();
   const dispatch = useDispatch(); 
 
-  const filterColors = [
+  const filterColors = useMemo(() => [
     { id: 1, color: "#FFE5D9", name: "Cuidados" },
     { id: 2, color: "#E3F4D7", name: "Exteriores" },
     { id: 3, color: "#FFE0E9", name: "Rehabilitaciónes" },
     { id: 4, color: "#E0F4FF", name: "Relajación" },
     { id: 5, color: "#E8E0FF", name: "Educación" },
-  ];
+  ], []);
 
   const [activeFilter, setActiveFilter] = useState<number | null>(null);
   const [activeFilterColor, setActiveFilterColor] = useState<string>("");
@@ -35,7 +35,7 @@ const Filters = ({ onFilterChange, activeSlideId }: { onFilterChange: (id: numbe
         dispatch(filterActivitiesByType(filterId));
       }
     }
-  }, [searchParams, dispatch, onFilterChange]);
+  }, [searchParams, dispatch, onFilterChange, filterColors]);
 
   useEffect(() => {
     if (activeSlideId !== undefined) {
@@ -48,7 +48,7 @@ const Filters = ({ onFilterChange, activeSlideId }: { onFilterChange: (id: numbe
         dispatch(filterActivitiesByType(filter.id));
       }
     }
-  }, [activeSlideId, dispatch, onFilterChange]);
+  }, [activeSlideId, dispatch, onFilterChange, filterColors]);
 
   const handleFilterClick = (id: number, color: string) => {
     setActiveFilter(id);

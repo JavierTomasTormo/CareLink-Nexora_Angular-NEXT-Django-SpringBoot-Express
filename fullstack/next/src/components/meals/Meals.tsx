@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMeals, selectAllMeals, selectMealsStatus, selectMealsError } from "@/store/slices/mealsSlice";
 import styles from "@/styles/meals/Meals.module.css";
+import Image from "next/image";
+import { AppDispatch } from "@/store";
+
 
 interface MealsProps {
   typeMeal: string;
@@ -13,26 +16,26 @@ interface MealsProps {
   role: string;
 }
 
-interface Meal {
-  id: string;
-  type_meal: string[];
-  calories: number;
-  allergens: { [key: string]: boolean };
-  role: { [key: string]: boolean };
-  name: string;
-  description: string;
-  img: string;
-}
+// interface Meal {
+//   id: string;
+//   type_meal: string[];
+//   calories: number;
+//   allergens: { [key: string]: boolean };
+//   role: { [key: string]: boolean };
+//   name: string;
+//   description: string;
+//   img: string;
+// }
 
 const Meals = ({ typeMeal, minCalories, maxCalories, allergens, role }: MealsProps) => {
-  const dispatch = useDispatch();
   const meals = useSelector(selectAllMeals);
   const mealsStatus = useSelector(selectMealsStatus);
   const mealsError = useSelector(selectMealsError);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (mealsStatus === 'idle') {
-      dispatch(fetchMeals() as any);
+      dispatch(fetchMeals());
     }
   }, [mealsStatus, dispatch]);
 
@@ -57,7 +60,7 @@ const Meals = ({ typeMeal, minCalories, maxCalories, allergens, role }: MealsPro
     <div className={styles.mealsContainer}>
       {filteredMeals.map((meal) => (
         <div key={meal.id} className={styles.mealCard}>
-          <img src={`assets/shop/meals/specific/${meal.img}`} alt={meal.name} className={styles.mealImage} />
+          <Image src={`/assets/shop/meals/specific/${meal.img}`} alt={meal.name} className={styles.mealImage} width={500} height={300} />
           <div className={styles.mealDetails}>
             <h3 className={styles.mealName}>{meal.name}</h3>
             <p className={styles.mealDescription}>{meal.description}</p>

@@ -18,6 +18,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import styles from '@/styles/shop/ListActivities.module.css';
+import Image from 'next/image';
 
 const ListActivities: React.FC<{ typeActivity: number | null }> = ({ typeActivity }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -101,10 +102,12 @@ const ListActivities: React.FC<{ typeActivity: number | null }> = ({ typeActivit
               >
                 {activity.images.map((imgObj, index) => (
                   <SwiperSlide key={index}>
-                    <img 
+                    <Image 
                       src={`/assets/shop/activities/${imgObj.img}`} 
                       alt={`${activity.name_activitie} - Imagen ${index + 1}`} 
-                      className={styles.mainImage} 
+                      className={styles.mainImage}
+                      width={500}
+                      height={300} 
                     />
                   </SwiperSlide>
                 ))}

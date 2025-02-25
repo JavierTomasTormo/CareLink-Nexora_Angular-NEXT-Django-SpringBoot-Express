@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "@/styles/meals/Filters.module.css";
 
@@ -8,13 +8,13 @@ const Filters = ({ onFilterChange }: { onFilterChange: (id: number, color: strin
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const filterColors = [
+  const filterColors = useMemo(() => [
     { id: 1, color: "#C1E1C1", name: "Desayunos" },
     { id: 2, color: "#F0D5A8", name: "Comidas" },
     { id: 3, color: "#E6C3C3", name: "Meriendas" },
     { id: 4, color: "#D4E6E6", name: "Cenas" },
     { id: 5, color: "#E8D1DC", name: "Postres" },
-  ];
+  ], []);
 
   const [activeFilter, setActiveFilter] = useState<number | null>(null);
   const [activeFilterColor, setActiveFilterColor] = useState<string>("");
@@ -31,7 +31,7 @@ const Filters = ({ onFilterChange }: { onFilterChange: (id: number, color: strin
         document.body.setAttribute('data-sld', (filterId - 1).toString());
       }
     }
-  }, [searchParams]);
+  }, [searchParams, filterColors, onFilterChange]);
 
   const handleFilterClick = (id: number, color: string) => {
     setActiveFilter(id);
@@ -67,4 +67,4 @@ const Filters = ({ onFilterChange }: { onFilterChange: (id: number, color: strin
   );
 };
 
-export default Filters;
+export default Filters; 

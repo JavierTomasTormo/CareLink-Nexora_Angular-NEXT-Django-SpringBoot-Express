@@ -10,6 +10,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import styles from "@/styles/meals/SlideMeals.module.css";
 import { Swiper as SwiperType } from "swiper";
+import Image from "next/image";
 
 interface Activity {
   id: string;
@@ -143,7 +144,7 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
             <SwiperSlide key={activity.id}>
               <div className={styles.center}>
                 {index === activeSlide && (
-                  <img className={styles.bottleImg} src={activity.activityImage} alt={activity.title} />
+                  <Image className={styles.bottleImg} src={activity.activityImage} alt={activity.title} width={500} height={500} />
                 )}
               </div>
             </SwiperSlide>
