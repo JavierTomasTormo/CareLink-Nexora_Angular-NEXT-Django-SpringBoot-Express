@@ -11,7 +11,7 @@ interface FiltersMealsProps {
 }
 
 const FiltersMeals = ({ onCaloriesFilterChange, onAllergensFilterChange, onRoleFilterChange }: FiltersMealsProps) => {
-  const [maxCalories, setMaxCalories] = useState<number>(600);
+  const [maxCalories, setMaxCalories] = useState<number>(1000);
   const [selectedAllergens, setSelectedAllergens] = useState<string[]>([]);
   const [selectedRole, setSelectedRole] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -32,6 +32,16 @@ const FiltersMeals = ({ onCaloriesFilterChange, onAllergensFilterChange, onRoleF
   const handleRoleChange = (role: string) => {
     setSelectedRole(role);
     onRoleFilterChange(role);
+  };
+
+  const resetAllFilters = () => {
+    setMaxCalories(1000);
+    setSelectedAllergens([]);
+    setSelectedRole("");
+    
+    onCaloriesFilterChange(0, 1000);
+    onAllergensFilterChange([]);
+    onRoleFilterChange("");
   };
 
   return (
@@ -73,6 +83,17 @@ const FiltersMeals = ({ onCaloriesFilterChange, onAllergensFilterChange, onRoleF
           Filter by Allergens
         </button>
       </div>
+
+      <div className={styles.filterItem}>
+        <label>&nbsp;</label>
+        <button 
+          className={`${styles.resetButton}`} 
+          onClick={resetAllFilters}
+        >
+          Reset Filters
+        </button>
+      </div>
+
       {isModalOpen && (
         <AllergensModal
           selectedAllergens={selectedAllergens}

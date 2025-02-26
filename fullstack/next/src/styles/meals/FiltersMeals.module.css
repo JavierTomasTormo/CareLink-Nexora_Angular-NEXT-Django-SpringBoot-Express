@@ -15,6 +15,29 @@
     flex: 1 1 250px;
 }
   
+
+.resetButton {
+    padding: 10px 20px;
+    background-color: #ff5353;
+    border: 1px solid rgba(44, 45, 42, 0.25);
+    border-radius: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c2d2a;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.resetButton:hover {
+    background-color: #000000;
+    color: white;
+    border-color: #d32f2f;
+}
+
+
+
 .filterItem label {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
