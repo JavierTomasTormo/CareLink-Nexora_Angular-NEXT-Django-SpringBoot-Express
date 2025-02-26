@@ -22,7 +22,6 @@ const Header: React.FC = () => {
   const searchRef = useRef<HTMLDivElement>(null);
   const notificationsRef = useRef<HTMLDivElement>(null);
 
-  
   const generateBreadcrumbs = () => {
     if (pathname === '/' || pathname === '/home') return [];
     
@@ -76,10 +75,8 @@ const Header: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Cierra el menú móvil al cambiar de ruta
     setMenuOpen(false);
   }, [pathname]);
-
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProfileMenu = () => setProfileMenuOpen(!profileMenuOpen);
@@ -115,7 +112,14 @@ const Header: React.FC = () => {
             <div className={styles.logoContainer}>
               <Link href={SHARED_ROUTES.NEXT.HOME}>
                 <div className={styles.logo}>
-                  <Image src="/Logo_VitalNest.png" alt="CareLink by Nexora" width={100} height={100} priority />
+                  <Image 
+                    src="/Logo_VitalNest.png" 
+                    alt="CareLink by Nexora" 
+                    width={100} height={100}  
+                    priority={true} 
+                    // priority={false}
+                    // loading="lazy"   
+                  />
                 </div>
               </Link>
             </div>
@@ -211,14 +215,74 @@ const Header: React.FC = () => {
                   <i className="fas fa-sign-in-alt"></i> Iniciar sesión
                 </Link>
               ) : (
-                <div ref={profileRef} className={styles.profileContainer}>
-                  {/* Contenido del perfil de usuario */}
-                  {profileMenuOpen && (
-                    <div className={styles.profileDropdown}>
-                      {/* Menú desplegable del perfil */}
+                    <div ref={profileRef} className={styles.profileContainer}>
+                      <button onClick={toggleProfileMenu} className={styles.profileTrigger}>
+                        {user.profile_img ? (
+                          <Image 
+                            src={user.profile_img} 
+                            alt={user.name} 
+                            width={40} 
+                            height={40} 
+                            className={styles.profileImage}
+                          />
+                        ) : (
+                          <div className={styles.profileInitials}>
+                            {user.name?.charAt(0)}
+                          </div>
+                        )}
+                      </button>
+
+                      {profileMenuOpen && (
+                        <div className={styles.profileDropdown}>
+                          <div className={styles.profileHeader}>
+                            <div className={styles.profileInitials + ' ' + styles.large}>
+                              {user.name?.charAt(0)}
+                            </div>
+                            <div className={styles.profileInfo}>
+                              <h4 className={styles.profileName}>{user.name}</h4>
+                              <p className={styles.profileEmail}>{user.email}</p>
+                              <span className={styles.userRole}>Administrador</span>
+                            </div>
+                          </div>
+
+                          <div className={styles.profileMenu}>
+                            <Link href="/perfil" className={styles.profileLink}>
+                              <i className="fas fa-user"></i>
+                              Mi Perfil
+                            </Link>
+                            
+                            <Link href="/ajustes" className={styles.profileLink}>
+                              <i className="fas fa-cog"></i>
+                              Ajustes
+                            </Link>
+                            
+                            <Link href="/actividad" className={styles.profileLink}>
+                              <i className="fas fa-chart-line"></i>
+                              Actividad
+                            </Link>
+
+                            <hr className={styles.menuDivider} />
+
+                            <Link href="/ayuda" className={styles.profileLink}>
+                              <i className="fas fa-question-circle"></i>
+                              Ayuda y Soporte
+                            </Link>
+                            
+                            <Link href="/feedback" className={styles.profileLink}>
+                              <i className="fas fa-comment-alt"></i>
+                              Enviar Feedback
+                            </Link>
+
+                            <hr className={styles.menuDivider} />
+                            
+                            <button onClick={handleLogout} className={`${styles.profileLink} ${styles.logout}`}>
+                              <i className="fas fa-sign-out-alt"></i>
+                              Cerrar Sesión
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
               )}
             </div>
           </div>
