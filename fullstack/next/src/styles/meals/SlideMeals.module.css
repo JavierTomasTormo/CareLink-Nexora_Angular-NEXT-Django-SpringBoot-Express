@@ -2,96 +2,52 @@
 @import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap");
 
 .container {
-  max-width: 100vw;
-  width: 100%;
-  height: 100vh;
-  max-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  scroll-behavior: smooth;
-  background-color: #e6decf;
-  padding: 0;
-  overflow: hidden;
   position: relative;
+  min-height: 600px;
+  transition: background-color 0.3s ease;
+  background-color: #e6decf;
   font-family: 'Montserrat', sans-serif;
 }
 
-.header {
+.main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  height: 70px;
-  width: 100%;
-  white-space: nowrap;
-  flex-shrink: 0;
-  font-weight: 600;
-  font-size: 15px;
-  border-bottom: 1px solid rgba(44, 45, 42, 0.25);
-  position: sticky;
-  top: 0;
-  left: 0;
-  background-color: var(--beach-bg);
-  z-index: 6;
-  padding: 0 30px;
-}
-
-.logo {
-  width: 116px;
-}
-
-.headerMenu {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
-.menuIcon {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-}
-
-.menuIcon svg {
-  width: 22px;
-  transition: transform 0.3s ease;
-}
-
-.headerIcons {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-}
-
-.headerIcons svg {
-  width: 18px;
-  transition: transform 0.3s ease;
-}
-
-.headerIcons svg:not(:last-child) {
-  margin-right: 20px;
+  justify-content: space-between;
 }
 
 .leftSide {
-  flex-direction: column;
-  justify-content: space-between;
-  max-width: 420px;
-  padding: 0 30px;
+  flex: 1;
+  padding-right: 2rem;
 }
 
-.mySwiper {
-  position: absolute;
-  right: 0;
-  width: 65%;
-  height: 100%;
-}
-
-.main {
-  padding: 42px 30px 30px;
+.imageContainer {
+  flex: 1;
   display: flex;
-  flex-grow: 1;
-  position: relative;
-  height: calc(100vh - 70px);
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
+.imageWrapper {
+  transition: opacity 0.3s ease;
+}
+
+.fadein {
+  opacity: 1;
+}
+
+.fadeout {
+  opacity: 0;
+}
+
+.mealImage {
+  max-width: 100%;
+  max-height: 450px;
+  object-fit: contain;
 }
 
 .mainHeader {
@@ -99,25 +55,35 @@
   font-size: 14px;
   letter-spacing: 4px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  color: #555;
 }
 
 .mainTitle {
   font-family: 'EB Garamond', serif;
   font-size: clamp(60px, 10vw, 100px);
   font-weight: 400;
-  margin-top: 10px;
-  line-height: 1em;
-  transition: all 0.3s ease;
+  margin-bottom: 1rem;
 }
 
 .mainSubtitle {
   font-family: 'EB Garamond', serif;
-  font-weight: 400;
   font-size: clamp(24px, 4vw, 32px);
-  margin-top: 14px;
-  margin-bottom: 60px;
-  transition: all 0.3s ease;
+  font-weight: 400;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.mealCount {
+  font-size: 0.7em;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin-left: 10px;
+  font-weight: 500;
+  vertical-align: middle;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .mainContentTitle {
@@ -125,205 +91,90 @@
   font-style: italic;
   font-size: 26px;
   margin-bottom: 14px;
-  transition: all 0.3s ease;
+  color: #333;
 }
 
 .mainContentSubtitle {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  margin-bottom: 24px;
-  letter-spacing: -0.01em;
-  transition: all 0.3s ease;
+  color: #666;
 }
 
-.moreMenu {
-  font-size: 13px;
-  font-weight: 500;
+.navigationControls {
   display: flex;
   align-items: center;
-  transition: all 0.3s ease;
+  margin-top: 2rem;
 }
 
-.center {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.bottleBg {
-  width: 320px;
-  height: 450px;
-  object-fit: cover;
-  border-radius: 160px;
-  transition: all 0.3s ease;
-}
-
-.bottleImg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(1.6);
-  height: 70%;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.hidden {
-  opacity: 0;
-}
-
-.swiperPagination {
-  position: absolute;
-  right: 30px;
-  left: auto;
-  top: 100px;
-  width: auto;
-  bottom: auto;
-  z-index: 2;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.buttonWrapper {
-  position: absolute;
-  right: 30px;
-  bottom: 20px;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-}
-
-.swiperButton {
-  border: 1px solid var(--body-color);
+.navButton {
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  width: 44px;
-  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to right, var(--body-color) 40%, transparent 0%);
-  background-size: 200% 100%;
-  background-position: right bottom;
-  transition: all 0.3s ease;
   cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 10px;
 }
 
-.swiperPrevButton {
-  background: linear-gradient(to left, var(--body-color) 40%, transparent 0%);
-  background-size: 200% 100%;
-  background-position: left bottom;
+.navButton:hover {
+  background: #f5f5f5;
+}
+
+.navButton.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginationDots {
+  display: flex;
+  gap: 8px;
+  margin: 0 15px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.swiperNextButton {
-  margin-left: 16px;
-  transition: all 0.3s ease;
+.activeDot {
+  background-color: #333;
+  transform: scale(1.2);
 }
 
-@media screen and (max-width: 930px) {
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  font-size: 1.2rem;
+  color: #333;
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media screen and (max-width: 768px) {
   .main {
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 20px;
+    flex-direction: column;
   }
-
-  .center {
-    margin-left: 0;
-    margin-bottom: 56px;
-  }
-
-  .leftSide {
-    text-align: center;
-    max-width: 100%;
-    padding: 0;
-  }
-
-  .moreMenu {
-    justify-content: center;
-  }
-
-  .buttonWrapper {
-    top: 0;
-    left: 0;
-    width: 100%;
-    justify-content: space-between;
-    padding: 0 60px;
-  }
-
-  .swiperNextButton {
-    margin-left: 0;
-  }
-
-  .bottleBg {
-    width: 260px;
-    height: 390px;
-  }
-
-  .bottleImg {
-    height: 60%;
-    width: 100%;
-    transform: translate(-50%, -50%) scale(1.3);
-  }
-}
-
-@media screen and (max-width: 740px) {
-  .headerMenu {
-    display: none;
-  }
-
-  .bottleImg {
-    height: auto;
-    width: 90%;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-}
-
-@media screen and (max-width: 575px) {
-  .container {
-    height: 100vh;
-  }
-
-  .header {
-    padding: 0 20px;
-  }
-
-  .main {
-    padding: 20px;
-  }
-
-  .buttonWrapper {
-    padding: 0 20px;
-  }
-
-  .bottleBg {
-    width: 220px;
-    height: 340px;
-  }
-
-  .bottleImg {
-    width: 85%;
-    height: auto;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-  @media screen and (max-width: 480px) {
-    .main {
-      padding: 10px;
-    }
-    .mySwiper {
-      width: 100%;
-      height: 100%;
-      top: -50px;
-    }
-
-    .leftSide {
-      top: 600px;
-    }
   
+  .leftSide {
+    padding-right: 0;
+    margin-bottom: 2rem;
   }
+
+  .mainTitle {
+    font-size: clamp(40px, 8vw, 60px);
+  }
+
+  .mainSubtitle {
+    font-size: clamp(20px, 3vw, 24px);
+  }
+}

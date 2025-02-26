@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import styles from "@/styles/shop/shop.module.css";
 import Slide from "@/components/meals/Slide";
-import Filters from "@/components/meals/Filters";
 import Meals from "@/components/meals/Meals";
 import FiltersMeals from "@/components/meals/FiltersMeals";
 
@@ -67,7 +66,6 @@ export default function MealsClient() {
 
     return (
         <div className={styles.shop} style={{ backgroundColor: activeFilterColor }}>
-            <Filters onFilterChange={handleFilterChange} />
             <Slide activeFilter={activeFilter} activeFilterColor={activeFilterColor} onFilterChange={handleFilterChange} />
             <FiltersMeals 
                 onCaloriesFilterChange={handleCaloriesFilterChange} 

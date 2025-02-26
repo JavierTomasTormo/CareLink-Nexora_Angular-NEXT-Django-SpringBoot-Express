@@ -36,7 +36,7 @@ const activities: Activity[] = [
     title: "Cuidados Personalizados",
     description: "Nuestro equipo de profesionales altamente capacitados brinda atención individualizada las 24 horas, incluyendo asistencia en higiene personal, control de medicamentos, y cuidados especializados adaptados a cada residente.",
     subtitle: "Cuidado integral con calidez humana y profesionalismo",
-    activityImage: "assets/shop/activities/cuidados.png",
+    activityImage: "/assets/shop/activities/cuidados.png",
   },
   {
     id: "2",
@@ -44,7 +44,7 @@ const activities: Activity[] = [
     title: "Espacios Verdes",
     description: "Disfruta de nuestros hermosos jardines diseñados especialmente para la terapia hortícola, paseos seguros y actividades recreativas. Contamos con áreas de descanso sombreadas y huertos terapéuticos donde los residentes pueden cultivar sus propias plantas.",
     subtitle: "Espacios naturales diseñados para tu bienestar y conexión con la naturaleza",
-    activityImage: "assets/shop/activities/exterior.png",
+    activityImage: "/assets/shop/activities/exterior.png",
   },
   {
     id: "3",
@@ -52,7 +52,7 @@ const activities: Activity[] = [
     title: "Rehabilitación Especializada",
     description: "Centro de rehabilitación de última generación con equipamiento moderno y terapeutas especializados. Ofrecemos programas personalizados de fisioterapia, terapia ocupacional y rehabilitación neurológica para mantener y mejorar la autonomía de nuestros residentes.",
     subtitle: "Recuperación y mantenimiento físico con los mejores especialistas",
-    activityImage: "assets/shop/activities/rehabilitacion.png",
+    activityImage: "/assets/shop/activities/rehabilitacion.png",
   },
   {
     id: "4",
@@ -60,7 +60,7 @@ const activities: Activity[] = [
     title: "Área de Relajación",
     description: "Sala de relajación multisensorial con aromaterapia, musicoterapia y cromoterapia. Ofrecemos sesiones de yoga suave, meditación guiada y masajes terapéuticos en un ambiente tranquilo y acogedor diseñado para reducir el estrés y mejorar el bienestar emocional.",
     subtitle: "Experiencias sensoriales para la paz mental y el equilibrio emocional",
-    activityImage: "assets/shop/activities/relajacion.png",
+    activityImage: "/assets/shop/activities/relajacion.png",
   },
   {
     id: "5",
@@ -68,7 +68,7 @@ const activities: Activity[] = [
     title: "Educación Continua",
     description: "Centro de aprendizaje dinámico con talleres de memoria, clases de arte, música y tecnología. Organizamos conferencias culturales, clubes de lectura y actividades intergeneracionales para mantener la mente activa y fomentar la socialización entre residentes.",
     subtitle: "Aprendizaje continuo y estimulación cognitiva en comunidad",
-    activityImage: "assets/shop/activities/educacion.png",
+    activityImage: "/assets/shop/activities/educacion.png",
   },
 ];
 
