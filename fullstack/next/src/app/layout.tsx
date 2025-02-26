@@ -21,9 +21,6 @@ export const metadata: Metadata = {
   description: 'Sistema integral de gestión para residencias de ancianos. Optimiza el cuidado de mayores con control de medicación, dietas personalizadas y seguimiento médico.',
   keywords: 'CareLink, Nexora, gestión residencias, cuidado geriátrico, control medicación, seguimiento médico, gestión residencial',
   authors: [{ name: 'Nexora Technologies' }],
-  icons: {
-    icon: '/favicon.ico',
-  },
   openGraph: {
     title: 'CareLink by Nexora | Gestión Integral de Residencias',
     description: 'Sistema integral de gestión para residencias de ancianos desarrollado por Nexora Technologies',
