@@ -25,9 +25,12 @@ const FiltersMeals = ({ onCaloriesFilterChange, onAllergensFilterChange, onRoleF
     const updatedAllergens = selectedAllergens.includes(allergen)
       ? selectedAllergens.filter((a) => a !== allergen)
       : [...selectedAllergens, allergen];
+    
     setSelectedAllergens(updatedAllergens);
+    // console.log("Alergias seleccionadas actualizadas:", updatedAllergens);
     onAllergensFilterChange(updatedAllergens);
   };
+
 
   const handleRoleChange = (role: string) => {
     setSelectedRole(role);
@@ -78,9 +81,11 @@ const FiltersMeals = ({ onCaloriesFilterChange, onAllergensFilterChange, onRoleF
         </select>
       </div>
       <div className={styles.filterItem}>
-        <label htmlFor="allergens">Allergens</label>
+        <label htmlFor="allergens">Alergias</label>
         <button className={styles.allergensButton} onClick={() => setIsModalOpen(true)}>
-          Filter by Allergens
+          {selectedAllergens.length > 0 
+            ? `Alergias (${selectedAllergens.length})` 
+            : "Seleccionar alergias"}
         </button>
       </div>
 

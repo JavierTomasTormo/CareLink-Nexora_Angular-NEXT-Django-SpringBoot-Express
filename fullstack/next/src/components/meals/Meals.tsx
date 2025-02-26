@@ -20,7 +20,7 @@ const Meals = ({ typeMeal, minCalories, maxCalories, allergens, role }: MealsPro
   const mealsStatus = useSelector(selectMealsStatus);
   const mealsError = useSelector(selectMealsError);
   const dispatch = useDispatch<AppDispatch>();
-  const [visibleCount, setVisibleCount] = useState(5);
+  const [visibleCount, setVisibleCount] = useState(4);
   const prevTypeMeal = useRef(typeMeal);
 
   useEffect(() => {
@@ -29,33 +29,73 @@ const Meals = ({ typeMeal, minCalories, maxCalories, allergens, role }: MealsPro
     }
   }, [mealsStatus, dispatch]);
 
+  const normalizeAllergen = (allergen: string): string => {
+    return allergen.replace(/^🍫|🥜|🥛|🌾|🦐|🥚|🫘|🎨|🥫|🍎|🥕|🌶️|🥩|🌊/, '').trim().toLowerCase();
+  };
+
+  useEffect(() => {
+    if (meals.length > 0) {
+      // console.log("Filtrando platos con los siguientes criterios:");
+      // console.log(`- Tipo de comida: ${typeMeal}`);
+      // console.log(`- Calorías: ${minCalories}-${maxCalories}`);
+      // console.log(`- Alergias a evitar: ${allergens.join(', ')}`);
+      // console.log(`- Rol: ${role || 'cualquiera'}`);
+    }
+  }, [typeMeal, minCalories, maxCalories, allergens, role, meals.length]);
 
 
   useEffect(() => {
     if (prevTypeMeal.current !== typeMeal) {
       // console.log(`Sección cambiada de ${prevTypeMeal.current} a ${typeMeal}, reseteando a 5 platos`);
-      setVisibleCount(5);
+      setVisibleCount(4);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       prevTypeMeal.current = typeMeal;
     }
   }, [typeMeal]);
 
   useEffect(() => {
-    setVisibleCount(5);
+    setVisibleCount(4);
   }, [minCalories, maxCalories, allergens, role]);
 
 
-  const filteredMeals = meals.filter((meal) =>
-    Array.isArray(meal.type_meal) &&
-    meal.type_meal.includes(typeMeal) &&
-    meal.calories >= minCalories &&
-    meal.calories <= maxCalories &&
-    !allergens.some((allergen) => meal.allergens[allergen as keyof typeof meal.allergens]) &&
-    (role === "" || meal.role[role as keyof typeof meal.role])
-  );
+  const filteredMeals = meals.filter((meal) => {
+    // Filtramos por tipo de comida
+    if (!Array.isArray(meal.type_meal) || !meal.type_meal.includes(typeMeal)) {
+      return false;
+    }
+    
+    // Filtramos por calorías
+    if (meal.calories < minCalories || meal.calories > maxCalories) {
+      return false;
+    }
+    
+    // Filtramos por rol
+    if (role !== "" && (!meal.role || !meal.role[role as keyof typeof meal.role])) {
+      return false;
+    }
+    
+    // Filtramos por alergias - si el plato contiene alguna alergia seleccionada, lo excluimos
+    if (allergens.length > 0 && meal.allergens) {
+      // Normalizamos las alergias seleccionadas
+      const normalizedAllergens = allergens.map(a => normalizeAllergen(a));
+      
+      // Comprobamos cada alergia normalizada contra las propiedades del objeto meal.allergens
+      for (const allergen of normalizedAllergens) {
+        // Buscamos si el plato tiene esta alergia marcada como true
+        for (const key in meal.allergens) {
+          if (key.toLowerCase().includes(allergen) && meal.allergens[key]) {
+            // Este plato contiene la alergia, lo excluimos
+            return false;
+          }
+        }
+      }
+    }
+    
+    return true;
+  });
 
   const handleLoadMore = () => {
-    setVisibleCount(prevCount => prevCount + 5);
+    setVisibleCount(prevCount => prevCount + 4);
   };
 
   const visibleMeals = filteredMeals.slice(0, visibleCount);
@@ -105,10 +145,23 @@ const Meals = ({ typeMeal, minCalories, maxCalories, allergens, role }: MealsPro
 
       {filteredMeals.length === 0 && (
         <div className={styles.noResultsContainer}>
-          <p>No se encontraron platos con los filtros seleccionados.</p>
+          <p>No se encontraron platos que coincidan con los filtros seleccionados.</p>
+          {allergens.length > 0 && (
+            <p className={styles.filterHint}>
+              Estás filtrando por {allergens.length} alergias: {allergens.join(", ")}
+            </p>
+          )}
+          <button 
+            className={styles.resetFiltersButton} 
+            onClick={() => {
+              // Aquí necesitarías implementar la comunicación con el componente padre
+              // para resetear todos los filtros
+            }}
+          >
+            Reiniciar filtros
+          </button>
         </div>
       )}
-
       {hasMoreMeals && (
         <div className={styles.loadMoreContainer}>
           <button 

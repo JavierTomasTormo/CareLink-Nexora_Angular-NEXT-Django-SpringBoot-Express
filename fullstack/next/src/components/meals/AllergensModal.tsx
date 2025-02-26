@@ -42,6 +42,11 @@ const AllergensModal = ({ selectedAllergens, onAllergenChange, onClose }: Allerg
 
   const categories = Object.keys(ALLERGIES_CATEGORIES) as Array<keyof AllergyCategories>;
   
+  const normalizeAllergen = (allergen: string): string => {
+    // Extrae el texto después del emoji (si existe)
+    return allergen.replace(/^🍫|🥜|🥛|🌾|🦐|🥚|🫘|🎨|🥫|🍎|🥕|🌶️|🥩|🌊/, '').trim();
+  };
+
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -76,6 +81,15 @@ const AllergensModal = ({ selectedAllergens, onAllergenChange, onClose }: Allerg
     addCustomAllergy();
   };
 
+  const toggleAllergy = (allergy: string) => {
+    if (selectedAllergens.includes(allergy)) {
+      // console.log(`Removiendo alergia: ${allergy}`);
+    } else {
+      // console.log(`Añadiendo alergia: ${allergy}`);
+    }
+    onAllergenChange(allergy);
+  };
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent} ref={modalRef}>
@@ -105,7 +119,7 @@ const AllergensModal = ({ selectedAllergens, onAllergenChange, onClose }: Allerg
           {ALLERGIES_CATEGORIES[activeCategory].map((allergy) => (
             <div
               key={allergy}
-              onClick={() => onAllergenChange(allergy)}
+              onClick={() => toggleAllergy(allergy)}
               className={`${styles.allergyItem} ${selectedAllergens.includes(allergy) ? styles.selected : ''}`}
             >
               <input
@@ -117,7 +131,7 @@ const AllergensModal = ({ selectedAllergens, onAllergenChange, onClose }: Allerg
               <span className={styles.allergyText}>{allergy}</span>
             </div>
           ))}
-        </div>
+      </div>
         
         {/* Alergia personalizada */}
         <div className={styles.customAllergyContainer}>
@@ -157,14 +171,17 @@ const AllergensModal = ({ selectedAllergens, onAllergenChange, onClose }: Allerg
           </div>
         </div>
         
-        <div className={styles.actionButtons}>
-          <button
-            type="button"
-            onClick={onClose}
-            className={styles.confirmButton}
-          >
-            Confirmar
-          </button>
+          <div className={styles.actionButtons}>
+            <button
+              type="button"
+              onClick={() => {
+                // console.log("Alergias confirmadas:", selectedAllergens);
+                onClose();
+              }}
+              className={styles.confirmButton}
+            >
+              Confirmar ({selectedAllergens.length} seleccionadas)
+            </button>
         </div>
       </div>
     </div>

@@ -184,3 +184,27 @@
     max-width: 300px;
   }
 }
+
+
+
+.filterHint {
+  color: #666;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+.resetFiltersButton {
+  margin-top: 16px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.resetFiltersButton:hover {
+  background-color: #e0e0e0;
+  border-color: #ccc;
+}

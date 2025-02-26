@@ -22,28 +22,28 @@ const Header: React.FC = () => {
   const searchRef = useRef<HTMLDivElement>(null);
   const notificationsRef = useRef<HTMLDivElement>(null);
 
-  const generateBreadcrumbs = () => {
-    if (pathname === '/' || pathname === '/home') return [];
+  // const generateBreadcrumbs = () => {
+  //   if (pathname === '/' || pathname === '/home') return [];
     
-    const paths = pathname.split('/').filter(p => p);
-    let breadcrumbs = [{ path: '/home', label: 'Inicio' }];
+  //   const paths = pathname.split('/').filter(p => p);
+  //   let breadcrumbs = [{ path: '/home', label: 'Inicio' }];
     
-    let currentPath = '';
-    paths.forEach((path, i) => {
-      currentPath += `/${path}`;
-      let label = path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' ');
+  //   let currentPath = '';
+  //   paths.forEach((path, i) => {
+  //     currentPath += `/${path}`;
+  //     let label = path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' ');
       
-      // Mapeo especial para rutas
-      if (path === 'shop') label = 'Actividades';
-      if (path === 'meals') label = 'Menús';
+  //     // Mapeo especial para rutas
+  //     if (path === 'shop') label = 'Actividades';
+  //     if (path === 'meals') label = 'Menús';
       
-      breadcrumbs.push({ path: currentPath, label });
-    });
+  //     breadcrumbs.push({ path: currentPath, label });
+  //   });
     
-    return breadcrumbs;
-  };
+  //   return breadcrumbs;
+  // };
 
-  const breadcrumbs = generateBreadcrumbs();
+  // const breadcrumbs = generateBreadcrumbs();
 
   useEffect(() => {
     setIsAuth(isAuthenticated());
@@ -288,7 +288,7 @@ const Header: React.FC = () => {
           </div>
         </div>
         
-        {breadcrumbs.length > 0 && (
+        {/* {breadcrumbs.length > 0 && (
           <div className={styles.breadcrumbContainer}>
             <div className={styles.container}>
               <nav aria-label="Breadcrumb">
@@ -308,7 +308,7 @@ const Header: React.FC = () => {
               </nav>
             </div>
           </div>
-        )}
+        )} */}
       </header>
       <div className={styles.headerSpacer}></div>
     </>
