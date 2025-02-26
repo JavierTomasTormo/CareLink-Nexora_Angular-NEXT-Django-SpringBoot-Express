@@ -7,6 +7,7 @@ import styles from '../../styles/layout/Header.module.css';
 import { SHARED_ROUTES, UserData,  DEFAULT_USER } from '@/store/Constants';
 import { isAuthenticated, authListener, getUserInfo } from '../../utils/auth';
 import Image from 'next/image';
+import { logout } from '@/utils/auth';
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -81,7 +82,10 @@ const Header: React.FC = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProfileMenu = () => setProfileMenuOpen(!profileMenuOpen);
   const toggleSearch = () => setSearchOpen(!searchOpen);
-  const toggleNotifications = () => setNotificationsOpen(!notificationsOpen);
+  const toggleNotifications = (e: React.MouseEvent) => {
+    setNotificationsOpen(!notificationsOpen);
+    handleNotifications(e);
+  };
   
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,6 +93,17 @@ const Header: React.FC = () => {
     console.log(`Buscando: ${searchQuery}`);
     setSearchOpen(false);
   };
+
+  interface NotificationEvent {
+    preventDefault: () => void;
+  }
+
+  const handleNotifications = (e: NotificationEvent): void => {
+    e.preventDefault();
+    // Implementar búsqueda
+    console.log(`Notificaciones:`);
+  };
+
 
   const isActive = (path: string) => {
     if (path === SHARED_ROUTES.NEXT.HOME) {
@@ -99,8 +114,7 @@ const Header: React.FC = () => {
 
   const handleLogout = (e: React.MouseEvent) => {
     e.preventDefault();
-    localStorage.removeItem('auth_token');
-    window.location.href = SHARED_ROUTES.NEXT.HOME;
+    logout();
   };
 
   return (
@@ -216,71 +230,68 @@ const Header: React.FC = () => {
                 </Link>
               ) : (
                     <div ref={profileRef} className={styles.profileContainer}>
-                      <button onClick={toggleProfileMenu} className={styles.profileTrigger}>
+                        <div onClick={toggleProfileMenu} className={styles.profileTrigger}>
                         {user.profile_img ? (
-                          <Image 
-                            src={user.profile_img} 
-                            alt={user.name} 
-                            width={40} 
-                            height={40} 
-                            className={styles.profileImage}
+                          <img 
+                          src={user.profile_img}
+                          alt={user.name || 'Profile'}
+                          width={50}
+                          height={50}
+                          className={styles.profileHeaderImage}
                           />
                         ) : (
-                          <div className={styles.profileInitials}>
-                            {user.name?.charAt(0)}
-                          </div>
+                        <div className={styles.profileInitials}>
+                        {user.name?.charAt(0)}
+                        </div>
                         )}
-                      </button>
+                        </div>
 
                       {profileMenuOpen && (
-                        <div className={styles.profileDropdown}>
-                          <div className={styles.profileHeader}>
-                            <div className={styles.profileInitials + ' ' + styles.large}>
-                              {user.name?.charAt(0)}
+                      <div className={styles.profileDropdown}>
+                        <div className={styles.profileHeader}>
+                            <div className={styles.profileInitials}>
+                              <img 
+                                src={user.profile_img}
+                                alt={user.name || 'Profile'}
+                                width={80}
+                                height={80}
+                                className={styles.profileHeaderImage}
+                                />
                             </div>
-                            <div className={styles.profileInfo}>
-                              <h4 className={styles.profileName}>{user.name}</h4>
-                              <p className={styles.profileEmail}>{user.email}</p>
-                              <span className={styles.userRole}>Administrador</span>
-                            </div>
-                          </div>
-
-                          <div className={styles.profileMenu}>
-                            <Link href="/perfil" className={styles.profileLink}>
-                              <i className="fas fa-user"></i>
-                              Mi Perfil
-                            </Link>
-                            
-                            <Link href="/ajustes" className={styles.profileLink}>
-                              <i className="fas fa-cog"></i>
-                              Ajustes
-                            </Link>
-                            
-                            <Link href="/actividad" className={styles.profileLink}>
-                              <i className="fas fa-chart-line"></i>
-                              Actividad
-                            </Link>
-
-                            <hr className={styles.menuDivider} />
-
-                            <Link href="/ayuda" className={styles.profileLink}>
-                              <i className="fas fa-question-circle"></i>
-                              Ayuda y Soporte
-                            </Link>
-                            
-                            <Link href="/feedback" className={styles.profileLink}>
-                              <i className="fas fa-comment-alt"></i>
-                              Enviar Feedback
-                            </Link>
-
-                            <hr className={styles.menuDivider} />
-                            
-                            <button onClick={handleLogout} className={`${styles.profileLink} ${styles.logout}`}>
-                              <i className="fas fa-sign-out-alt"></i>
-                              Cerrar Sesión
-                            </button>
+                          <div className={styles.profileInfo}>
+                            <h4 className={styles.profileName}>{user.name}</h4>
+                            <p className={styles.profileEmail}>{user.email}</p>
+                            <span className={styles.userRole}>Tutor</span>
                           </div>
                         </div>
+
+                        <div className={styles.profileMenu}>
+                        <Link href={SHARED_ROUTES.ANGULAR.AUTH.PROFILE} className={styles.profileLink}>
+                          <i className="fas fa-user"></i>
+                          Mi Perfil
+                        </Link>
+                        
+                        <Link href={SHARED_ROUTES.ANGULAR.AUTH.FAMILY} className={styles.profileLink}>
+                          <i className="fas fa-users"></i>
+                          Mis Familiares
+                        </Link>
+                        
+                        <Link href={SHARED_ROUTES.ANGULAR.AUTH.RESERVATIONS} className={styles.profileLink}>
+                          <i className="fas fa-calendar-alt"></i>
+                          Mis Reservas
+                        </Link>
+
+                        <Link href={SHARED_ROUTES.ANGULAR.AUTH.PAYMENTS} className={styles.profileLink}>
+                          <i className="fas fa-credit-card"></i>
+                          Mis Pagos
+                        </Link>
+                        
+                        <a href="#" onClick={handleLogout} className={`${styles.profileLink} ${styles.logout}`}>
+                          <i className="fas fa-sign-out-alt"></i>
+                          Cerrar Sesión
+                        </a>
+                        </div>
+                      </div>
                       )}
                     </div>
               )}

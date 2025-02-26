@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       'www.eninter.com',
       'media.licdn.com',
       'personaswip.com',
-      '',
+      'api.dicebear.com',
       '',
     ],
   },

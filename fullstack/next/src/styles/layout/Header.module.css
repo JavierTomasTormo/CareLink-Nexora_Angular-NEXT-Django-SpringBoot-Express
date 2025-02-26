@@ -251,6 +251,20 @@
 
 .profileTrigger {
   cursor: pointer;
+  border: 2px solid rgba(218, 163, 127, 0.2);
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  border-color: #000000;
+
+}
+
+.profileTrigger:hover {
+  border-color: #daa37f;
+  box-shadow: 0 0 10px rgba(218, 163, 127, 0.2);
+  transform: scale(1.05);
 }
 
 .profileImage {
