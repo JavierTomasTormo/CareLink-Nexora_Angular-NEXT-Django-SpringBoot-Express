@@ -198,7 +198,6 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
             <h3 className={styles.mainHeader}>{currentMealType.name}</h3>
             <h1 className={styles.mainTitle}>{currentMealType.title}</h1>
             <h2 className={styles.mainSubtitle}>
-              {currentMealType.price}
               {mealCounts[currentMealType.type] > 0 && (
                 <span className={styles.mealCount}>{mealCounts[currentMealType.type]} opciones disponibles</span>
               )}

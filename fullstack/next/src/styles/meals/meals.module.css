@@ -1,42 +1,186 @@
+.mealsWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .mealsContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
+}
+
+.mealCard {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mealCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.mealImageContainer {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mealImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.mealCard:hover .mealImage {
+  transform: scale(1.05);
+}
+
+.mealDetails {
+  padding: 20px;
+}
+
+.mealName {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.mealDescription {
+  font-size: 15px;
+  margin-bottom: 12px;
+  color: #555;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mealCalories {
+  font-size: 14px;
+  color: #777;
+  display: inline-block;
+  background-color: #f5f5f5;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.loadMoreContainer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.loadMoreButton {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+  position: relative;
+}
+
+.mealCount {
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  background-color: #f5f5f5;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.loadMoreButton:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+.loadMoreButton:active {
+  transform: translateY(0);
+}
+
+.loadMoreButton::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: calc(var(--visible-count) / var(--total-count) * 100%);
+  transition: width 0.3s ease;
+}
+
+.sectionTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.loadingContainer, .errorContainer, .noResultsContainer {
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+  color: #555;
+}
+
+.mealsSection {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.errorContainer {
+  color: #e53e3e;
+}
+
+.noResultsContainer {
+  margin: 40px auto;
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 600px;
+}
+
+@media (max-width: 768px) {
+  .mealsContainer {
+    gap: 16px;
   }
   
   .mealCard {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 300px;
-    text-align: center;
-  }
-  
-  .mealImage {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    max-width: 340px;
   }
   
-  .mealDetails {
-    padding: 15px;
+  .loadMoreButton {
+    width: 100%;
+    max-width: 300px;
   }
-  
-  .mealName {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-  
-  .mealDescription {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .mealCalories {
-    font-size: 14px;
-    color: #888;
-  }
+}
