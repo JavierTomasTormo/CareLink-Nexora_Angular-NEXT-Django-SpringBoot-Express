@@ -1,33 +1,21 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, EffectFade } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
-import styles from "@/styles/meals/SlideMeals.module.css";
-import { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
+import styles from "@/styles/shop/SlideActivities.module.css";
+import { filterColorsShop } from "@/store/Constants";
 
 interface Activity {
   id: string;
+  type: string;
   name: string;
   title: string;
+  price: string;
   description: string;
   subtitle: string;
   activityImage: string;
 }
-
-const filterColors = [
-  { id: 1, color: "#FFE5D9", name: "Cuidados" },
-  { id: 2, color: "#E3F4D7", name: "Exteriores" },
-  { id: 3, color: "#FFE0E9", name: "Rehabilitaciónes" },
-  { id: 4, color: "#E0F4FF", name: "Relajación" },
-  { id: 5, color: "#E8E0FF", name: "Educación" },
-];
 
 const activities: Activity[] = [
   {
@@ -81,75 +69,131 @@ interface SlideProps {
 const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) => {
   const router = useRouter();
   const [activeSlide, setActiveSlide] = useState(0);
-  const swiperRef = useRef<SwiperType | null>(null);
+  const [fadeState, setFadeState] = useState('in');
   const searchParams = useSearchParams();
+  const isInitialRender = useRef(true);
+  const isUrlChanging = useRef(false);
+  const navigationInProgress = useRef(false);
 
   useEffect(() => {
-    const queryFilter = searchParams.get("type_activity");
-    if (queryFilter) {
-      const filterId = parseInt(queryFilter, 10);
-      const filteredActivity = activities.find((activity) => parseInt(activity.id) === filterId);
-      if (filteredActivity) {
-        const newIndex = activities.indexOf(filteredActivity);
-        setActiveSlide(newIndex);
-        if (swiperRef.current) {
-          swiperRef.current.slideTo(newIndex);
+    const queryFilter = searchParams.get("activity_type");
+    if (isInitialRender.current) {
+      if (queryFilter) {
+        const filterId = parseInt(queryFilter, 10);
+        if (filterId >= 1 && filterId <= activities.length) {
+          const newIndex = filterId - 1;
+          setActiveSlide(newIndex);
+        }
+      }
+      isInitialRender.current = false;
+    } else if (!isUrlChanging.current) {
+      if (queryFilter) {
+        const filterId = parseInt(queryFilter, 10);
+        if (filterId >= 1 && filterId <= activities.length) {
+          const newIndex = filterId - 1;
+          if (newIndex !== activeSlide) {
+            setActiveSlide(newIndex);
+          }
         }
       }
     }
-  }, [searchParams]);
+  }, [searchParams, activeSlide]);
 
-  const handleSlideChange = (swiper: SwiperType) => {
-    const newIndex = swiper.realIndex;
-    setActiveSlide(newIndex);
-
-    const newFilter = activities[newIndex];
-    if (newFilter) {
-      const newFilterId = parseInt(newFilter.id, 10);
-      const newFilterColor = filterColors.find(f => f.id === newFilterId)?.color || "#FFFFFF";
-      
-      if (activeFilter !== newFilterId || activeFilterColor !== newFilterColor) {
-        onFilterChange(newFilterId, newFilterColor);
-        document.body.setAttribute('data-sld', (newFilterId - 1).toString());
-        router.push(`?activity_type=${newFilterId}`, { scroll: false });
-      }
+  const handleSlideChange = useCallback((newIndex: number) => {
+    if (newIndex !== activeSlide && !navigationInProgress.current) {
+      navigationInProgress.current = true;
+      setFadeState('out');
+      setTimeout(() => {
+        setActiveSlide(newIndex);
+        const activity = activities[newIndex];
+        if (activity) {
+          const newFilterId = parseInt(activity.id, 10);
+          const newFilterColor = filterColorsShop.find(f => f.id === newFilterId)?.color || "#FFFFFF";          
+          if (activeFilter !== newFilterId || activeFilterColor !== newFilterColor) {
+            onFilterChange(newFilterId, newFilterColor);
+          }          
+          const currentFilter = searchParams.get("activity_type");
+          if (currentFilter !== newFilterId.toString()) {
+            isUrlChanging.current = true;
+            router.push(`?activity_type=${newFilterId}`, { scroll: false });
+            
+            setTimeout(() => {
+              isUrlChanging.current = false;
+            }, 150);
+          }
+          setFadeState('in');
+        }
+        setTimeout(() => {
+          navigationInProgress.current = false;
+        }, 200);
+      }, 150);
     }
+  }, [activeSlide, activeFilter, activeFilterColor, onFilterChange, router, searchParams]);
+
+  const goToNextSlide = () => {
+    const newIndex = activeSlide < activities.length - 1 ? activeSlide + 1 : 0;
+    handleSlideChange(newIndex);
   };
+
+  const goToPrevSlide = () => {
+    const newIndex = activeSlide > 0 ? activeSlide - 1 : activities.length - 1;
+    handleSlideChange(newIndex);
+  };
+
+  const currentActivity = activities[activeSlide];
+
 
   return (
     <div className={styles.container} style={{ backgroundColor: activeFilterColor }}>
       <div className={styles.main}>
         <div className={styles.leftSide}>
           <div className={styles.mainWrapper}>
-            <h3 className={styles.mainHeader}>{activities[activeSlide].name}</h3>
-            <h1 className={styles.mainTitle}>{activities[activeSlide].title}</h1>
+            <h3 className={styles.mainHeader}>{currentActivity.name}</h3>
+            <h1 className={styles.mainTitle}>{currentActivity.title}</h1>
+            <h2 className={styles.mainSubtitle}>{currentActivity.price}</h2>
           </div>
           <div className={styles.mainContent}>
-            <h3 className={styles.mainContentTitle}>{activities[activeSlide].description}</h3>
-            <p className={styles.mainContentSubtitle}>{activities[activeSlide].subtitle}</p>
+            <h3 className={styles.mainContentTitle}>{currentActivity.description}</h3>
+            <p className={styles.mainContentSubtitle}>{currentActivity.subtitle}</p>
+          </div>
+
+          <div className={styles.navigationControls}>
+            <button 
+              className={styles.navButton}
+              onClick={goToPrevSlide}
+            >
+              <span className={styles.navIcon}>←</span>
+            </button>
+            <div className={styles.paginationDots}>
+              {activities.map((_, index) => (
+                <span 
+                  key={index} 
+                  className={`${styles.dot} ${index === activeSlide ? styles.activeDot : ''}`}
+                  onClick={() => handleSlideChange(index)}
+                ></span>
+              ))}
+            </div>
+            <button 
+              className={styles.navButton}
+              onClick={goToNextSlide}
+            >
+              <span className={styles.navIcon}>→</span>
+            </button>
           </div>
         </div>
 
-        <Swiper
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          modules={[Navigation, Pagination, EffectFade]}
-          effect="fade"
-          loop={false}
-          speed={600}
-          onSlideChange={handleSlideChange}
-          className={styles.mySwiper}
-          initialSlide={activeFilter ? activeFilter - 1 : 0}
-        >
-          {activities.map((activity, index) => (
-            <SwiperSlide key={activity.id}>
-              <div className={styles.center}>
-                {index === activeSlide && (
-                  <Image className={styles.bottleImg} src={activity.activityImage} alt={activity.title} width={500} height={500} />
-                )}
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <div className={styles.imageContainer}>
+          <div className={`${styles.imageWrapper} ${styles['fade' + fadeState]}`}>
+            <Image 
+              className={styles.bottleImg} 
+              src={currentActivity.activityImage} 
+              alt={currentActivity.title} 
+              width={500}
+              height={500}
+              priority
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -4,45 +4,70 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import styles from "@/styles/shop/shop.module.css";
 import Slide from "@/components/shop/Slide";
-import Filters from "@/components/shop/Filters";
 import ListActivities from "@/components/shop/ListActivities";
+import { filterColorsShop } from "@/store/Constants";
 
-const filterColors = [
-  { id: 1, color: "#FFE5D9", name: "Cuidados" },
-  { id: 2, color: "#E3F4D7", name: "Exteriores" },
-  { id: 3, color: "#FFE0E9", name: "Rehabilitaciónes" },
-  { id: 4, color: "#E0F4FF", name: "Relajación" },
-  { id: 5, color: "#E8E0FF", name: "Educación" },
-];
 
 export default function ShopClient() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
-  const [activeFilter, setActiveFilter] = useState<number | null>(null);
-  const [activeFilterColor, setActiveFilterColor] = useState<string>("");
+    const [activeFilter, setActiveFilter] = useState<number | null>(null);
+    const [activeFilterColor, setActiveFilterColor] = useState<string>("");
+
+    const [minPrice, setMinPrice] = useState<number>(0);
+    const [maxPrice, setMaxPrice] = useState<number>(1000);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [selectedDifficulty, setSelectedDifficulty] = useState<string>("");
+
 
     useEffect(() => {
-        const queryFilter = searchParams.get("type_activity");
+        const queryFilter = searchParams.get("activity_type");
         if (queryFilter) {
             const filterId = parseInt(queryFilter, 10);
             setActiveFilter(filterId);
-            const filter = filterColors.find(f => f.id === filterId);
-        if (filter) setActiveFilterColor(filter.color);
+            const filter = filterColorsShop.find(f => f.id === filterId);
+            if (filter) setActiveFilterColor(filter.color);
+        } else {
+            router.replace(`?activity_type=1`, { scroll: false });
         }
-    }, [searchParams]);
+    }, [searchParams, router]);
 
     const handleFilterChange = (id: number, color: string) => {
-        setActiveFilter(id);
-        setActiveFilterColor(color);
-        router.push(`?type_activity=${id}`, { scroll: false });
+        if (id !== activeFilter) {
+            setActiveFilter(id);
+            setActiveFilterColor(color);
+            router.push(`?activity_type=${id}`, { scroll: false });
+        }
     };
+
+    const handlePriceFilterChange = (min: number, max: number) => {
+        setMinPrice(min);
+        setMaxPrice(max);
+    };
+    
+        const handleTagsFilterChange = (selectedTags: string[]) => {
+            setSelectedTags(selectedTags);
+        };
+    
+        const handleDifficultyChange = (difficulty: string) => {
+            setSelectedDifficulty(difficulty);
+        };
 
     return (
         <div className={styles.shop} style={{ backgroundColor: activeFilterColor }}>
-            <Filters onFilterChange={handleFilterChange} />
-            <Slide activeFilter={activeFilter} activeFilterColor={activeFilterColor} onFilterChange={handleFilterChange} />
-            <ListActivities typeActivity={activeFilter} />
+            <Slide 
+                activeFilter={activeFilter} 
+                activeFilterColor={activeFilterColor} 
+                onFilterChange={handleFilterChange} 
+            />            
+            <ListActivities 
+                typeActivity={activeFilter}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                tags={selectedTags}
+                difficulty={selectedDifficulty}
+            />
         </div>
     );
 }
