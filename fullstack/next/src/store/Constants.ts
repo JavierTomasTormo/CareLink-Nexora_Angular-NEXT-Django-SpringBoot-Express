@@ -178,3 +178,11 @@ export const filterColors = [
   { id: 4, color: "#D1C4E9", name: "Cenas" },    
   { id: 5, color: "#F8BBD0", name: "Postres" },  
 ];
+
+export const filterColorsShop = [
+  { id: 1, color: "#E3F2FD", name: "Cuidados" },          
+  { id: 2, color: "#E8F5E9", name: "Exteriores" },        
+  { id: 3, color: "#F3E5F5", name: "Rehabilitaciónes" }, 
+  { id: 4, color: "#E0F7FA", name: "Relajación" },       
+  { id: 5, color: "#FFF3E0", name: "Educación" },        
+];
