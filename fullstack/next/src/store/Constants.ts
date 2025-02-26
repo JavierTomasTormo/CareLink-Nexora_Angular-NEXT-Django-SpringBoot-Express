@@ -170,3 +170,11 @@ export const STORAGE_KEYS = {
   REFRESH_TOKEN: 'vitalnest_refresh_token',
   USER_INFO: 'vitalnest_user_info'
 };
+
+export const filterColors = [
+  { id: 1, color: "#FFF2CC", name: "Desayunos" }, 
+  { id: 2, color: "#FFE0B2", name: "Comidas" },   
+  { id: 3, color: "#BBDEFB", name: "Meriendas" }, 
+  { id: 4, color: "#D1C4E9", name: "Cenas" },    
+  { id: 5, color: "#F8BBD0", name: "Postres" },  
+];

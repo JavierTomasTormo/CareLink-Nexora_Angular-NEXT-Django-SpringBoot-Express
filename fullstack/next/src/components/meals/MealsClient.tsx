@@ -6,14 +6,8 @@ import styles from "@/styles/shop/shop.module.css";
 import Slide from "@/components/meals/Slide";
 import Meals from "@/components/meals/Meals";
 import FiltersMeals from "@/components/meals/FiltersMeals";
+import {filterColors} from '@/store/Constants';
 
-const filterColors = [
-    { id: 1, color: "#C1E1C1", name: "Desayunos" },
-    { id: 2, color: "#F0D5A8", name: "Comidas" },
-    { id: 3, color: "#E6C3C3", name: "Meriendas" },
-    { id: 4, color: "#D4E6E6", name: "Cenas" },
-    { id: 5, color: "#E8D1DC", name: "Postres" },
-];
 
 export default function MealsClient() {
     const router = useRouter();

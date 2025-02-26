@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 import styles from "@/styles/meals/SlideMeals.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMeals, selectAllMeals, selectMealsStatus } from "@/store/slices/mealsSlice";
 import type { AppDispatch } from "@/store";
+import {filterColors} from '@/store/Constants';
 
 const mealTypes = [
   {
@@ -60,13 +62,13 @@ const mealTypes = [
   }
 ];
 
-const filterColors = [
-  { id: 1, color: "#C1E1C1", name: "Desayunos" },
-  { id: 2, color: "#F0D5A8", name: "Comidas" },
-  { id: 3, color: "#E6C3C3", name: "Meriendas" },
-  { id: 4, color: "#D4E6E6", name: "Cenas" },
-  { id: 5, color: "#E8D1DC", name: "Postres" },
-];
+// const filterColors = [
+//   { id: 1, color: "#C1E1C1", name: "Desayunos" },
+//   { id: 2, color: "#F0D5A8", name: "Comidas" },
+//   { id: 3, color: "#E6C3C3", name: "Meriendas" },
+//   { id: 4, color: "#D4E6E6", name: "Cenas" },
+//   { id: 5, color: "#E8D1DC", name: "Postres" },
+// ];
 
 interface SlideProps {
   activeFilter: number | null;
@@ -85,26 +87,24 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
   const [dataLoaded, setDataLoaded] = useState(false);
   const isInitialRender = useRef(true);
   const isUrlChanging = useRef(false);
+  const navigationInProgress = useRef(false);
 
-  // Cargar los datos solo una vez al inicio
+
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchMeals());
     }
     
     if (status === 'succeeded' && meals.length > 0 && !dataLoaded) {
-      console.log("Datos de meals cargados correctamente:", meals);
+      // console.log("Datos de meals cargados correctamente:", meals);
       setDataLoaded(true);
     }
   }, [dispatch, status, meals, dataLoaded]);
 
-  // Actualizar el slide activo basado en los parámetros de búsqueda
-  // Solo en la carga inicial o cuando cambia la URL externamente
   useEffect(() => {
     const queryFilter = searchParams.get("type_meal");
     
     if (isInitialRender.current) {
-      // Solo procesar en la carga inicial
       if (queryFilter) {
         const filterId = parseInt(queryFilter, 10);
         if (filterId >= 1 && filterId <= mealTypes.length) {
@@ -114,8 +114,6 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
       }
       isInitialRender.current = false;
     } else if (!isUrlChanging.current) {
-      // Solo procesar si el cambio en la URL viene de fuera
-      // (no de nuestros propios cambios con router.push)
       if (queryFilter) {
         const filterId = parseInt(queryFilter, 10);
         if (filterId >= 1 && filterId <= mealTypes.length) {
@@ -126,13 +124,14 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
         }
       }
     }
-  }, [searchParams]);
+  }, [searchParams, activeSlide, mealTypes.length]);
+
 
   const handleSlideChange = useCallback((newIndex: number) => {
-    if (newIndex !== activeSlide && newIndex >= 0 && newIndex < mealTypes.length) {
+    if (newIndex !== activeSlide && !navigationInProgress.current) {
+      navigationInProgress.current = true;
       setFadeState('out');
       
-      // Pequeño retraso para la animación
       setTimeout(() => {
         setActiveSlide(newIndex);
         
@@ -140,40 +139,38 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
         if (mealType) {
           const newFilterId = parseInt(mealType.id, 10);
           const newFilterColor = filterColors.find(f => f.id === newFilterId)?.color || "#FFFFFF";
-          
           if (activeFilter !== newFilterId || activeFilterColor !== newFilterColor) {
             onFilterChange(newFilterId, newFilterColor);
           }
-          
-          // Marcar que nosotros estamos cambiando la URL
-          isUrlChanging.current = true;
-          router.push(`?type_meal=${newFilterId}`, { scroll: false });
-          
-          // Restaurar la bandera después del cambio de URL
-          setTimeout(() => {
-            isUrlChanging.current = false;
-          }, 100);
+          const currentFilter = searchParams.get("type_meal");
+          if (currentFilter !== newFilterId.toString()) {
+            isUrlChanging.current = true;
+            router.push(`?type_meal=${newFilterId}`, { scroll: false });
+            
+            setTimeout(() => {
+              isUrlChanging.current = false;
+            }, 150);
+          }
           
           setFadeState('in');
         }
+        setTimeout(() => {
+          navigationInProgress.current = false;
+        }, 200);
       }, 150);
     }
-  }, [activeSlide, activeFilter, activeFilterColor, onFilterChange, router]);
+  }, [activeSlide, activeFilter, activeFilterColor, onFilterChange, router, mealTypes, searchParams]);
 
-  
   const goToNextSlide = () => {
-    if (activeSlide < mealTypes.length - 1) {
-      handleSlideChange(activeSlide + 1);
-    }
+    const newIndex = activeSlide < mealTypes.length - 1 ? activeSlide + 1 : 0;
+    handleSlideChange(newIndex);
   };
 
   const goToPrevSlide = () => {
-    if (activeSlide > 0) {
-      handleSlideChange(activeSlide - 1);
-    }
+    const newIndex = activeSlide > 0 ? activeSlide - 1 : mealTypes.length - 1;
+    handleSlideChange(newIndex);
   };
 
-  // Calcular conteos de platos por tipo
   const mealCounts = {};
   meals.forEach(meal => {
     if (meal.type_meal && Array.isArray(meal.type_meal)) {
@@ -213,11 +210,10 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
           </div>
 
           <div className={styles.navigationControls}>
-            <button 
-              className={`${styles.navButton} ${activeSlide === 0 ? styles.disabled : ''}`} 
-              onClick={goToPrevSlide}
-              disabled={activeSlide === 0}
-            >
+              <button 
+                className={styles.navButton}
+                onClick={goToPrevSlide}
+              >
               <span className={styles.navIcon}>←</span>
             </button>
             <div className={styles.paginationDots}>
@@ -229,11 +225,10 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
                 ></span>
               ))}
             </div>
-            <button 
-              className={`${styles.navButton} ${activeSlide === mealTypes.length - 1 ? styles.disabled : ''}`} 
-              onClick={goToNextSlide}
-              disabled={activeSlide === mealTypes.length - 1}
-            >
+              <button 
+                className={styles.navButton}
+                onClick={goToNextSlide}
+              >
               <span className={styles.navIcon}>→</span>
             </button>
           </div>
@@ -241,10 +236,13 @@ const Slide = ({ activeFilter, activeFilterColor, onFilterChange }: SlideProps) 
 
         <div className={styles.imageContainer}>
           <div className={`${styles.imageWrapper} ${styles['fade' + fadeState]}`}>
-            <img 
+            <Image 
               className={styles.mealImage} 
               src={currentMealType.productImage} 
-              alt={currentMealType.title} 
+              alt={currentMealType.title}
+              width={500}
+              height={500}
+              loading="eager"
             />
           </div>
         </div>
