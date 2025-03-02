@@ -41,7 +41,7 @@
         font-size: clamp(40px, 8vw, 72px);
         color: #ffffff;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        margin: 0 0 20px;
+        margin: 0 0 10px; 
         letter-spacing: 2px;
         font-weight: 700;
         text-transform: uppercase;
@@ -50,12 +50,12 @@
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
-        border-bottom: 2px solid #daa37f;
-        padding-bottom: 10px;
+        /* border-bottom: 2px solid #daa37f;
+        padding-bottom: 10px; */
     }
 
     .banner__text {
-        font-size: clamp(16px, 3vw, 24px);
+        font-size: clamp(16px, 2vw, 20px);
         color: #ffffff;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         margin: 0 auto 28px;
@@ -67,6 +67,33 @@
         font-family: 'Nunito', sans-serif;
         opacity: 0.8;
     }
+
+
+    .banner__subtitle {
+        font-size: clamp(12px, 1.5vw, 16px);
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-top: -15px;
+        margin-bottom: 25px;
+        animation: opacity 3s;
+        font-family: 'Nunito', sans-serif;
+        position: relative;
+    }
+    
+    .banner__subtitle::after {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 1px;
+        background: rgba(218, 163, 127, 0.5);
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+
 
     .btn {
         color: #fff;

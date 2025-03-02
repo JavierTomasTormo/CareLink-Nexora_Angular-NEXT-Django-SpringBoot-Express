@@ -31,46 +31,40 @@
 
 .activitiesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
   margin: 0 auto;
+  width: 100%;
 }
 
 .activityCard {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
   position: relative;
   border: 1px solid rgba(234, 234, 234, 0.8);
-  max-width: 450px;
   width: 100%;
-  margin: 0 auto;
   height: 100%;
   display: flex;
   flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .activityCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.imageWrapper {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-/* Nuevo carrusel simple */
 .carouselContainer {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 60%;
+  padding-bottom: 65%;
   overflow: hidden;
-  border-radius: 8px 8px 0 0;
+  border-radius: 12px 12px 0 0;
 }
 
 .carouselImageContainer {
@@ -163,17 +157,17 @@
 }
 
 .cardContent {
-  padding: 1.8rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
 .title {
-  font-size: 1.6rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   line-height: 1.3;
 }
 
@@ -406,9 +400,16 @@
   100% { transform: rotate(360deg); }
 }
 
+@media (max-width: 1400px) {
+  .activitiesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 1200px) {
   .activitiesGrid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 }
 
@@ -418,17 +419,12 @@
   }
   
   .activitiesGrid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .infoGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
   }
   
-  .loadMoreButton {
-    width: 100%;
-    max-width: 300px;
+  .activityCard {
+    max-width: 100%;
   }
 }
 
@@ -442,8 +438,8 @@
     gap: 1.2rem;
   }
   
-  .infoGrid {
-    gap: 0.8rem;
+  .activityCard {
+    max-width: 100%;
   }
   
   .cardContent {

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styles from '@/styles/home/FreshBeansActivitie/FreshActivities.module.css';
 import { FreshActivitiesSkeleton } from '@/components/skeletons/HomeSkeletons';
+import Link from 'next/link';
 
 const FreshActivities = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +40,7 @@ const FreshActivities = () => {
                         Nuestros programas están cuidadosamente planificados para estimular tanto el cuerpo como la mente, 
                         promoviendo un estilo de vida activo y saludable en un ambiente acogedor y seguro.
                     </p>
-                    <a href="#" className={styles.btn}>Explorar Actividades</a>
+                    <Link href="/shop" className={styles.btn}>Explorar Actividades</Link>
                 </motion.div>
             </div>
             <div className={styles.half_second}></div>

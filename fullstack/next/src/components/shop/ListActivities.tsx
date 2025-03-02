@@ -35,7 +35,7 @@ const ListActivities: React.FC<ListActivitiesProps> = ({
   const activities = useSelector(selectAllActivities);
   const status = useSelector(selectActivitiesStatus);
   const error = useSelector(selectActivitiesError);
-  const [visibleCount, setVisibleCount] = useState(4);
+  const [visibleCount, setVisibleCount] = useState(3);
   const prevTypeActivity = useRef(typeActivity);
   const [activeImages, setActiveImages] = useState<Record<number, number>>({});
 
@@ -51,8 +51,8 @@ const ListActivities: React.FC<ListActivitiesProps> = ({
     dispatch(filterActivitiesByType(typeActivity));
     
     if (prevTypeActivity.current !== typeActivity) {
-      console.log(`Tipo de actividad cambiado de ${prevTypeActivity.current} a ${typeActivity}, reseteando a 4 actividades`);
-      setVisibleCount(4);
+      console.log(`Tipo de actividad cambiado de ${prevTypeActivity.current} a ${typeActivity}, reseteando a 3 actividades`);
+      setVisibleCount(3);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       prevTypeActivity.current = typeActivity;
     }
@@ -60,7 +60,7 @@ const ListActivities: React.FC<ListActivitiesProps> = ({
 
   // Reiniciar filtros
   useEffect(() => {
-    setVisibleCount(4);
+    setVisibleCount(3);
   }, [minPrice, maxPrice, tags, difficulty]);
 
   // Cambiar imagen en el carrusel simple
@@ -111,7 +111,7 @@ const ListActivities: React.FC<ListActivitiesProps> = ({
   const hasMoreActivities = visibleCount < filteredActivities.length;
 
   const handleLoadMore = () => {
-    setVisibleCount(prevCount => prevCount + 4);
+    setVisibleCount(prevCount => prevCount + 3);
   };
 
   if (status === 'loading') {
