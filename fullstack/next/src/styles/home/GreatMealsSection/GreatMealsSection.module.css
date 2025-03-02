@@ -1,5 +1,5 @@
     .sect_great {
-        background-image: url('../../../../public/assets/defaultImages/GreatMealsDefault.jpeg');
+        /* background-image:; */
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -7,6 +7,19 @@
         background-color: #fff;
         padding: 130px 0;
     }
+
+    .backgroundImage1 {
+        background-image: url('../../../../public/assets/defaultImages/GreatMealsDefault.jpeg');
+    }
+    
+    .backgroundImage2 {
+        background-image: url('../../../../public/assets/defaultImages/GreatMealsDefault2.jpeg');
+    }
+    
+    .backgroundImage3 {
+        background-image: url('../../../../public/assets/defaultImages/GreatMealsDefault3.jpeg');
+    }
+
 
     .container {
         max-width: 1200px;
