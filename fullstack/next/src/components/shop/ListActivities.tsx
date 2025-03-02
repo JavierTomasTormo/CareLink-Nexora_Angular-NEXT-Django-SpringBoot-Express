@@ -9,7 +9,7 @@ import styles from '@/styles/shop/ListActivities.module.css';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { ActivityData } from '@/types/activity';
+import { ActivityData } from '@/store/Constants';
 // import SkeletonLoader from '../common/SkeletonLoader';
 
 interface ListActivitiesProps {
@@ -67,13 +67,13 @@ const ListActivities: React.FC<ListActivitiesProps> = ({
     }
     
     if (tags.length > 0 && activity.caracteristics) {
-      const activityTags = Array.isArray(activity.caracteristics) ? activity.caracteristics : [];
+      const activityTags: string[] = Array.isArray(activity.caracteristics) ? activity.caracteristics : [];
       if (!tags.some(tag => activityTags.includes(tag))) {
         return false;
       }
     }
     
-    if (difficulty && activity.intensity !== difficulty) {
+    if (difficulty && String(activity.intensity) !== difficulty) {
       return false;
     }
     
