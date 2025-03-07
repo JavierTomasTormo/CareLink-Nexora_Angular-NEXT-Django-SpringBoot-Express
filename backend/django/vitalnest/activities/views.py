@@ -9,6 +9,7 @@ class ActivityList(generics.ListCreateAPIView):
     serializer_class = ActivitySerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = ActivityFilter
+    search_fields = ['name', 'description', 'tags__name']  # Definir los campos de busqueda y aut0ocomplete para el search
 
 class ActivityDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Activity.objects.all()

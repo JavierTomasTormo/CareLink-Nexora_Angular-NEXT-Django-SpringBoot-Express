@@ -8,6 +8,8 @@ import { SHARED_ROUTES, UserData,  DEFAULT_USER } from '@/store/Constants';
 import { isAuthenticated, authListener, getUserInfo } from '../../utils/auth';
 import Image from 'next/image';
 import { logout } from '@/utils/auth';
+import SearchAutocomplete from '../common/SearchAutocomplete';
+
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -186,19 +188,11 @@ const Header: React.FC = () => {
                 </button>
                 
                 {searchOpen && (
-                  <div className={styles.searchDropdown}>
-                    <form onSubmit={handleSearch}>
-                      <input 
-                        type="text" 
-                        value={searchQuery} 
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Buscar..." 
-                        autoFocus
-                      />
-                      <button type="submit" className={styles.iconButton}>
-                        <i className="fas fa-search"></i>
-                      </button>
-                    </form>
+                  <div className={styles.searchDropdown} ref={searchRef}>
+                    <SearchAutocomplete 
+                      onClose={() => setSearchOpen(false)}
+                      className={styles.headerSearch}
+                    />
                   </div>
                 )}
               </div>
