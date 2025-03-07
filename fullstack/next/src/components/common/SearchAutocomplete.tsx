@@ -6,11 +6,12 @@ import styles from '@/styles/common/SearchAutocomplete.module.css';
 import Image from 'next/image';
 
 interface SearchItem {
-    id: number;
-    title: string;
-    type: 'activity' | 'meal' | 'room';
-    image?: string;
-    description?: string;
+  id: number;
+  title: string;
+  type: 'activity' | 'meal' | 'room';
+  image?: string;
+  description?: string;
+  characteristics?: string[];
 }
 
 interface SearchAutocompleteProps {
@@ -72,52 +73,61 @@ export default function SearchAutocomplete({
           const activitiesRes = await fetch(`http://localhost:8000/api/activities/?search=${query}`);
           if (activitiesRes.ok) {
             const activities = await activitiesRes.json();
-            const activitiesFormatted = Array.isArray(activities) ? activities.map((a: any) => ({
-              id: a.id || 0,
-              title: a.name || a.title || "Actividad sin nombre",
-              type: 'activity' as const,
-              image: a.image || null,
-              description: a.description?.substring(0, 100) || ''
-            })) : [];
+            // console.log('Raw activities data:', activities); // Log raw data
+            const activitiesFormatted = Array.isArray(activities) ? activities.map((a: any) => {
+              // console.log('Processing activity:', a); // Log each activity
+              return {
+                id: a.id || 0,
+                title: a.name_activitie || "Actividad sin nombre",
+                type: 'activity' as const,
+                image: a.image || null,
+                description: a.description?.substring(0, 100) || '',
+                characteristics: Array.isArray(a.caracteristics) ? a.caracteristics : []
+              };
+            }) : [];
             formattedResults = [...formattedResults, ...activitiesFormatted];
           }
         } catch (error) {
           console.error('Error fetching activities:', error);
         }
     
-        // try {
-        //   const mealsRes = await fetch(`http://localhost:8000/api/meals/?search=${query}`);
-        //   if (mealsRes.ok) {
-        //     const meals = await mealsRes.json();
-        //     const mealsFormatted = Array.isArray(meals) ? meals.map((m: any) => ({
-        //       id: m.id || 0,
-        //       title: m.name || m.title || "Menú sin nombre",
-        //       type: 'meal' as const,
-        //       image: m.image || null,
-        //       description: m.description?.substring(0, 100) || ''
-        //     })) : [];
-        //     formattedResults = [...formattedResults, ...mealsFormatted];
-        //   }
-        // } catch (error) {
-        //   console.error('Error fetching meals:', error);
-        // }
-  
         const sortedResults = formattedResults
           .filter(item => item && item.title)
           .sort((a, b) => {
-            const titleA = a?.title?.toLowerCase() || "";
-            const titleB = b?.title?.toLowerCase() || "";
             const queryLower = query.toLowerCase();
+            const titleA = (a?.title || "").toLowerCase();
+            const titleB = (b?.title || "").toLowerCase();
             
+            // Verificar coincidencias en características
+            const hasCharacteristicMatchA = a.characteristics?.some(
+              char => char.toLowerCase().includes(queryLower)
+            ) || false;
+            
+            const hasCharacteristicMatchB = b.characteristics?.some(
+              char => char.toLowerCase().includes(queryLower)
+            ) || false;
+            
+            // Comprobar coincidencias exactas en título
             const startsWithA = titleA.startsWith(queryLower);
             const startsWithB = titleB.startsWith(queryLower);
+            const includesA = titleA.includes(queryLower);
+            const includesB = titleB.includes(queryLower);
             
+            // Si uno comienza con la consulta y el otro no
             if (startsWithA && !startsWithB) return -1;
             if (!startsWithA && startsWithB) return 1;
             
+            // Si ambos o ninguno comienza con la consulta, verificar si incluye
+            if (includesA && !includesB) return -1;
+            if (!includesA && includesB) return 1;
+            
+            // Si ambos o ninguno incluye la consulta en título, comprobar características
+            if (hasCharacteristicMatchA && !hasCharacteristicMatchB) return -1;
+            if (!hasCharacteristicMatchA && hasCharacteristicMatchB) return 1;
+            
+            // Si todo lo anterior es igual, ordenar alfabéticamente
             return titleA.localeCompare(titleB);
-          })
-          .slice(0, 8);
+          });
     
         setResults(sortedResults);
       } catch (error) {
@@ -136,11 +146,51 @@ export default function SearchAutocomplete({
     return () => clearTimeout(timer);
   }, [query]);
 
+  // Función para verificar si un ítem contiene coincidencias con la búsqueda
+  const hasMatch = (item: SearchItem, searchTerm: string): boolean => {
+    if (!searchTerm.trim()) return false;
+    
+    const term = searchTerm.toLowerCase();
+    
+    // Verificar título
+    if (item.title?.toLowerCase().includes(term)) return true;
+    
+    // Verificar características
+    if (item.characteristics?.some(char => char.toLowerCase().includes(term))) 
+      return true;
+    
+    // Verificar descripción
+    if (item.description?.toLowerCase().includes(term))
+      return true;
+      
+    return false;
+  };
+
+  const getExactMatches = (results: SearchItem[], searchTerm: string) => {
+    if (!searchTerm.trim()) return results.length;
+    
+    const term = searchTerm.toLowerCase();
+    return results.filter(item => {
+      // Coincidencia en título
+      if (item.title?.toLowerCase().includes(term)) return true;
+      
+      // Coincidencia en características
+      if (item.characteristics?.some(char => char.toLowerCase().includes(term))) 
+        return true;
+      
+      // Coincidencia en descripción
+      if (item.description?.toLowerCase().includes(term))
+        return true;
+        
+      return false;
+    }).length;
+  };
+
   const handleSelect = (item: SearchItem) => {
     let path = '';
     switch (item.type) {
       case 'activity':
-        path = `/shop/activity/${item.id}`;
+        path = `/details_activities/${item.id}`;
         break;
       case 'meal':
         path = `/meals/meal/${item.id}`;
@@ -215,14 +265,14 @@ export default function SearchAutocomplete({
   };
 
   // Resalta el texto de búsqueda en los resultados
-  const highlightText = (text: string) => {
-    if (!query.trim()) return text;
+  const highlightText = (text: string = "") => {
+    if (!query.trim() || !text) return text;
     
     const parts = text.split(new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'));
     
     return parts.map((part, index) => 
       part.toLowerCase() === query.toLowerCase() 
-        ? <span key={index} className={styles.highlight}>{part}</span> 
+        ? <span key={index} className={styles.highlightMatch}>{part}</span> 
         : part
     );
   };
@@ -230,7 +280,6 @@ export default function SearchAutocomplete({
   return (
     <div className={`${styles.searchAutocomplete} ${className}`}>
       <div className={styles.inputContainer}>
-        {/* <i className={`fas fa-search ${styles.searchIcon}`}></i> */}
         <input
           ref={inputRef}
           type="text"
@@ -288,54 +337,90 @@ export default function SearchAutocomplete({
             <>
               <div className={styles.resultHeader}>
                 <span>Resultados</span>
-                <span className={styles.resultCount}>{results.length} encontrados</span>
+                <span className={styles.resultCount}>
+                  {getExactMatches(results, query)} 
+                  {getExactMatches(results, query) === 1 ? ' coincidencia' : ' coincidencias'}
+                  {query ? ` para "${query}"` : ''}
+                </span>
               </div>
               
-              {results.map((item, index) => (
-                <div
-                  key={`${item.type}-${item.id}`}
-                  className={`${styles.resultItem} ${selectedIndex === index ? styles.selected : ''}`}
-                  onClick={() => handleSelect(item)}
-                >
-                  <div className={styles.resultImage}>
-                    {item.image ? (
-                      <Image 
-                        src={item.image} 
-                        alt={item.title} 
-                        width={40} 
-                        height={40} 
-                        className={styles.itemImage}
-                      />
-                    ) : (
-                      <div className={styles.imagePlaceholder}>
-                        {item.type === 'activity' && <i className="fas fa-running"></i>}
-                        {item.type === 'meal' && <i className="fas fa-utensils"></i>}
-                        {item.type === 'room' && <i className="fas fa-bed"></i>}
-                      </div>
-                    )}
-                  </div>
-                  <div className={styles.resultInfo}>
-                    <div className={styles.resultTitle}>{highlightText(item.title)}</div>
-                    <div className={styles.resultMeta}>
-                      <span className={styles.resultType}>
-                        {item.type === 'activity' && <><i className="fas fa-running"></i> Actividad</>}
-                        {item.type === 'meal' && <><i className="fas fa-utensils"></i> Menú</>}
-                        {item.type === 'room' && <><i className="fas fa-bed"></i> Habitación</>}
-                      </span>
-                      {item.description && (
-                        <span className={styles.resultDescription}>
-                          {item.description.length > 60 
-                            ? `${item.description.substring(0, 60)}...` 
-                            : item.description}
-                        </span>
+              {results.map((item, index) => {
+                const containsMatch = hasMatch(item, query);
+                
+                return (
+                  <div
+                    key={`${item.type}-${item.id}`}
+                    className={`
+                      ${styles.resultItem} 
+                      ${selectedIndex === index ? styles.selected : ''} 
+                      ${containsMatch ? styles.matchItem : ''}
+                    `}
+                    onClick={() => handleSelect(item)}
+                  >
+                    <div className={styles.resultImage}>
+                      {item.image ? (
+                        <Image 
+                          src={item.image} 
+                          alt={item.title} 
+                          width={40} 
+                          height={40} 
+                          className={styles.itemImage}
+                        />
+                      ) : (
+                        <div className={styles.imagePlaceholder}>
+                          {item.type === 'activity' && <i className="fas fa-running"></i>}
+                          {item.type === 'meal' && <i className="fas fa-utensils"></i>}
+                          {item.type === 'room' && <i className="fas fa-bed"></i>}
+                        </div>
                       )}
                     </div>
+                    <div className={styles.resultInfo}>
+                      <div className={styles.resultTitle}>{highlightText(item.title)}</div>
+                      <div className={styles.resultMeta}>
+                        <span className={styles.resultType}>
+                          {item.type === 'activity' && (
+                            <>
+                              <i className="fas fa-running"></i> Actividad
+                            </>
+                          )}
+                          {item.type === 'meal' && <><i className="fas fa-utensils"></i> Menú</>}
+                          {item.type === 'room' && <><i className="fas fa-bed"></i> Habitación</>}
+                        </span>
+                        
+                        {/* Mostrar características como etiquetas individuales */}
+                        {item.type === 'activity' && item.characteristics && item.characteristics.length > 0 && (
+                          <div className={styles.characteristicsTags}>
+                            {item.characteristics.map((tag, idx) => (
+                              <span key={`tag-${idx}`} className={styles.characteristicTag}>
+                                {query.trim() && tag.toLowerCase().includes(query.toLowerCase()) 
+                                  ? highlightText(tag)
+                                  : tag
+                                }
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        
+                        {item.description && (
+                          <span className={styles.resultDescription}>
+                            {query.trim() && item.description.toLowerCase().includes(query.toLowerCase())
+                              ? highlightText(item.description.length > 60 
+                                  ? `${item.description.substring(0, 60)}...` 
+                                  : item.description)
+                              : (item.description.length > 60 
+                                  ? `${item.description.substring(0, 60)}...` 
+                                  : item.description)
+                            }
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className={styles.resultAction}>
+                      Ver <i className="fas fa-chevron-right"></i>
+                    </div>
                   </div>
-                  <div className={styles.resultAction}>
-                    Ver <i className="fas fa-chevron-right"></i>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </>
           ) : query.trim().length > 0 && !isLoading && (
             <div className={styles.noResults}>
