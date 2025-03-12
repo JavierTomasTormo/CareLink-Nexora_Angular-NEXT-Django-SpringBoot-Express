@@ -1,0 +1,134 @@
+<div class="search-autocomplete" [class]="className">
+    <div class="input-container">
+      <span class="search-icon">
+        <i class="fas fa-search"></i>
+      </span>
+      <input
+        #inputRef
+        type="text"
+        [(ngModel)]="query"
+        (ngModelChange)="onQueryChange()"
+        (keydown)="handleKeyDown($event)"
+        [placeholder]="placeholder"
+        class="search-input"
+        autocomplete="off"
+        autofocus
+      />
+      <button 
+        *ngIf="query" 
+        class="clear-button"
+        (click)="clearSearch()"
+        aria-label="Limpiar búsqueda"
+      >
+        <i class="fas fa-times"></i>
+      </button>
+      <div *ngIf="isLoading" class="spinner"></div>
+    </div>
+  
+    <!-- Resultados de búsqueda o búsquedas recientes -->
+    <div *ngIf="(results.length > 0 || (query.trim() === '' && recentSearches.length > 0))" 
+         class="results-container" #resultsRef>
+      
+      <!-- Búsquedas recientes cuando no hay consulta -->
+      <ng-container *ngIf="query.trim() === '' && recentSearches.length > 0">
+        <div class="result-header">
+          <span>Búsquedas recientes</span>
+          <button class="clear-history" (click)="clearRecentSearches()">
+            Borrar todo
+          </button>
+        </div>
+        
+        <div *ngFor="let term of recentSearches" 
+             class="recent-search-item"
+             (click)="selectRecentSearch(term)">
+          <i class="fas fa-history"></i>
+          <span>{{ term }}</span>
+        </div>
+        
+        <div class="result-divider"></div>
+      </ng-container>
+  
+      <!-- Resultados de búsqueda -->
+      <ng-container *ngIf="results.length > 0">
+        <div class="result-header">
+          <span>Resultados</span>
+          <span class="result-count">
+            {{ getExactMatches() }} 
+            {{ getExactMatches() === 1 ? 'coincidencia' : 'coincidencias' }}
+          </span>
+        </div>
+        
+        <div *ngFor="let item of results; let i = index"
+             class="result-item"
+             [class.selected]="selectedIndex === i"
+             [class.match-item]="hasMatch(item)"
+             (click)="handleSelect(item)">
+          
+          <div class="result-image">
+            <img *ngIf="item.image" [src]="item.image" [alt]="item.title" class="item-image">
+            <div *ngIf="!item.image" class="image-placeholder">
+              <i *ngIf="item.type === 'activity'" class="fas fa-running"></i>
+              <i *ngIf="item.type === 'meal'" class="fas fa-utensils"></i>
+              <i *ngIf="item.type === 'room'" class="fas fa-bed"></i>
+            </div>
+          </div>
+          
+          <div class="result-info">
+            <div class="result-title" [innerHTML]="highlightText(item.title)"></div>
+            
+            <div class="result-meta">
+              <div class="result-type">
+                <ng-container [ngSwitch]="item.type">
+                  <ng-container *ngSwitchCase="'activity'">
+                    <i class="fas fa-running"></i> Actividad
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'meal'">
+                    <i class="fas fa-utensils"></i> Menú
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'room'">
+                    <i class="fas fa-bed"></i> Habitación
+                  </ng-container>
+                </ng-container>
+              </div>
+              
+              <div *ngIf="item.characteristics && item.characteristics.length > 0" 
+                  class="characteristics-tags">
+                <span *ngFor="let tag of item.characteristics" 
+                      class="characteristic-tag" 
+                      [innerHTML]="highlightText(tag)">
+                </span>
+              </div>
+              
+              <div *ngIf="item.description" 
+                   class="result-description" 
+                   [innerHTML]="highlightText(item.description.length > 60 ? 
+                                             item.description.substring(0, 60) + '...' : 
+                                             item.description)">
+              </div>
+            </div>
+          </div>
+          
+          <div class="result-action">
+            Ver <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  
+    <!-- No hay resultados -->
+    <div *ngIf="query.trim().length > 0 && results.length === 0 && !isLoading" 
+         class="no-results">
+      <div class="no-results-icon">
+        <i class="fas fa-search"></i>
+      </div>
+      <p>No se encontraron resultados para "<strong>{{ query }}</strong>"</p>
+      <p class="no-results-tip">Intenta con otra búsqueda o revisa la ortografía</p>
+    </div>
+  
+    <!-- Cargando resultados -->
+    <div *ngIf="isLoading && query.trim().length >= 2" 
+         class="loading-results">
+      <div class="loading-icon"></div>
+      <p>Buscando resultados...</p>
+    </div>
+  </div>
