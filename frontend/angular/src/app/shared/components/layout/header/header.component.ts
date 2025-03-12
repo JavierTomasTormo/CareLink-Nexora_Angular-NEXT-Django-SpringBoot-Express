@@ -12,7 +12,7 @@ import { SearchComponent } from '../../layout/search/search.component';
     standalone: true,
     imports: [RouterModule, CommonModule, SearchComponent],
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+    styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
     @ViewChild('profileRef') profileRef!: ElementRef;
