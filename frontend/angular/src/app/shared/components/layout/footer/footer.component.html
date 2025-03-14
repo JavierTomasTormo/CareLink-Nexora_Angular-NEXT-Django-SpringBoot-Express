@@ -1,84 +1,108 @@
-    <footer class="footer">
-        <div class="footerWave">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="currentColor"/>
-        </svg>
-        </div>
-        
+<footer class="footer">
+    <div class="footerMain">
+      <div class="container">
         <div class="footerContent">
-        <div class="footerBrand">
+          <!-- Column 1: Logo and description -->
+          <div class="footerBrand">
+            <div class="logo">
+              <img 
+                src="/Logo_VitalNest.png" 
+                alt="VitalNest Logo" 
+                width="180" 
+                height="180"
+              />
+            </div>
             <p class="brandText">
-            Elevando los estándares del cuidado geriátrico con elegancia y dedicación desde 2025.
+              Elevando los estándares del cuidado geriátrico con elegancia y dedicación. Un espacio donde el bienestar y la calidad de vida se fusionan para crear experiencias excepcionales.
             </p>
             <div class="socialIcons">
-            <a href="#" class="socialIconWrapper">
+              <a href="#" class="socialIconWrapper" aria-label="Facebook">
                 <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" class="socialIconWrapper">
+              </a>
+              <a href="#" class="socialIconWrapper" aria-label="Twitter">
                 <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="socialIconWrapper">
+              </a>
+              <a href="#" class="socialIconWrapper" aria-label="Instagram">
                 <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" class="socialIconWrapper">
+              </a>
+              <a href="#" class="socialIconWrapper" aria-label="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
-            </a>
+              </a>
+              <a href="#" class="socialIconWrapper" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+              </a>
             </div>
-        </div>
-    
-        <div class="footerLinks">
+          </div>
+          
+          <!-- Column 2: Links -->
+          <div class="footerNavigation">
             <div class="linkColumn">
-            <h3>Servicios Premium</h3>
-            <ul>
-                <li><a routerLink="/servicios/lujo">Suites de Lujo</a></li>
-                <li><a routerLink="/servicios/spa">Spa & Bienestar</a></li>
-                <li><a routerLink="/servicios/gastronomia">Alta Gastronomía</a></li>
-                <li><a routerLink="/servicios/terapias">Terapias Exclusivas</a></li>
-            </ul>
+              <h3>Servicios</h3>
+              <ul>
+                <li><a routerLink="/servicios/residencia">Residencia Premium</a></li>
+                <li><a routerLink="/servicios/cuidados">Cuidados Especializados</a></li>
+                <li><a routerLink="/servicios/actividades">Programa de Actividades</a></li>
+                <li><a routerLink="/servicios/gastronomia">Gastronomía Saludable</a></li>
+              </ul>
             </div>
-    
+
             <div class="linkColumn">
-            <h3>Experiencia VitalNest</h3>
-            <ul>
+              <h3>Sobre Nosotros</h3>
+              <ul>
+                <li><a routerLink="/sobre-nosotros">Quiénes Somos</a></li>
                 <li><a routerLink="/instalaciones">Instalaciones</a></li>
-                <li><a routerLink="/eventos">Eventos Especiales</a></li>
-                <li><a routerLink="/galeria">Galería</a></li>
-                <li><a routerLink="/testimonios">Testimonios</a></li>
-            </ul>
+                <li><a routerLink="/equipo">Equipo Profesional</a></li>
+                <li><a routerLink="/blog">Blog de Salud</a></li>
+              </ul>
             </div>
-    
-            <div class="contactColumn">
-            <h3>Contacto Directo</h3>
+          </div>
+          
+          <!-- Column 3: Contact -->
+          <div class="footerContact">
+            <h3>Contacto</h3>
             <div class="contactInfo">
-                <div class="contactItem">
-                <i class="fas fa-phone contactIcon"></i>
+              <div class="contactItem">
+                <i class="fa fa-phone contactIcon"></i>
                 <span>900 123 456</span>
-                </div>
-                <div class="contactItem">
-                <i class="fas fa-envelope contactIcon"></i>
-                <span>concierge&#64;vitalnest.com</span>
-                </div>
-                <div class="contactItem">
-                <i class="fas fa-map-marker-alt contactIcon"></i>
+              </div>
+              <div class="contactItem">
+                <i class="fa fa-envelope contactIcon"></i>
+                <span>info&#64;vitalnest.com</span>
+              </div>
+              <div class="contactItem">
+                <i class="fa fa-map-marker contactIcon"></i>
                 <span>Paseo de la Castellana 200, Madrid</span>
-                </div>
-                <div class="contactItem">
-                <i class="fas fa-clock contactIcon"></i>
-                <span>Atención Personalizada 24/7</span>
-                </div>
+              </div>
+              <div class="contactItem">
+                <i class="fa fa-clock-o contactIcon"></i>
+                <span>Atención 24/7</span>
+              </div>
             </div>
+            
+            <div class="newsletterContainer">
+              <h3>Boletín Informativo</h3>
+              <form class="newsletterForm" (ngSubmit)="subscribeNewsletter()">
+                <input type="email" placeholder="Tu correo electrónico" required />
+                <button type="submit">Suscribirse</button>
+              </form>
             </div>
+          </div>
         </div>
-        </div>
-    
-        <div class="footerBottom">
+      </div>
+    </div>
+
+    <!-- Footer bottom -->
+    <div class="footerBottom">
+      <div class="container">
         <div class="bottomContent">
-            <p>© 2025 VitalNest - La excelencia en el cuidado</p>
-            <div class="bottomLinks">
-            <a routerLink="/privacidad">Política de Privacidad</a>
-            <a routerLink="/terminos">Términos de Servicio</a>
-            <a routerLink="/cookies">Política de Cookies</a>
-            </div>
+          <p class="copyright">© {{currentYear}} VitalNest - Todos los derechos reservados</p>
+          <div class="bottomLinks">
+            <a routerLink="/privacidad"><i class="fa fa-shield"></i> Política de Privacidad</a>
+            <a routerLink="/terminos"><i class="fa fa-file-text"></i> Términos de Uso</a>
+            <a routerLink="/cookies"><i class="fa fa-cookie-bite"></i> Política de Cookies</a>
+            <a routerLink="/accesibilidad"><i class="fa fa-universal-access"></i> Accesibilidad</a>
+          </div>
         </div>
-        </div>
-    </footer>
+      </div>
+    </div>
+</footer>

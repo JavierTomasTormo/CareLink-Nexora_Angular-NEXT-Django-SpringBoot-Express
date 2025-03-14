@@ -41,6 +41,13 @@
                 Menús
               </a>
             </li>
+            <li class="navItem">
+              <a [href]="routes.ANGULAR.ROOMS.MAP" 
+                 class="navLink" 
+                 routerLinkActive="active">
+                Rooms
+              </a>
+            </li>
           </ul>
         </nav>
         
@@ -102,7 +109,7 @@
               </ng-container>
               <ng-template #defaultIcon>
                 <div class="profileInitials">
-                  {{user.name?.charAt(0)}}
+                  {{user.name.charAt(0)}}
                 </div>
               </ng-template>
             </div>
@@ -114,7 +121,7 @@
                 </ng-container>
                 <ng-template #dropdownDefaultIcon>
                   <div class="profileInitials">
-                    {{user.name?.charAt(0)}}
+                    {{user.name.charAt(0)}}
                   </div>
                 </ng-template>
                 
@@ -137,6 +144,9 @@
                 </a>
                 <a [routerLink]="routes.ANGULAR.AUTH.PAYMENTS" class="profileLink">
                   <i class="fas fa-credit-card"></i> Mis Pagos
+                </a>
+                <a [routerLink]="routes.ANGULAR.ROOMS.MAP" class="profileLink">
+                    <i class="fas fa-bed"></i> Habitaciones
                 </a>
                 <a (click)="logout()" class="profileLink logout">
                   <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
