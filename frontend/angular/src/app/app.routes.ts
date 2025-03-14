@@ -22,6 +22,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule)
   },
+  {
+    path: 'rooms',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./modules/rooms/rooms.module').then(m => m.RoomsModule) 
+  },
   { 
     path: '404', 
     component: ErrorComponent 

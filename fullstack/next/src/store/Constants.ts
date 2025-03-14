@@ -154,6 +154,7 @@ export const SHARED_ROUTES = {
       FAMILY: 'http://localhost:4200/profile/family/view',
       RESERVATIONS: 'http://localhost:4200/profile/reservations/view',
       PAYMENTS: 'http://localhost:4200/profile/payments/view',
+      ROOMS: 'http://localhost:4200/rooms/map',
     }
   },
   NEXT: {

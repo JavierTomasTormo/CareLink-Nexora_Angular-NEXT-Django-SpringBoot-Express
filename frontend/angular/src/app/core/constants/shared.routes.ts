@@ -15,7 +15,10 @@ export const SHARED_ROUTES = {
             MEDICAL: '/medical',
             EMERGENCY: '/emergency',
             REPORTS: '/reports'
-        }
+        },
+        ROOMS: {
+            MAP: '/rooms/map',
+        },
     },
     NEXT: {
         HOME: 'http://localhost:3000',

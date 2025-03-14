@@ -279,6 +279,11 @@ const Header: React.FC = () => {
                           <i className="fas fa-credit-card"></i>
                           Mis Pagos
                         </Link>
+
+                        <Link href={SHARED_ROUTES.ANGULAR.AUTH.ROOMS} className={styles.profileLink}>
+                          <i className="fas fa-bed"></i>
+                          Habitaciones
+                        </Link>
                         
                         <a href="#" onClick={handleLogout} className={`${styles.profileLink} ${styles.logout}`}>
                           <i className="fas fa-sign-out-alt"></i>
