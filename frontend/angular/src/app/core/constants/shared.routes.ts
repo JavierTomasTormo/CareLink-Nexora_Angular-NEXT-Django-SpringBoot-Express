@@ -17,7 +17,7 @@ export const SHARED_ROUTES = {
             REPORTS: '/reports'
         },
         ROOMS: {
-            MAP: '/rooms/map',
+            MAP: '/rooms/view',
         },
     },
     NEXT: {

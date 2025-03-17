@@ -1,0 +1,111 @@
+<div class="rooms-interface-container">
+  <div class="map-controls">
+    <button class="zoom-button" (click)="zoom(1.1, 400, 300)">+</button>
+    <button class="zoom-button" (click)="zoom(0.9, 400, 300)">-</button>
+    <button class="reset-button" (click)="resetView()">Resetear Vista</button>
+  </div>
+  
+  <div class="map-container">
+    <svg #mapSvg width="800" height="600" viewBox="0 0 800 600" (click)="onMapBackgroundClick()">
+      <g class="map-content">
+        <!-- Fondo del mapa -->
+        <rect width="800" height="600" fill="#f0f0f0"></rect>
+        
+        <!-- Pasillos y áreas comunes -->
+        <rect x="190" y="100" width="50" height="400" class="corridor"></rect>
+        <rect x="410" y="100" width="50" height="400" class="corridor"></rect>
+        <rect x="190" y="450" width="270" height="50" class="corridor"></rect>
+        
+        <!-- Entrada principal -->
+        <rect x="290" y="500" width="70" height="30" class="entrance"></rect>
+        <text x="325" y="520" text-anchor="middle" class="room-label">ENTRADA</text>
+        
+        <!-- Habitaciones - Las dibujamos directamente para asegurar que se vean -->
+        <!-- Habitaciones lado izquierdo -->
+        <polygon [attr.id]="'h101'" points="100,100 180,100 180,170 100,170" 
+                class="room-polygon" (click)="onRoomClick('h101', $event)"></polygon>
+        <text x="140" y="135" text-anchor="middle" class="room-label">Habitación 101</text>
+        
+        <polygon [attr.id]="'h102'" points="100,180 180,180 180,250 100,250" 
+                class="room-polygon" (click)="onRoomClick('h102', $event)"></polygon>
+        <text x="140" y="215" text-anchor="middle" class="room-label">Habitación 102</text>
+        
+        <polygon [attr.id]="'h103'" points="100,260 180,260 180,330 100,330" 
+                class="room-polygon" (click)="onRoomClick('h103', $event)"></polygon>
+        <text x="140" y="295" text-anchor="middle" class="room-label">Habitación 103</text>
+        
+        <polygon [attr.id]="'h104'" points="100,340 180,340 180,410 100,410" 
+                class="room-polygon" (click)="onRoomClick('h104', $event)"></polygon>
+        <text x="140" y="375" text-anchor="middle" class="room-label">Habitación 104</text>
+        
+        <!-- Salas centrales -->
+        <polygon [attr.id]="'surgery'" points="250,150 400,150 400,300 250,300" 
+                class="room-polygon" (click)="onRoomClick('surgery', $event)"></polygon>
+        <text x="325" y="225" text-anchor="middle" class="room-label">Quirófano</text>
+        
+        <polygon [attr.id]="'nurses'" points="250,310 400,310 400,380 250,380" 
+                class="room-polygon" (click)="onRoomClick('nurses', $event)"></polygon>
+        <text x="325" y="345" text-anchor="middle" class="room-label">Estación Enfermería</text>
+        
+        <!-- Habitaciones lado derecho -->
+        <polygon [attr.id]="'h201'" points="470,100 550,100 550,170 470,170" 
+                class="room-polygon" (click)="onRoomClick('h201', $event)"></polygon>
+        <text x="510" y="135" text-anchor="middle" class="room-label">Habitación 201</text>
+        
+        <polygon [attr.id]="'h202'" points="470,180 550,180 550,250 470,250" 
+                class="room-polygon" (click)="onRoomClick('h202', $event)"></polygon>
+        <text x="510" y="215" text-anchor="middle" class="room-label">Habitación 202</text>
+        
+        <polygon [attr.id]="'h203'" points="470,260 550,260 550,330 470,330" 
+                class="room-polygon" (click)="onRoomClick('h203', $event)"></polygon>
+        <text x="510" y="295" text-anchor="middle" class="room-label">Habitación 203</text>
+        
+        <polygon [attr.id]="'h204'" points="470,340 550,340 550,410 470,410" 
+                class="room-polygon" (click)="onRoomClick('h204', $event)"></polygon>
+        <text x="510" y="375" text-anchor="middle" class="room-label">Habitación 204</text>
+        
+        <!-- Salas especiales -->
+        <polygon [attr.id]="'lab'" points="600,100 700,100 700,200 600,200" 
+                class="room-polygon" (click)="onRoomClick('lab', $event)"></polygon>
+        <text x="650" y="150" text-anchor="middle" class="room-label">Laboratorio</text>
+        
+        <polygon [attr.id]="'xray'" points="600,210 700,210 700,310 600,310" 
+                class="room-polygon" (click)="onRoomClick('xray', $event)"></polygon>
+        <text x="650" y="260" text-anchor="middle" class="room-label">Sala de Rayos X</text>
+        
+        <polygon [attr.id]="'pharmacy'" points="600,320 700,320 700,410 600,410" 
+                class="room-polygon" (click)="onRoomClick('pharmacy', $event)"></polygon>
+        <text x="650" y="365" text-anchor="middle" class="room-label">Farmacia</text>
+        
+        <!-- Leyendas del mapa -->
+        <text x="20" y="30" font-size="20" font-weight="bold">PLANTA HOSPITALARIA</text>
+        <text x="20" y="50" font-size="14">Piso 1</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="info-panel" *ngIf="selectedRoom">
+    <div class="info-header">
+      <h3>{{selectedRoom!.name}}</h3>
+      <button class="close-button" (click)="onMapBackgroundClick()">×</button>
+    </div>
+    <div class="info-content">
+      <p class="room-description">{{selectedRoom!.description}}</p>
+      <div class="room-actions">
+        <button class="action-button">Ver Detalles</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="map-legend" *ngIf="!selectedRoom">
+    <h4>Leyenda</h4>
+    <div class="legend-item">
+      <span class="legend-color normal"></span>
+      <span>Habitación estándar</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-color selected"></span>
+      <span>Sala seleccionada</span>
+    </div>
+  </div>
+</div>

@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RoomsMapComponent } from '../../shared/components/rooms/rooms-map/rooms-map.component'; 
+import { RoomsInterfaceComponent } from '../../shared/components/rooms/rooms-interface/rooms-interface.component';
+import { InteractiveMapComponent } from '../../shared/components/rooms/interactive-map/interactive-map.component';
 
 
 const routes: Routes = [
   { 
-    path: 'map', 
-    component: RoomsMapComponent 
+    path: 'view', 
+    component: InteractiveMapComponent 
+  },
+  { 
+    path: 'view/map', 
+    component: RoomsInterfaceComponent 
   },
   { 
     path: '', 
-    redirectTo: 'map', 
+    redirectTo: 'view', 
     pathMatch: 'full' 
   }
 ];

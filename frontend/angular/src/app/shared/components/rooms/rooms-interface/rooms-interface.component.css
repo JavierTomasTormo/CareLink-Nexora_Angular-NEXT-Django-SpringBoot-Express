@@ -1,0 +1,290 @@
+.rooms-interface-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+/* Container del mapa */
+.map-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.map-container svg {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  cursor: grab;
+}
+
+.map-container svg:active {
+  cursor: grabbing;
+}
+
+/* Polígonos de salas */
+.room-polygon {
+  fill: rgba(144, 238, 144, 0.6);
+  stroke: #2e8b57;
+  stroke-width: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Estilos específicos por tipo de sala */
+polygon[id^="h"] {
+  fill: rgba(144, 238, 144, 0.6);
+  stroke: #2e8b57;
+}
+
+polygon#surgery {
+  fill: rgba(255, 182, 193, 0.7);
+  stroke: #d81b60;
+}
+
+polygon#nurses {
+  fill: rgba(135, 206, 250, 0.7);
+  stroke: #1976d2;
+}
+
+polygon#lab {
+  fill: rgba(230, 230, 250, 0.7);
+  stroke: #673ab7;
+}
+
+polygon#xray {
+  fill: rgba(211, 211, 211, 0.7);
+  stroke: #607d8b;
+}
+
+polygon#pharmacy {
+  fill: rgba(255, 222, 173, 0.7);
+  stroke: #ff9800;
+}
+
+/* Estados de hover y activo */
+.room-polygon:hover {
+  fill-opacity: 0.9;
+  stroke-width: 3px;
+  cursor: pointer;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.4));
+}
+
+.room-polygon.active {
+  fill-opacity: 0.9;
+  stroke-width: 3px;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.6));
+}
+
+/* Etiquetas de las salas */
+.room-label {
+  font-size: 12px;
+  fill: #333;
+  font-weight: bold;
+  pointer-events: none;
+  text-shadow: 0px 0px 3px white;
+  user-select: none;
+}
+
+/* Pasillos y entrada */
+.corridor {
+  fill: #e0e0e0;
+  stroke: #bbb;
+  stroke-width: 1px;
+}
+
+.entrance {
+  fill: #aaddff;
+  stroke: #0077cc;
+  stroke-width: 2px;
+}
+
+/* Panel de información */
+.info-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 280px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  z-index: 100;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #0077cc;
+  color: white;
+}
+
+.info-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.info-content {
+  padding: 15px;
+}
+
+.room-description {
+  margin-top: 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.room-details {
+  margin-top: 15px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #666;
+}
+
+.room-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.action-button:hover {
+  background-color: #005fa3;
+}
+
+/* Controles del mapa */
+.map-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+}
+
+.zoom-button, .reset-button {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.reset-button {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.zoom-button:hover, .reset-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Leyenda del mapa */
+.map-legend {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+.map-legend h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  margin-right: 10px;
+  border: 1px solid #999;
+}
+
+.legend-color.normal {
+  background-color: rgba(144, 238, 144, 0.6);
+}
+
+.legend-color.selected {
+  background-color: rgba(255, 165, 0, 0.6);
+}
+
+.legend-hint {
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .info-panel {
+    position: fixed;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .map-legend {
+    bottom: auto;
+    top: 20px;
+  }
+}
