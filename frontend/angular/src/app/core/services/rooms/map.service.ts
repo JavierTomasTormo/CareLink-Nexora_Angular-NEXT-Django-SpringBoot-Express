@@ -9,9 +9,7 @@ export class MapService {
   private selectedRoomSubject = new BehaviorSubject<Room | null>(null);
   selectedRoom$ = this.selectedRoomSubject.asObservable();
 
-
   private rooms: Room[] = [
-    // Habitaciones lado izquierdo (corridor)
     {
       id: 'h101',
       name: 'Habitación 101',
@@ -36,8 +34,6 @@ export class MapService {
       polygonPoints: '100,340 180,340 180,410 100,410',
       description: 'Habitación doble con equipamiento especial'
     },
-    
-    // Salas centrales
     {
       id: 'surgery',
       name: 'Quirófano',
@@ -50,8 +46,6 @@ export class MapService {
       polygonPoints: '250,310 400,310 400,380 250,380',
       description: 'Estación central de enfermería y monitorización'
     },
-    
-    // Habitaciones lado derecho
     {
       id: 'h201',
       name: 'Habitación 201',
@@ -76,8 +70,6 @@ export class MapService {
       polygonPoints: '470,340 550,340 550,410 470,410',
       description: 'Habitación para pacientes de larga estancia'
     },
-    
-    // Salas especiales
     {
       id: 'lab',
       name: 'Laboratorio',
@@ -98,6 +90,7 @@ export class MapService {
     }
   ];
 
+
   constructor() { }
 
   getRooms(): Room[] {
@@ -105,7 +98,9 @@ export class MapService {
   }
 
   selectRoom(roomId: string): void {
+    console.log('Seleccionando habitación:', roomId); // Para debug
     const room = this.rooms.find(r => r.id === roomId);
+    console.log('Habitación encontrada:', room); // Para debug
     this.selectedRoomSubject.next(room || null);
   }
 

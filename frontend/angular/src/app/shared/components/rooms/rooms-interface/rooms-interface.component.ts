@@ -2,9 +2,12 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { MapService } from '../../../../core/services/rooms/map.service';
 import { Room } from '../../../../core/models/rooms/rooms.model';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-rooms-interface',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './rooms-interface.component.html',
   styleUrls: ['./rooms-interface.component.scss']
 })
@@ -13,6 +16,10 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   
   rooms: Room[] = [];
   selectedRoom: Room | null = null;
+
+    // Agrega estas dos propiedades nuevas
+    showDetailsModal = false;
+    modalRoom: Room | null = null;
   
   // Variables para zoom y pan
   scale: number = 1;
@@ -31,6 +38,7 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     
     this.subscription.add(
       this.mapService.selectedRoom$.subscribe(room => {
+        console.log('Room selected in component:', room); // Para debug
         this.selectedRoom = room;
         if (room) {
           this.centerViewOnRoom(room);
@@ -42,12 +50,25 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     this.initializeZoomEvents();
   }
 
+  // Añade este nuevo método para abrir el modal
+    openDetailsModal(room: Room): void {
+      this.modalRoom = room;
+      this.showDetailsModal = true;
+    }
+
+    // Y este método para cerrar el modal
+    closeDetailsModal(): void {
+      this.showDetailsModal = false;
+    }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   onRoomClick(roomId: string, event: MouseEvent): void {
-    event.stopPropagation(); // Prevenir propagación si hay elementos anidados
+    event.preventDefault(); // Prevenir comportamiento por defecto
+    event.stopPropagation(); // Prevenir propagación
+    console.log('Clicked on room:', roomId); // Para debug
     this.mapService.selectRoom(roomId);
   }
 
