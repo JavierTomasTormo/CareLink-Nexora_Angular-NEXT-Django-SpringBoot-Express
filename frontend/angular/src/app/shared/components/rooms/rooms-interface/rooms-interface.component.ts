@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NO_ERRORS_SCHEMA, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MapService } from '../../../../core/services/rooms/map.service';
 import { Room } from '../../../../core/models/rooms/rooms.model';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './rooms-interface.component.html',
-  styleUrls: ['./rooms-interface.component.scss']
+  styleUrls: ['./rooms-interface.component.scss'],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   @ViewChild('mapSvg', { static: true }) mapSvg!: ElementRef<SVGElement>;
@@ -34,11 +35,40 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   constructor(private mapService: MapService) { }
 
   ngOnInit(): void {
+    const roomsConfig = [
+      // Fila superior
+      { id: 'h101', name: 'H101', x: 60, y: 60, width: 120, height: 100, description: 'Habitación individual con baño privado' },
+      { id: 'h102', name: 'H102', x: 180, y: 60, width: 120, height: 100, description: 'Habitación doble con vista al jardín' },
+      { id: 'bathNorth', name: 'Baños Norte', x: 300, y: 60, width: 120, height: 100, description: 'Baños compartidos para las habitaciones del norte' },
+      { id: 'h103', name: 'H103', x: 420, y: 60, width: 120, height: 100, description: 'Habitación individual con escritorio' },
+      { id: 'commonRoom', name: 'Sala Común', x: 540, y: 60, width: 180, height: 100, description: 'Sala común con TV, sofás y zona de juegos' },
+      { id: 'h104', name: 'H104', x: 720, y: 60, width: 110, height: 100, description: 'Habitación individual estándar' },
+      { id: 'h105', name: 'H105', x: 830, y: 60, width: 110, height: 100, description: 'Habitación individual estándar' },
+      
+      // Zona central
+      { id: 'dining', name: 'Comedor', x: 550, y: 190, width: 200, height: 120, description: 'Comedor comunitario con mesas para 30 personas' },
+      { id: 'kitchen', name: 'Cocina', x: 750, y: 190, width: 190, height: 120, description: 'Cocina compartida con 4 hornos y equipamiento profesional' },
+      
+      // Fila inferior
+      { id: 'h201', name: 'H201', x: 60, y: 340, width: 120, height: 100, description: 'Habitación individual estándar' },
+      { id: 'h202', name: 'H202', x: 180, y: 340, width: 120, height: 100, description: 'Habitación doble con balcón' },
+      { id: 'laundry', name: 'Lavandería', x: 300, y: 340, width: 120, height: 100, description: 'Sala de lavandería con 6 lavadoras y 4 secadoras' },
+      { id: 'h203', name: 'H203', x: 420, y: 340, width: 120, height: 100, description: 'Habitación individual con armario amplio' },
+      { id: 'bathSouth', name: 'Baños Sur', x: 540, y: 340, width: 120, height: 100, description: 'Baños compartidos para las habitaciones del sur' },
+      { id: 'h204', name: 'H204', x: 660, y: 340, width: 120, height: 100, description: 'Habitación doble para estudiantes' },
+      { id: 'h205', name: 'H205', x: 780, y: 340, width: 160, height: 100, description: 'Habitación individual premium con nevera' }
+    ];
+  
+    // Genera las habitaciones dinámicamente
+    this.mapService.generateRoomsFromLayout({ rooms: roomsConfig });
+    
+    // Obtiene las habitaciones generadas
     this.rooms = this.mapService.getRooms();
     
+    // Continúa con la suscripción al observable de habitación seleccionada
     this.subscription.add(
       this.mapService.selectedRoom$.subscribe(room => {
-        console.log('Room selected in component:', room); // Para debug
+        console.log('Room selected in component:', room);
         this.selectedRoom = room;
         if (room) {
           this.centerViewOnRoom(room);
@@ -49,7 +79,9 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     // Inicializar eventos para zoom
     this.initializeZoomEvents();
   }
+  
 
+  
   // Añade este nuevo método para abrir el modal
     openDetailsModal(room: Room): void {
       this.modalRoom = room;
@@ -63,6 +95,89 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+
+  // Añade estos métodos a tu clase:
+
+  getRoomFill(roomId: string): string {
+    if (roomId.startsWith('room')) return 'url(#gradient-room)';
+    if (roomId === 'commonRoom') return 'url(#gradient-common)';
+    if (roomId === 'kitchen') return 'url(#gradient-kitchen)';
+    if (roomId === 'dining') return 'url(#gradient-dining)';
+    if (roomId.includes('bath')) return 'url(#gradient-bath)';
+    if (roomId === 'laundry') return 'url(#gradient-laundry)';
+    return '#ffffff';
+  }
+
+  getRoomCoords(room: Room): {x: number, y: number, width: number, height: number} {
+    // Para habitaciones rectangulares creadas con coordenadas x,y,width,height
+    if (room.x !== undefined && room.y !== undefined && 
+        room.width !== undefined && room.height !== undefined) {
+      return {
+        x: room.x,
+        y: room.y,
+        width: room.width,
+        height: room.height
+      };
+    }
+    
+    // Para habitaciones definidas con polígonos
+    if (room.polygonPoints) {
+      // Calcular el rectángulo contenedor del polígono
+      const points = room.polygonPoints.split(' ').map(point => {
+        const [x, y] = point.split(',').map(Number);
+        return { x, y };
+      });
+      
+      const xs = points.map(p => p.x);
+      const ys = points.map(p => p.y);
+      
+      const minX = Math.min(...xs);
+      const minY = Math.min(...ys);
+      const maxX = Math.max(...xs);
+      const maxY = Math.max(...ys);
+      
+      return {
+        x: minX,
+        y: minY,
+        width: maxX - minX,
+        height: maxY - minY
+      };
+    }
+    
+    // Valores por defecto
+    return { x: 0, y: 0, width: 0, height: 0 };
+  }
+
+
+  getRoomIcon(roomId: string): string {
+    if (roomId.startsWith('h') && !isNaN(parseInt(roomId.slice(1)))) return "#icon-bed";
+    if (roomId === 'commonRoom') return "#icon-couch";
+    if (roomId === 'kitchen') return "#icon-utensils";
+    if (roomId === 'dining') return "#icon-utensils";
+    if (roomId.includes('bath')) return "#icon-shower";
+    if (roomId === 'laundry') return "#icon-wash";
+    return "#icon-bed"; // Icono por defecto
+  }
+
+  
+  getRoomCenter(room: Room): {x: number, y: number} {
+    const coords = this.getRoomCoords(room);
+    return {
+      x: coords.x + coords.width / 2,
+      y: coords.y + coords.height / 2
+    };
+  }
+
+  getRoomStroke(roomId: string): string {
+    if (roomId.startsWith('room')) return '#fb923c';
+    if (roomId === 'commonRoom') return '#a855f7';
+    if (roomId === 'kitchen') return '#0ea5e9';
+    if (roomId === 'dining') return '#10b981';
+    if (roomId.includes('bath')) return '#0284c7';
+    if (roomId === 'laundry') return '#f59e0b';
+    return '#94a3b8';
   }
 
   onRoomClick(roomId: string, event: MouseEvent): void {
@@ -172,10 +287,27 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     }
   }
 
+  // private centerViewOnRoom(room: Room): void {
+  //   if (!this.mapSvg) return;
+    
+  //   const center = this.getPolygonCenter(room.polygonPoints);
+  //   const svgElement = this.mapSvg.nativeElement;
+  //   const bbox = svgElement.getBoundingClientRect();
+    
+  //   // Centrar el mapa en la sala seleccionada
+  //   this.translateX = bbox.width / 2 - center.x * this.scale;
+  //   this.translateY = bbox.height / 2 - center.y * this.scale;
+    
+  //   this.updateMapTransform();
+  // }
+
   private centerViewOnRoom(room: Room): void {
     if (!this.mapSvg) return;
     
-    const center = this.getPolygonCenter(room.polygonPoints);
+    // Usar getRoomCenter en lugar de getPolygonCenter directamente
+    // ya que getRoomCenter maneja ambos tipos de habitaciones
+    const center = this.getRoomCenter(room);
+    
     const svgElement = this.mapSvg.nativeElement;
     const bbox = svgElement.getBoundingClientRect();
     

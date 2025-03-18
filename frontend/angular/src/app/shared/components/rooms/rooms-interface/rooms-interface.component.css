@@ -1,452 +1,325 @@
-/* Contenedor principal */
+/* ====== CONTENEDOR PRINCIPAL ====== */
 .rooms-interface-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   position: relative;
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  overflow: hidden;
 }
 
-/* ===== ESTILOS DEL MAPA ===== */
+/* ====== CONTENEDOR DEL MAPA ====== */
 .map-container {
   flex: 1;
   overflow: hidden;
   position: relative;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.map-container:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
 .map-container svg {
   width: 100%;
-  height: 100%;
+  height: auto;
   min-height: 500px;
   cursor: grab;
+  transition: all 0.2s ease;
 }
 
 .map-container svg:active {
   cursor: grabbing;
 }
 
-/* Polígonos de salas */
-.room-polygon {
-  fill: rgba(144, 238, 144, 0.6);
-  stroke: #2e8b57;
+/* ====== TÍTULO DEL MAPA ====== */
+.map-title {
+  font-size: 24px;
+  font-weight: 600;
+  fill: #334155;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.map-subtitle {
+  font-size: 14px;
+  fill: #64748b;
+}
+
+/* ====== REJILLA Y FONDO ====== */
+.map-grid line {
+  stroke: #f1f5f9;
+  stroke-width: 1px;
+}
+
+.map-background {
+  fill: #ffffff;
+  stroke: #e2e8f0;
   stroke-width: 2px;
+}
+
+/* ====== ÁREAS EXTERIORES ====== */
+.exterior-area {
+  fill: #dcfce7;
+  stroke: #86efac;
+  stroke-width: 1px;
   transition: all 0.3s ease;
 }
 
-/* Estilos específicos por tipo de sala */
-polygon[id^="h"] {
-  fill: rgba(144, 238, 144, 0.6);
-  stroke: #2e8b57;
+.exterior-area:hover {
+  fill: #bbf7d0;
 }
 
-polygon#surgery {
-  fill: rgba(255, 182, 193, 0.7);
-  stroke: #d81b60;
+.garden-icon {
+  font-size: 14px;
+  fill: #22c55e;
+  opacity: 0.8;
 }
 
-polygon#nurses {
-  fill: rgba(135, 206, 250, 0.7);
-  stroke: #1976d2;
-}
-
-polygon#lab {
-  fill: rgba(230, 230, 250, 0.7);
-  stroke: #673ab7;
-}
-
-polygon#xray {
-  fill: rgba(211, 211, 211, 0.7);
-  stroke: #607d8b;
-}
-
-polygon#pharmacy {
-  fill: rgba(255, 222, 173, 0.7);
-  stroke: #ff9800;
-}
-
-/* Estados de hover y activo */
-.room-polygon:hover {
-  fill-opacity: 0.9;
-  stroke-width: 3px;
-  cursor: pointer;
-  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.4));
-}
-
-.room-polygon.active {
-  fill-opacity: 0.9;
-  stroke-width: 3px;
-  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.6));
-}
-
-/* Etiquetas de las salas */
-.room-label {
-  font-size: 12px;
-  fill: #333;
-  font-weight: bold;
-  pointer-events: none;
-  text-shadow: 0px 0px 3px white;
-  user-select: none;
-}
-
-/* Pasillos y entrada */
+/* ====== PASILLO Y ESTRUCTURA ====== */
 .corridor {
-  fill: #e0e0e0;
-  stroke: #bbb;
+  fill: #f8fafc;
+  stroke: #cbd5e1;
+  stroke-width: 1.5px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.03));
+}
+
+.wall {
+  fill: #94a3b8;
+  stroke: #64748b;
+  stroke-width: 2px;
+}
+
+.door {
+  fill: #e2e8f0;
+  stroke: #94a3b8;
+  stroke-width: 1px;
+}
+
+.staircase {
+  fill: #cbd5e1;
+  stroke: #94a3b8;
   stroke-width: 1px;
 }
 
 .entrance {
-  fill: #aaddff;
-  stroke: #0077cc;
+  fill: #bfdbfe;
+  stroke: #3b82f6;
   stroke-width: 2px;
-}
-
-/* ===== PANEL DE INFORMACIÓN ===== */
-.info-panel {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 280px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-  z-index: 100;
-  overflow: hidden;
+  filter: drop-shadow(0 1px 3px rgba(59, 130, 246, 0.3));
   transition: all 0.3s ease;
 }
 
-.info-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 15px;
-  background-color: #0077cc;
-  color: white;
+.entrance:hover {
+  fill: #93c5fd;
+  filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.4));
 }
 
-.info-header h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 500;
+.entrance-label {
+  font-size: 12px;
+  font-weight: 600;
+  fill: #1e40af;
+  pointer-events: none;
 }
 
-.close-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
+/* ====== POLÍGONOS Y ÁREAS ====== */
+/* Estilo base para todos los polígonos */
+.room-polygon {
+  fill-opacity: 0.8;
+  stroke-width: 1.5px;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+/* Estilos específicos por tipo de habitación con degradados */
+polygon[id^="room"] {
+  fill: url(#gradient-room);
+  stroke: #fb923c;
+}
+
+polygon[id="commonRoom"] {
+  fill: url(#gradient-common);
+  stroke: #a855f7;
+}
+
+polygon[id="kitchen"] {
+  fill: url(#gradient-kitchen);
+  stroke: #0ea5e9;
+}
+
+polygon[id="dining"] {
+  fill: url(#gradient-dining);
+  stroke: #10b981;
+}
+
+polygon[id^="bath"] {
+  fill: url(#gradient-bath);
+  stroke: #0284c7;
+}
+
+polygon[id="laundry"] {
+  fill: url(#gradient-laundry);
+  stroke: #f59e0b;
+}
+
+/* Estados hover y activo para los polígonos */
+.room-polygon:hover {
+  fill-opacity: 0.9;
+  stroke-width: 2.5px;
   cursor: pointer;
-  padding: 0;
-  margin: 0;
-  line-height: 1;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15)) brightness(1.05);
+  transform: translateY(-1px);
+  z-index: 5;
 }
 
-.info-content {
-  padding: 15px;
+.room-polygon.active {
+  fill-opacity: 1;
+  stroke-width: 3px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2)) brightness(1.1);
+  transform: translateY(-2px);
+  z-index: 10;
 }
 
-.room-description {
-  margin-top: 0;
-  color: #555;
-  font-size: 14px;
+/* Etiquetas de las salas */
+.room-label {
+  font-size: 11px;
+  font-weight: 600;
+  fill: #334155;
+  pointer-events: none;
+  text-shadow: 0px 0px 5px white, 0px 0px 5px white, 0px 0px 5px white;
+  user-select: none;
 }
 
-.room-details {
-  margin-top: 15px;
+/* ====== ICONOS DE FUNCIÓN ====== */
+.room-icon {
+  font-size: 12px;
+  fill: #475569;
+  pointer-events: none;
+  opacity: 0.8;
 }
 
-.detail-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-.detail-label {
-  font-weight: bold;
-  color: #666;
-}
-
-.room-actions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.action-button {
-  background-color: #0077cc;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.action-button:hover {
-  background-color: #005fa3;
-}
-
-/* ===== CONTROLES DEL MAPA ===== */
+/* ====== CONTROLES DEL MAPA ====== */
 .map-controls {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 24px;
+  left: 24px;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   z-index: 100;
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 6px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .zoom-button, .reset-button {
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
   width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  color: #475569;
 }
 
 .reset-button {
   width: auto;
   padding: 0 12px;
   font-size: 14px;
+  font-weight: 500;
 }
 
 .zoom-button:hover, .reset-button:hover {
-  background-color: #f0f0f0;
+  background-color: #f8fafc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }
 
-/* ===== LEYENDA DEL MAPA ===== */
+.zoom-button:active, .reset-button:active {
+  transform: translateY(0px);
+}
+
+/* ====== LEYENDA DEL MAPA ====== */
 .map-legend {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background-color: white;
-  padding: 12px;
+  bottom: 24px;
+  right: 24px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 16px;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   z-index: 100;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  max-width: 220px;
 }
 
 .map-legend h4 {
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-size: 16px;
+  color: #334155;
+  font-weight: 600;
+  border-bottom: 2px solid #f59e0b;
+  padding-bottom: 6px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .legend-color {
   width: 20px;
   height: 20px;
   border-radius: 4px;
-  margin-right: 10px;
-  border: 1px solid #999;
+  margin-right: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.legend-color.normal {
-  background-color: rgba(144, 238, 144, 0.6);
+/* Colores específicos para la leyenda con degradados */
+.legend-item.bedroom .legend-color {
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+  border: 1px solid #fb923c;
 }
 
-.legend-color.selected {
-  background-color: rgba(255, 165, 0, 0.6);
+.legend-item.common .legend-color {
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+  border: 1px solid #a855f7;
+}
+
+.legend-item.services .legend-color {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  border: 1px solid #0284c7;
 }
 
 .legend-hint {
   font-size: 12px;
-  color: #666;
-  margin-top: 10px;
+  color: #64748b;
+  margin-top: 12px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 8px;
 }
 
-/* ===== ESTILOS PARA EL MODAL ===== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 700px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  border-bottom: 1px solid #eee;
-  background-color: #0077cc;
-  color: white;
-  border-radius: 8px 8px 0 0;
-}
-
-.modal-header h2 {
+.legend-hint p {
   margin: 0;
-  font-size: 22px;
-  font-weight: 500;
+  line-height: 1.4;
 }
 
-.modal-close {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  line-height: 1;
-}
-
-.modal-body {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-@media (min-width: 768px) {
-  .modal-body {
-    flex-direction: row;
-  }
-}
-
-.room-image {
-  flex: 1;
-  min-width: 200px;
-}
-
-.placeholder-image {
-  background-color: #f0f0f0;
-  width: 100%;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  color: #666;
-  border: 1px dashed #ccc;
-}
-
-.room-info {
-  flex: 2;
-}
-
-.room-info h3 {
-  margin-top: 0;
-  color: #333;
-  font-size: 18px;
-  border-bottom: 2px solid #0077cc;
-  padding-bottom: 8px;
-  margin-bottom: 15px;
-}
-
-.info-row {
-  margin-bottom: 12px;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (min-width: 576px) {
-  .info-row {
-    flex-direction: row;
-  }
-}
-
-.info-label {
-  font-weight: bold;
-  min-width: 120px;
-  color: #555;
-}
-
-.info-value {
-  flex: 1;
-}
-
-.info-value ul {
-  padding-left: 20px;
-  margin: 5px 0;
-}
-
-.status-available {
-  color: #2e7d32;
-  font-weight: 500;
-}
-
-.modal-footer {
-  padding: 15px 20px;
-  border-top: 1px solid #eee;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.btn-primary {
-  background-color: #0077cc;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: #005fa3;
-}
-
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
-  .info-panel {
-    position: fixed;
-    top: auto;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    border-radius: 8px 8px 0 0;
-  }
-  
-  .map-legend {
-    bottom: auto;
-    top: 20px;
-  }
-  
-  .modal-content {
-    width: 95%;
-    max-height: 80vh;
-  }
-}
+/* ====== DEGRADADOS SVG ====== */
+/* Estos gradientes tienen que ser definidos en el SVG */
