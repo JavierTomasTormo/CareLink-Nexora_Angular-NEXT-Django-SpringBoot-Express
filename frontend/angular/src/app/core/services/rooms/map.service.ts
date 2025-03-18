@@ -9,113 +9,44 @@ export class MapService {
   private selectedRoomSubject = new BehaviorSubject<Room | null>(null);
   selectedRoom$ = this.selectedRoomSubject.asObservable();
 
-  private rooms: Room[] = [
-    // Habitaciones fila superior
-    {
-      id: 'room-h101',
-      name: 'Habitación 101',
-      polygonPoints: '60,60 200,60 200,230 60,230',
-      description: 'Habitación individual con baño privado'
-    },
-    {
-      id: 'room-h102',
-      name: 'Habitación 102',
-      polygonPoints: '200,60 340,60 340,230 200,230',
-      description: 'Habitación doble con vista al jardín'
-    },
-    {
-      id: 'bathNorth',
-      name: 'Baños Norte',
-      polygonPoints: '340,60 480,60 480,230 340,230',
-      description: 'Baños compartidos para las habitaciones del norte'
-    },
-    {
-      id: 'room-h103',
-      name: 'Habitación 103',
-      polygonPoints: '480,60 620,60 620,230 480,230',
-      description: 'Habitación individual con escritorio'
-    },
-    {
-      id: 'commonRoom',
-      name: 'Sala Común',
-      polygonPoints: '620,60 760,60 760,230 620,230',
-      description: 'Sala común con TV, sofás y zona de juegos'
-    },
-    {
-      id: 'room-h104',
-      name: 'Habitación 104',
-      polygonPoints: '760,60 850,60 850,230 760,230',
-      description: 'Suite con área de estudio separada'
-    },
-    {
-      id: 'room-h105',
-      name: 'Habitación 105',
-      polygonPoints: '850,60 940,60 940,230 850,230',
-      description: 'Habitación individual adaptada para movilidad reducida'
-    },
+  private roomsConfig = [
+    // Fila superior
+    { id: 'h101', name: 'H101', x: 60, y: 60, width: 120, height: 100, description: 'Habitación individual con baño privado' },
+    { id: 'h102', name: 'H102', x: 180, y: 60, width: 120, height: 100, description: 'Habitación doble con vista al jardín' },
+    { id: 'bathNorth', name: 'Baños Norte', x: 300, y: 60, width: 120, height: 100, description: 'Baños compartidos para las habitaciones del norte' },
+    { id: 'h103', name: 'H103', x: 420, y: 60, width: 120, height: 100, description: 'Habitación individual con escritorio' },
+    { id: 'commonRoom', name: 'Sala Común', x: 540, y: 60, width: 180, height: 100, description: 'Sala común con TV, sofás y zona de juegos' },
+    { id: 'h104', name: 'H104', x: 720, y: 60, width: 110, height: 100, description: 'Habitación individual estándar' },
+    { id: 'h105', name: 'H105', x: 830, y: 60, width: 110, height: 100, description: 'Habitación individual estándar' },
     
-    // Zona central - Comedor y cocina
-    {
-      id: 'dining',
-      name: 'Comedor',
-      polygonPoints: '620,270 760,270 760,360 620,360',
-      description: 'Comedor comunitario con mesas para 30 personas'
-    },
-    {
-      id: 'kitchen',
-      name: 'Cocina',
-      polygonPoints: '760,270 940,270 940,360 760,360',
-      description: 'Cocina compartida con 4 hornos y equipamiento profesional'
-    },
+    // Zona central
+    { id: 'reception', name: 'Recepción', x: 60, y: 190, width: 220, height: 60, description: 'Área de recepción para visitantes y residentes' },
+    { id: 'office', name: 'Oficinas', x: 280, y: 190, width: 220, height: 60, description: 'Oficinas administrativas' },
+    { id: 'gym', name: 'Gimnasio', x: 60, y: 250, width: 220, height: 60, description: 'Gimnasio equipado para residentes' },
+    { id: 'multiroom', name: 'Sala Multiusos', x: 280, y: 250, width: 220, height: 60, description: 'Sala para eventos, juegos y actividades diversas' },
+    { id: 'dining', name: 'Comedor', x: 550, y: 190, width: 200, height: 120, description: 'Comedor comunitario con mesas para 30 personas' },
+    { id: 'kitchen', name: 'Cocina', x: 750, y: 190, width: 190, height: 120, description: 'Cocina compartida con 4 hornos y equipamiento profesional' },
     
-    // Habitaciones fila inferior
-    {
-      id: 'room-h201',
-      name: 'Habitación 201',
-      polygonPoints: '60,360 200,360 200,450 60,450',
-      description: 'Habitación individual estándar'
-    },
-    {
-      id: 'room-h202',
-      name: 'Habitación 202',
-      polygonPoints: '200,360 340,360 340,450 200,450',
-      description: 'Habitación doble con balcón'
-    },
-    {
-      id: 'laundry',
-      name: 'Lavandería',
-      polygonPoints: '340,360 480,360 480,450 340,450',
-      description: 'Sala de lavandería con 6 lavadoras y 4 secadoras'
-    },
-    {
-      id: 'room-h203',
-      name: 'Habitación 203',
-      polygonPoints: '480,360 620,360 620,450 480,450',
-      description: 'Habitación individual con armario amplio'
-    },
-    {
-      id: 'bathSouth',
-      name: 'Baños Sur',
-      polygonPoints: '620,360 760,360 760,450 620,450',
-      description: 'Baños compartidos para las habitaciones del sur'
-    },
-    {
-      id: 'room-h204',
-      name: 'Habitación 204',
-      polygonPoints: '760,360 850,360 850,450 760,450',
-      description: 'Habitación doble para estudiantes'
-    },
-    {
-      id: 'room-h205',
-      name: 'Habitación 205',
-      polygonPoints: '850,360 940,360 940,450 850,450',
-      description: 'Habitación individual premium con nevera'
-    }
+    // Fila inferior
+    { id: 'h201', name: 'H201', x: 60, y: 340, width: 120, height: 100, description: 'Habitación individual estándar' },
+    { id: 'h202', name: 'H202', x: 180, y: 340, width: 120, height: 100, description: 'Habitación doble con balcón' },
+    { id: 'laundry', name: 'Lavandería', x: 300, y: 340, width: 120, height: 100, description: 'Sala de lavandería con 6 lavadoras y 4 secadoras' },
+    { id: 'h203', name: 'H203', x: 420, y: 340, width: 120, height: 100, description: 'Habitación individual con armario amplio' },
+    { id: 'bathSouth', name: 'Baños Sur', x: 540, y: 340, width: 120, height: 100, description: 'Baños compartidos para las habitaciones del sur' },
+    { id: 'h204', name: 'H204', x: 660, y: 340, width: 120, height: 100, description: 'Habitación doble para estudiantes' },
+    { id: 'h205', name: 'H205', x: 780, y: 340, width: 160, height: 100, description: 'Habitación individual premium con nevera' }
   ];
 
-  constructor() { }
+  private rooms: Room[] = [];
 
-  // Método para generar habitaciones dinámicamente por tipo y dimensiones
+  constructor() {
+    this.initializeRooms();
+  }
+
+  private initializeRooms(): void {
+    this.generateRoomsFromLayout({ rooms: this.roomsConfig });
+  }
+
   generateRoom(id: string, name: string, x: number, y: number, width: number, height: number, description: string): Room {
     return {
       id: id,
@@ -125,10 +56,8 @@ export class MapService {
     };
   }
 
-  // Método para regenerar todas las habitaciones si es necesario
   regenerateRooms(): void {
-    // Puedes llamar a esta función para reconstruir las habitaciones usando generateRoom
-    // Por ejemplo: this.rooms = [this.generateRoom(...), ...];
+    this.initializeRooms();
   }
 
   getRooms(): Room[] {
@@ -155,7 +84,6 @@ export class MapService {
     if (index !== -1) {
       this.rooms[index] = updatedRoom;
       
-      // Si la sala actualizada es la seleccionada actualmente, actualiza la selección
       if (this.selectedRoomSubject.value?.id === updatedRoom.id) {
         this.selectedRoomSubject.next(updatedRoom);
       }
@@ -165,7 +93,6 @@ export class MapService {
   deleteRoom(roomId: string): void {
     this.rooms = this.rooms.filter(room => room.id !== roomId);
     
-    // Si la sala eliminada era la seleccionada, limpia la selección
     if (this.selectedRoomSubject.value?.id === roomId) {
       this.clearSelection();
     }
@@ -174,7 +101,6 @@ export class MapService {
   generateRoomsFromLayout(layoutConfig: any): void {
     const roomsConfig = layoutConfig.rooms || [];
     
-    // Generar habitaciones
     this.rooms = roomsConfig.map((config: any) => {
       return {
         id: config.id,
@@ -184,7 +110,7 @@ export class MapService {
         y: config.y,
         width: config.width,
         height: config.height,
-        polygonPoints: config.polygonPoints
+        polygonPoints: `${config.x},${config.y} ${config.x+config.width},${config.y} ${config.x+config.width},${config.y+config.height} ${config.x},${config.y+config.height}`
       };
     });
   }
