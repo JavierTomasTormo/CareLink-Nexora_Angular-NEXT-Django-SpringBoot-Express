@@ -2,6 +2,94 @@
     perspective: 1500px;
   }
   
+
+  /* Filas de ventanas */
+.windows-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin-top: 8px;
+  }
+  
+  /* Base de la ventana */
+  .window {
+    width: 18px;
+    height: 22px;
+    background: linear-gradient(135deg, #c7d2fe, #dbeafe);
+    border: 1px solid #1e3a8a;
+    border-radius: 2px 2px 0 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+      0 1px 3px rgba(0, 0, 0, 0.2),
+      0 0 2px rgba(255, 255, 255, 0.8) inset;
+    transition: all 0.3s;
+  }
+  
+  /* Marco interior de la ventana */
+  .window-frame {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+    gap: 1px;
+  }
+  
+  /* Paneles de cristal */
+  .window-pane {
+    background: linear-gradient(135deg, #bfdbfe, #93c5fd);
+    border-radius: 1px;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5) inset;
+  }
+  
+  /* Efecto reflejo en las ventanas */
+  .window::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transform: skewX(-15deg);
+    transition: all 0.8s;
+  }
+  
+  /* Animación de reflejo al pasar el cursor sobre el piso */
+  .cube:hover .window::before {
+    left: 100%;
+  }
+  
+  /* Brillo de ventana al pasar el cursor */
+  .cube:hover .window {
+    background: linear-gradient(135deg, #dbeafe, #93c5fd);
+    box-shadow: 
+      0 1px 3px rgba(0, 0, 0, 0.2),
+      0 0 5px rgba(219, 234, 254, 0.8) inset,
+      0 0 10px rgba(59, 130, 246, 0.4);
+  }
+  
+  .cube:hover .window-pane {
+    background: linear-gradient(135deg, #dbeafe, #60a5fa);
+  }
+  
+  /* Variantes de ventanas para diferentes caras */
+  .cube-face-back .window {
+    width: 16px;
+    height: 20px;
+  }
+  
+  .cube-face-left .window,
+  .cube-face-right .window {
+    width: 14px;
+    height: 18px;
+  }
 .cube-wrapper {
     transform-style: preserve-3d;
     transform: rotateX(-20deg) rotateY(30deg) translateY(-80px);
@@ -26,7 +114,7 @@
   .ground-plane {
     position: absolute;
     width: 400px;
-    height: 519px;
+    height: 525px;
     background-color: #e2e8f0;
     transform: rotateX(90deg) translateZ(-5px) translateY(0px);
     left: -50px;
@@ -97,7 +185,7 @@
   .cube-face-top {
     transform: rotateX(90deg) translateZ(25px);
     height: 100px;
-    opacity: 1; /* Más visible desde arriba */
+    opacity: 1; 
   }
   /* Cara inferior */
   .cube-face-bottom {

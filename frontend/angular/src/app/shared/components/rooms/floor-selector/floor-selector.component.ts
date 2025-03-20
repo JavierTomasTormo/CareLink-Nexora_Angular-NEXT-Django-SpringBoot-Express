@@ -13,7 +13,6 @@ export class FloorSelectorComponent implements OnInit {
   @Input() currentFloor: number = 1;
   @Output() floorChanged = new EventEmitter<number>();
   
-  // Colores para cada planta
   floorColors = [
     '#3b82f6', // Azul (Planta 1)
     '#10b981', // Verde (Planta 2)

@@ -12,6 +12,32 @@
           <!-- Cada cubo tiene 6 caras -->
           <div class="cube-face cube-face-front" [style.background-color]="getFloorColor(floor.id)">
             <span class="text-white font-bold text-lg">{{ floor.id }}</span>
+            <div class="windows-row">
+                <div class="window">
+                  <div class="window-frame">
+                    <div class="window-pane"></div>
+                    <div class="window-pane"></div>
+                    <div class="window-pane"></div>
+                    <div class="window-pane"></div>
+                  </div>
+                </div>
+                <div class="window">
+                  <div class="window-frame">
+                    <div class="window-pane"></div>
+                    <div class="window-pane"></div>
+                    <div class="window-pane"></div>
+                    <div class="window-pane"></div>
+                  </div>
+                </div>
+                <div class="window">
+                  <div class="window-frame">
+                    <div class="window-pane"></div>
+                    <div class="window-pane"></div>
+                    <div class="window-pane"></div>
+                    <div class="window-pane"></div>
+                  </div>
+                </div>
+              </div>
           </div>
           <div class="cube-face cube-face-back" [style.background-color]="getFloorColor(floor.id)"></div>
           <div class="cube-face cube-face-right" [style.background-color]="getFloorColor(floor.id)"></div>

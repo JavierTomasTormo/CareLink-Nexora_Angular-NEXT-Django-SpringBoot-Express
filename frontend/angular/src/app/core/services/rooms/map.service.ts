@@ -20,6 +20,7 @@ export class MapService {
     { id: 1, name: 'Planta Pública' },
     { id: 2, name: 'Planta Privada' },
     { id: 3, name: 'Nec. Especiales' },
+    { id: 4, name: 'Almacén' },
   ];
 
 
@@ -114,6 +115,37 @@ export class MapService {
       { id: 'bathSpecial', name: 'Baños Esp.', x: 540, y: 340, width: 120, height: 100, description: 'Baños adaptados para cuidados especiales' },
       { id: 'memRoom306', name: 'Mem 306', x: 660, y: 340, width: 120, height: 100, description: 'Habitación adaptada para residentes con demencia' },
       { id: 'isolationRoom', name: 'Aislamiento', x: 780, y: 340, width: 160, height: 100, description: 'Habitación de aislamiento para casos que requieren separación temporal' }
+    ],
+    // Planta 4 - Almacén y suministros
+    4: [
+      // Fila superior
+      { id: 'hazardousMaterials', name: 'Mat. Peligrosos', x: 60, y: 60, width: 180, height: 100, description: 'Almacén seguro para materiales peligrosos' },
+      { id: 'shelfMedical', name: 'Est. Médicos', x: 240, y: 60, width: 120, height: 100, description: 'Estanterías para suministros médicos y sanitarios' },
+      { id: 'shelfHygiene', name: 'Est. Higiene', x: 360, y: 60, width: 120, height: 100, description: 'Estanterías para productos de higiene y aseo personal' },
+      { id: 'shelfBedding', name: 'Est. Ropa Cama', x: 480, y: 60, width: 120, height: 100, description: 'Estanterías para ropa de cama y toallas' },
+      { id: 'shelfCleaning', name: 'Est. Limpieza', x: 600, y: 60, width: 120, height: 100, description: 'Estanterías para productos de limpieza' },
+      { id: 'coldStorage', name: 'Almacén Frío', x: 720, y: 60, width: 110, height: 100, description: 'Almacenamiento refrigerado para medicamentos y muestras' },
+      
+      // Zona central
+      { id: 'emergencySupplies', name: 'Sumin. Emergencia', x: 60, y: 190, width: 220, height: 60, description: 'Almacén de suministros para situaciones de emergencia' },
+      { id: 'mobilityEquip', name: 'Eq. Movilidad', x: 280, y: 190, width: 220, height: 60, description: 'Área para sillas de ruedas, andadores y equipos de movilidad' },
+      { id: 'medicalEquip', name: 'Eq. Médico', x: 60, y: 250, width: 220, height: 60, description: 'Almacenamiento de equipos médicos' },
+      { id: 'furnitureStore', name: 'Mobiliario', x: 280, y: 250, width: 220, height: 60, description: 'Almacén de mobiliario de repuesto' },
+      
+      { id: 'receivingArea', name: 'Recepción Sumin.', x: 550, y: 190, width: 140, height: 120, description: 'Área de recepción de suministros' },
+      
+      { id: 'controlDesk', name: 'Control', x: 830, y: 60, width: 110, height: 100, description: 'Mostrador de control de inventario' },
+      { id: 'backupGenerator', name: 'Generadores', x: 750, y: 190, width: 190, height: 120, description: 'Sala de generadores de respaldo y sistemas eléctricos' },
+
+      // Fila inferior
+      { id: 'archiveHistorical', name: 'Arch. Histórico', x: 60, y: 340, width: 120, height: 100, description: 'Archivo histórico de documentación y expedientes' },
+      { id: 'archiveRecent', name: 'Arch. Reciente', x: 180, y: 340, width: 120, height: 100, description: 'Archivo de documentación reciente' },
+      { id: 'seasonalStorage', name: 'Alm. Estacional', x: 300, y: 340, width: 120, height: 100, description: 'Almacén para decoraciones y materiales estacionales' },
+      { id: 'techStorage', name: 'Alm. Tech', x: 420, y: 340, width: 120, height: 100, description: 'Almacenamiento de equipos tecnológicos y repuestos' },
+      { id: 'maintenanceTools', name: 'Herramientas', x: 540, y: 340, width: 120, height: 100, description: 'Almacén de herramientas y equipos de mantenimiento' },
+      { id: 'uniformStorage', name: 'Uniformes', x: 660, y: 340, width: 120, height: 100, description: 'Almacén de uniformes para el personal' },
+      { id: 'storageMain', name: 'Almacén Central', x: 780, y: 340, width: 160, height: 100, description: 'Almacén central para suministros generales' },
+
     ]
   };
 

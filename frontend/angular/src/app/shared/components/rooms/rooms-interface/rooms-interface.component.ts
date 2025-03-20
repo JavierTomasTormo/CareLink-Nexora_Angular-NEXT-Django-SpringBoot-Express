@@ -108,6 +108,8 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     { x: 540, y: 296, floor: 3 }, 
     { x: 540, y: 204, floor: 3 }, 
 
+    { x: 513, y: 204, floor: 4 },
+    { x: 513, y: 296, floor: 4 }, 
   ];
 
   // changeFloor(floor: number): void {
@@ -162,7 +164,18 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     if (roomId.includes('isolation')) return 'url(#gradient-isolation)';
     if (roomId.includes('library')) return 'url(#gradient-library)';
     if (roomId.includes('staffRoom')) return 'url(#gradient-staff-room)';
-    if (roomId.includes('storage')) return 'url(#gradient-storage)';
+    
+    // Almacenes y suministros
+    if (roomId === 'storage' || roomId === 'storageMain' || roomId.includes('seasonal') || 
+        roomId === 'controlDesk' || roomId === 'uniformStorage') return 'url(#gradient-storage)';
+    if (roomId.includes('shelf') || roomId.includes('archive') || 
+        roomId === 'receivingArea' || roomId === 'loadingDock') return 'url(#gradient-storage)';
+    if (roomId === 'coldStorage') return 'url(#gradient-bath)';
+    if (roomId === 'medicalEquip' || roomId === 'emergencySupplies') return 'url(#gradient-medical)';
+    if (roomId === 'mobilityEquip' || roomId === 'furnitureStore') return 'url(#gradient-common)';
+    if (roomId === 'backupGenerator' || roomId === 'techStorage' || 
+        roomId === 'maintenanceTools') return 'url(#gradient-staff-room)';
+    if (roomId === 'hazardousMaterials') return 'url(#gradient-isolation)';
     
     return '#ffffff';
   }
@@ -179,42 +192,78 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
 }
 
 
-  getRoomIcon(roomId: string): string {
-    // Habitaciones
-    if (roomId.startsWith('room') || roomId.startsWith('h')) return "fa-solid fa-bed";
-    if (roomId.startsWith('mem')) return "fa-solid fa-brain";
-    if (roomId.startsWith('spec')) return "fa-solid fa-kit-medical";
-    
-    // Áreas comunes
-    if (roomId === 'commonRoom' || roomId === 'livingRoom2') return "fa-solid fa-couch";
-    if (roomId.includes('kitchen')) return "fa-solid fa-utensils";
-    if (roomId.includes('dining')) return "fa-solid fa-plate-wheat";
-    if (roomId.includes('bath')) return "fa-solid fa-shower";
-    if (roomId === 'laundry') return "fa-solid fa-shirt";
-    if (roomId === 'gym' || roomId === 'physiotherapy') return "fa-solid fa-dumbbell";
-    if (roomId.includes('office') || roomId.includes('admin')) return "fa-solid fa-briefcase";
-    if (roomId === 'reception') return "fa-solid fa-bell-concierge";
-    if (roomId.includes('multiroom') || roomId.includes('activity')) return "fa-solid fa-users";
-    if (roomId.includes('garden')) return "fa-solid fa-tree";
-    
-    // Áreas médicas
-    if (roomId.includes('nurse')) return "fa-solid fa-user-nurse";
-    if (roomId.includes('medical') || roomId.includes('medication')) return "fa-solid fa-pills";
-    if (roomId.includes('sensory')) return "fa-solid fa-brain";
-    if (roomId.includes('monitor')) return "fa-solid fa-heart-pulse";
-    if (roomId.includes('therapy')) return "fa-solid fa-hand-holding-medical";
-    
-    // Nuevas áreas específicas
-    if (roomId.includes('family')) return "fa-solid fa-people-group";
-    if (roomId.includes('library')) return "fa-solid fa-book";
-    if (roomId.includes('storage')) return "fa-solid fa-box";
-    if (roomId.includes('staffRoom')) return "fa-solid fa-mug-hot";
-    if (roomId.includes('staffNight')) return "fa-solid fa-moon";
-    if (roomId.includes('isolation')) return "fa-solid fa-house-medical-circle-exclamation";
-    if (roomId === 'secureGarden') return "fa-solid fa-tree-city";
-    
-    return "fa-solid fa-bed"; // Ícono por defecto
-  }
+getRoomIcon(roomId: string): string {
+  // Habitaciones
+  if (roomId.startsWith('room') || roomId.startsWith('h')) return "fa-solid fa-bed";
+  if (roomId.startsWith('mem')) return "fa-solid fa-brain";
+  if (roomId.startsWith('spec')) return "fa-solid fa-kit-medical";
+  
+  // Áreas comunes
+  if (roomId === 'commonRoom' || roomId === 'livingRoom2') return "fa-solid fa-couch";
+  if (roomId.includes('kitchen')) return "fa-solid fa-utensils";
+  if (roomId.includes('dining')) return "fa-solid fa-plate-wheat";
+  if (roomId.includes('bath')) return "fa-solid fa-shower";
+  if (roomId === 'laundry') return "fa-solid fa-shirt";
+  if (roomId === 'gym' || roomId === 'physiotherapy') return "fa-solid fa-dumbbell";
+  if (roomId.includes('office') || roomId.includes('admin')) return "fa-solid fa-briefcase";
+  if (roomId === 'reception') return "fa-solid fa-bell-concierge";
+  if (roomId.includes('multiroom') || roomId.includes('activity')) return "fa-solid fa-users";
+  if (roomId.includes('garden')) return "fa-solid fa-tree";
+  
+  // Áreas médicas
+  if (roomId.includes('nurse')) return "fa-solid fa-user-nurse";
+  if (roomId.includes('medical') || roomId.includes('medication')) return "fa-solid fa-pills";
+  if (roomId.includes('sensory')) return "fa-solid fa-brain";
+  if (roomId.includes('monitor')) return "fa-solid fa-heart-pulse";
+  if (roomId.includes('therapy')) return "fa-solid fa-hand-holding-medical";
+  
+  // Áreas específicas
+  if (roomId.includes('family')) return "fa-solid fa-people-group";
+  if (roomId.includes('library')) return "fa-solid fa-book";
+  if (roomId.includes('staffRoom')) return "fa-solid fa-mug-hot";
+  if (roomId.includes('staffNight')) return "fa-solid fa-moon";
+  if (roomId.includes('isolation')) return "fa-solid fa-house-medical-circle-exclamation";
+  if (roomId === 'secureGarden') return "fa-solid fa-tree-city";
+  
+  // Almacenes generales
+  if (roomId === 'storageMain') return "fa-solid fa-warehouse";
+  if (roomId === 'storage') return "fa-solid fa-box";
+  if (roomId === 'controlDesk') return "fa-solid fa-clipboard-check";
+  
+  // Almacenes de suministros médicos
+  if (roomId === 'shelfMedical') return "fa-solid fa-prescription-bottle-medical";
+  if (roomId === 'coldStorage') return "fa-solid fa-temperature-low";
+  if (roomId === 'medicalEquip') return "fa-solid fa-stethoscope";
+  if (roomId === 'emergencySupplies') return "fa-solid fa-truck-medical";
+  
+  // Almacenes de limpieza e higiene
+  if (roomId === 'shelfHygiene') return "fa-solid fa-pump-soap";
+  if (roomId === 'shelfCleaning') return "fa-solid fa-spray-can-sparkles";
+  
+  // Almacenes de ropa y textiles
+  if (roomId === 'shelfBedding') return "fa-solid fa-bed-pulse"; 
+  if (roomId === 'uniformStorage') return "fa-solid fa-shirt";
+  
+  // Archivos y documentación
+  if (roomId.includes('archive')) return "fa-solid fa-folder-open";
+  if (roomId === 'seasonalStorage') return "fa-solid fa-boxes-stacked";
+  
+  // Mobiliario y equipo
+  if (roomId === 'mobilityEquip') return "fa-solid fa-wheelchair";
+  if (roomId === 'furnitureStore') return "fa-solid fa-chair";
+  
+  // Áreas técnicas
+  if (roomId === 'backupGenerator') return "fa-solid fa-bolt";
+  if (roomId === 'techStorage') return "fa-solid fa-laptop";
+  if (roomId === 'maintenanceTools') return "fa-solid fa-screwdriver-wrench";
+  
+  // Áreas especiales
+  if (roomId === 'loadingDock') return "fa-solid fa-truck-loading";
+  if (roomId === 'receivingArea') return "fa-solid fa-dolly";
+  if (roomId === 'hazardousMaterials') return "fa-solid fa-skull-crossbones";
+  
+  return "fa-solid fa-box"; // Ícono por defecto para almacenes
+}
 
   
   getRoomCenter(room: Room): {x: number, y: number} {
@@ -257,14 +306,50 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     // Otras áreas
     if (roomId.includes('family')) return '#c026d3'; // Morado para salas familiares
     if (roomId.includes('library')) return '#6366f1'; // Índigo para biblioteca
-    if (roomId.includes('storage')) return '#78716c'; // Gris para almacenamiento
-    if (roomId.includes('staff')) return '#64748b'; // Gris azulado para áreas de personal
+    if (roomId.includes('staffRoom')) return '#64748b'; // Gris azulado para áreas de personal
+    if (roomId.includes('staffNight')) return '#6366f1'; // Índigo para personal nocturno
     if (roomId.includes('isolation')) return '#b91c1c'; // Rojo oscuro para aislamiento
+    
+    // Almacenes generales
+    if (roomId === 'storageMain') return '#78716c'; // Gris para almacén central
+    if (roomId === 'storage') return '#78716c'; // Gris para almacenamiento general
+    if (roomId === 'controlDesk') return '#64748b'; // Gris azulado para control
+    
+    // Almacenes de suministros médicos
+    if (roomId === 'shelfMedical') return '#3b82f6'; // Azul para suministros médicos
+    if (roomId === 'coldStorage') return '#0ea5e9'; // Azul claro para almacén frío
+    if (roomId === 'medicalEquip') return '#2563eb'; // Azul real para equipo médico
+    if (roomId === 'emergencySupplies') return '#dc2626'; // Rojo para suministros de emergencia
+    
+    // Almacenes de limpieza e higiene
+    if (roomId === 'shelfHygiene') return '#10b981'; // Verde para productos de higiene
+    if (roomId === 'shelfCleaning') return '#14b8a6'; // Verde azulado para productos de limpieza
+    
+    // Almacenes de ropa y textiles
+    if (roomId === 'shelfBedding') return '#8b5cf6'; // Púrpura para ropa de cama
+    if (roomId === 'uniformStorage') return '#a855f7'; // Púrpura para uniformes
+    
+    // Archivos y documentación
+    if (roomId.includes('archive')) return '#f59e0b'; // Naranja para archivos
+    if (roomId === 'seasonalStorage') return '#eab308'; // Amarillo para almacén estacional
+    
+    // Mobiliario y equipo
+    if (roomId === 'mobilityEquip') return '#d97706'; // Naranja oscuro para equipo de movilidad
+    if (roomId === 'furnitureStore') return '#ea580c'; // Naranja rojizo para mobiliario
+    
+    // Áreas técnicas
+    if (roomId === 'backupGenerator') return '#334155'; // Gris azulado oscuro para generadores
+    if (roomId === 'techStorage') return '#1e40af'; // Azul oscuro para almacén tech
+    if (roomId === 'maintenanceTools') return '#475569'; // Gris para herramientas
+    
+    // Áreas especiales
+    if (roomId === 'loadingDock') return '#64748b'; // Gris azulado para muelle
+    if (roomId === 'receivingArea') return '#64748b'; // Gris azulado para área de recepción
+    if (roomId === 'hazardousMaterials') return '#b91c1c'; // Rojo oscuro para materiales peligrosos
     
     // Color por defecto para otras estancias
     return '#94a3b8';
   }
-
   onRoomClick(roomId: string, event: MouseEvent): void {
     event.preventDefault(); 
     event.stopPropagation(); 
