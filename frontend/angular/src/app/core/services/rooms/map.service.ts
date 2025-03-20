@@ -19,7 +19,7 @@ export class MapService {
   private floors = [
     { id: 1, name: 'Planta Pública' },
     { id: 2, name: 'Planta Privada' },
-    { id: 3, name: 'Planta Nec. Especiales' },
+    { id: 3, name: 'Nec. Especiales' },
   ];
 
 

@@ -1,48 +1,36 @@
 <div class="w-full h-full pt-2 md:pt-6">
   <div class="flex flex-col h-full relative font-sans bg-gray-50 rounded-lg md:rounded-xl shadow-md md:shadow-lg p-2 md:p-4 overflow-hidden">
     
-    <!-- Responsive title bar -->
+    <!-- Barra superior con título y selector de plantas lado a lado -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 md:mb-4 px-1">
-      <div>
+      <!-- Título a la izquierda -->
+      <div class="w-full sm:w-1/2">
         <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800">RESIDENCIA DE TIPO CONCERTADA (Mokkup)</h2>
         <p class="text-xs sm:text-sm text-gray-500"> -- PLANTA {{ currentFloor }} · PROYECTO: CareLink By Nexora -- </p>
       </div>
 
-            <!-- Selector de plantas -->
-          <!-- <div class="flex mb-4 bg-white rounded-lg shadow-sm p-1">
-            <button *ngFor="let floor of floors" 
-                    class="flex-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300"
-                    [class.bg-blue-500]="floor.id === currentFloor"
-                    [class.text-white]="floor.id === currentFloor"
-                    [class.text-gray-600]="floor.id !== currentFloor"
-                    [class.hover:bg-blue-100]="floor.id !== currentFloor"
-                    (click)="changeFloor(floor.id)">
-              <div class="flex items-center justify-center">
-                <i class="fa-solid fa-building-user mr-2"></i>
-                <span>{{ floor.name }}</span>
-              </div>
-            </button>
-          </div> -->
-
-          <div class="w-full mb-4">
-            <app-floor-selector 
-              [floors]="floors" 
-              [currentFloor]="currentFloor"
-              (floorChanged)="handleFloorChange($event)">
-            </app-floor-selector>
-          </div>
-      
-      <div class="flex gap-2 mt-2 sm:mt-0 self-start">
-        <button class="bg-white border border-gray-200 rounded-md w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600" (click)="zoom(1.1, 400, 300)" aria-label="Acercar">
-          <i class="fa-solid fa-plus text-xs sm:text-sm"></i>
-        </button>
-        <button class="bg-white border border-gray-200 rounded-md w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600" (click)="zoom(0.9, 400, 300)" aria-label="Alejar">
-          <i class="fa-solid fa-minus text-xs sm:text-sm"></i>
-        </button>
-        <button class="bg-white border border-gray-200 rounded-md px-2 sm:px-3 h-8 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600 text-xs font-medium" (click)="resetView()">
-          <i class="fa-solid fa-arrows-to-dot me-1 sm:me-2"></i> <span class="hidden xs:inline">Vista Completa</span>
-        </button>
+      <!-- Selector de plantas a la derecha (máximo 50% del ancho) -->
+      <div class="w-full sm:w-1/2 mt-3 sm:mt-0">
+        <app-floor-selector 
+          [floors]="floors" 
+          [currentFloor]="currentFloor"
+          (floorChanged)="handleFloorChange($event)"
+          class="floor-selector-container">
+        </app-floor-selector>
       </div>
+    </div>
+      
+    <!-- Controles de zoom -->
+    <div class="flex gap-2 mb-2">
+      <button class="bg-white border border-gray-200 rounded-md w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600" (click)="zoom(1.1, 400, 300)" aria-label="Acercar">
+        <i class="fa-solid fa-plus text-xs sm:text-sm"></i>
+      </button>
+      <button class="bg-white border border-gray-200 rounded-md w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600" (click)="zoom(0.9, 400, 300)" aria-label="Alejar">
+        <i class="fa-solid fa-minus text-xs sm:text-sm"></i>
+      </button>
+      <button class="bg-white border border-gray-200 rounded-md px-2 sm:px-3 h-8 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600 text-xs font-medium" (click)="resetView()">
+        <i class="fa-solid fa-arrows-to-dot me-1 sm:me-2"></i> <span class="hidden xs:inline">Vista Completa</span>
+      </button>
     </div>
 
     
