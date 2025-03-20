@@ -74,44 +74,78 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
       if (roomId === 'office') return 'url(#gradient-office)';
       if (roomId === 'gym') return 'url(#gradient-gym)';
       if (roomId === 'multiroom') return 'url(#gradient-multiroom)';
+      if (roomId === 'garden') return 'url(#gradient-garden)'; 
       return '#ffffff';
     }
 
-  getRoomCoords(room: Room): {x: number, y: number, width: number, height: number} {
-    if (room.x !== undefined && room.y !== undefined && 
-        room.width !== undefined && room.height !== undefined) {
-      return {
-        x: room.x,
-        y: room.y,
-        width: room.width,
-        height: room.height
-      };
-    }
+  // getRoomCoords(room: Room): {x: number, y: number, width: number, height: number} {
+  //   if (room.x !== undefined && room.y !== undefined && 
+  //       room.width !== undefined && room.height !== undefined) {
+  //     return {
+  //       x: room.x,
+  //       y: room.y,
+  //       width: room.width,
+  //       height: room.height
+  //     };
+  //   }
     
-    if (room.polygonPoints) {
-      const points = room.polygonPoints.split(' ').map(point => {
-        const [x, y] = point.split(',').map(Number);
-        return { x, y };
-      });
+  //   if (room.polygonPoints) {
+  //     const points = room.polygonPoints.split(' ').map(point => {
+  //       const [x, y] = point.split(',').map(Number);
+  //       return { x, y };
+  //     });
       
-      const xs = points.map(p => p.x);
-      const ys = points.map(p => p.y);
+  //     const xs = points.map(p => p.x);
+  //     const ys = points.map(p => p.y);
       
-      const minX = Math.min(...xs);
-      const minY = Math.min(...ys);
-      const maxX = Math.max(...xs);
-      const maxY = Math.max(...ys);
+  //     const minX = Math.min(...xs);
+  //     const minY = Math.min(...ys);
+  //     const maxX = Math.max(...xs);
+  //     const maxY = Math.max(...ys);
       
-      return {
-        x: minX,
-        y: minY,
-        width: maxX - minX,
-        height: maxY - minY
-      };
-    }
+  //     return {
+  //       x: minX,
+  //       y: minY,
+  //       width: maxX - minX,
+  //       height: maxY - minY
+  //     };
+  //   }
     
-    return { x: 0, y: 0, width: 0, height: 0 };
-  }
+  //   return { x: 0, y: 0, width: 0, height: 0 };
+  // }
+
+  // getRoomCoords(room: any): any {
+  //   // Ancho del muro
+  //   const wallWidth = 4;
+  //   // Margen para separar del muro
+  //   const margin = 2;
+    
+  //   // Ajustar posición X e Y para dejar espacio para los muros
+  //   let x = room.x + margin;
+  //   let y = room.y + margin;
+    
+  //   // Ajustar ancho y alto para dejar espacio para los muros
+  //   let width = room.width - (margin * 2) - wallWidth/2;
+  //   let height = room.height - (margin * 2) - wallWidth/2;
+    
+  //   // Ajustes especiales para las habitaciones que tienen muros a ambos lados
+  //   // Las habitaciones centrales necesitan ajustes en ambos lados
+  //   if (room.id !== 'h101' && !room.id.startsWith('h2') && room.id !== 'h205') {
+  //     width -= wallWidth/2;
+  //   }
+    
+  //   return { x, y, width, height };
+  // }
+
+  getRoomCoords(room: any): any {
+  // Simplemente devolvemos las coordenadas ya ajustadas
+  return {
+    x: room.x,
+    y: room.y,
+    width: room.width,
+    height: room.height
+  };
+}
 
 
   getRoomIcon(roomId: string): string {
@@ -125,6 +159,7 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     if (roomId === 'office') return "#icon-desk";
     if (roomId === 'reception') return "#icon-concierge";
     if (roomId === 'multiroom') return "#icon-users";
+    if (roomId === 'garden') return "#icon-tree";
     return "#icon-bed";
   }
 
@@ -147,6 +182,7 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     if (roomId === 'reception') return '#ec4899';
     if (roomId === 'office') return '#0369a1';
     if (roomId === 'gym') return '#d97706';
+    if (roomId === 'garden') return '#10b981'; 
     if (roomId === 'multiroom') return '#7c3aed';
     return '#94a3b8';
   }

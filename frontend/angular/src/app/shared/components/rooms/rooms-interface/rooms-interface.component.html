@@ -1,22 +1,38 @@
-<div class="w-full h-full pt-4 md:pt-8 lg:pt-12">
-  <div class="flex flex-col h-full relative font-sans bg-gray-50 rounded-lg md:rounded-xl shadow-md md:shadow-lg p-3 md:p-5 overflow-hidden">
+<div class="w-full h-full pt-2 md:pt-6">
+  <div class="flex flex-col h-full relative font-sans bg-gray-50 rounded-lg md:rounded-xl shadow-md md:shadow-lg p-2 md:p-4 overflow-hidden">
     
-    <!-- Controles del mapa mejorados -->
-    <div class="absolute bottom-3 sm:bottom-4 md:bottom-6 left-3 sm:left-4 md:left-6 flex gap-2 sm:gap-3 z-10 backdrop-blur-md bg-white/90 p-2 sm:p-2.5 rounded-lg shadow-lg border border-gray-100">
-      <button class="bg-white border border-gray-200 rounded-md w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md hover:-translate-y-0.5 text-gray-600" (click)="zoom(1.1, 400, 300)">
-        <i class="fa-solid fa-plus text-sm"></i>
-      </button>
-      <button class="bg-white border border-gray-200 rounded-md w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md hover:-translate-y-0.5 text-gray-600" (click)="zoom(0.9, 400, 300)">
-        <i class="fa-solid fa-minus text-sm"></i>
-      </button>
-      <button class="bg-white border border-gray-200 rounded-md px-3 sm:px-4 h-9 sm:h-10 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md hover:-translate-y-0.5 text-gray-600 text-xs sm:text-sm font-medium" (click)="resetView()">
-        <i class="fa-solid fa-arrows-to-dot me-2.5"></i> Vista Completa
-      </button>
+    <!-- Responsive title bar -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 md:mb-4 px-1">
+      <div>
+        <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800">RESIDENCIA DE TIPO CONCERTADA</h2>
+        <p class="text-xs sm:text-sm text-gray-500">PLANTA 1 · PROYECTO: CareLink By Nexora -- Mokkup</p>
+      </div>
+      
+      <div class="flex gap-2 mt-2 sm:mt-0 self-start">
+        <button class="bg-white border border-gray-200 rounded-md w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600" (click)="zoom(1.1, 400, 300)" aria-label="Acercar">
+          <i class="fa-solid fa-plus text-xs sm:text-sm"></i>
+        </button>
+        <button class="bg-white border border-gray-200 rounded-md w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600" (click)="zoom(0.9, 400, 300)" aria-label="Alejar">
+          <i class="fa-solid fa-minus text-xs sm:text-sm"></i>
+        </button>
+        <button class="bg-white border border-gray-200 rounded-md px-2 sm:px-3 h-8 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600 text-xs font-medium" (click)="resetView()">
+          <i class="fa-solid fa-arrows-to-dot me-1 sm:me-2"></i> <span class="hidden xs:inline">Vista Completa</span>
+        </button>
+      </div>
     </div>
+
     
-    <!-- Contenedor del mapa mejorado -->
-    <div class="flex-1 overflow-hidden relative bg-white border border-gray-200 rounded-lg shadow-sm mb-3 md:mb-5 transition-all hover:shadow-md">
-      <svg #mapSvg width="100%" height="100%" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" class="min-h-[300px] sm:min-h-[400px] md:min-h-[500px] cursor-grab active:cursor-grabbing" (click)="onMapBackgroundClick()">
+    
+    <!-- Contenedor del mapa mejorado con mejor adaptación -->
+    <div class="flex-1 overflow-hidden relative bg-white border border-gray-200 rounded-lg shadow-sm transition-all hover:shadow-md">
+      <!-- Overlay info para dispositivos pequeños -->
+      <div class="absolute top-0 left-0 right-0 z-20 bg-gray-800 bg-opacity-70 text-white text-xs py-1 px-2 text-center md:hidden">
+        Use los dedos para mover y hacer zoom
+      </div>
+      
+      <svg #mapSvg width="100%" height="100%" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" 
+          class="w-full h-full min-h-[250px] xs:min-h-[300px] sm:min-h-[350px] md:min-h-[450px] cursor-grab active:cursor-grabbing touch-manipulation" 
+          (click)="onMapBackgroundClick()">
         <!-- Definiciones de gradientes mejorados -->
         <defs>
           <pattern id="pattern-grid" width="50" height="50" patternUnits="userSpaceOnUse">
@@ -25,7 +41,7 @@
             <path d="M 0 10 L 50 10 M 0 20 L 50 20 M 0 30 L 50 30 M 0 40 L 50 40" fill="none" stroke="#f8fafc" stroke-width="0.3"/>
           </pattern>
           
-          <!-- Gradientes mejorados con colores más vibrantes -->
+          <!-- Gradientes optimizados para mejor contraste -->
           <linearGradient id="gradient-room" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#fff7ed" />
             <stop offset="100%" stop-color="#ffedd5" />
@@ -56,7 +72,6 @@
             <stop offset="100%" stop-color="#dcfce7" />
           </linearGradient>
           
-          <!-- Nuevos gradientes para las habitaciones adicionales -->
           <linearGradient id="gradient-reception" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#fdf2f8" />
             <stop offset="100%" stop-color="#fbcfe8" />
@@ -77,14 +92,24 @@
             <stop offset="100%" stop-color="#ddd6fe" />
           </linearGradient>
 
-          <!-- Marcadores para la rosa de vientos -->
+          <linearGradient id="gradient-garden" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ecfdf5" />
+            <stop offset="100%" stop-color="#a7f3d0" />
+          </linearGradient>
+
+          <!-- Marcador de flecha optimizado -->
           <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="0" refY="3" orient="auto">
             <polygon points="0 0, 6 3, 0 6" fill="#3b82f6" />
           </marker>
           
-          <!-- Filtros para sombras elegantes -->
+          <!-- Filtros para sombras más eficientes -->
           <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#64748b" flood-opacity="0.2"/>
+            <feDropShadow dx="1.5" dy="1.5" stdDeviation="1.5" flood-color="#64748b" flood-opacity="0.15"/>
+          </filter>
+          
+          <!-- Filtro para hover en móvil -->
+          <filter id="hoverEffect" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#3b82f6" flood-opacity="0.3"/>
           </filter>
         </defs>
         
@@ -94,7 +119,7 @@
           <rect width="1000" height="500" fill="url(#pattern-grid)"></rect>
           
           <!-- Marco del edificio con sombra elegante -->
-          <rect x="50" y="50" width="900" height="400" fill="white" stroke="#64748b" stroke-width="2.5" filter="url(#dropShadow)" rx="4" ry="4"></rect>
+          <rect x="50" y="50" width="900" height="400" fill="white" stroke="#64748b" stroke-width="2" filter="url(#dropShadow)" rx="4" ry="4"></rect>
           
           <!-- Pasillos horizontales -->
           <rect x="60" y="160" width="880" height="30" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" rx="2" ry="2"></rect>
@@ -116,99 +141,116 @@
               [attr.stroke]="getRoomStroke(room.id)"
               stroke-width="1.5"
               rx="3" ry="3"
-              class="transition-all duration-300 cursor-pointer hover:stroke-[3px] hover:opacity-95"
-              filter="drop-shadow(0px 1px 2px rgba(0,0,0,0.06))"
+              class="room-rect transition-all duration-200 cursor-pointer hover:stroke-[2.5px]"
+              filter="drop-shadow(0px 1px 1px rgba(0,0,0,0.05))"
               (click)="openDetailsModal(room)">
             </rect>
             
-            <!-- Puertas para las habitaciones con mejor estilo -->
+            <!-- Puertas para las habitaciones con mejor visibilidad -->
             <line 
               *ngIf="room.id.startsWith('h1') || room.id === 'commonRoom' || room.id === 'bathNorth'" 
-              [attr.x1]="getRoomCenter(room).x - 12"
+              [attr.x1]="getRoomCenter(room).x - 10"
               [attr.y1]="getRoomCoords(room).y + getRoomCoords(room).height" 
-              [attr.x2]="getRoomCenter(room).x + 12"
+              [attr.x2]="getRoomCenter(room).x + 10"
               [attr.y2]="getRoomCoords(room).y + getRoomCoords(room).height" 
               stroke="#475569" 
-              stroke-width="2">
+              stroke-width="2.5"
+              stroke-linecap="round">
             </line>
             
             <line 
               *ngIf="room.id.startsWith('h2') || room.id === 'laundry' || room.id === 'bathSouth'" 
-              [attr.x1]="getRoomCenter(room).x - 12"
+              [attr.x1]="getRoomCenter(room).x - 10"
               [attr.y1]="getRoomCoords(room).y" 
-              [attr.x2]="getRoomCenter(room).x + 12"
+              [attr.x2]="getRoomCenter(room).x + 10"
               [attr.y2]="getRoomCoords(room).y" 
               stroke="#475569" 
-              stroke-width="2">
-            </line>
-            
-            <line 
-              *ngIf="room.id === 'dining'" 
-              [attr.x1]="getRoomCoords(room).x + getRoomCoords(room).width" 
-              [attr.y1]="getRoomCenter(room).y - 12"
-              [attr.x2]="getRoomCoords(room).x + getRoomCoords(room).width"
-              [attr.y2]="getRoomCenter(room).y + 12" 
-              stroke="#475569" 
-              stroke-width="2">
+              stroke-width="2.5"
+              stroke-linecap="round">
             </line>
             
             <line 
               *ngIf="room.id === 'kitchen'" 
               [attr.x1]="getRoomCoords(room).x" 
-              [attr.y1]="getRoomCenter(room).y - 12"
+              [attr.y1]="getRoomCenter(room).y - 10"
               [attr.x2]="getRoomCoords(room).x"
-              [attr.y2]="getRoomCenter(room).y + 12" 
+              [attr.y2]="getRoomCenter(room).y + 10" 
               stroke="#475569" 
-              stroke-width="2">
+              stroke-width="2.5"
+              stroke-linecap="round">
             </line>
+            <line 
+              *ngIf="room.id === 'dining'" 
+              [attr.x1]="getRoomCoords(room).x + getRoomCoords(room).width" 
+              [attr.y1]="getRoomCenter(room).y - 10"
+              [attr.x2]="getRoomCoords(room).x + getRoomCoords(room).width"
+              [attr.y2]="getRoomCenter(room).y + 10" 
+              stroke="#475569" 
+              stroke-width="2.5"
+              stroke-linecap="round">
+            </line>
+            
             
             <!-- Puertas para las nuevas habitaciones -->
             <line 
               *ngIf="room.id === 'reception' || room.id === 'office'" 
-              [attr.x1]="getRoomCenter(room).x - 12"
+              [attr.x1]="getRoomCenter(room).x - 10"
               [attr.y1]="getRoomCoords(room).y + getRoomCoords(room).height" 
-              [attr.x2]="getRoomCenter(room).x + 12"
+              [attr.x2]="getRoomCenter(room).x + 10"
               [attr.y2]="getRoomCoords(room).y + getRoomCoords(room).height" 
               stroke="#475569" 
-              stroke-width="2">
+              stroke-width="2.5"
+              stroke-linecap="round">
             </line>
             
             <line 
               *ngIf="room.id === 'gym' || room.id === 'multiroom'" 
-              [attr.x1]="getRoomCenter(room).x - 12"
+              [attr.x1]="getRoomCenter(room).x - 10"
               [attr.y1]="getRoomCoords(room).y" 
-              [attr.x2]="getRoomCenter(room).x + 12"
+              [attr.x2]="getRoomCenter(room).x + 10"
               [attr.y2]="getRoomCoords(room).y" 
               stroke="#475569" 
-              stroke-width="2">
+              stroke-width="2.5"
+              stroke-linecap="round">
+            </line>
+
+            <line 
+              *ngIf="room.id === 'garden'" 
+              [attr.x1]="getRoomCoords(room).x" 
+              [attr.y1]="getRoomCenter(room).y - 10"
+              [attr.x2]="getRoomCoords(room).x"
+              [attr.y2]="getRoomCenter(room).y + 10" 
+              stroke="#475569" 
+              stroke-width="2.5"
+              stroke-linecap="round">
             </line>
             
-            <!-- Nombre de habitación con mejor posicionamiento y espaciado -->
+            <!-- Nombres de habitación con mejor visibilidad -->
             <text 
               [attr.x]="getRoomCenter(room).x"
               [attr.y]="(room.id === 'reception' || room.id === 'office' || room.id === 'gym' || room.id === 'multiroom') ? 
                 getRoomCenter(room).y + 8 : 
                 (room.id.includes('bath') || room.id === 'laundry' ? 
-                  getRoomCenter(room).y + 10 : getRoomCenter(room).y + 24)"
+                  getRoomCenter(room).y + 10 : getRoomCenter(room).y + 22)"
               text-anchor="middle" 
-              class="text-sm font-semibold select-none pointer-events-none"
+              class="room-text text-xs sm:text-sm font-semibold select-none pointer-events-none"
               fill="#374151">
               {{room.name}}
             </text>
             
-            <!-- Iconos de FontAwesome con mejor posición y estilo -->
+            <!-- Iconos de FontAwesome con mejor visibilidad -->
             <g class="room-icon" 
               [attr.transform]="'translate(' + getRoomCenter(room).x + ',' + 
               (room.id === 'reception' || room.id === 'office' || room.id === 'gym' || room.id === 'multiroom' ? 
-                getRoomCenter(room).y - 15 : 
+                getRoomCenter(room).y - 14 : 
                 (room.id.includes('bath') || room.id === 'laundry' ? 
-                  getRoomCenter(room).y - 30 : getRoomCenter(room).y - 20)) + ')'">
+                  getRoomCenter(room).y - 25 : getRoomCenter(room).y - 18)) + ')'">
               
               <!-- Círculo de fondo para el icono mejorado -->
-              <circle r="16" fill="white" stroke="#e2e8f0" stroke-width="1" filter="url(#dropShadow)"></circle>
+              <circle r="14" fill="white" stroke="#e2e8f0" stroke-width="1" filter="url(#dropShadow)"></circle>
               
               <!-- Iconos según tipo de habitación usando texto Unicode -->
-              <text text-anchor="middle" dominant-baseline="middle" class="select-none pointer-events-none" font-size="14" fill="#475569">
+              <text text-anchor="middle" dominant-baseline="middle" class="select-none pointer-events-none" font-size="12" fill="#475569">
                 <tspan *ngIf="room.id.startsWith('h')">
                   <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf236;</tspan>
                 </tspan>
@@ -227,7 +269,6 @@
                 <tspan *ngIf="room.id === 'laundry'">
                   <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf21e;</tspan>
                 </tspan>
-                <!-- Iconos para las nuevas habitaciones -->
                 <tspan *ngIf="room.id === 'reception'">
                   <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf64a;</tspan>
                 </tspan>
@@ -240,6 +281,9 @@
                 <tspan *ngIf="room.id === 'multiroom'">
                   <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf500;</tspan>
                 </tspan>
+                <tspan *ngIf="room.id === 'garden'">
+                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf06c;</tspan>
+                </tspan>
               </text>
             </g>
             
@@ -247,33 +291,33 @@
             <line 
               *ngIf="getRoomCoords(room).x === 60" 
               [attr.x1]="getRoomCoords(room).x"
-              [attr.y1]="getRoomCenter(room).y - 25"
+              [attr.y1]="getRoomCenter(room).y - 20"
               [attr.x2]="getRoomCoords(room).x"
-              [attr.y2]="getRoomCenter(room).y + 25"
+              [attr.y2]="getRoomCenter(room).y + 20"
               stroke="#a1a1aa" 
-              stroke-width="4"
+              stroke-width="3.5"
               stroke-linecap="round">
             </line>
             
             <line 
               *ngIf="getRoomCoords(room).x + getRoomCoords(room).width >= 940" 
               [attr.x1]="getRoomCoords(room).x + getRoomCoords(room).width"
-              [attr.y1]="getRoomCenter(room).y - 25"
+              [attr.y1]="getRoomCenter(room).y - 20"
               [attr.x2]="getRoomCoords(room).x + getRoomCoords(room).width"
-              [attr.y2]="getRoomCenter(room).y + 25"
+              [attr.y2]="getRoomCenter(room).y + 20"
               stroke="#a1a1aa" 
-              stroke-width="4"
+              stroke-width="3.5"
               stroke-linecap="round">
             </line>
             
             <line 
               *ngIf="getRoomCoords(room).y === 60" 
-              [attr.x1]="getRoomCenter(room).x - 25"
+              [attr.x1]="getRoomCenter(room).x - 20"
               [attr.y1]="getRoomCoords(room).y"
-              [attr.x2]="getRoomCenter(room).x + 25"
+              [attr.x2]="getRoomCenter(room).x + 20"
               [attr.y2]="getRoomCoords(room).y"
               stroke="#a1a1aa" 
-              stroke-width="4"
+              stroke-width="3.5"
               stroke-linecap="round">
             </line>
           </ng-container>
@@ -283,34 +327,34 @@
           <path d="M 50,160 A 30,30 0 0 1 50,190" fill="none" stroke="#3b82f6" stroke-width="2"></path>
           <text x="30" y="178" text-anchor="middle" class="text-xs font-bold" fill="#1e40af">ENTRADA</text>
           
-          <!-- Título del plano con mejor espaciado -->
-          <g transform="translate(20, 20)">
-            <text class="text-xl font-bold" fill="#1f2937">RESIDENCIA ESTUDIANTIL - PLANTA 1</text>
-            <text y="25" class="text-sm" fill="#64748b">PROYECTO: RST-2023-45 | FECHA: NOVIEMBRE 2023</text>
-          </g>
-          
-          <!-- Rosa de los vientos mejorada -->
-          <g transform="translate(950, 50)">
-            <!-- Círculo exterior -->
-            <circle cx="0" cy="0" r="28" fill="white" stroke="#94a3b8" stroke-width="1" filter="url(#dropShadow)"></circle>
-            <!-- Círculo interior -->
-            <circle cx="0" cy="0" r="22" fill="white" stroke="#94a3b8" stroke-width="0.5"></circle>
+          <!-- Rosa de los vientos mejorada y más compacta
+          <g transform="translate(925, 75)">
+            <circle cx="0" cy="0" r="25" fill="white" stroke="#94a3b8" stroke-width="1" filter="url(#dropShadow)"></circle>
+            <circle cx="0" cy="0" r="20" fill="white" stroke="#94a3b8" stroke-width="0.5"></circle>
             
-            <!-- Líneas principales -->
-            <line x1="0" y1="-22" x2="0" y2="22" stroke="#94a3b8" stroke-width="0.5"></line>
-            <line x1="-22" y1="0" x2="22" y2="0" stroke="#94a3b8" stroke-width="0.5"></line>
+            <line x1="0" y1="-20" x2="0" y2="20" stroke="#94a3b8" stroke-width="0.5"></line>
+            <line x1="-20" y1="0" x2="20" y2="0" stroke="#94a3b8" stroke-width="0.5"></line>
             
-            <!-- Flecha norte -->
-            <path d="M0,0 L0,-18" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)"></path>
+            <path d="M0,0 L0,-16" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowhead)"></path>
             
-            <!-- Textos de orientación con mejor espaciado -->
-            <text x="0" y="-12" text-anchor="middle" class="text-xs font-bold" fill="#1e3a8a">N</text>
-            <text x="0" y="15" text-anchor="middle" class="text-xs font-bold" fill="#64748b">S</text>
-            <text x="-12" y="4" text-anchor="middle" class="text-xs font-bold" fill="#64748b">O</text>
-            <text x="12" y="4" text-anchor="middle" class="text-xs font-bold" fill="#64748b">E</text>
-          </g>
+            <text x="0" y="-10" text-anchor="middle" class="text-xs font-bold" fill="#1e3a8a">N</text>
+            <text x="0" y="13" text-anchor="middle" class="text-xs font-bold" fill="#64748b">S</text>
+            <text x="-10" y="4" text-anchor="middle" class="text-xs font-bold" fill="#64748b">O</text>
+            <text x="10" y="4" text-anchor="middle" class="text-xs font-bold" fill="#64748b">E</text>
+          </g> -->
         </g>
       </svg>
+      
+      <!-- Touch gesture hint overlay (mobile only) -->
+      <div class="absolute bottom-2 right-2 flex items-center bg-white/80 backdrop-blur-sm p-1 rounded-md border border-gray-200 shadow-sm text-xs text-gray-600 gap-1 md:hidden">
+        <i class="fa-solid fa-hand-pointer text-gray-500"></i>
+        <span>Toque para ver detalles</span>
+      </div>
+    </div>
+    
+    <!-- Información adicional y leyenda para móviles -->
+    <div class="mt-2 text-xs text-gray-500 hidden xs:block sm:hidden">
+      <p>Toque las habitaciones para ver detalles. Use los controles para ajustar la vista.</p>
     </div>
   </div>
 </div>

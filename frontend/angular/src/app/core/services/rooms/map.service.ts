@@ -11,11 +11,11 @@ export class MapService {
 
   private roomsConfig = [
     // Fila superior
-    { id: 'h101', name: 'H101', x: 60, y: 60, width: 120, height: 100, description: 'Habitación individual con baño privado' },
-    { id: 'h102', name: 'H102', x: 180, y: 60, width: 120, height: 100, description: 'Habitación doble con vista al jardín' },
-    { id: 'bathNorth', name: 'Baños Norte', x: 300, y: 60, width: 120, height: 100, description: 'Baños compartidos para las habitaciones del norte' },
-    { id: 'h103', name: 'H103', x: 420, y: 60, width: 120, height: 100, description: 'Habitación individual con escritorio' },
-    { id: 'commonRoom', name: 'Sala Común', x: 540, y: 60, width: 180, height: 100, description: 'Sala común con TV, sofás y zona de juegos' },
+    { id: 'commonRoom', name: 'Sala Común', x: 60, y: 60, width: 180, height: 100, description: 'Sala común con TV, sofás y zona de juegos' },
+    { id: 'bathNorth', name: 'Baños Norte', x: 240, y: 60, width: 120, height: 100, description: 'Baños compartidos para las habitaciones del norte' },
+    { id: 'h101', name: 'H101', x: 360, y: 60, width: 120, height: 100, description: 'Habitación individual con baño privado' },
+    { id: 'h102', name: 'H102', x: 480, y: 60, width: 120, height: 100, description: 'Habitación doble con vista al jardín' },
+    { id: 'h103', name: 'H103', x: 600, y: 60, width: 120, height: 100, description: 'Habitación individual con escritorio' },
     { id: 'h104', name: 'H104', x: 720, y: 60, width: 110, height: 100, description: 'Habitación individual estándar' },
     { id: 'h105', name: 'H105', x: 830, y: 60, width: 110, height: 100, description: 'Habitación individual estándar' },
     
@@ -24,9 +24,11 @@ export class MapService {
     { id: 'office', name: 'Oficinas', x: 280, y: 190, width: 220, height: 60, description: 'Oficinas administrativas' },
     { id: 'gym', name: 'Gimnasio', x: 60, y: 250, width: 220, height: 60, description: 'Gimnasio equipado para residentes' },
     { id: 'multiroom', name: 'Sala Multiusos', x: 280, y: 250, width: 220, height: 60, description: 'Sala para eventos, juegos y actividades diversas' },
-    { id: 'dining', name: 'Comedor', x: 550, y: 190, width: 200, height: 120, description: 'Comedor comunitario con mesas para 30 personas' },
-    { id: 'kitchen', name: 'Cocina', x: 750, y: 190, width: 190, height: 120, description: 'Cocina compartida con 4 hornos y equipamiento profesional' },
-    
+    { id: 'garden', name: 'Jardín', x: 550, y: 190, width: 100, height: 120, description: 'Zona verde con plantas y espacio para relajarse' },
+    { id: 'dining', name: 'Comedor', x: 750, y: 190, width: 190, height: 120, description: 'Comedor comunitario con mesas para 30 personas' },
+    { id: 'kitchen', name: 'Cocina', x: 650, y: 190, width: 100, height: 120, description: 'Cocina compartida con 4 hornos y equipamiento profesional' },
+
+
     // Fila inferior
     { id: 'h201', name: 'H201', x: 60, y: 340, width: 120, height: 100, description: 'Habitación individual estándar' },
     { id: 'h202', name: 'H202', x: 180, y: 340, width: 120, height: 100, description: 'Habitación doble con balcón' },
@@ -37,6 +39,7 @@ export class MapService {
     { id: 'h205', name: 'H205', x: 780, y: 340, width: 160, height: 100, description: 'Habitación individual premium con nevera' }
   ];
 
+  
   private rooms: Room[] = [];
 
   constructor() {
