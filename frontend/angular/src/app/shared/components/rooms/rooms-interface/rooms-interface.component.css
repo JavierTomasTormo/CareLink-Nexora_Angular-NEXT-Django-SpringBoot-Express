@@ -1,0 +1,70 @@
+.rooms-map-container.changing {
+    position: relative;
+  }
+  
+  .rooms-map-container.changing::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(248, 250, 252, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #3b82f6;
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+
+.floor-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    
+    &.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .transition-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .floor-indicator {
+        font-size: 24px;
+        font-weight: bold;
+        color: #3b82f6;
+        margin-bottom: 10px;
+      }
+      
+      .floor-icon {
+        font-size: 48px;
+        color: #3b82f6;
+        animation: elevatorMove 1s infinite alternate;
+      }
+    }
+  }
+  
+  @keyframes elevatorMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(-15px); }
+  }

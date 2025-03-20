@@ -1,0 +1,40 @@
+<div class="building-scene">
+    <div class="building-wrapper" [@buildingRotate]="buildingState">
+      <!-- Base del edificio (suelo) -->
+      <div class="building-base"></div>
+      
+      <!-- Plantas del edificio -->
+      <div class="building-floors">
+        <div *ngFor="let floor of floors" 
+             class="floor" 
+             [ngStyle]="getFloorStyle(floor.id)"
+             [class.active]="floor.id === currentFloor"
+             [class.highlight]="floor.id === currentFloor && isHighlighting"
+             [style.background-color]="getFloorColor(floor.id)"
+             (click)="selectFloor(floor.id)">
+          
+          <!-- Fachada principal -->
+          <div class="floor-front">
+            <div class="floor-number">{{ floor.id }}</div>
+            <div class="floor-windows">
+              <div class="window"></div>
+              <div class="window"></div>
+              <div class="window"></div>
+            </div>
+          </div>
+          
+          <!-- Laterales -->
+          <div class="floor-left"></div>
+          <div class="floor-right"></div>
+          
+          <!-- Techo -->
+          <div class="floor-top"></div>
+        </div>
+      </div>
+      
+      <!-- Etiqueta flotante con el nombre de la planta actual -->
+      <div class="floor-label" [style.bottom]="(floors.length * 40 + 60) + 'px'">
+        {{ getCurrentFloorName() }}
+      </div>
+    </div>
+  </div>

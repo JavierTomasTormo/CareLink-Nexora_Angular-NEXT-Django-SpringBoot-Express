@@ -3,14 +3,27 @@ import { MapService } from '../../../../core/services/rooms/map.service';
 import { Room } from '../../../../core/models/rooms/rooms.model';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { FloorSelectorComponent } from '../floor-selector/floor-selector.component';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-rooms-interface',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FloorSelectorComponent],
   templateUrl: './rooms-interface.component.html',
   styleUrls: ['./rooms-interface.component.scss'],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
+  animations: [
+    trigger('floorChange', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('500ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(-20px)' }))
+      ])
+    ])
+  ]
 })
 export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   @ViewChild('mapSvg', { static: true }) mapSvg!: ElementRef<SVGElement>;
@@ -30,6 +43,9 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   isDragging: boolean = false;
   startX: number = 0;
   startY: number = 0;
+
+  isFloorChanging: boolean = false;
+
   
   private subscription: Subscription = new Subscription();
 
@@ -61,11 +77,44 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     this.initializeZoomEvents();
   }
 
+
   changeFloor(floor: number): void {
     if (this.currentFloor !== floor) {
-      this.mapService.selectFloor(floor);
+      this.isFloorChanging = true;
+      
+      // Pequeño delay para que se vea la animación
+      setTimeout(() => {
+        this.mapService.selectFloor(floor);
+        
+        // Dar tiempo para que termine la animación
+        setTimeout(() => {
+          this.isFloorChanging = false;
+        }, 500);
+      }, 300);
     }
   }
+
+  handleFloorChange(floorId: number): void {
+    this.changeFloor(floorId);
+  }
+
+  stairsPositions = [
+    { x: 540, y: 296, floor: 1 }, 
+    { x: 540, y: 204, floor: 1 }, 
+
+    { x: 513, y: 204, floor: 2 },
+    { x: 513, y: 296, floor: 2 }, 
+
+    { x: 540, y: 296, floor: 3 }, 
+    { x: 540, y: 204, floor: 3 }, 
+
+  ];
+
+  // changeFloor(floor: number): void {
+  //   if (this.currentFloor !== floor) {
+  //     this.mapService.selectFloor(floor);
+  //   }
+  // }
   
     openDetailsModal(room: Room): void {
       this.modalRoom = room;
@@ -79,7 +128,9 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
+  getStairsForCurrentFloor() {
+    return this.stairsPositions.filter(stair => stair.floor === this.currentFloor);
+  }
   getRoomFill(roomId: string): string {
     // Habitaciones normales
     if (roomId.startsWith('room') || roomId.startsWith('h')) return 'url(#gradient-room)';

@@ -23,7 +23,7 @@ export class MapService {
   ];
 
 
-  
+
 
   private roomsConfigByFloor = {
     // Planta 1 - Áreas comunes y servicios principales
@@ -151,6 +151,7 @@ export class MapService {
     
     this.roomsByFloor.set(floor, rooms);
   }
+
 
 
   getFloors() {
