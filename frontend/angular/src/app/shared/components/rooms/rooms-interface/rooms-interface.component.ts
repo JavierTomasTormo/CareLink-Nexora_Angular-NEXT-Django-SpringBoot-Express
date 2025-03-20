@@ -18,9 +18,12 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   rooms: Room[] = [];
   selectedRoom: Room | null = null;
 
-    showDetailsModal = false;
-    modalRoom: Room | null = null;
+  showDetailsModal = false;
+  modalRoom: Room | null = null;
   
+  floors: {id: number, name: string}[] = [];
+  currentFloor: number = 1;
+
   scale: number = 1;
   translateX: number = 0;
   translateY: number = 0;
@@ -32,12 +35,22 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
 
   constructor(private mapService: MapService) { }
 
+
   ngOnInit(): void {
+    this.floors = this.mapService.getFloors();
+    
+    this.subscription.add(
+      this.mapService.selectedFloor$.subscribe(floor => {
+        this.currentFloor = floor;
+        this.rooms = this.mapService.getRoomsByFloor(floor);
+        this.resetView(); 
+      })
+    );
+    
     this.rooms = this.mapService.getRooms();
     
     this.subscription.add(
       this.mapService.selectedRoom$.subscribe(room => {
-        console.log('Room selected in component:', room);
         this.selectedRoom = room;
         if (room) {
           this.centerViewOnRoom(room);
@@ -47,8 +60,12 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     
     this.initializeZoomEvents();
   }
-  
 
+  changeFloor(floor: number): void {
+    if (this.currentFloor !== floor) {
+      this.mapService.selectFloor(floor);
+    }
+  }
   
     openDetailsModal(room: Room): void {
       this.modalRoom = room;
@@ -63,79 +80,42 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-    getRoomFill(roomId: string): string {
-      if (roomId.startsWith('h')) return 'url(#gradient-room)';
-      if (roomId === 'commonRoom') return 'url(#gradient-common)';
-      if (roomId === 'kitchen') return 'url(#gradient-kitchen)';
-      if (roomId === 'dining') return 'url(#gradient-dining)';
-      if (roomId.includes('bath')) return 'url(#gradient-bath)';
-      if (roomId === 'laundry') return 'url(#gradient-laundry)';
-      if (roomId === 'reception') return 'url(#gradient-reception)';
-      if (roomId === 'office') return 'url(#gradient-office)';
-      if (roomId === 'gym') return 'url(#gradient-gym)';
-      if (roomId === 'multiroom') return 'url(#gradient-multiroom)';
-      if (roomId === 'garden') return 'url(#gradient-garden)'; 
-      return '#ffffff';
-    }
+  getRoomFill(roomId: string): string {
+    // Habitaciones normales
+    if (roomId.startsWith('room') || roomId.startsWith('h')) return 'url(#gradient-room)';
+    
+    // Habitaciones especiales de memoria
+    if (roomId.startsWith('mem')) return 'url(#gradient-memory)';
+    
+    // Habitaciones de cuidados especiales
+    if (roomId.startsWith('spec')) return 'url(#gradient-special)';
+    
+    // Áreas comunes
+    if (roomId === 'commonRoom' || roomId === 'livingRoom2') return 'url(#gradient-common)';
+    if (roomId.includes('kitchen')) return 'url(#gradient-kitchen)';
+    if (roomId.includes('dining')) return 'url(#gradient-dining)';
+    if (roomId.includes('bath')) return 'url(#gradient-bath)';
+    if (roomId === 'laundry') return 'url(#gradient-laundry)';
+    if (roomId === 'reception') return 'url(#gradient-reception)';
+    if (roomId.includes('office') || roomId.includes('admin')) return 'url(#gradient-office)';
+    if (roomId.includes('gym') || roomId === 'therapyRoom' || roomId === 'physiotherapy') return 'url(#gradient-gym)';
+    if (roomId.includes('multiroom') || roomId.includes('activity')) return 'url(#gradient-multiroom)';
+    if (roomId.includes('garden') && !roomId.includes('secure')) return 'url(#gradient-garden)';
+    if (roomId.includes('secureGarden')) return 'url(#gradient-secure-garden)';
+    if (roomId.includes('nurse')) return 'url(#gradient-nurse)';
+    if (roomId.includes('medical') || roomId.includes('medication')) return 'url(#gradient-medical)';
+    if (roomId.includes('sensory')) return 'url(#gradient-sensory)';
+    if (roomId.includes('monitor')) return 'url(#gradient-monitor)';
+    if (roomId.includes('staffNight')) return 'url(#gradient-staff-night)';
+    if (roomId.includes('family')) return 'url(#gradient-family-room)';
+    if (roomId.includes('isolation')) return 'url(#gradient-isolation)';
+    if (roomId.includes('library')) return 'url(#gradient-library)';
+    if (roomId.includes('staffRoom')) return 'url(#gradient-staff-room)';
+    if (roomId.includes('storage')) return 'url(#gradient-storage)';
+    
+    return '#ffffff';
+  }
 
-  // getRoomCoords(room: Room): {x: number, y: number, width: number, height: number} {
-  //   if (room.x !== undefined && room.y !== undefined && 
-  //       room.width !== undefined && room.height !== undefined) {
-  //     return {
-  //       x: room.x,
-  //       y: room.y,
-  //       width: room.width,
-  //       height: room.height
-  //     };
-  //   }
-    
-  //   if (room.polygonPoints) {
-  //     const points = room.polygonPoints.split(' ').map(point => {
-  //       const [x, y] = point.split(',').map(Number);
-  //       return { x, y };
-  //     });
-      
-  //     const xs = points.map(p => p.x);
-  //     const ys = points.map(p => p.y);
-      
-  //     const minX = Math.min(...xs);
-  //     const minY = Math.min(...ys);
-  //     const maxX = Math.max(...xs);
-  //     const maxY = Math.max(...ys);
-      
-  //     return {
-  //       x: minX,
-  //       y: minY,
-  //       width: maxX - minX,
-  //       height: maxY - minY
-  //     };
-  //   }
-    
-  //   return { x: 0, y: 0, width: 0, height: 0 };
-  // }
-
-  // getRoomCoords(room: any): any {
-  //   // Ancho del muro
-  //   const wallWidth = 4;
-  //   // Margen para separar del muro
-  //   const margin = 2;
-    
-  //   // Ajustar posición X e Y para dejar espacio para los muros
-  //   let x = room.x + margin;
-  //   let y = room.y + margin;
-    
-  //   // Ajustar ancho y alto para dejar espacio para los muros
-  //   let width = room.width - (margin * 2) - wallWidth/2;
-  //   let height = room.height - (margin * 2) - wallWidth/2;
-    
-  //   // Ajustes especiales para las habitaciones que tienen muros a ambos lados
-  //   // Las habitaciones centrales necesitan ajustes en ambos lados
-  //   if (room.id !== 'h101' && !room.id.startsWith('h2') && room.id !== 'h205') {
-  //     width -= wallWidth/2;
-  //   }
-    
-  //   return { x, y, width, height };
-  // }
 
   getRoomCoords(room: any): any {
   // Simplemente devolvemos las coordenadas ya ajustadas
@@ -149,18 +129,40 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
 
 
   getRoomIcon(roomId: string): string {
-    if (roomId.startsWith('h') && !isNaN(parseInt(roomId.slice(1)))) return "#icon-bed";
-    if (roomId === 'commonRoom') return "#icon-couch";
-    if (roomId === 'kitchen') return "#icon-utensils";
-    if (roomId === 'dining') return "#icon-utensils";
-    if (roomId.includes('bath')) return "#icon-shower";
-    if (roomId === 'laundry') return "#icon-wash";
-    if (roomId === 'gym') return "#icon-dumbbell";
-    if (roomId === 'office') return "#icon-desk";
-    if (roomId === 'reception') return "#icon-concierge";
-    if (roomId === 'multiroom') return "#icon-users";
-    if (roomId === 'garden') return "#icon-tree";
-    return "#icon-bed";
+    // Habitaciones
+    if (roomId.startsWith('room') || roomId.startsWith('h')) return "fa-solid fa-bed";
+    if (roomId.startsWith('mem')) return "fa-solid fa-brain";
+    if (roomId.startsWith('spec')) return "fa-solid fa-kit-medical";
+    
+    // Áreas comunes
+    if (roomId === 'commonRoom' || roomId === 'livingRoom2') return "fa-solid fa-couch";
+    if (roomId.includes('kitchen')) return "fa-solid fa-utensils";
+    if (roomId.includes('dining')) return "fa-solid fa-plate-wheat";
+    if (roomId.includes('bath')) return "fa-solid fa-shower";
+    if (roomId === 'laundry') return "fa-solid fa-shirt";
+    if (roomId === 'gym' || roomId === 'physiotherapy') return "fa-solid fa-dumbbell";
+    if (roomId.includes('office') || roomId.includes('admin')) return "fa-solid fa-briefcase";
+    if (roomId === 'reception') return "fa-solid fa-bell-concierge";
+    if (roomId.includes('multiroom') || roomId.includes('activity')) return "fa-solid fa-users";
+    if (roomId.includes('garden')) return "fa-solid fa-tree";
+    
+    // Áreas médicas
+    if (roomId.includes('nurse')) return "fa-solid fa-user-nurse";
+    if (roomId.includes('medical') || roomId.includes('medication')) return "fa-solid fa-pills";
+    if (roomId.includes('sensory')) return "fa-solid fa-brain";
+    if (roomId.includes('monitor')) return "fa-solid fa-heart-pulse";
+    if (roomId.includes('therapy')) return "fa-solid fa-hand-holding-medical";
+    
+    // Nuevas áreas específicas
+    if (roomId.includes('family')) return "fa-solid fa-people-group";
+    if (roomId.includes('library')) return "fa-solid fa-book";
+    if (roomId.includes('storage')) return "fa-solid fa-box";
+    if (roomId.includes('staffRoom')) return "fa-solid fa-mug-hot";
+    if (roomId.includes('staffNight')) return "fa-solid fa-moon";
+    if (roomId.includes('isolation')) return "fa-solid fa-house-medical-circle-exclamation";
+    if (roomId === 'secureGarden') return "fa-solid fa-tree-city";
+    
+    return "fa-solid fa-bed"; // Ícono por defecto
   }
 
   
@@ -173,17 +175,42 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   }
 
   getRoomStroke(roomId: string): string {
-    if (roomId.startsWith('h')) return '#fb923c';
-    if (roomId === 'commonRoom') return '#a855f7';
-    if (roomId === 'kitchen') return '#0ea5e9';
-    if (roomId === 'dining') return '#10b981';
-    if (roomId.includes('bath')) return '#0284c7';
-    if (roomId === 'laundry') return '#f59e0b';
-    if (roomId === 'reception') return '#ec4899';
-    if (roomId === 'office') return '#0369a1';
-    if (roomId === 'gym') return '#d97706';
-    if (roomId === 'garden') return '#10b981'; 
-    if (roomId === 'multiroom') return '#7c3aed';
+    // Habitaciones regulares
+    if (roomId.startsWith('room')) return '#fb923c';
+    
+    // Habitaciones especiales
+    if (roomId.startsWith('mem')) return '#3b82f6'; // Azul para habitaciones de unidad de memoria
+    if (roomId.startsWith('spec')) return '#eab308'; // Amarillo para habitaciones de cuidados especiales
+    
+    // Áreas comunes
+    if (roomId === 'commonRoom' || roomId === 'livingRoom2') return '#a855f7'; // Púrpura para salas comunes
+    if (roomId.includes('kitchen')) return '#0ea5e9'; // Azul claro para cocinas
+    if (roomId.includes('dining')) return '#10b981'; // Verde para comedores
+    
+    // Instalaciones
+    if (roomId.includes('bath')) return '#0284c7'; // Azul para baños
+    if (roomId === 'laundry') return '#f59e0b'; // Naranja para lavandería
+    if (roomId === 'reception') return '#ec4899'; // Rosa para recepción
+    if (roomId.includes('office') || roomId.includes('admin')) return '#0369a1'; // Azul oscuro para oficinas
+    if (roomId === 'gym' || roomId === 'physiotherapy') return '#d97706'; // Naranja oscuro para áreas de ejercicio
+    if (roomId.includes('garden')) return '#10b981'; // Verde para jardines
+    if (roomId.includes('multiroom') || roomId.includes('activity')) return '#7c3aed'; // Violeta para salas multiusos
+    
+    // Áreas médicas y de cuidados
+    if (roomId.includes('nurse')) return '#ef4444'; // Rojo para estaciones de enfermería
+    if (roomId.includes('medical') || roomId.includes('medication')) return '#22c55e'; // Verde para áreas médicas
+    if (roomId.includes('sensory')) return '#8b5cf6'; // Púrpura para salas sensoriales
+    if (roomId.includes('monitor')) return '#f472b6'; // Rosa para monitoreo
+    if (roomId.includes('therapy')) return '#06b6d4'; // Turquesa para terapia
+    
+    // Otras áreas
+    if (roomId.includes('family')) return '#c026d3'; // Morado para salas familiares
+    if (roomId.includes('library')) return '#6366f1'; // Índigo para biblioteca
+    if (roomId.includes('storage')) return '#78716c'; // Gris para almacenamiento
+    if (roomId.includes('staff')) return '#64748b'; // Gris azulado para áreas de personal
+    if (roomId.includes('isolation')) return '#b91c1c'; // Rojo oscuro para aislamiento
+    
+    // Color por defecto para otras estancias
     return '#94a3b8';
   }
 

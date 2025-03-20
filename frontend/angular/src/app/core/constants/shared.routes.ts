@@ -26,4 +26,4 @@ export const SHARED_ROUTES = {
         MEALS: 'http://localhost:3000/meals',
         PROFILE: 'http://localhost:3000/profile'
     }
-};
+}

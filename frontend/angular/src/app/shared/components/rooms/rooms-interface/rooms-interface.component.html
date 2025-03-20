@@ -4,9 +4,25 @@
     <!-- Responsive title bar -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 md:mb-4 px-1">
       <div>
-        <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800">RESIDENCIA DE TIPO CONCERTADA</h2>
-        <p class="text-xs sm:text-sm text-gray-500">PLANTA 1 · PROYECTO: CareLink By Nexora -- Mokkup</p>
+        <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800">RESIDENCIA DE TIPO CONCERTADA (Mokkup)</h2>
+        <p class="text-xs sm:text-sm text-gray-500"> -- PLANTA {{ currentFloor }} · PROYECTO: CareLink By Nexora -- </p>
       </div>
+
+            <!-- Selector de plantas -->
+          <div class="flex mb-4 bg-white rounded-lg shadow-sm p-1">
+            <button *ngFor="let floor of floors" 
+                    class="flex-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300"
+                    [class.bg-blue-500]="floor.id === currentFloor"
+                    [class.text-white]="floor.id === currentFloor"
+                    [class.text-gray-600]="floor.id !== currentFloor"
+                    [class.hover:bg-blue-100]="floor.id !== currentFloor"
+                    (click)="changeFloor(floor.id)">
+              <div class="flex items-center justify-center">
+                <i class="fa-solid fa-building-user mr-2"></i>
+                <span>{{ floor.name }}</span>
+              </div>
+            </button>
+          </div>
       
       <div class="flex gap-2 mt-2 sm:mt-0 self-start">
         <button class="bg-white border border-gray-200 rounded-md w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600" (click)="zoom(1.1, 400, 300)" aria-label="Acercar">
@@ -95,6 +111,71 @@
           <linearGradient id="gradient-garden" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ecfdf5" />
             <stop offset="100%" stop-color="#a7f3d0" />
+          </linearGradient>
+
+          <linearGradient id="gradient-memory" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#eff6ff" />
+            <stop offset="100%" stop-color="#bfdbfe" />
+          </linearGradient>
+
+          <linearGradient id="gradient-special" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fef9c3" />
+            <stop offset="100%" stop-color="#fef08a" />
+          </linearGradient>
+
+          <linearGradient id="gradient-nurse" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fee2e2" />
+            <stop offset="100%" stop-color="#fecaca" />
+          </linearGradient>
+
+          <linearGradient id="gradient-medical" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#dcfce7" />
+            <stop offset="100%" stop-color="#bbf7d0" />
+          </linearGradient>
+
+          <linearGradient id="gradient-sensory" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f5f3ff" />
+            <stop offset="100%" stop-color="#e9d5ff" />
+          </linearGradient>
+
+          <linearGradient id="gradient-monitor" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fce7f3" />
+            <stop offset="100%" stop-color="#fbcfe8" />
+          </linearGradient>
+
+          <linearGradient id="gradient-secure-garden" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d1fae5" />
+            <stop offset="100%" stop-color="#86efac" />
+          </linearGradient>
+
+          <linearGradient id="gradient-staff-night" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ede9fe" />
+            <stop offset="100%" stop-color="#c4b5fd" />
+          </linearGradient>
+
+          <linearGradient id="gradient-family-room" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fae8ff" />
+            <stop offset="100%" stop-color="#e879f9" stop-opacity="0.5" />
+          </linearGradient>
+
+          <linearGradient id="gradient-isolation" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fee2e2" />
+            <stop offset="100%" stop-color="#fca5a5" />
+          </linearGradient>
+
+          <linearGradient id="gradient-library" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e0f2fe" />
+            <stop offset="100%" stop-color="#93c5fd" />
+          </linearGradient>
+
+          <linearGradient id="gradient-staff-room" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f3f4f6" />
+            <stop offset="100%" stop-color="#d1d5db" />
+          </linearGradient>
+
+          <linearGradient id="gradient-storage" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f5f5f4" />
+            <stop offset="100%" stop-color="#d6d3d1" />
           </linearGradient>
 
           <!-- Marcador de flecha optimizado -->
@@ -237,55 +318,18 @@
               fill="#374151">
               {{room.name}}
             </text>
-            
-            <!-- Iconos de FontAwesome con mejor visibilidad -->
-            <g class="room-icon" 
-              [attr.transform]="'translate(' + getRoomCenter(room).x + ',' + 
-              (room.id === 'reception' || room.id === 'office' || room.id === 'gym' || room.id === 'multiroom' ? 
-                getRoomCenter(room).y - 14 : 
-                (room.id.includes('bath') || room.id === 'laundry' ? 
-                  getRoomCenter(room).y - 25 : getRoomCenter(room).y - 18)) + ')'">
-              
-              <!-- Círculo de fondo para el icono mejorado -->
-              <circle r="14" fill="white" stroke="#e2e8f0" stroke-width="1" filter="url(#dropShadow)"></circle>
-              
-              <!-- Iconos según tipo de habitación usando texto Unicode -->
-              <text text-anchor="middle" dominant-baseline="middle" class="select-none pointer-events-none" font-size="12" fill="#475569">
-                <tspan *ngIf="room.id.startsWith('h')">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf236;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id === 'commonRoom'">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf4b8;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id === 'kitchen'">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf2e7;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id === 'dining'">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf2e7;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id.includes('bath')">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf2cc;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id === 'laundry'">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf21e;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id === 'reception'">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf64a;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id === 'office'">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf0b1;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id === 'gym'">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf44b;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id === 'multiroom'">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf500;</tspan>
-                </tspan>
-                <tspan *ngIf="room.id === 'garden'">
-                  <tspan font-family="'Font Awesome 6 Free'" font-weight="900">&#xf06c;</tspan>
-                </tspan>
-              </text>
-            </g>
+
+              <!-- Icono Font Awesome -->
+            <foreignObject 
+              [attr.x]="getRoomCenter(room).x - 8" 
+              [attr.y]="getRoomCenter(room).y - 15" 
+              width="16" 
+              height="16" 
+              style="pointer-events: none;">
+              <xhtml:div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                <i [class]="getRoomIcon(room.id)" style="font-size: 12px; color: #475569;"></i>
+              </xhtml:div>
+            </foreignObject>
             
             <!-- Ventanas para habitaciones exteriores con estilo mejorado -->
             <line 
