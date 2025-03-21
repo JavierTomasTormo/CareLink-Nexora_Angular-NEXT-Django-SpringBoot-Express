@@ -2,6 +2,8 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleCh
 import { CommonModule } from '@angular/common';
 import { Room } from '../../../../core/models/rooms/rooms.model';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ModalService } from '../../../../core/services/rooms/modal.service';
+
 
 @Component({
   selector: 'app-map-svg',
@@ -52,7 +54,9 @@ export class MapSvgComponent implements OnChanges {
     { x: 513, y: 296, floor: 4 }
   ];
 
-  constructor() {}
+  constructor(
+    private modalService: ModalService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     // Si cambia la escala o posición externamente, actualizar la transformación del SVG
@@ -360,11 +364,12 @@ export class MapSvgComponent implements OnChanges {
     if (roomId === 'receivingArea') return "fa-solid fa-dolly";
     if (roomId === 'hazardousMaterials') return "fa-solid fa-skull-crossbones";
     
-    return "fa-solid fa-box"; // Ícono por defecto para almacenes
+    return "fa-solid fa-box"; 
   }
 
 
   openDetailsModal(room: Room): void {  
-    console.log('Room details:', room);
+    // console.log('Room details:', room);
+    this.modalService.open(room);
   }
 }

@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { FloorSelectorComponent } from '../floor-selector/floor-selector.component';
 import { MapSvgComponent } from '../map-svg/map-svg.component';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ModalDetailsComponent } from '../modal-details/modal-details.component';
 
 @Component({
   selector: 'app-rooms-interface',
   standalone: true,
-  imports: [CommonModule, FloorSelectorComponent, MapSvgComponent],
+  imports: [CommonModule, FloorSelectorComponent, MapSvgComponent, ModalDetailsComponent],
   templateUrl: './rooms-interface.component.html',
   styleUrls: ['./rooms-interface.component.scss'],
   animations: [

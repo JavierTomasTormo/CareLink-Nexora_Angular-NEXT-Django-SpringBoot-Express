@@ -63,6 +63,8 @@
       </div>
     </div>
     
+    <!-- Modal de detalles -->
+    <app-modal-details></app-modal-details>
     <!-- Información adicional y leyenda para móviles -->
     <div class="mt-2 text-xs text-gray-500 hidden xs:block sm:hidden">
       <p>Toque las habitaciones para ver detalles. Use los controles para ajustar la vista.</p>
@@ -70,15 +72,3 @@
   </div>
 </div>
 
-<!-- Modal de detalles -->
-<div *ngIf="showDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-  <div class="bg-white rounded-lg max-w-md w-full max-h-[80vh] overflow-auto shadow-xl">
-    <div class="p-4">
-      <button class="float-right text-gray-500 hover:text-gray-800" (click)="closeDetailsModal()">
-        <i class="fa-solid fa-times"></i>
-      </button>
-      <h3 class="text-lg font-bold mb-2">{{ modalRoom?.name }}</h3>
-      <p>{{ modalRoom?.description }}</p>
-    </div>
-  </div>
-</div>
