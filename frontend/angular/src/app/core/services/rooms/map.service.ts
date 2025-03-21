@@ -213,12 +213,13 @@ export class MapService {
     return this.selectedFloorSubject.value;
   }
 
-  generateRoom(id: string, name: string, x: number, y: number, width: number, height: number, description: string): Room {
+  generateRoom(id: string, name: string, x: number, y: number, width: number, height: number, description: string, floor: number): Room {
     return {
       id: id,
       name: name,
       polygonPoints: `${x},${y} ${x+width},${y} ${x+width},${y+height} ${x},${y+height}`,
-      description: description
+      description: description,
+      floor: floor
     };
   }
 
