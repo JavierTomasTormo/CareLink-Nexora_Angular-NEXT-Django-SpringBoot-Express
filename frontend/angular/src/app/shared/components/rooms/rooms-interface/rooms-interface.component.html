@@ -1,15 +1,19 @@
-<div class="w-full h-full pt-2 md:pt-6">
-  <div class="flex flex-col h-full relative font-sans bg-gray-50 rounded-lg md:rounded-xl shadow-md md:shadow-lg p-2 md:p-4 overflow-hidden">
+<div class="w-full h-full pt-0 md:pt-0">
+  <div class="flex flex-col h-full relative font-sans bg-white/95 rounded-xl shadow-xl p-2 md:p-4 overflow-hidden border border-slate-100">
     
-    <!-- Barra superior con título y selector de plantas lado a lado -->
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 md:mb-4 px-1">
-      <!-- Título a la izquierda -->
+    <!-- Header mejorado con gradiente -->
+    <div class="bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg p-3 mb-3 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
       <div class="w-full sm:w-1/2">
-        <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800">RESIDENCIA DE TIPO CONCERTADA (Mokkup)</h2>
-        <p class="text-xs sm:text-sm text-gray-500"> -- PLANTA {{ currentFloor }} · PROYECTO: CareLink By Nexora -- </p>
+        <div class="flex items-center">
+            <img src="Logo_VitalNest.png" alt="Logo" class="h-24 w-24 mr-3">
+          <div>
+            <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800">Centro Residencial VitalNest</h2>
+            <p class="text-xs sm:text-sm text-gray-500">PLANTA {{ currentFloor }} · Vista Interactiva</p>
+          </div>
+        </div>
       </div>
 
-      <!-- Selector de plantas a la derecha (máximo 50% del ancho) -->
+      <!-- Selector de plantas mejorado con diseño 3D -->
       <div class="w-full sm:w-1/2 mt-3 sm:mt-0">
         <app-floor-selector 
           [floors]="floors" 
@@ -19,25 +23,35 @@
         </app-floor-selector>
       </div>
     </div>
+    
+    <!-- Barra de herramientas mejorada -->
+    <div class="flex flex-wrap gap-2 mb-2 items-center">
+      <div class="flex bg-slate-50 p-1 rounded-md shadow-sm">
+        <button class="bg-white border border-gray-200 rounded-l-md w-9 h-9 flex items-center justify-center cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all text-gray-600" (click)="zoom(1.1, 400, 300)" aria-label="Acercar">
+          <i class="fa-solid fa-plus text-sm"></i>
+        </button>
+        <button class="bg-white border-t border-b border-gray-200 w-9 h-9 flex items-center justify-center cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all text-gray-600" (click)="zoom(0.9, 400, 300)" aria-label="Alejar">
+          <i class="fa-solid fa-minus text-sm"></i>
+        </button>
+        <button class="bg-white border border-gray-200 rounded-r-md w-9 h-9 flex items-center justify-center cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all text-gray-600" (click)="resetView()" aria-label="Restablecer vista">
+          <i class="fa-solid fa-arrows-to-dot text-sm"></i>
+        </button>
+      </div>
       
-    <!-- Controles de zoom -->
-    <div class="flex gap-2 mb-2">
-      <button class="bg-white border border-gray-200 rounded-md w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600" (click)="zoom(1.1, 400, 300)" aria-label="Acercar">
-        <i class="fa-solid fa-plus text-xs sm:text-sm"></i>
-      </button>
-      <button class="bg-white border border-gray-200 rounded-md w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600" (click)="zoom(0.9, 400, 300)" aria-label="Alejar">
-        <i class="fa-solid fa-minus text-xs sm:text-sm"></i>
-      </button>
-      <button class="bg-white border border-gray-200 rounded-md px-2 sm:px-3 h-8 sm:h-9 flex items-center justify-center cursor-pointer shadow-sm transition-all hover:bg-gray-50 hover:shadow-md text-gray-600 text-xs font-medium" (click)="resetView()">
-        <i class="fa-solid fa-arrows-to-dot me-1 sm:me-2"></i> <span class="hidden xs:inline">Vista Completa</span>
-      </button>
+      <!-- Filtros y leyenda -->
+      <div class="flex items-center ml-auto space-x-2 text-xs text-gray-500">
+        <span class="flex items-center"><span class="w-3 h-3 bg-amber-100 border border-amber-300 rounded-sm mr-1"></span> Habitaciones</span>
+        <span class="flex items-center"><span class="w-3 h-3 bg-blue-100 border border-blue-300 rounded-sm mr-1"></span> Zonas comunes</span>
+        <span class="flex items-center"><span class="w-3 h-3 bg-green-100 border border-green-300 rounded-sm mr-1"></span> Servicios</span>
+      </div>
     </div>
 
-    <!-- Contenedor del mapa mejorado con mejor adaptación -->
-    <div class="flex-1 overflow-hidden relative bg-white border border-gray-200 rounded-lg shadow-sm transition-all hover:shadow-md">
-      <!-- Overlay info para dispositivos pequeños -->
-      <div class="absolute top-0 left-0 right-0 z-20 bg-gray-800 bg-opacity-70 text-white text-xs py-1 px-2 text-center md:hidden">
-        Use los dedos para mover y hacer zoom
+    <!-- Contenedor del mapa con sombra y bordes refinados -->
+    <div class="flex-1 overflow-hidden relative bg-white border border-slate-200 rounded-lg shadow-inner">
+      <div class="absolute z-20 right-3 top-3 flex gap-1">
+        <div class="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md border border-slate-200 shadow-sm text-xs flex items-center">
+          <i class="fa-solid fa-hand-pointer text-slate-400 mr-1"></i> Arrastre para mover
+        </div>
       </div>
 
       <app-map-svg
@@ -52,19 +66,8 @@
         (mapBackgroundClicked)="onMapBackgroundClick()"
         (transformUpdated)="onTransformUpdated($event)">
       </app-map-svg>
-      
-      <!-- Touch gesture hint overlay (mobile only) -->
-      <div class="absolute bottom-2 right-2 flex items-center bg-white/80 backdrop-blur-sm p-1 rounded-md border border-gray-200 shadow-sm text-xs text-gray-600 gap-1 md:hidden">
-        <i class="fa-solid fa-hand-pointer text-gray-500"></i>
-        <span>Toque para ver detalles</span>
-      </div>
     </div>
     
-    <!-- Modal de detalles -->
     <app-modal-details></app-modal-details>
-    <!-- Información adicional y leyenda para móviles -->
-    <div class="mt-2 text-xs text-gray-500 hidden xs:block sm:hidden">
-      <p>Toque las habitaciones para ver detalles. Use los controles para ajustar la vista.</p>
-    </div>
   </div>
 </div>

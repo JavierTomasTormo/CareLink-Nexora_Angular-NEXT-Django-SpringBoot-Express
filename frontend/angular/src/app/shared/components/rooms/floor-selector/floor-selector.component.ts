@@ -45,4 +45,11 @@ export class FloorSelectorComponent implements OnInit {
     if (floorId === this.currentFloor) return;
     this.floorChanged.emit(floorId);
   }
+
+  handleKeyDown(event: KeyboardEvent, floorId: number): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.selectFloor(floorId);
+      event.preventDefault();
+    }
+  }
 }
