@@ -13,7 +13,7 @@ import { ModalDetailsComponent } from '../modal-details/modal-details.component'
   standalone: true,
   imports: [CommonModule, FloorSelectorComponent, MapSvgComponent, ModalDetailsComponent],
   templateUrl: './rooms-interface.component.html',
-  styleUrls: ['./rooms-interface.component.scss'],
+  styleUrls: ['./rooms-interface.component.css'],
   animations: [
     trigger('floorChange', [
       transition(':enter', [
@@ -50,18 +50,19 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.mapService.getFloors().subscribe(floors => {
       this.floors = floors;
+      if (this.floors.length > 0) {
+        this.changeFloor(this.floors[0].id);
+      }
     });
-    
+  
     this.subscription.add(
       this.mapService.selectedFloor$.subscribe(floor => {
         this.currentFloor = floor;
         this.rooms = this.mapService.getRoomsByFloor(floor);
-        this.resetView(); 
+        this.resetView();
       })
     );
-    
-    this.rooms = this.mapService.getRooms();
-    
+  
     this.subscription.add(
       this.mapService.selectedRoom$.subscribe(room => {
         this.selectedRoom = room;
@@ -72,15 +73,14 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     );
   }
 
+
   changeFloor(floor: number): void {
     if (this.currentFloor !== floor) {
       this.isFloorChanging = true;
       
-      // Pequeño delay para que se vea la animación
       setTimeout(() => {
         this.mapService.selectFloor(floor);
         
-        // Dar tiempo para que termine la animación
         setTimeout(() => {
           this.isFloorChanging = false;
         }, 500);
@@ -109,7 +109,6 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     this.mapService.clearSelection();
   }
 
-  // Métodos para controlar el zoom desde la UI
   zoom(factor: number, x: number, y: number): void {
     if (this.mapSvgComponent) {
       this.mapSvgComponent.zoom(factor, x, y);
@@ -120,14 +119,12 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
     if (this.mapSvgComponent) {
       this.mapSvgComponent.resetView();
     } else {
-      // Valores por defecto si el componente no está disponible
       this.scale = 1;
       this.translateX = 0;
       this.translateY = 0;
     }
   }
 
-  // Métodos para recibir actualizaciones del componente hijo
   onTransformUpdated(transform: {translateX: number, translateY: number, scale: number}): void {
     this.translateX = transform.translateX;
     this.translateY = transform.translateY;

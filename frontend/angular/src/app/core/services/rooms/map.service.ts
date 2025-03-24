@@ -33,6 +33,9 @@ export class MapService {
       floors.forEach(floor => {
         this.generateRoomsForFloor(floor.id, roomsConfigByFloor);
       });
+      if (floors.length > 0) {
+        this.selectFloor(floors[0].id);
+      }
     });
   }
 
@@ -62,9 +65,9 @@ export class MapService {
       };
     });
   
+    // console.log(`Rooms for floor ${floor} :`, rooms); 
     this.roomsByFloor.set(floor, rooms);
   }
-
 
   private floors = [
     { id: 1, name: 'Planta Pública' },
@@ -86,7 +89,7 @@ export class MapService {
           };
         });
         
-        console.log('Pisos:', floors);
+        // console.log('Pisos:', floors);
         return floors;
       })
     );

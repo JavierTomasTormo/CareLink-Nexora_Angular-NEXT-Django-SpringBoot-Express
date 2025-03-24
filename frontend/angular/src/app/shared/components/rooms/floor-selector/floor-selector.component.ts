@@ -29,7 +29,7 @@ export class FloorSelectorComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.floors);
+    // console.log(this.floors);
   }
   
   getCurrentFloorName(): string {

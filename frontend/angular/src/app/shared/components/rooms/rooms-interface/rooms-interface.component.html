@@ -33,15 +33,12 @@
       </button>
     </div>
 
-    
-    
     <!-- Contenedor del mapa mejorado con mejor adaptación -->
     <div class="flex-1 overflow-hidden relative bg-white border border-gray-200 rounded-lg shadow-sm transition-all hover:shadow-md">
       <!-- Overlay info para dispositivos pequeños -->
       <div class="absolute top-0 left-0 right-0 z-20 bg-gray-800 bg-opacity-70 text-white text-xs py-1 px-2 text-center md:hidden">
         Use los dedos para mover y hacer zoom
       </div>
-
 
       <app-map-svg
         [rooms]="rooms"
@@ -71,4 +68,3 @@
     </div>
   </div>
 </div>
-

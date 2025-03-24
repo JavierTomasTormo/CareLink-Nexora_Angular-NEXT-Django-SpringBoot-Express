@@ -58,12 +58,8 @@ export class MapSvgComponent implements OnChanges {
     private modalService: ModalService
   ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // Si cambia la escala o posición externamente, actualizar la transformación del SVG
-    if ((changes['scale'] || changes['translateX'] || changes['translateY']) && 
-         !changes['scale']?.firstChange && !changes['translateX']?.firstChange && !changes['translateY']?.firstChange) {
-      this.updateMapTransform();
-    }
+  ngOnChanges(): void {
+    this.updateMapTransform();
   }
 
   // Métodos para obtener las habitaciones y escaleras del piso actual
@@ -75,14 +71,13 @@ export class MapSvgComponent implements OnChanges {
     return this.stairsPositions.filter(stair => stair.floor === this.currentFloor);
   }
 
-  // Métodos para el manejo de eventos de habitaciones
   onRoomClick(roomId: string, event: MouseEvent): void {
     this.roomClicked.emit({ roomId, event });
     event.stopPropagation();
   }
 
   onMapBackgroundClick(): void {
-    if (!this.isDragging) { // Solo emite si no estábamos arrastrando
+    if (!this.isDragging) {
       this.mapBackgroundClicked.emit();
     }
   }
@@ -113,21 +108,18 @@ export class MapSvgComponent implements OnChanges {
     this.isDragging = false;
   }
 
-  // Métodos para el control de zoom
   zoom(factor: number, x: number, y: number): void {
     const oldScale = this.scale;
     this.scale *= factor;
-    
-    // Limitar el zoom entre 0.5 y 2
+
     this.scale = Math.max(0.5, Math.min(this.scale, 2));
-    
-    // Ajustar la posición para mantener el punto de zoom
+
     if (this.scale !== oldScale) {
       const scaleFactor = this.scale / oldScale;
       this.translateX = x - (x - this.translateX) * scaleFactor;
       this.translateY = y - (y - this.translateY) * scaleFactor;
     }
-    
+
     this.updateMapTransform();
     this.emitTransformUpdate();
   }
@@ -141,7 +133,10 @@ export class MapSvgComponent implements OnChanges {
   }
 
   private updateMapTransform(): void {
-    // En este método podríamos aplicar transformaciones directas al SVG si es necesario
+    if (this.mapSvg && this.mapSvg.nativeElement) {
+      const transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scale})`;
+      this.mapSvg.nativeElement.style.transform = transform;
+    }
   }
 
   private emitTransformUpdate(): void {
