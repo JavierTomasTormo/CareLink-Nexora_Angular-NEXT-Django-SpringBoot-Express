@@ -1,81 +1,171 @@
 <div class="modal" [ngClass]="{'is-active': display === 'open'}" *ngIf="room">
   <div class="modal-backdrop" (click)="closeModal()"></div>
   <div class="modal-container animate__animated animate__fadeInDown">
-    <div class="modal-header">
-      <h2><i class="fas fa-info-circle"></i> Detalles de la habitación</h2>
-      <button class="close-button" (click)="closeModal()"><i class="fas fa-times"></i></button>
+    <!-- Header de modal con categoría de la habitación -->
+    <div class="modal-header" [ngClass]="getCategoryClass(room.id)">
+      <h2>
+        <i [class]="getIcon(room.id)"></i>
+        <span>{{room.name}}</span>
+      </h2>
+      <div class="header-actions">
+        <button class="btn-action" title="Editar" *ngIf="showEditButton">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn-action" title="Cerrar" (click)="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
     </div>
 
-    <div class="modal-body">
-      <div class="modal-body-content">
-        <div class="modal-body-item">
-          <i class="fas fa-id-badge"></i>
-          <div>
-            <strong>ID:</strong>
-            <span>{{room.id}}</span>
+    <!-- Menu de pestañas -->
+    <div class="tab-navigation">
+      <button class="tab-button" [ngClass]="{'active': activeTab === 'details'}" (click)="setActiveTab('details')">
+        <i class="fas fa-info-circle"></i> Información
+      </button>
+      <button class="tab-button" [ngClass]="{'active': activeTab === 'location'}" (click)="setActiveTab('location')">
+        <i class="fas fa-map-marker-alt"></i> Ubicación
+      </button>
+      <button class="tab-button" [ngClass]="{'active': activeTab === 'images'}" (click)="setActiveTab('images')" *ngIf="hasRoomImages">
+        <i class="fas fa-images"></i> Imágenes
+      </button>
+    </div>
+
+    <!-- Contenido de pestañas -->
+    <div class="tab-content">
+      <!-- Pestaña de Información -->
+      <div class="tab-pane" [ngClass]="{'active': activeTab === 'details'}">
+        <div class="modal-body">
+          <div class="room-description">
+            <p>{{room.description}}</p>
+          </div>
+          
+          <div class="info-section">
+            <h3><i class="fas fa-clipboard-list"></i> Detalles</h3>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">ID:</span>
+                <span class="info-value">{{room.id}}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Tipo:</span>
+                <span class="info-value">{{getRoomType(room.id)}}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Planta:</span>
+                <span class="info-value">{{room.floor}}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Dimensiones:</span>
+                <span class="info-value">{{room.width}}m × {{room.height}}m</span>
+              </div>
+              <div class="info-item" *ngIf="getRoomCapacity(room.id) > 0">
+                <span class="info-label">Capacidad:</span>
+                <span class="info-value">{{getRoomCapacity(room.id)}} personas</span>
+              </div>
+              <div class="info-item" *ngIf="getRoomFeatures(room.id).length > 0">
+                <span class="info-label">Características:</span>
+                <span class="info-value">{{getRoomFeatures(room.id).join(', ')}}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="info-section" *ngIf="getContactInfo() && room.id.includes('room')">
+            <h3><i class="fas fa-address-card"></i> Contacto</h3>
+            <div class="contact-info">
+              <p>
+                <i class="fas fa-user"></i> 
+                <strong>Responsable:</strong> {{getContactInfo()?.name}}
+              </p>
+              <p>
+                <i class="fas fa-phone"></i>
+                <strong>Teléfono:</strong> {{getContactInfo()?.phone}}
+              </p>
+            </div>
+          </div>
+
+          <div class="info-section" *ngIf="getOccupancy(room.id) && room.id.includes('room')">
+            <h3><i class="fas fa-calendar-check"></i> Ocupación</h3>
+            <div class="occupancy-status" [ngClass]="{'occupied': getOccupancy(room.id)?.isOccupied}">
+              <i class="fas" [ngClass]="getOccupancy(room.id)?.isOccupied ? 'fa-user-check' : 'fa-user-times'"></i>
+              <span>{{getOccupancy(room.id)?.isOccupied ? 'Ocupada' : 'Disponible'}}</span>
+            </div>
+            <div class="occupancy-details" *ngIf="getOccupancy(room.id)?.isOccupied">
+              <p><strong>Ocupante:</strong> {{getOccupancy(room.id)?.occupantName}}</p>
+              <p><strong>Desde:</strong> {{getOccupancy(room.id)?.since | date:'dd/MM/yyyy'}}</p>
+            </div>
           </div>
         </div>
-        <div class="modal-body-item">
-          <i class="fas fa-tag"></i>
-          <div>
-            <strong>Nombre:</strong>
-            <span>{{room.name}}</span>
+      </div>
+      
+      <!-- Pestaña de Ubicación -->
+      <div class="tab-pane" [ngClass]="{'active': activeTab === 'location'}">
+        <div class="modal-body">
+          <div class="location-info">
+            <h3><i class="fas fa-map"></i> Coordenadas en el mapa</h3>
+            <div class="coordinate-info">
+              <div class="coordinate-item">
+                <span class="coordinate-label">X:</span>
+                <span class="coordinate-value">{{room.x || 0}}</span>
+              </div>
+              <div class="coordinate-item">
+                <span class="coordinate-label">Y:</span>
+                <span class="coordinate-value">{{room.y || 0}}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="map-thumbnail">
+            <div class="minimap-container">
+              <div class="minimap-building">
+                <!-- Fondo del mini-mapa simplificado -->
+                <div class="minimap-floor"></div>
+                <!-- Marcador de la habitación actual -->
+                <div class="room-marker" [style.left.%]="((room.x || 0) / 1000) * 100" [style.top.%]="((room.y || 0) / 500) * 100">
+                  <i class="fas fa-map-pin"></i>
+                </div>
+              </div>
+            </div>
+            <div class="location-caption">
+              <p>Planta {{room.floor}} - {{getFloorName(room.floor)}}</p>
+            </div>
+          </div>
+          
+          <div class="adjacent-rooms" *ngIf="getAdjacentRooms(room).length > 0">
+            <h3><i class="fas fa-door-open"></i> Habitaciones adyacentes</h3>
+            <div class="room-chips">
+              <div class="room-chip" *ngFor="let adjRoom of getAdjacentRooms(room)" (click)="selectRoom(adjRoom)">
+                <i [class]="getIcon(adjRoom.id)"></i>
+                <span>{{adjRoom.name}}</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="modal-body-item">
-          <i class="fas fa-align-left"></i>
-          <div>
-            <strong>Descripción:</strong>
-            <span>{{room.description}}</span>
-          </div>
-        </div>
-        <div class="modal-body-item">
-          <i class="fas fa-draw-polygon"></i>
-          <div>
-            <strong>Puntos del polígono:</strong>
-            <span>{{room.polygonPoints}}</span>
-          </div>
-        </div>
-        <div class="modal-body-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <div>
-            <strong>Coordenada X:</strong>
-            <span>{{room.x}}</span>
-          </div>
-        </div>
-        <div class="modal-body-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <div>
-            <strong>Coordenada Y:</strong>
-            <span>{{room.y}}</span>
-          </div>
-        </div>
-        <div class="modal-body-item">
-          <i class="fas fa-arrows-alt-h"></i>
-          <div>
-            <strong>Ancho:</strong>
-            <span>{{room.width}}</span>
-          </div>
-        </div>
-        <div class="modal-body-item">
-          <i class="fas fa-arrows-alt-v"></i>
-          <div>
-            <strong>Alto:</strong>
-            <span>{{room.height}}</span>
-          </div>
-        </div>
-        <div class="modal-body-item">
-          <i class="fas fa-layer-group"></i>
-          <div>
-            <strong>Piso:</strong>
-            <span>{{room.floor}}</span>
+      </div>
+      
+      <!-- Pestaña de Imágenes -->
+      <div class="tab-pane" [ngClass]="{'active': activeTab === 'images'}" *ngIf="hasRoomImages">
+        <div class="modal-body">
+          <div class="gallery">
+            <div class="image-main">
+              <img [src]="currentImage" alt="{{room.name}}" class="room-image">
+            </div>
+            <div class="image-thumbnails">
+              <div class="thumbnail" 
+                   *ngFor="let image of getRoomImages(); let i = index" 
+                   [ngClass]="{'active': currentImageIndex === i}"
+                   (click)="selectImage(i)">
+                <img [src]="image" alt="Imagen {{i+1}} de {{room.name}}" class="thumbnail-image">
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="modal-footer">
-      <button class="btn-close" (click)="closeModal()"><i class="fas fa-times-circle"></i> Cerrar</button>
+      <button class="btn-close" (click)="closeModal()">
+        <i class="fas fa-times-circle"></i> Cerrar
+      </button>
     </div>
   </div>
 </div>
