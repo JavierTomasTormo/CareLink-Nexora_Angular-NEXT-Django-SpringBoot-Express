@@ -35,7 +35,7 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   showDetailsModal = false;
   modalRoom: Room | null = null;
   
-  floors: {id: number, name: string}[] = [];
+  floors: { id: number; name: string; }[] = [];
   currentFloor: number = 1;
 
   scale: number = 1;
@@ -48,7 +48,9 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   constructor(private mapService: MapService) { }
 
   ngOnInit(): void {
-    this.floors = this.mapService.getFloors();
+    this.mapService.getFloors().subscribe(floors => {
+      this.floors = floors;
+    });
     
     this.subscription.add(
       this.mapService.selectedFloor$.subscribe(floor => {

@@ -16,4 +16,10 @@ export const API_ROUTES = {
     BOOKINGS: {
         GET_ALL: `http://localhost:8085/inscriptions/user`, //'http://localhost:8085/inscriptions/user';
     },
+    ROOMS: {
+        GET_ALL: `${environment.apiUrl}/rooms/room/`,
+        CREATE: `${environment.apiUrl}/rooms/room/`,
+        UPDATE: (roomId: number) => `${environment.apiUrl}/rooms/${roomId}/`,
+        DELETE: (roomId: number) => `${environment.apiUrl}/rooms/${roomId}/`,
+    }
 };

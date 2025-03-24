@@ -28,7 +28,9 @@ export class FloorSelectorComponent implements OnInit {
   
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.floors);
+  }
   
   getCurrentFloorName(): string {
     const floor = this.floors.find(f => f.id === this.currentFloor);
