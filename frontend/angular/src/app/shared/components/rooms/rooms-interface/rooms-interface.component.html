@@ -1,73 +1,118 @@
-<div class="w-full h-full pt-0 md:pt-0">
-  <div class="flex flex-col h-full relative font-sans bg-white/95 rounded-xl shadow-xl p-2 md:p-4 overflow-hidden border border-slate-100">
-    
-    <!-- Header mejorado con gradiente -->
-    <div class="bg-gradient-to-r from-slate-50 to-slate-100 rounded-lg p-3 mb-3 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
-      <div class="w-full sm:w-1/2">
-        <div class="flex items-center">
-            <img src="Logo_VitalNest.png" alt="Logo" class="h-24 w-24 mr-3">
-          <div>
-            <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800">Centro Residencial VitalNest</h2>
-            <p class="text-xs sm:text-sm text-gray-500">PLANTA {{ currentFloor }} · Vista Interactiva</p>
-          </div>
+<div class="rooms-interface-container">
+  <!-- HEADER PRINCIPAL (SUPERIOR) -->
+  <header class="rooms-header">
+    <div class="header-content">
+      <div class="logo-container">
+        <img src="Logo_VitalNest.png" alt="Logo" class="header-logo">
+      </div>
+      <div>
+        <h2 class="text-base sm:text-lg md:text-xl font-bold text-gray-800">Centro Residencial Concertado</h2>
+        <p class="text-xs sm:text-sm text-blue-500 font-medium tracking-wide">CareLink by Nexora</p>
+        <div class="flex items-center space-x-2">
+          <p class="text-xs sm:text-sm text-gray-500">PLANTA {{ currentFloor }} · Vista Interactiva</p>
+          <p class="text-xs sm:text-sm text-green-500">Activa</p>
         </div>
       </div>
+    </div>
+  </header>
 
-      <!-- Selector de plantas mejorado con diseño 3D -->
-      <div class="w-full sm:w-1/2 mt-3 sm:mt-0">
+  
+  <!-- CONTENEDOR PRINCIPAL (DIVIDIDO EN DOS SECCIONES) -->
+  <div class="main-content">
+    <!-- PANEL IZQUIERDO (SELECTOR DE PISOS Y CONTROLES) -->
+    <div class="left-panel">
+      <!-- Título sección -->
+      <h2 class="panel-title">Navegación de Planta</h2>
+      
+      <!-- Selector de pisos con más espacio -->
+      <div class="floors-container">
         <app-floor-selector 
           [floors]="floors" 
           [currentFloor]="currentFloor"
           (floorChanged)="handleFloorChange($event)"
           class="floor-selector-container">
         </app-floor-selector>
-      </div>
-    </div>
-    
-    <!-- Barra de herramientas mejorada -->
-    <div class="flex flex-wrap gap-2 mb-2 items-center">
-      <div class="flex bg-slate-50 p-1 rounded-md shadow-sm">
-        <button class="bg-white border border-gray-200 rounded-l-md w-9 h-9 flex items-center justify-center cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all text-gray-600" (click)="zoom(1.1, 400, 300)" aria-label="Acercar">
-          <i class="fa-solid fa-plus text-sm"></i>
-        </button>
-        <button class="bg-white border-t border-b border-gray-200 w-9 h-9 flex items-center justify-center cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all text-gray-600" (click)="zoom(0.9, 400, 300)" aria-label="Alejar">
-          <i class="fa-solid fa-minus text-sm"></i>
-        </button>
-        <button class="bg-white border border-gray-200 rounded-r-md w-9 h-9 flex items-center justify-center cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all text-gray-600" (click)="resetView()" aria-label="Restablecer vista">
-          <i class="fa-solid fa-arrows-to-dot text-sm"></i>
-        </button>
-      </div>
-      
-      <!-- Filtros y leyenda -->
-      <div class="flex items-center ml-auto space-x-2 text-xs text-gray-500">
-        <span class="flex items-center"><span class="w-3 h-3 bg-amber-100 border border-amber-300 rounded-sm mr-1"></span> Habitaciones</span>
-        <span class="flex items-center"><span class="w-3 h-3 bg-blue-100 border border-blue-300 rounded-sm mr-1"></span> Zonas comunes</span>
-        <span class="flex items-center"><span class="w-3 h-3 bg-green-100 border border-green-300 rounded-sm mr-1"></span> Servicios</span>
-      </div>
-    </div>
 
-    <!-- Contenedor del mapa con sombra y bordes refinados -->
-    <div class="flex-1 overflow-hidden relative bg-white border border-slate-200 rounded-lg shadow-inner">
-      <div class="absolute z-20 right-3 top-3 flex gap-1">
-        <div class="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md border border-slate-200 shadow-sm text-xs flex items-center">
-          <i class="fa-solid fa-hand-pointer text-slate-400 mr-1"></i> Arrastre para mover
+        <!-- Indicador de planta actual -->
+        <div class="current-floor-indicator">
+          <div class="indicator-badge">
+            <span class="indicator-number">{{currentFloor}}</span>
+          </div>
+          <div class="indicator-text">
+            <span class="floor-label">PLANTA ACTUAL</span>
+            <span class="floor-name">{{getCurrentFloorName()}}</span>
+          </div>
         </div>
       </div>
-
-      <app-map-svg
-        [rooms]="rooms"
-        [currentFloor]="currentFloor"
-        [selectedRoom]="selectedRoom"
-        [isFloorChanging]="isFloorChanging"
-        [scale]="scale"
-        [translateX]="translateX"
-        [translateY]="translateY"
-        (roomClicked)="onRoomClicked($event)"
-        (mapBackgroundClicked)="onMapBackgroundClick()"
-        (transformUpdated)="onTransformUpdated($event)">
-      </app-map-svg>
+      
+      <!-- Controles de zoom -->
+      <div class="controls-container">
+        <h3 class="section-title">Controles de visualización</h3>
+        <div class="zoom-controls">
+          <button class="control-btn zoom-in" (click)="zoom(1.1, 400, 300)" aria-label="Acercar">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button class="control-btn zoom-out" (click)="zoom(0.9, 400, 300)" aria-label="Alejar">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <button class="control-btn reset-view" (click)="resetView()" aria-label="Restablecer vista">
+            <i class="fa-solid fa-arrows-to-dot"></i>
+            <span>Vista completa</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Eliminada la leyenda del panel izquierdo -->
     </div>
-    
-    <app-modal-details></app-modal-details>
+
+    <!-- PANEL DERECHO (MAPA SVG CON LEYENDA ARRIBA) -->
+    <div class="right-panel">
+      <!-- Nueva posición de la leyenda en la parte superior -->
+      <div class="right-panel-header">
+        <div class="legend-container top">
+          <div class="legend-items horizontal">
+            <div class="legend-item compact">
+              <span class="legend-color residential"></span>
+              <span>Habitaciones</span>
+            </div>
+            <div class="legend-item compact">
+              <span class="legend-color common"></span>
+              <span>Zonas comunes</span>
+            </div>
+            <div class="legend-item compact">
+              <span class="legend-color services"></span>
+              <span>Servicios</span>
+            </div>
+            <div class="legend-item compact">
+              <span class="legend-color medical"></span>
+              <span>Áreas médicas</span>
+            </div>
+            <div class="legend-item compact">
+              <span class="legend-color admin"></span>
+              <span>Administración</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="map-container">
+        <!-- Componente de mapa SVG -->
+        <app-map-svg
+          [rooms]="rooms"
+          [currentFloor]="currentFloor"
+          [selectedRoom]="selectedRoom"
+          [isFloorChanging]="isFloorChanging"
+          [scale]="scale"
+          [translateX]="translateX"
+          [translateY]="translateY"
+          (roomClicked)="onRoomClicked($event)"
+          (mapBackgroundClicked)="onMapBackgroundClick()"
+          (transformUpdated)="onTransformUpdated($event)">
+        </app-map-svg>
+      </div>
+    </div>
   </div>
+
+  <!-- Modal de detalles (sin cambios) -->
+  <app-modal-details></app-modal-details>
 </div>

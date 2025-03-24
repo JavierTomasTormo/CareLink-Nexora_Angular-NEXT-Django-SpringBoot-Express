@@ -1,80 +1,406 @@
-.rooms-map-container.changing {
-    position: relative;
-  }
-  
-  .rooms-map-container.changing::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(248, 250, 252, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: #3b82f6;
-  }
-  
-  @keyframes fadeInOut {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
-  }
+/* Contenedor principal */
+.rooms-interface-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* HEADER SUPERIOR */
+.rooms-header {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid #cbd5e1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  z-index: 10;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container {
+  margin-right: 1rem;
+}
+
+.header-logo {
+  height: 2.75rem;
+  width: auto;
+}
+
+.header-titles h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.header-titles p {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0.25rem 0 0 0;
+}
+
+/* CONTENEDOR PRINCIPAL DIVIDIDO */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100vh - 4.5rem); /* Restamos altura del header */
+}
+
+/* PANEL IZQUIERDO AMPLIADO */
+.left-panel {
+  width: 400px; 
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.03);
+}
+.legend-container.top {
+  margin-bottom: 0;
+}
+.legend-item.compact {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  background-color: #ffffff;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.legend-items.horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+.right-panel-header {
+  padding: 0.75rem 1rem;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  z-index: 5;
+}
+
+.panel-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.section-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #475569;
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Contenedor de pisos mejorado */
+.floors-container {
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.floor-selector-container {
+  display: block;
+  width: 100%;
+  /* margin-bottom: 1rem; */
+  height: 310px; 
+}
+
+/* Indicador de planta actual (fijo, no flotante) */
+.current-floor-indicator {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-radius: 0.5rem;
+  border: 1px solid #bfdbfe;
+}
+
+.indicator-badge {
+  background-color: #3b82f6;
+  color: white;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+  margin-right: 0.75rem;
+}
+
+.indicator-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.indicator-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.floor-label {
+  font-size: 0.7rem;
+  color: #3b82f6;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.floor-name {
+  font-size: 1rem;
+  color: #1e40af;
+  font-weight: 600;
+}
 
 
-.floor-transition-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    
-    &.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .transition-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      
-      .floor-indicator {
-        font-size: 24px;
-        font-weight: bold;
-        color: #3b82f6;
-        margin-bottom: 10px;
-      }
-      
-      .floor-icon {
-        font-size: 48px;
-        color: #3b82f6;
-        animation: elevatorMove 1s infinite alternate;
-      }
-    }
+
+.zoom-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.control-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  font-weight: 500;
+}
+
+.control-btn:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.zoom-in, .zoom-out {
+  width: 2.5rem;
+}
+
+.reset-view {
+  flex-grow: 1;
+}
+
+.reset-view i {
+  margin-right: 0.5rem;
+}
+
+/* Leyenda */
+.legend-container {
+  margin-bottom: 1.75rem;
+}
+
+.legend-items {
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 0.875rem;
+  border: 1px solid #e2e8f0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+.legend-color {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  margin-right: 0.5rem;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.legend-color.residential {
+  background-color: #fef3c7;
+  border-color: #fbbf24;
+}
+
+.legend-color.common {
+  background-color: #dbeafe;
+  border-color: #60a5fa;
+}
+
+.legend-color.services {
+  background-color: #dcfce7;
+  border-color: #34d399;
+}
+
+.legend-color.medical {
+  background-color: #fee2e2;
+  border-color: #f87171;
+}
+
+.legend-color.admin {
+  background-color: #e0e7ff;
+  border-color: #818cf8;
+}
+
+/* Instrucciones de uso */
+.help-container {
+  margin-bottom: 1.5rem;
+}
+
+.help-items {
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 0.875rem;
+  border: 1px solid #e2e8f0;
+}
+
+.help-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: #475569;
+}
+
+.help-item:last-child {
+  margin-bottom: 0;
+}
+
+.help-item i {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6;
+  margin-right: 0.75rem;
+}
+
+/* PANEL DERECHO - MAPA */
+.right-panel {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 50px);
+  background-color: white;
+  border-left: 1px solid #e2e8f0;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.02);
+}
+
+/* Animación para transiciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive para tablets */
+@media (max-width: 1024px) {
+  .left-panel {
+    width: 350px;
+    padding: 1rem;
   }
   
-  @keyframes elevatorMove {
-    from { transform: translateY(0); }
-    to { transform: translateY(-15px); }
+  .current-floor-indicator {
+    padding: 0.5rem;
   }
+  
+  .indicator-badge {
+    height: 2.25rem;
+    width: 2.25rem;
+  }
+  
+  .floor-selector-container {
+    height: 240px;
+  }
+}
 
-  .responsive-selector-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: #f8fafc;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    height: calc(100vh - 4.5rem);
   }
+  
+  .left-panel {
+    width: 100%;
+    height: auto;
+    max-height: 40%;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.75rem;
+  }
+  .legend-items.horizontal {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.75rem;
+  }
+  
+  .panel-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .section-title {
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .floors-container {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .floor-selector-container {
+    height: 180px;
+  }
+  
+  .current-floor-indicator {
+    margin-top: 0.5rem;
+  }
+  
+  .controls-container, .legend-container, .help-container {
+    margin-bottom: 1rem;
+  }
+  
+  .legend-items {
+    padding: 0.5rem;
+  }
+  
+  .help-items {
+    padding: 0.5rem;
+  }
+  
+  .right-panel {
+    flex: 1;
+  }
+}

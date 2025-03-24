@@ -8,6 +8,8 @@ import { MapSvgComponent } from '../map-svg/map-svg.component';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ModalDetailsComponent } from '../modal-details/modal-details.component';
 
+
+
 @Component({
   selector: 'app-rooms-interface',
   standalone: true,
@@ -42,6 +44,19 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
   translateX: number = 0;
   translateY: number = 0;
   isFloorChanging: boolean = false;
+
+  floorColors = [
+    '#3b82f6', // Azul (Planta 1)
+    '#10b981', // Verde (Planta 2)
+    '#8b5cf6', // Púrpura (Planta 3)
+    '#f59e0b', // Ámbar (Planta 4)
+    '#ef4444', // Rojo (Planta 5)
+    '#14b8a6', // Esmeralda (Planta 6)
+    '#6366f1', // Índigo (Planta 7)
+    '#ec4899', // Rosa (Planta 8)
+    '#0284c7', // Azul cielo (Planta 9)
+    '#84cc16', // Lima (Planta 10)
+  ];
   
   private subscription: Subscription = new Subscription();
 
@@ -138,5 +153,14 @@ export class RoomsInterfaceComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  getCurrentFloorName(): string {
+    const floor = this.floors.find(f => f.id === this.currentFloor);
+    return floor ? floor.name : 'Planta';
+  }
+  
+  getFloorColor(floorId: number): string {
+    return this.floorColors[(floorId - 1) % this.floorColors.length];
   }
 }
