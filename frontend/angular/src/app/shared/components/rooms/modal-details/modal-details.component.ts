@@ -3,6 +3,8 @@ import { ModalService } from '../../../../core/services/rooms/modal.service';
 import { Room } from '../../../../core/models/rooms/rooms.model';
 import { CommonModule } from '@angular/common';
 import { MapService } from '../../../../core/services/rooms/map.service';
+import { UserPatientService } from '../../../../core/services/users/user-patient.service';
+import { CookieService } from '../../../../core/services/cookies/cookie.service';
 
 enum RoomCategory {
   RESIDENTIAL = 'residential',
@@ -216,7 +218,10 @@ export class ModalDetailsComponent implements OnInit {
 
   constructor(
     private modalService: ModalService,
-    private mapService: MapService
+    private mapService: MapService,
+    private userPatientService: UserPatientService,
+    private cookieService: CookieService
+  
   ) {}
 
   ngOnInit(): void {
@@ -225,7 +230,6 @@ export class ModalDetailsComponent implements OnInit {
       if (display === 'open') {
         this.activeTab = 'details';
         this.currentImageIndex = 0;
-        // Limpiar caché si se cierra el modal
       } else if (display === 'close') {
         this.imageCache.clear();
       }
@@ -234,7 +238,6 @@ export class ModalDetailsComponent implements OnInit {
     
     this.modalService.getData().subscribe(data => {
       if (this.room?.id !== data?.id) {
-        // Limpiar caché cuando cambia la habitación
         this.imageCache.clear();
       }
       this.room = data;
@@ -250,7 +253,6 @@ export class ModalDetailsComponent implements OnInit {
     this.activeTab = tabName;
   }
 
-  // Determinar la categoría de la habitación
   getRoomCategory(roomId: string): RoomCategory {
     if (!roomId) return RoomCategory.COMMON_AREA;
     
@@ -276,17 +278,14 @@ export class ModalDetailsComponent implements OnInit {
     return RoomCategory.AMENITIES;
   }
 
-  // Obtener clase CSS para el header según categoría
   getCategoryClass(roomId: string): string {
     const category = this.getRoomCategory(roomId);
     return `header-${category.split('_')[0]}`;
   }
 
-  // Obtener icono según el ID de la habitación
   getIcon(roomId: string): string {
     if (!roomId) return 'fas fa-question-circle';
     
-    // Iconos específicos por tipo de habitación
     if (roomId.includes('room')) return 'fas fa-bed';
     if (roomId.includes('mem')) return 'fas fa-brain';
     if (roomId.includes('bath')) return 'fas fa-shower';
@@ -306,7 +305,6 @@ export class ModalDetailsComponent implements OnInit {
     return 'fas fa-door-open';
   }
 
-  // Obtener el tipo de habitación
   getRoomType(roomId: string): string {
     if (!roomId) return 'Desconocido';
     
@@ -337,7 +335,6 @@ export class ModalDetailsComponent implements OnInit {
     return 'Otro';
   }
 
-  // Obtener la capacidad aproximada de la habitación
   getRoomCapacity(roomId: string): number {
     if (!roomId) return 0;
     
@@ -355,7 +352,6 @@ export class ModalDetailsComponent implements OnInit {
     return 0;
   }
 
-  // Obtener características de la habitación
   getRoomFeatures(roomId: string): string[] {
     if (!roomId) return [];
     
@@ -383,11 +379,45 @@ export class ModalDetailsComponent implements OnInit {
     return [];
   }
 
-  // Obtener información de contacto ficticia
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  private familyMembers: any[] = [];
+  public isLoadingFamilyMembers = false;
+  
+
+  private roomAssignments: {[key: string]: {occupants: any[], maxCapacity: number}} = {
+    'room101': { occupants: [{ id: 5, name: 'Carmen García', since: new Date(2024, 5, 15) }], maxCapacity: 2 },
+    'room103': { occupants: [{ id: 6, name: 'Javier Tomás' }, { id: 7, name: 'María Torres' }], maxCapacity: 2 },
+    'room105': { occupants: [{ id: 8, name: 'Antonio Pérez' }, { id: 9, name: 'Luis Sánchez' }], maxCapacity: 2 },
+    'room107': { occupants: [{ id: 10, name: 'Juan Rodríguez' }], maxCapacity: 2 }
+  };
+
+
   getContactInfo(): {name: string, phone: string} | null {
-    // Solo mostramos contacto para habitaciones residenciales
     if (this.room && this.room.id.includes('room')) {
-      // En un caso real, esto vendría del backend
       return {
         name: 'Dra. Laura Gómez',
         phone: '+34 912 345 678'
@@ -396,28 +426,114 @@ export class ModalDetailsComponent implements OnInit {
     return null;
   }
 
-  // Obtener estado de ocupación ficticio
-  getOccupancy(roomId: string): {isOccupied: boolean, occupantName?: string, since?: Date} | null {
+  
+  getOccupancy(roomId: string): {isOccupied: boolean, occupants?: any[], maxCapacity?: number} | null {
     if (!roomId || !roomId.includes('room')) return null;
     
-    // En un caso real, esto vendría del backend
-    const occupiedRooms = ['room101', 'room103', 'room105', 'room107'];
-    const isOccupied = occupiedRooms.includes(roomId);
-    
-    if (isOccupied) {
-      return {
-        isOccupied: true,
-        occupantName: roomId === 'room101' ? 'Carmen García' : 
-                     roomId === 'room103' ? 'Javier y María Torres' : 
-                     roomId === 'room105' ? 'Antonio Pérez y Luis Sánchez' : 'Juan Rodríguez',
-        since: new Date(2023, 5, 15) // 15 de junio de 2023
+    if (!this.roomAssignments[roomId]) {
+      const isDouble = this.getRoomType(roomId)?.toLowerCase().includes('doble') || false;
+      this.roomAssignments[roomId] = { 
+        occupants: [], 
+        maxCapacity: isDouble ? 2 : 1 
       };
     }
     
+    const assignment = this.roomAssignments[roomId];
     return {
-      isOccupied: false
+      isOccupied: assignment.occupants.length > 0,
+      occupants: assignment.occupants,
+      maxCapacity: assignment.maxCapacity
     };
   }
+
+  canAddOccupant(roomId: string): boolean {
+    const occupancy = this.getOccupancy(roomId);
+    if (!occupancy) return false;
+    
+    return (occupancy.occupants?.length || 0) < (occupancy.maxCapacity || 0);
+  }
+
+  loadFamilyMembers(): void {
+    if (this.isLoadingFamilyMembers || this.familyMembers.length > 0) return;
+    
+    this.isLoadingFamilyMembers = true;
+    const currentUser = this.cookieService.getCurrentUser();
+    
+    if (currentUser && currentUser.id_user) {
+      this.userPatientService.getUserPatientsByUser(currentUser.id_user).subscribe({
+        next: (patients) => {
+          this.familyMembers = patients.map(p => ({
+            id: p.id,
+            name: p.name_patient,
+            email: p.email,
+            birthday: p.birthday,
+            allergies: p.allergies,
+            difficulties: p.difficulties
+          }));
+          this.isLoadingFamilyMembers = false;
+        },
+        error: (error) => {
+          console.error('Error al cargar familiares:', error);
+          this.isLoadingFamilyMembers = false;
+        }
+      });
+    } else {
+      this.isLoadingFamilyMembers = false;
+    }
+  }
+
+  getFamilyMembersForAssignment(roomId: string): any[] {
+    if (this.familyMembers.length === 0) {
+      this.loadFamilyMembers();
+      return [];
+    }
+    
+    const allAssignedIds = Object.values(this.roomAssignments)
+      .flatMap(room => room.occupants.map(o => o.id));
+    
+    return this.familyMembers.filter(m => !allAssignedIds.includes(m.id));
+  }
+  
+  assignFamilyMember(roomId: string, familyMemberId: number): boolean {
+    if (!this.canAddOccupant(roomId)) return false;
+    
+    const member = this.familyMembers.find(m => m.id === familyMemberId);
+    if (!member) return false;
+    
+    const assignment = {
+      ...member,
+      since: new Date()
+    };
+    
+    this.roomAssignments[roomId].occupants.push(assignment);
+    return true;
+  }
+  
+  removeFamilyMember(roomId: string, familyMemberId: number): boolean {
+    if (!this.roomAssignments[roomId]) return false;
+    
+    const index = this.roomAssignments[roomId].occupants.findIndex(o => o.id === familyMemberId);
+    if (index === -1) return false;
+    
+    this.roomAssignments[roomId].occupants.splice(index, 1);
+    return true;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   getAdjacentRooms(room: Room | null): Room[] {
     if (!room || room.x === undefined || room.y === undefined) return [];
@@ -439,7 +555,6 @@ export class ModalDetailsComponent implements OnInit {
     }).slice(0, 4);
   }
   
-  // Obtener nombre de la planta
   getFloorName(floorId: number): string {
     const floorNames = {
       1: 'Planta Pública',
@@ -451,7 +566,6 @@ export class ModalDetailsComponent implements OnInit {
     return floorNames[floorId as keyof typeof floorNames] || `Planta ${floorId}`;
   }
 
-  // Seleccionar una habitación
   selectRoom(room: Room): void {
     if (this.mapService) {
       this.closeModal();
@@ -548,20 +662,11 @@ export class ModalDetailsComponent implements OnInit {
       currentSeed = (currentSeed * 9301 + 49297) % 233280;
       const j = Math.floor((currentSeed / 233280) * (i + 1));
       
-      // Intercambiar elementos
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
 
-  private shuffleArray<T>(array: T[]): T[] {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
   
-  // Seleccionar una imagen
   selectImage(index: number): void {
     const images = this.getRoomImages();
     if (index < images.length) {

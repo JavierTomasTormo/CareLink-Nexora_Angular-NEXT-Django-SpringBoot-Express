@@ -83,15 +83,61 @@
             </div>
           </div>
 
+          <!-- Sección de Ocupación -->
           <div class="info-section" *ngIf="getOccupancy(room.id) && room.id.includes('room')">
-            <h3><i class="fas fa-calendar-check"></i> Ocupación</h3>
-            <div class="occupancy-status" [ngClass]="{'occupied': getOccupancy(room.id)?.isOccupied}">
-              <i class="fas" [ngClass]="getOccupancy(room.id)?.isOccupied ? 'fa-user-check' : 'fa-user-times'"></i>
-              <span>{{getOccupancy(room.id)?.isOccupied ? 'Ocupada' : 'Disponible'}}</span>
+            <h3 class="section-title"><i class="fas fa-users"></i> Ocupación</h3>
+            
+            <!-- Estado de ocupación -->
+            <div class="status-indicator" [ngClass]="{'status-occupied': getOccupancy(room.id)?.isOccupied}">
+              <i class="fas" [ngClass]="getOccupancy(room.id)?.isOccupied ? 'fa-bed' : 'fa-bed-empty'"></i>
+              <span>
+                {{getOccupancy(room.id)?.occupants?.length || 0}} / {{getOccupancy(room.id)?.maxCapacity || 0}} ocupantes
+              </span>
             </div>
-            <div class="occupancy-details" *ngIf="getOccupancy(room.id)?.isOccupied">
-              <p><strong>Ocupante:</strong> {{getOccupancy(room.id)?.occupantName}}</p>
-              <p><strong>Desde:</strong> {{getOccupancy(room.id)?.since | date:'dd/MM/yyyy'}}</p>
+            
+            <!-- Lista de ocupantes actuales -->
+            <div class="occupants-list" *ngIf="getOccupancy(room.id)?.occupants?.length">
+              <h4 class="text-sm font-medium text-gray-700 mt-3 mb-2">Ocupantes actuales:</h4>
+              <div class="space-y-2">
+                <div *ngFor="let occupant of getOccupancy(room.id)?.occupants" 
+                    class="flex justify-between items-center p-2 bg-gray-50 rounded-md">
+                  <div>
+                    <span class="font-medium">{{occupant.name}}</span>
+                    <p *ngIf="occupant.since" class="text-xs text-gray-500">
+                      Desde: {{occupant.since | date:'dd/MM/yyyy'}}
+                    </p>
+                  </div>
+                  <button (click)="removeFamilyMember(room.id, occupant.id)" 
+                          class="text-red-500 hover:text-red-700">
+                    <i class="fas fa-times-circle"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Selector para añadir ocupantes -->
+            <div *ngIf="canAddOccupant(room.id)" class="mt-4">
+              <h4 class="text-sm font-medium text-gray-700 mb-2">Asignar familiar:</h4>
+              <div class="flex space-x-2">
+                <select #familySelect class="form-select rounded-md border-gray-300 shadow-sm flex-grow">
+                  <option value="">Seleccionar familiar</option>
+                  <option *ngFor="let member of getFamilyMembersForAssignment(room.id)" [value]="member.id">
+                    {{member.name}}
+                  </option>
+                </select>
+                <button (click)="assignFamilyMember(room.id, +familySelect.value)"
+                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50"
+                        [disabled]="!familySelect.value">
+                  <i class="fas fa-plus mr-1"></i> Asignar
+                </button>
+              </div>
+              <div *ngIf="isLoadingFamilyMembers" class="mt-2 text-sm text-gray-500">
+                <i class="fas fa-spinner fa-spin mr-1"></i> Cargando familiares...
+              </div>
+              <div *ngIf="!isLoadingFamilyMembers && getFamilyMembersForAssignment(room.id).length === 0" 
+                  class="mt-2 text-sm text-amber-500">
+                <i class="fas fa-exclamation-triangle mr-1"></i> No hay familiares disponibles para asignar
+              </div>
             </div>
           </div>
         </div>
