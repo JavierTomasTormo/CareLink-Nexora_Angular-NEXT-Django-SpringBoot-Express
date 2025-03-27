@@ -18,7 +18,7 @@ export class ModalService {
 
   open(data: any): void {
     this.modalData.next(data);
-    console.log('Data sent to modal:', data);
+    // console.log('Data sent to modal:', data);
     this.display.next('open');
   }
 

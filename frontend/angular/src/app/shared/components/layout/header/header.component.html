@@ -79,20 +79,43 @@
             
             <div *ngIf="notificationsOpen" class="notificationsDropdown">
               <div class="notificationHeader">
-                <span>Notificaciones</span>
-                <span>Marcar todas como leídas</span>
+                <span class="notif-title">Notificaciones</span>
+                <span class="mark-read">Marcar todas como leídas</span>
               </div>
               <ul class="notificationsList">
-                <li class="notificationItem">
+                <li class="notificationItem unread">
                   <div class="notificationIcon">
                     <i class="fas fa-calendar-check"></i>
                   </div>
                   <div class="notificationContent">
-                    <p>Nueva reserva confirmada</p>
+                    <p class="notif-message">Nueva reserva confirmada</p>
                     <span class="notificationTime">Hace 10 minutos</span>
                   </div>
                 </li>
+                
+                <li class="notificationItem">
+                  <div class="notificationIcon alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                  </div>
+                  <div class="notificationContent">
+                    <p class="notif-message">Recordatorio: Cita pendiente</p>
+                    <span class="notificationTime">Hace 2 horas</span>
+                  </div>
+                </li>
+                
+                <li class="notificationItem unread">
+                  <div class="notificationIcon info">
+                    <i class="fas fa-file-medical"></i>
+                  </div>
+                  <div class="notificationContent">
+                    <p class="notif-message">Resultados médicos disponibles</p>
+                    <span class="notificationTime">Hace 1 día</span>
+                  </div>
+                </li>
               </ul>
+              <div class="notificationFooter">
+                <a href="#">Ver todas las notificaciones</a>
+              </div>
             </div>
           </div>
           
