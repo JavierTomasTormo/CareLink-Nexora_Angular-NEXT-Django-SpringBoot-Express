@@ -25,7 +25,6 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
     const error = useSelector(selectActivitiesError);
     const isLoggedIn = isAuthenticated();
 
-
     const healthMetrics = {
         beneficiosSalud: 85,
         nivelEnergia: 90,
@@ -135,13 +134,15 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
             {/* Header Section */}
             <header className={styles.header}>
                 <h1 className={styles.title}>{activity.name_activitie}</h1>
+                <button className={styles.inscriptionButton} onClick={handleInscription}>
+                    Inscribirse
+                </button>
             </header>
 
-            {/* Main Content Grid */}
-            <div className={styles.mainGrid}>
-                {/* Left Column */}
-                <div className={styles.leftColumn}>
-                    {/* Image Carousel */}
+            {/* Main Overview Section (Above the fold) */}
+            <div className={styles.overviewSection}>
+                {/* Left Side - Image Carousel */}
+                <div className={styles.imageColumn}>
                     <div className={styles.imageWrapper}>
                         {activity.images && activity.images.length > 0 ? (
                             <Swiper
@@ -166,11 +167,12 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
                             <div className={styles.noImage}>Sin imagen</div>
                         )}
                     </div>
+                </div>
 
-                    {/* Description and Basic Info */}
-                    <div className={styles.basicInfo}>
-                        <p className={styles.description}>{activity.description || 'Sin descripción disponible'}</p>
-                        
+                {/* Right Side - Key Information */}
+                <div className={styles.infoColumn}>
+                    {/* Quick Info Summary */}
+                    <div className={styles.quickSummary}>
                         <div className={styles.infoGrid}>
                             <div className={styles.infoItem}>
                                 <span className={styles.icon}>⏱</span>
@@ -191,9 +193,59 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
                         </div>
                     </div>
 
-                    {/* Health Benefits Section */}
-                    <section className={styles.healthSection}>
-                        <h2>❤️ Beneficios para la Salud</h2>
+                    {/* Description */}
+                    <div className={styles.descriptionBox}>
+                        <h3 className={styles.sectionTitle}>Descripción</h3>
+                        <p className={styles.description}>{activity.description || 'Sin descripción disponible'}</p>
+                    </div>
+
+                    {/* Tags */}
+                    <div className={styles.tagsWrapper}>
+                        {Array.isArray(activity.caracteristics) && activity.caracteristics.length > 0 ? (
+                            activity.caracteristics.map((tag: string, index: number) => (
+                                <span key={index} className={styles.tag}>{tag}</span>
+                            ))
+                        ) : (
+                            <span className={styles.noTags}>Sin etiquetas</span>
+                        )}
+                    </div>
+
+                    {/* Accessibility and Medical Support */}
+                    <div className={styles.supportInfo}>
+                        <div className={styles.accessibilityPanel}>
+                            <h3 className={styles.sectionTitle}>♿ Accesibilidad</h3>
+                            <div className={styles.supportGrid}>
+                                <div className={styles.supportItem}>
+                                    <FaWheelchair />
+                                    <span>Acceso para sillas</span>
+                                </div>
+                                <div className={styles.supportItem}>
+                                    <FaSignLanguage />
+                                    <span>Lenguaje de señas</span>
+                                </div>
+                                <div className={styles.supportItem}>
+                                    <FaParking />
+                                    <span>Parking accesible</span>
+                                </div>
+                                <div className={styles.supportItem}>
+                                    <MdOutlineLocalHospital />
+                                    <span>Apoyo médico</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Detailed Information (Below the fold) */}
+            <div className={styles.detailedSection}>
+                <h2 className={styles.sectionDivider}>Información Detallada</h2>
+                
+                {/* Statistics Grid */}
+                <div className={styles.statsGrid}>
+                    {/* Health Benefits */}
+                    <div className={styles.statsCard}>
+                        <h3>❤️ Beneficios para la Salud</h3>
                         <div className={styles.healthMetrics}>
                             <div className={styles.metricItem}>
                                 <FaHeart />
@@ -203,18 +255,23 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
                                 <FaUsers />
                                 <span>Nivel de energía: {healthMetrics.nivelEnergia}%</span>
                             </div>
+                            <div className={styles.metricItem}>
+                                <MdSportsGymnastics />
+                                <span>Mejora de postura: {healthMetrics.mejoraPostura}%</span>
+                            </div>
+                            <div className={styles.metricItem}>
+                                <MdWaterDrop />
+                                <span>Reducción de estrés: {healthMetrics.reduccionEstres}%</span>
+                            </div>
                         </div>
-                    </section>
-                </div>
+                    </div>
 
-                {/* Right Column */}
-                <div className={styles.rightColumn}>
-                    {/* Statistics Section */}
-                    <section className={styles.statsSection}>
-                        <h2>📊 Estadísticas de Rendimiento</h2>
+                    {/* Radar Chart */}
+                    <div className={styles.statsCard}>
+                        <h3>📊 Estadísticas de Rendimiento</h3>
                         <RadarChart 
-                            width={600} 
-                            height={400} 
+                            width={300} 
+                            height={300} 
                             data={[
                                 { subject: 'Resistencia', A: 120, fullMark: 150 },
                                 { subject: 'Fuerza', A: 98, fullMark: 150 },
@@ -223,6 +280,7 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
                                 { subject: 'Coordinación', A: 85, fullMark: 150 },
                                 { subject: 'Velocidad', A: 65, fullMark: 150 },
                             ]}
+                            className={styles.chart}
                         >
                             <PolarGrid />
                             <PolarAngleAxis dataKey="subject" />
@@ -235,22 +293,22 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
                                 fillOpacity={0.6}
                             />
                         </RadarChart>
-                    </section>
+                    </div>
 
-                    {/* Attendance Section */}
-                    <section className={styles.attendanceSection}>
-                        <h2>📊 Estadísticas de Asistencia</h2>
-                        <PieChart width={600} height={400}>
+                    {/* Pie Chart */}
+                    <div className={styles.statsCard}>
+                        <h3>📊 Estadísticas de Asistencia</h3>
+                        <PieChart width={300} height={300} className={styles.chart}>
                             <Pie
                                 data={[
                                     { name: 'Mañana', value: 400, color: '#0088FE' },
                                     { name: 'Tarde', value: 300, color: '#00C49F' },
                                     { name: 'Noche', value: 300, color: '#FFBB28' },
                                 ]}
-                                cx={300}
-                                cy={200}
+                                cx={150}
+                                cy={150}
                                 innerRadius={60}
-                                outerRadius={120}
+                                outerRadius={100}
                                 paddingAngle={5}
                                 dataKey="value"
                             >
@@ -265,12 +323,9 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
                             <Tooltip />
                             <Legend />
                         </PieChart>
-                    </section>
+                    </div>
                 </div>
-            </div>
 
-            {/* Bottom Sections */}
-            <div className={styles.bottomSections}>
                 {/* Comments Section */}
                 <section className={styles.commentsSection}>
                     <h2>💬 Comentarios de Usuarios</h2>
@@ -291,79 +346,20 @@ const ActivityDetailsClient: React.FC<{ activityId: string }> = ({ activityId })
                 {/* Blog Section */}
                 <section className={styles.blogSection}>
                     <h2>📝 Blog Relacionado</h2>
-                    {blogEntries.map((entry, index) => (
-                        <div key={index} className={styles.blogEntry}>
-                            <Image src={entry.imagen} alt={entry.titulo} width={500} height={500} />
-                            <div className={styles.blogContent}>
-                                <h4>{entry.titulo}</h4>
-                                <p>{entry.resumen}</p>
-                                <span>Por {entry.autor} - {entry.fecha}</span>
+                    <div className={styles.blogEntries}>
+                        {blogEntries.map((entry, index) => (
+                            <div key={index} className={styles.blogEntry}>
+                                <Image src={entry.imagen} alt={entry.titulo} width={300} height={200} />
+                                <div className={styles.blogContent}>
+                                    <h4>{entry.titulo}</h4>
+                                    <p>{entry.resumen}</p>
+                                    <span>Por {entry.autor} - {entry.fecha}</span>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </section>
-
-                {/* Facilities Section */}
-                <div className={styles.facilitiesContainer}>
-                    <section className={styles.accessibilitySection}>
-                        <h2>♿ Accesibilidad y Ayudas</h2>
-                        <div className={styles.accessibilityGrid}>
-                            <div className={styles.accessibilityItem}>
-                                <FaWheelchair size={24} />
-                                <span>Acceso para sillas de ruedas</span>
-                            </div>
-                            <div className={styles.accessibilityItem}>
-                                <FaSignLanguage size={24} />
-                                <span>Intérprete de lenguaje de señas disponible</span>
-                            </div>
-                            <div className={styles.accessibilityItem}>
-                                <FaParking size={24} />
-                                <span>Estacionamiento accesible</span>
-                            </div>
-                            <div className={styles.accessibilityItem}>
-                                <FaAccessibleIcon size={24} />
-                                <span>Equipamiento adaptado</span>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section className={styles.medicalSection}>
-                        <h2>🏥 Atención Médica y Seguridad</h2>
-                        <div className={styles.medicalGrid}>
-                            <div className={styles.medicalItem}>
-                                <MdOutlineLocalHospital size={24} />
-                                <span>Personal médico de guardia</span>
-                            </div>
-                            <div className={styles.medicalItem}>
-                                <MdSportsGymnastics size={24} />
-                                <span>Monitores especializados</span>
-                            </div>
-                            <div className={styles.medicalItem}>
-                                <MdWaterDrop size={24} />
-                                <span>Hidratación disponible</span>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-
-                {/* Tags Section */}
-                <div className={styles.tagsWrapper}>
-                    {Array.isArray(activity.caracteristics) && activity.caracteristics.length > 0 ? (
-                        activity.caracteristics.map((tag: string, index: number) => (
-                            <span key={index} className={styles.tag}>{tag}</span>
-                        ))
-                    ) : (
-                        <span className={styles.noTags}>Sin etiquetas</span>
-                    )}
-                </div>
             </div>
-
-            {/* Footer Section */}
-            <footer className={styles.footer}>
-                <button className={styles.inscriptionButton} onClick={handleInscription}>
-                    Inscribirse
-                </button>
-            </footer>
         </div>
     );
 };
