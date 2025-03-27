@@ -163,9 +163,7 @@
           <!-- Pasillo vertical -->
           <rect x="500" y="190" width="30" height="120" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" rx="2" ry="2"></rect>
           
-          <!-- HABITACIONES GENERADAS DINÁMICAMENTE con efectos mejorados -->
           <ng-container *ngFor="let room of rooms">
-            <!-- Rectángulo de la habitación con efectos mejorados -->
             <rect 
               [attr.id]="room.id" 
               [attr.x]="getRoomCoords(room).x"
@@ -183,7 +181,6 @@
 
             
             
-            <!-- Puertas para las habitaciones con mejor visibilidad -->
             <line 
               *ngIf="room.id.startsWith('h1') || room.id === 'commonRoom' || room.id === 'bathNorth'" 
               [attr.x1]="getRoomCenter(room).x - 10"
@@ -228,7 +225,6 @@
             </line>
             
             
-            <!-- Puertas para las nuevas habitaciones -->
             <line 
               *ngIf="room.id === 'reception' || room.id === 'office'" 
               [attr.x1]="getRoomCenter(room).x - 10"
@@ -262,7 +258,6 @@
               stroke-linecap="round">
             </line>
             
-            <!-- Nombres de habitación con mejor visibilidad -->
             <text 
               [attr.x]="getRoomCenter(room).x"
               [attr.y]="(room.id === 'reception' || room.id === 'office' || room.id === 'gym' || room.id === 'multiroom') ? 
@@ -275,7 +270,6 @@
               {{room.name}}
             </text>
 
-              <!-- Icono Font Awesome -->
             <foreignObject 
               [attr.x]="getRoomCenter(room).x - 8" 
               [attr.y]="getRoomCenter(room).y - 15" 
@@ -287,7 +281,6 @@
               </xhtml:div>
             </foreignObject>
             
-            <!-- Ventanas para habitaciones exteriores con estilo mejorado -->
             <line 
               *ngIf="getRoomCoords(room).x === 60" 
               [attr.x1]="getRoomCoords(room).x"
@@ -332,7 +325,6 @@
           </ng-container>
 
           
-          <!-- Entrada principal con puerta mejorada (solo en planta 1) -->
           <g *ngIf="currentFloor === 1">
             <rect x="10" y="160" width="40" height="30" fill="#bfdbfe" stroke="#3b82f6" stroke-width="2" rx="3" ry="3" filter="url(#dropShadow)"></rect>
             <path d="M 50,160 A 30,30 0 0 1 50,190" fill="none" stroke="#3b82f6" stroke-width="2"></path>

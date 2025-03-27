@@ -1,7 +1,6 @@
 <div class="w-full h-80 bg-gradient-to-b from-slate-50 to-slate-100 rounded-xl overflow-hidden relative flex items-center justify-center my-5 building-container">
     <div class="cube-wrapper relative">
       
-      <!-- Cubos apilados (planta 1 abajo) -->
       <div class="cube-stack relative">
         <div *ngFor="let floor of floors"
              class="cube" 
@@ -9,7 +8,6 @@
              [ngStyle]="{'bottom.px': (floor.id - 1) * 55, 'transform': 'translateZ(' + (floor.id === currentFloor ? 10 : 0) + 'px)'}"
              (click)="selectFloor(floor.id)">
           
-          <!-- Cada cubo tiene 6 caras -->
           <div class="cube-face cube-face-front" [style.background-color]="getFloorColor(floor.id)">
             <span class="text-white font-bold text-lg">{{ floor.id }}</span>
             <div class="windows-row">

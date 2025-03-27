@@ -63,29 +63,23 @@ export class MapSvgComponent implements OnChanges {
     room: RoomCategory.RESIDENTIAL,
     h: RoomCategory.RESIDENTIAL,
     
-    // Cuidados especiales
     spec: RoomCategory.SPECIAL_CARE,
     isolation: RoomCategory.SPECIAL_CARE,
     
-    // Unidades de memoria
     mem: RoomCategory.MEMORY_CARE,
     sensory: RoomCategory.MEMORY_CARE,
     
-    // Áreas comunes
     commonRoom: RoomCategory.COMMON_AREA,
     livingRoom2: RoomCategory.COMMON_AREA,
     dining: RoomCategory.COMMON_AREA,
     family: RoomCategory.COMMON_AREA,
     library: RoomCategory.AMENITIES,
     
-    // Instalaciones de cocina
     kitchen: RoomCategory.COMMON_AREA,
     
-    // Áreas sanitarias
     bath: RoomCategory.BATHROOM,
     laundry: RoomCategory.COMMON_AREA,
     
-    // Áreas de atención médica
     nurse: RoomCategory.HEALTHCARE,
     medical: RoomCategory.HEALTHCARE,
     medication: RoomCategory.MEDICAMENTS,
@@ -93,7 +87,6 @@ export class MapSvgComponent implements OnChanges {
     therapy: RoomCategory.THERAPY,
     physiotherapy: RoomCategory.THERAPY,
     
-    // Áreas administrativas
     office: RoomCategory.ADMINISTRATIVE,
     admin: RoomCategory.ADMINISTRATIVE,
     reception: RoomCategory.ADMINISTRATIVE,
@@ -101,7 +94,6 @@ export class MapSvgComponent implements OnChanges {
     staffNight: RoomCategory.ADMINISTRATIVE,
     controlDesk: RoomCategory.ADMINISTRATIVE,
     
-    // Áreas de almacenamiento
     storage: RoomCategory.STORAGE,
     storageMain: RoomCategory.STORAGE,
     shelf: RoomCategory.STORAGE,
@@ -112,12 +104,10 @@ export class MapSvgComponent implements OnChanges {
     receivingArea: RoomCategory.STORAGE,
     loadingDock: RoomCategory.STORAGE,
     
-    // Almacenamiento médico
     medicalEquip: RoomCategory.STORAGE,
     emergencySupplies: RoomCategory.STORAGE,
     shelfMedical: RoomCategory.STORAGE,
     
-    // Equipamiento y mantenimiento
     mobilityEquip: RoomCategory.STORAGE,
     furnitureStore: RoomCategory.STORAGE,
     techStorage: RoomCategory.TECHNICAL,
@@ -125,14 +115,12 @@ export class MapSvgComponent implements OnChanges {
     backupGenerator: RoomCategory.TECHNICAL,
     hazardousMaterials: RoomCategory.STORAGE,
     
-    // Instalaciones y comodidades
     multiroom: RoomCategory.AMENITIES,
     activity: RoomCategory.AMENITIES,
     gym: RoomCategory.AMENITIES,
     garden: RoomCategory.AMENITIES,
     secureGarden: RoomCategory.AMENITIES,
     
-    // Productos de limpieza e higiene
     shelfHygiene: RoomCategory.STORAGE,
     shelfCleaning: RoomCategory.STORAGE,
     shelfBedding: RoomCategory.STORAGE
@@ -287,7 +275,6 @@ export class MapSvgComponent implements OnChanges {
     hazardousMaterials: 'fa-solid fa-skull-crossbones'
   };
 
-  // Posiciones predefinidas de escaleras en cada planta
   stairsPositions = [
     { x: 540, y: 296, floor: 1 }, 
     { x: 540, y: 204, floor: 1 }, 
@@ -307,7 +294,6 @@ export class MapSvgComponent implements OnChanges {
     this.updateMapTransform();
   }
 
-  // Métodos para obtener las habitaciones y escaleras del piso actual
   getRoomsForCurrentFloor(): Room[] {
     return this.rooms.filter(room => room.floor === this.currentFloor);
   }
@@ -327,7 +313,6 @@ export class MapSvgComponent implements OnChanges {
     }
   }
 
-  // Métodos para arrastrar el mapa (drag)
   onMouseDown(event: MouseEvent): void {
     event.preventDefault();
     this.isDragging = true;
@@ -397,7 +382,6 @@ export class MapSvgComponent implements OnChanges {
     });
   }
 
-  // Métodos para obtener información de las habitaciones
   getRoomCoords(room: any): any {
     return {
       x: room.x,

@@ -1,5 +1,4 @@
 <div class="rooms-interface-container">
-  <!-- HEADER PRINCIPAL (SUPERIOR) -->
   <header class="rooms-header">
     <div class="header-content">
       <div class="logo-container">
@@ -10,18 +9,16 @@
         <p class="text-xs sm:text-sm text-blue-500 font-medium tracking-wide">CareLink by Nexora</p>
         <div class="flex items-center space-x-2">
           <p class="text-xs sm:text-sm text-gray-500">PLANTA {{ currentFloor }} · Vista Interactiva</p>
-          <p class="text-xs sm:text-sm text-green-500">Activa</p>
+            <p *ngIf="currentFloor !== 4" class="text-xs sm:text-sm text-green-500">Activa</p>
+            <p *ngIf="currentFloor === 4" class="text-xs sm:text-sm text-red-500">Disabled</p>
         </div>
       </div>
     </div>
   </header>
 
   
-  <!-- CONTENEDOR PRINCIPAL (DIVIDIDO EN DOS SECCIONES) -->
   <div class="main-content">
-    <!-- PANEL IZQUIERDO (SELECTOR DE PISOS Y CONTROLES) -->
     <div class="left-panel">
-      <!-- Título sección -->
       <h2 class="panel-title">Navegación de Planta</h2>
       
       <!-- Selector de pisos con más espacio -->
@@ -62,12 +59,9 @@
         </div>
       </div>
       
-      <!-- Eliminada la leyenda del panel izquierdo -->
     </div>
 
-    <!-- PANEL DERECHO (MAPA SVG CON LEYENDA ARRIBA) -->
     <div class="right-panel">
-      <!-- Nueva posición de la leyenda en la parte superior -->
       <div class="right-panel-header">
         <div class="legend-container top">
           <div class="legend-items horizontal">
@@ -113,6 +107,6 @@
     </div>
   </div>
 
-  <!-- Modal de detalles (sin cambios) -->
+  <!-- Modal de detalles -->
   <app-modal-details></app-modal-details>
 </div>
